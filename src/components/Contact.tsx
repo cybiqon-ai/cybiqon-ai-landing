@@ -24,7 +24,7 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/20 to-transparent" />
       
       <div className="container mx-auto px-4 relative">
         <div className="max-w-2xl mx-auto">

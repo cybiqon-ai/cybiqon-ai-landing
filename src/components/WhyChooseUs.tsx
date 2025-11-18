@@ -35,7 +35,7 @@ const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="glass-card p-8 hover:border-primary/50 transition-all duration-300 group animate-scale-in"
+              className="glass-card p-8 hover:border-primary hover:shadow-xl transition-all duration-300 group animate-scale-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">

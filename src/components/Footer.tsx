@@ -2,7 +2,7 @@ import { Sparkles, Mail, Phone, Linkedin, Twitter, Instagram } from "lucide-reac
 
 const Footer = () => {
   return (
-    <footer className="py-12 border-t border-white/10">
+    <footer className="py-12 border-t border-border bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
@@ -45,7 +45,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 text-center text-muted-foreground">
+        <div className="pt-8 border-t border-border text-center text-muted-foreground">
           <p>&copy; 2024 Cybiqon AI Solutions. All rights reserved.</p>
         </div>
       </div>

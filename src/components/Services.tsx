@@ -40,7 +40,7 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="glass-card p-6 hover:border-secondary/50 transition-all duration-300 group animate-scale-in"
+              className="glass-card p-6 hover:border-secondary hover:shadow-xl transition-all duration-300 group animate-scale-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent to-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
