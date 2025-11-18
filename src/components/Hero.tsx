@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import AnimatedBackground from "./AnimatedBackground";
+import BusinessGrowthVisual from "./BusinessGrowthVisual";
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -8,12 +10,7 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Animated background blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-accent/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
-      </div>
+      <AnimatedBackground />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
@@ -44,6 +41,8 @@ const Hero = () => {
               Learn More
             </Button>
           </div>
+
+          <BusinessGrowthVisual />
         </div>
       </div>
     </section>
