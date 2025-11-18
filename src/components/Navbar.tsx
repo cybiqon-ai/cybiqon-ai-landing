@@ -9,13 +9,13 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-border shadow-sm">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Sparkles className="w-6 h-6 text-primary" />
-          <span className="text-xl font-bold gradient-text">Cybiqon AI</span>
+        <div className="flex items-center gap-1">
+          <img src="/logo.png" alt="Cybiqon AI Logo" className="w-8 h-8 object-contain" />
+          <span className="text-xl font-bold font-heading gradient-text">Cybiqon AI</span>
         </div>
-        <Button 
+        <Button
           onClick={scrollToContact}
-          className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
+          className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-white font-semibold shadow-md hover:shadow-lg"
         >
           Get Started
         </Button>

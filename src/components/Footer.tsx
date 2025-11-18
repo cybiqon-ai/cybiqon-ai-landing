@@ -1,4 +1,4 @@
-import { Sparkles, Mail, Phone, Linkedin, Twitter, Instagram } from "lucide-react";
+import { Sparkles, Mail, Phone, Linkedin, Send, Instagram } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -6,9 +6,9 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="w-6 h-6 text-primary" />
-              <span className="text-xl font-bold gradient-text">Cybiqon AI</span>
+            <div className="flex items-center gap-1 mb-4">
+              <img src="/logo.png" alt="Cybiqon AI Logo" className="w-6 h-6 object-contain" />
+              <span className="text-xl font-bold font-heading gradient-text">Cybiqon AI</span>
             </div>
             <p className="text-muted-foreground">
               Empowering businesses with modern websites and AI automation solutions.
@@ -20,11 +20,13 @@ const Footer = () => {
             <div className="space-y-2 text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>hello@cybiqon.ai</span>
+                <a href="mailto:hello@cybiqon.ai" className="hover:text-primary transition-colors">
+                  itspyguru@gmail.com
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>+91 XXXXX XXXXX</span>
+                <span>+91 88962 70660</span>
               </div>
             </div>
           </div>
@@ -32,13 +34,29 @@ const Footer = () => {
           <div>
             <h3 className="font-bold mb-4">Follow Us</h3>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors">
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors cursor-not-allowed opacity-50"
+                title="LinkedIn - Coming Soon"
+              >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors">
-                <Twitter className="w-5 h-5" />
+              <a
+                href="https://t.me/cybiqonai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors"
+                aria-label="Telegram"
+              >
+                <Send className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors">
+              <a
+                href="https://www.instagram.com/cybiqon.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors"
+                aria-label="Instagram"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
@@ -46,7 +64,7 @@ const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-border text-center text-muted-foreground">
-          <p>&copy; 2024 Cybiqon AI Solutions. All rights reserved.</p>
+          <p>&copy; 2025 Cybiqon AI Solutions. All rights reserved.</p>
         </div>
       </div>
     </footer>

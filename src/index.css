@@ -2,53 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
 All colors MUST be HSL.
+NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 */
 
 @layer base {
   :root {
+    /* Base Colors */
     --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --foreground: 215 25% 27%; /* Deep navy for text */
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 215 25% 27%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 215 25% 27%;
 
-    --primary: 262 83% 58%;
+    /* Primary: Trust Blue (Indigo 600 #2563EB) */
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 193 100% 45%;
+    /* Secondary: Growth Green (Emerald 500 #10B981) */
+    --secondary: 160 84% 39%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    /* Accent: Energy Orange (Amber 500 #F59E0B) */
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    --accent: 262 83% 95%;
-    --accent-foreground: 262 83% 58%;
+    /* Success: Emerald 600 */
+    --success: 160 84% 35%;
+    --success-foreground: 0 0% 100%;
 
+    /* Muted colors */
+    --muted: 210 40% 98%; /* Slate 50 background */
+    --muted-foreground: 215 16% 47%; /* Slate 500 text */
+
+    /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
+    /* Borders and inputs */
+    --border: 214 32% 91%; /* Slate 200 */
     --input: 214 32% 91%;
-    --ring: 262 83% 58%;
+    --ring: 221 83% 53%; /* Primary blue */
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(193 100% 45%));
-    --gradient-glow: radial-gradient(circle at center, hsl(262 83% 58% / 0.15), transparent);
-    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(160 84% 39%)); /* Blue to Green */
+    --gradient-warm: linear-gradient(135deg, hsl(38 92% 50%), hsl(25 95% 53%)); /* Orange gradient */
+    --gradient-glow: radial-gradient(circle at center, hsl(38 92% 50% / 0.15), transparent); /* Warm glow */
+    --gradient-success: linear-gradient(to right, hsl(160 84% 39%), hsl(160 84% 35%)); /* Green gradient */
+
+    /* Sidebar */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 262 83% 58%;
+    --sidebar-foreground: 215 25% 27%;
+    --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96%;
-    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-accent: 210 40% 98%;
+    --sidebar-accent-foreground: 215 25% 27%;
     --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 262 83% 58%;
+    --sidebar-ring: 221 83% 53%;
   }
 
   .dark {
@@ -58,27 +74,29 @@ All colors MUST be HSL.
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-    --primary: 262 83% 58%;
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 193 100% 45%;
+    --secondary: 160 84% 39%;
     --secondary-foreground: 0 0% 100%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
-    --accent: 262 83% 95%;
-    --accent-foreground: 262 83% 58%;
+    --success: 160 84% 35%;
+    --success-foreground: 0 0% 100%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --ring: 262 83% 58%;
+    --ring: 221 83% 53%;
     --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 262 83% 58%;
+    --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 217 33% 17%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 262 83% 58%;
+    --sidebar-ring: 221 83% 53%;
   }
 }
 
@@ -91,36 +109,83 @@ All colors MUST be HSL.
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
 }
 
 @layer utilities {
+  /* Glass morphism card - updated for warm design */
   .glass-card {
-    @apply bg-white/60 backdrop-blur-lg border border-primary/10 rounded-2xl shadow-lg;
+    @apply bg-white/70 backdrop-blur-xl border border-primary/15 rounded-2xl shadow-lg;
+    transition: all 300ms ease;
   }
-  
+
+  .glass-card:hover {
+    @apply border-primary/30 shadow-xl;
+    transform: translateY(-4px);
+  }
+
+  /* Warm card variant */
+  .warm-card {
+    @apply bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl shadow-md;
+  }
+
+  /* Success card variant */
+  .success-card {
+    @apply bg-gradient-to-br from-emerald-50 to-green-50 border-2 border-emerald-200 rounded-2xl shadow-md;
+  }
+
+  /* Gradient text - updated for new palette */
   .gradient-text {
     @apply bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent;
   }
-  
-  .glow-effect {
-    box-shadow: 0 4px 30px hsl(var(--primary) / 0.2);
+
+  /* Warm gradient text */
+  .gradient-text-warm {
+    @apply bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent;
   }
-  
+
+  /* Glow effects - updated for warm colors */
+  .glow-effect {
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.25);
+  }
+
+  .glow-effect-warm {
+    box-shadow: 0 4px 20px hsl(var(--accent) / 0.3);
+  }
+
+  .glow-effect-success {
+    box-shadow: 0 4px 20px hsl(var(--secondary) / 0.25);
+  }
+
+  /* Floating animations */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
-  
+
   .animate-float-slow {
     animation: float-slow 8s ease-in-out infinite;
   }
-  
+
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-20px); }
   }
-  
+
   @keyframes float-slow {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
     50% { transform: translateY(-30px) rotate(5deg); }
+  }
+
+  /* Section spacing - responsive */
+  .section-padding {
+    @apply py-12 md:py-16 lg:py-24;
+  }
+
+  /* Container max-width */
+  .content-container {
+    @apply container mx-auto px-4 max-w-7xl;
   }
 }

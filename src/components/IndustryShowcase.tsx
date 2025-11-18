@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { Store, Utensils, Heart, Wrench, Shirt, Home } from "lucide-react";
 
 const industries = [
-  { icon: Store, name: "Retail Shops", color: "from-purple-500 to-pink-500" },
-  { icon: Utensils, name: "Restaurants", color: "from-orange-500 to-red-500" },
-  { icon: Heart, name: "Healthcare", color: "from-red-500 to-pink-500" },
-  { icon: Wrench, name: "Services", color: "from-blue-500 to-cyan-500" },
-  { icon: Shirt, name: "Fashion", color: "from-pink-500 to-purple-500" },
-  { icon: Home, name: "Real Estate", color: "from-green-500 to-teal-500" },
+  { icon: Store, name: "Retail Shops", color: "from-blue-500 to-indigo-500" },
+  { icon: Utensils, name: "Restaurants", color: "from-orange-500 to-amber-500" },
+  { icon: Heart, name: "Healthcare", color: "from-emerald-500 to-green-500" },
+  { icon: Wrench, name: "Services", color: "from-blue-600 to-cyan-500" },
+  { icon: Shirt, name: "Fashion", color: "from-violet-500 to-purple-500" },
+  { icon: Home, name: "Real Estate", color: "from-green-600 to-teal-500" },
 ];
 
 const IndustryShowcase = () => {
@@ -21,13 +21,16 @@ const IndustryShowcase = () => {
   }, []);
 
   return (
-    <section className="py-16 relative overflow-hidden">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h3 className="text-2xl md:text-3xl font-bold mb-2">
+    <section className="section-padding relative overflow-hidden">
+      {/* Content Layer */}
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-4">
             We Serve <span className="gradient-text">All Industries</span>
-          </h3>
-          <p className="text-muted-foreground">From local shops to growing enterprises</p>
+          </h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            From local shops to growing enterprises
+          </p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-4xl mx-auto">

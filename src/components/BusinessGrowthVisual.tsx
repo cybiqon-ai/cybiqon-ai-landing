@@ -44,10 +44,10 @@ const BusinessGrowthVisual = () => {
               {step.label}
             </span>
 
-            {/* Arrow */}
+            {/* Arrow - Centered dots between icons */}
             {index < steps.length - 1 && (
-              <div className="absolute left-full top-10 hidden md:block">
-                <div className="flex items-center gap-2">
+              <div className="absolute left-full top-1/2 -translate-y-1/2 hidden md:flex items-center">
+                <div className="flex items-center gap-2 ml-4 mr-4">
                   {[...Array(3)].map((_, i) => (
                     <div
                       key={i}
