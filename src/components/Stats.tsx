@@ -29,7 +29,7 @@ const Stats = () => {
 
   return (
     <section ref={sectionRef} className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/20 to-transparent" />
       <div className="container mx-auto px-4 relative">
         <div className="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto">
           {stats.map((stat, index) => (
