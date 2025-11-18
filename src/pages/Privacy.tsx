@@ -9,7 +9,7 @@ const Privacy = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 section-padding">
+      <section className="pt-24 sm:pt-32 pb-16 section-padding">
         <div className="content-container">
           <div className="max-w-4xl mx-auto text-center">
             <Shield className="w-16 h-16 text-primary mx-auto mb-4" />

@@ -52,7 +52,7 @@ const Solutions = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 section-padding">
+      <section className="pt-24 sm:pt-32 pb-16 section-padding">
         <div className="content-container">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="mb-4 bg-gradient-to-r from-blue-50 to-emerald-50 text-primary border-primary/20">
