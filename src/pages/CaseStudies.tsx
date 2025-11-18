@@ -8,7 +8,11 @@ import {
   Star,
   Globe,
   MessageSquare,
-  BarChart3
+  BarChart3,
+  Zap,
+  Code,
+  Database,
+  Cpu
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,116 +24,102 @@ const CaseStudies = () => {
     window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
   };
 
-  const caseStudies = [
-    {
-      id: 1,
-      client: "Local Retail Business",
-      industry: "Retail / E-commerce",
-      badge: "Launched",
-      badgeColor: "bg-emerald-500",
-      tagline: "From Zero Online Presence to Google Visibility in 4 Weeks",
-      challenge: "This established retail business had no website and relied entirely on foot traffic and word-of-mouth. They were losing customers to competitors with online presence and wanted to be found on Google.",
-      solution: [
-        "Developed a professional 5-page website showcasing their products and services",
-        "Optimized for local SEO with Google My Business integration",
-        "Added WhatsApp integration for instant customer inquiries",
-        "Set up Google Analytics to track visitor behavior",
-        "Created mobile-responsive design for on-the-go customers"
-      ],
-      results: [
-        { metric: "Website Launch", value: "3.5 weeks", icon: Clock },
-        { metric: "Google Rankings", value: "Top 10 for 3 keywords", icon: TrendingUp },
-        { metric: "Monthly Inquiries", value: "20+ via website", icon: MessageSquare },
-        { metric: "Mobile Traffic", value: "65% of visitors", icon: Globe }
-      ],
-      testimonial: {
-        text: "We're so happy with our new website! Customers are finding us on Google and reaching out through WhatsApp. The team made everything so easy and explained everything clearly. Worth every rupee!",
-        author: "Business Owner",
-        role: "Retail Business"
+  const featuredCaseStudy = {
+    client: "LeadzGalaxy.com",
+    industry: "B2B SaaS / Lead Generation",
+    badge: "Featured Project",
+    badgeColor: "bg-gradient-to-r from-purple-500 to-blue-500",
+    tagline: "From Manual LinkedIn Scraping to 10x Business Growth with Automated Lead Intelligence",
+    website: "https://leadzgalaxy.com",
+    challenge: "Our client was spending countless hours manually scraping LinkedIn profiles, collecting lead information, and enriching data with work emails and phone numbers. This manual process was time-consuming, error-prone, and impossible to scale. They needed an automated solution that could deliver accurate lead intelligence at scale while maintaining data quality.",
+    solution: [
+      "Built a modern web application using Next.js for lightning-fast performance and SEO",
+      "Designed an intuitive UI with Shadcn components and Tailwind CSS for seamless user experience",
+      "Implemented FastAPI backend for high-performance data processing",
+      "Set up MongoDB for flexible, scalable data storage",
+      "Integrated Redis and Redis Queue for job management and real-time processing",
+      "Implemented Server-Sent Events (SSE) for live progress updates during lead enrichment",
+      "Built robust API integrations for email and phone number validation",
+      "Added comprehensive logging and monitoring for reliability"
+    ],
+    technicalHighlights: [
+      {
+        icon: Code,
+        title: "Modern Frontend",
+        tech: "Next.js, Shadcn, Tailwind CSS",
+        description: "Fast, responsive UI with excellent developer experience"
       },
-      image: "retail", // placeholder identifier
-      color: "emerald"
+      {
+        icon: Database,
+        title: "Scalable Backend",
+        tech: "FastAPI, MongoDB, Redis",
+        description: "High-performance data processing and storage"
+      },
+      {
+        icon: Zap,
+        title: "Real-Time Processing",
+        tech: "Redis Queue, Server-Sent Events",
+        description: "Live updates and asynchronous job processing"
+      },
+      {
+        icon: Cpu,
+        title: "Smart Automation",
+        tech: "API Integrations, Logging",
+        description: "Automated data enrichment with monitoring"
+      }
+    ],
+    results: [
+      { metric: "Time Saved", value: "95%", description: "Reduced from hours to minutes per lead batch", icon: Clock },
+      { metric: "Business Growth", value: "10x", description: "Client scaled their operations dramatically", icon: TrendingUp },
+      { metric: "Data Accuracy", value: "98%+", description: "Validated emails and phone numbers", icon: CheckCircle },
+      { metric: "User Experience", value: "Excellent", description: "Real-time progress, intuitive interface", icon: Star }
+    ],
+    testimonial: {
+      text: "This platform completely transformed our lead generation process. What used to take our team hours of manual work now happens automatically in minutes. The real-time updates keep us informed, and the data accuracy is outstanding. We've been able to 10x our business because we can now focus on closing deals instead of collecting data.",
+      author: "Amit Menon, Founder",
+      role: "LeadzGalaxy.com"
     },
-    {
-      id: 2,
-      client: "Professional Services Firm",
-      industry: "Consulting / Services",
-      badge: "Launched",
-      badgeColor: "bg-blue-500",
-      tagline: "Professional Online Presence That Builds Trust with Clients",
-      challenge: "A growing consulting firm was using social media to acquire clients but lacked a professional website. Potential clients couldn't learn about their services or credibility, leading to lost opportunities.",
-      solution: [
-        "Created a clean, professional 6-page website highlighting expertise",
-        "Built a services portfolio with detailed case descriptions",
-        "Added team bios to build credibility and trust",
-        "Integrated contact forms and scheduling links",
-        "Implemented SEO best practices for service-related keywords"
+    beforeAfter: {
+      before: [
+        "Manual LinkedIn profile scraping (5-10 minutes per lead)",
+        "Manual email finding and verification",
+        "Error-prone data entry and management",
+        "Limited to 20-30 leads per day",
+        "No real-time visibility into progress",
+        "High operational costs and burnout"
       ],
-      results: [
-        { metric: "Website Launch", value: "4 weeks", icon: Clock },
-        { metric: "Client Inquiries", value: "15+ in first month", icon: Users },
-        { metric: "Avg. Session Time", value: "3.5 minutes", icon: BarChart3 },
-        { metric: "Form Submissions", value: "12/month average", icon: CheckCircle }
-      ],
-      testimonial: {
-        text: "Having a professional website has made a huge difference. Clients take us more seriously and we're able to showcase our expertise properly. The process was smooth and the support has been excellent.",
-        author: "Founder",
-        role: "Consulting Firm"
-      },
-      image: "consulting", // placeholder identifier
-      color: "blue"
-    },
-    {
-      id: 3,
-      client: "Local Service Provider",
-      industry: "Home Services",
-      badge: "Launched",
-      badgeColor: "bg-amber-500",
-      tagline: "Turning Website Visitors Into Paying Customers",
-      challenge: "This service provider had an outdated website that wasn't mobile-friendly and didn't clearly communicate their services. They were getting traffic but very few conversions.",
-      solution: [
-        "Rebuilt the website with clear service descriptions and pricing",
-        "Optimized for mobile (where 70% of their traffic comes from)",
-        "Added prominent call-to-action buttons and WhatsApp chat",
-        "Created a simple booking form to capture leads",
-        "Improved page speed from 5s to under 2s load time"
-      ],
-      results: [
-        { metric: "Page Load Speed", value: "60% faster", icon: TrendingUp },
-        { metric: "Mobile Experience", value: "Fully optimized", icon: Globe },
-        { metric: "Lead Conversion", value: "2x improvement", icon: Users },
-        { metric: "Bounce Rate", value: "Reduced by 35%", icon: BarChart3 }
-      ],
-      testimonial: {
-        text: "Our new website actually works! We're getting more inquiries and customers tell us the site looks professional and is easy to use on their phones. Great investment for our business.",
-        author: "Owner",
-        role: "Home Services"
-      },
-      image: "services", // placeholder identifier
-      color: "amber"
+      after: [
+        "Automated lead enrichment (seconds per lead)",
+        "Automated email/phone validation via APIs",
+        "Reliable, structured data storage",
+        "Process 500+ leads per day easily",
+        "Real-time progress tracking with SSE",
+        "Scalable, low-cost operations"
+      ]
     }
-  ];
+  };
 
-  const commonResults = [
+  const otherProjects = [
     {
-      icon: TrendingUp,
-      title: "Increased Online Visibility",
-      description: "Our clients see measurable improvements in search rankings and organic traffic within the first 2-3 months."
+      title: "Professional Business Website",
+      industry: "Retail / E-commerce",
+      description: "Helped a local retail business establish their first online presence with a mobile-responsive website, SEO optimization, and WhatsApp integration.",
+      impact: "20+ monthly inquiries via website, Top 10 Google rankings for 3 keywords",
+      timeline: "3.5 weeks"
     },
     {
-      icon: Users,
-      title: "More Quality Leads",
-      description: "Well-designed websites with clear CTAs convert visitors into inquiries—our clients report 2-3x more leads on average."
+      title: "Service Provider Portal",
+      industry: "Professional Services",
+      description: "Created a clean, professional website for a consulting firm with service portfolio, team bios, and integrated scheduling.",
+      impact: "15+ client inquiries in first month, 3.5-minute average session time",
+      timeline: "4 weeks"
     },
     {
-      icon: CheckCircle,
-      title: "Professional Credibility",
-      description: "A modern website builds trust. Customers take businesses more seriously when they have a strong online presence."
-    },
-    {
-      icon: Globe,
-      title: "Mobile-First Reach",
-      description: "60-70% of traffic comes from mobile devices. Our sites are optimized for every screen size."
+      title: "Home Services Website",
+      industry: "Local Services",
+      description: "Rebuilt an outdated website with mobile optimization, clear CTAs, and improved page speed for better conversions.",
+      impact: "2x lead conversion, 60% faster load times, 35% lower bounce rate",
+      timeline: "3 weeks"
     }
   ];
 
@@ -138,173 +128,234 @@ const CaseStudies = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 section-padding">
+      <section className="pt-24 sm:pt-32 pb-16 section-padding">
         <div className="content-container">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="mb-4 bg-gradient-to-r from-blue-50 to-emerald-50 text-primary border-primary/20">
-              Real Results from Real Businesses
+              Real Results from Real Projects
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-6">
-              See How We've Helped <span className="gradient-text">MSMEs Grow Online</span>
+              See How We've Helped <span className="gradient-text">Businesses Grow Online</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-              Every business is unique, but the goal is the same: get online, attract customers, and grow.
-              Here are a few stories from businesses we've partnered with.
+              From automating complex workflows to building professional websites—here are stories
+              from businesses we've partnered with to achieve real growth.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Case Studies */}
-      {caseStudies.map((study, index) => (
-        <section
-          key={study.id}
-          className={`section-padding ${index % 2 === 0 ? 'bg-muted/30' : ''}`}
-        >
-          <div className="content-container">
-            <div className="max-w-6xl mx-auto">
-              {/* Header */}
-              <div className="mb-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <Badge className={`${study.badgeColor} text-white`}>
-                    {study.badge}
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">{study.industry}</span>
+      {/* Featured Case Study: LeadzGalaxy */}
+      <section className="section-padding bg-gradient-to-b from-muted/30 to-transparent">
+        <div className="content-container">
+          <div className="max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="mb-12 text-center">
+              <Badge className={`${featuredCaseStudy.badgeColor} text-white mb-4 text-sm px-4 py-1`}>
+                {featuredCaseStudy.badge}
+              </Badge>
+              <h2 className="text-3xl md:text-5xl font-bold font-heading mb-4">
+                {featuredCaseStudy.client}
+              </h2>
+              <p className="text-xl md:text-2xl text-muted-foreground italic mb-4">
+                "{featuredCaseStudy.tagline}"
+              </p>
+              <a
+                href={featuredCaseStudy.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-primary hover:underline font-semibold"
+              >
+                <Globe className="w-5 h-5" />
+                Visit {featuredCaseStudy.client}
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+
+            {/* Challenge */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold font-heading mb-6 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center">
+                  <span className="text-red-600 font-bold text-xl">?</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-                  {study.client}
-                </h2>
-                <p className="text-xl text-muted-foreground italic">
-                  "{study.tagline}"
+                The Challenge
+              </h3>
+              <div className="glass-card p-8">
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  {featuredCaseStudy.challenge}
                 </p>
               </div>
+            </div>
 
-              <div className="grid lg:grid-cols-2 gap-12 mb-12">
-                {/* Left: Challenge & Solution */}
-                <div className="space-y-8">
-                  {/* Challenge */}
-                  <div>
-                    <h3 className="text-xl font-bold font-heading mb-4 flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
-                        <span className="text-red-600 font-bold">?</span>
-                      </div>
-                      The Challenge
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {study.challenge}
-                    </p>
-                  </div>
-
-                  {/* Solution */}
-                  <div>
-                    <h3 className="text-xl font-bold font-heading mb-4 flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
-                        <Zap className="w-5 h-5 text-primary" />
-                      </div>
-                      Our Solution
-                    </h3>
-                    <ul className="space-y-3">
-                      {study.solution.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <CheckCircle className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-                          <span className="text-muted-foreground">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+            {/* Solution */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold font-heading mb-6 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center">
+                  <Zap className="w-6 h-6 text-primary" />
                 </div>
+                Our Solution
+              </h3>
+              <div className="glass-card p-8">
+                <ul className="space-y-4 mb-8">
+                  {featuredCaseStudy.solution.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle className="w-6 h-6 text-secondary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground text-lg">{item}</span>
+                    </li>
+                  ))}
+                </ul>
 
-                {/* Right: Results */}
-                <div>
-                  <h3 className="text-xl font-bold font-heading mb-6 flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                      <TrendingUp className="w-5 h-5 text-secondary" />
-                    </div>
-                    The Results
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4 mb-8">
-                    {study.results.map((result, i) => (
-                      <div key={i} className="glass-card p-6 text-center">
-                        <result.icon className={`w-8 h-8 text-${study.color}-500 mx-auto mb-3`} />
-                        <div className="text-2xl font-bold gradient-text mb-1">
-                          {result.value}
+                {/* Technical Highlights */}
+                <div className="border-t border-border pt-8">
+                  <h4 className="font-bold text-xl mb-6">Technical Highlights</h4>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {featuredCaseStudy.technicalHighlights.map((tech, i) => (
+                      <div key={i} className="flex items-start gap-4 p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                          <tech.icon className="w-6 h-6 text-white" />
                         </div>
-                        <div className="text-xs text-muted-foreground">
-                          {result.metric}
+                        <div>
+                          <h5 className="font-bold mb-1">{tech.title}</h5>
+                          <p className="text-sm text-primary font-semibold mb-2">{tech.tech}</p>
+                          <p className="text-sm text-muted-foreground">{tech.description}</p>
                         </div>
                       </div>
                     ))}
                   </div>
-
-                  {/* Testimonial */}
-                  <div className={`glass-card p-6 bg-gradient-to-br from-${study.color}-50 to-${study.color}-100/50 border-${study.color}-200`}>
-                    <Quote className={`w-8 h-8 text-${study.color}-500 mb-4`} />
-                    <p className="text-muted-foreground italic mb-4 leading-relaxed">
-                      "{study.testimonial.text}"
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <div className="flex gap-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className={`w-4 h-4 fill-${study.color}-500 text-${study.color}-500`} />
-                        ))}
-                      </div>
-                    </div>
-                    <p className="font-semibold mt-2">{study.testimonial.author}</p>
-                    <p className="text-sm text-muted-foreground">{study.testimonial.role}</p>
-                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      ))}
 
-      {/* Common Results Pattern */}
-      <section className="section-padding bg-gradient-to-b from-muted/30 to-transparent">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8 text-center">
-              What Our Clients <span className="gradient-text">Typically See</span>
-            </h2>
-            <p className="text-lg text-muted-foreground text-center mb-12">
-              While every business is different, here are the common improvements our clients experience:
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {commonResults.map((result, index) => (
-                <div key={index} className="glass-card p-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-4">
-                    <result.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h4 className="font-bold text-lg mb-2">{result.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {result.description}
-                  </p>
+            {/* Before & After */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold font-heading mb-6 text-center">
+                Before vs. After
+              </h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Before */}
+                <div className="glass-card p-8 bg-red-50 border-red-200">
+                  <h4 className="font-bold text-xl mb-6 text-red-800 flex items-center gap-2">
+                    <span className="text-2xl">😓</span> Before
+                  </h4>
+                  <ul className="space-y-3">
+                    {featuredCaseStudy.beforeAfter.before.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="text-red-500 font-bold flex-shrink-0">✗</span>
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
+
+                {/* After */}
+                <div className="glass-card p-8 bg-emerald-50 border-emerald-200">
+                  <h4 className="font-bold text-xl mb-6 text-emerald-800 flex items-center gap-2">
+                    <span className="text-2xl">🚀</span> After
+                  </h4>
+                  <ul className="space-y-3">
+                    {featuredCaseStudy.beforeAfter.after.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
 
-            <div className="mt-12 p-6 bg-blue-50 rounded-lg border border-primary/20">
-              <p className="text-sm text-muted-foreground text-center">
-                <strong className="text-foreground">Important:</strong> These are real results from actual clients,
-                but every business is unique. Your results will depend on your industry, competition, and how
-                actively you promote your website. We'll be realistic about what to expect during our call.
-              </p>
+            {/* Results */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold font-heading mb-6 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-secondary" />
+                </div>
+                The Results
+              </h3>
+              <div className="grid md:grid-cols-4 gap-6 mb-8">
+                {featuredCaseStudy.results.map((result, i) => (
+                  <div key={i} className="glass-card p-6 text-center">
+                    <result.icon className="w-10 h-10 text-primary mx-auto mb-4" />
+                    <div className="text-3xl font-bold gradient-text mb-2">
+                      {result.value}
+                    </div>
+                    <div className="text-sm font-semibold mb-2">{result.metric}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {result.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Testimonial */}
+              <div className="glass-card p-8 bg-gradient-to-br from-blue-50 to-purple-50 border-primary/20">
+                <Quote className="w-10 h-10 text-primary mb-6" />
+                <p className="text-lg text-muted-foreground italic mb-6 leading-relaxed">
+                  "{featuredCaseStudy.testimonial.text}"
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-amber-500 text-amber-500" />
+                    ))}
+                  </div>
+                </div>
+                <p className="font-bold mt-4">{featuredCaseStudy.testimonial.author}</p>
+                <p className="text-sm text-muted-foreground">{featuredCaseStudy.testimonial.role}</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Early Stage Honesty */}
+      {/* Other Projects */}
       <section className="section-padding">
+        <div className="content-container">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8 text-center">
+              More <span className="gradient-text">Success Stories</span>
+            </h2>
+            <p className="text-lg text-muted-foreground text-center mb-12">
+              We're building our portfolio one success story at a time.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {otherProjects.map((project, index) => (
+                <div key={index} className="glass-card p-6 hover:shadow-xl transition-all duration-300">
+                  <Badge className="mb-4 bg-emerald-500 text-white">Launched</Badge>
+                  <h4 className="font-bold text-xl mb-2">{project.title}</h4>
+                  <p className="text-sm text-muted-foreground mb-4">{project.industry}</p>
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="border-t border-border pt-4 space-y-3">
+                    <div className="flex items-start gap-2">
+                      <TrendingUp className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                      <p className="text-sm font-semibold">{project.impact}</p>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Clock className="w-4 h-4" />
+                      <span>{project.timeline}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Growing Together */}
+      <section className="section-padding bg-muted/30">
         <div className="content-container">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
               We're Building Our <span className="gradient-text">Portfolio Together</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              As a growing company, we're partnering with MSMEs to create success stories together. We're selective
-              about who we work with because we want every project to be a win. Your success becomes our reputation.
+              As a growing company, we're selective about who we work with because we want every project
+              to be a win. Your success becomes our reputation, and we're committed to delivering solutions
+              that create real, measurable results.
             </p>
             <p className="text-lg text-foreground font-semibold mb-8">
               Ready to be our next success story?

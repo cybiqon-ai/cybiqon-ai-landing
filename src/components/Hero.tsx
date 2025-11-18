@@ -14,7 +14,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-20">
       <AnimatedBackground />
 
       {/* 3D Sphere positioned in right whitespace - moved up more */}
