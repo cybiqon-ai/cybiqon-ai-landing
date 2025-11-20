@@ -86,9 +86,6 @@ const SEO = ({
       <meta name="twitter:site" content="@CybiqonAI" />
       <meta name="twitter:creator" content="@CybiqonAI" />
 
-      {/* Prerender.io meta for SPA */}
-      <meta name="fragment" content="!" />
-
       {/* Organization Schema (always present) */}
       <script type="application/ld+json">
         {JSON.stringify(organizationSchema)}
