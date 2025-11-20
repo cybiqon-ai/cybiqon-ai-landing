@@ -1,4 +1,4 @@
-import { Code2, Bot, Palette, Search } from "lucide-react";
+import { Code2, Bot, Database, Puzzle } from "lucide-react";
 
 const services = [
   {
@@ -12,14 +12,14 @@ const services = [
     description: "Automate repetitive tasks with AI. From customer support chatbots to workflow automation, we've got you covered."
   },
   {
-    icon: Palette,
-    title: "Branding & Digital Identity",
-    description: "Stand out online with professional branding. Logo design, brand guidelines, and complete digital identity packages."
+    icon: Database,
+    title: "Bulk Scraping",
+    description: "Extract valuable data at scale from websites and platforms. Clean, structured data delivered for lead generation, market research, and business intelligence."
   },
   {
-    icon: Search,
-    title: "SEO & Marketing Setup",
-    description: "Get found on Google. We optimize your website for search engines and set up tracking to measure your success."
+    icon: Puzzle,
+    title: "Chrome Extensions",
+    description: "Custom browser extensions to boost productivity and automate workflows. From data extraction tools to custom utilities tailored to your needs."
   }
 ];
 

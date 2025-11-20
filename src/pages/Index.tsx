@@ -30,7 +30,7 @@ const Index = () => {
         title="Cybiqon AI Solutions | Modern Websites & AI Automation for MSMEs in India"
         description="Transform your MSME with affordable, professional websites and AI-powered automation. We help small and medium businesses across India grow online with modern technology. Book your free consultation today."
         canonical="/"
-        keywords="MSME website design India, AI automation for small business, affordable web development, digital transformation MSMEs, WhatsApp chatbot, SEO-friendly websites, business automation India"
+        keywords="MSME website design India, AI automation for small business, affordable web development, digital transformation MSMEs, bulk data scraping India, chrome extension development, web scraping services, business automation India"
         structuredData={breadcrumbSchema}
       />
       <Navbar />
