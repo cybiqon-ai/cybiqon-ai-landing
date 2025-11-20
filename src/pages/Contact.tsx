@@ -14,10 +14,56 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const Contact = () => {
   const handleBookCall = () => {
     window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://cybiqon.in/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Contact',
+        item: 'https://cybiqon.in/contact'
+      }
+    ]
+  };
+
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Cybiqon AI Solutions',
+    description: 'Modern websites and AI-powered automation solutions for MSMEs in India',
+    url: 'https://cybiqon.in',
+    logo: 'https://cybiqon.in/logo.png',
+    image: 'https://cybiqon.in/logo.png',
+    telephone: '+91-88962-70660',
+    email: 'support@cybiqon.ai',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'IN'
+    },
+    openingHours: 'Mo-Fr 10:00-18:00',
+    sameAs: [
+      'https://www.instagram.com/cybiqon.ai',
+      'https://t.me/cybiqonai'
+    ],
+    priceRange: '₹₹',
+    areaServed: {
+      '@type': 'Country',
+      name: 'India'
+    }
   };
 
   const contactMethods = [
@@ -32,9 +78,9 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email Us",
-      description: "itspyguru@gmail.com",
+      description: "support@cybiqon.ai",
       action: "Send Email",
-      link: "mailto:itspyguru@gmail.com",
+      link: "mailto:support@cybiqon.ai",
       highlight: false
     },
     {
@@ -91,6 +137,13 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Contact Cybiqon AI | Book Your Free Consultation"
+        description="Get in touch with Cybiqon AI Solutions. Book a free 30-minute consultation, email us at support@cybiqon.ai, or call +91 88962 70660. We respond within 24 hours."
+        canonical="/contact"
+        keywords="contact Cybiqon, book consultation, MSME web design inquiry, get quote website India"
+        structuredData={[breadcrumbSchema, localBusinessSchema]}
+      />
       <Navbar />
 
       {/* Hero Section */}

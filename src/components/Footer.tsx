@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-1 mb-4 hover:opacity-80 transition-opacity">
-              <img src="/logo.png" alt="Cybiqon AI Logo" className="w-6 h-6 object-contain" />
+              <img src="/logo.png" alt="Cybiqon AI Logo" className="w-6 h-6 object-contain" loading="lazy" />
               <span className="text-xl font-bold font-heading gradient-text">Cybiqon AI</span>
             </Link>
             <p className="text-muted-foreground text-sm">
@@ -66,8 +66,8 @@ const Footer = () => {
             <div className="space-y-3 text-sm text-muted-foreground mb-4">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                <a href="mailto:itspyguru@gmail.com" className="hover:text-primary transition-colors">
-                  itspyguru@gmail.com
+                <a href="mailto:support@cybiqon.ai" className="hover:text-primary transition-colors">
+                  support@cybiqon.ai
                 </a>
               </div>
               <div className="flex items-center gap-2">

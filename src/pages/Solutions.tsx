@@ -16,10 +16,63 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const Solutions = () => {
   const handleBookCall = () => {
     window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://cybiqon.in/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Solutions',
+        item: 'https://cybiqon.in/solutions'
+      }
+    ]
+  };
+
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Web Development and AI Automation',
+    provider: {
+      '@type': 'Organization',
+      name: 'Cybiqon AI Solutions'
+    },
+    areaServed: 'IN',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Web Development Services',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Professional Website Development',
+            description: 'Mobile-responsive, SEO-optimized websites for MSMEs'
+          }
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'AI Chatbot Integration',
+            description: 'Intelligent chatbots for customer support and lead capture'
+          }
+        }
+      ]
+    }
   };
 
   const product1Features = [
@@ -49,6 +102,13 @@ const Solutions = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Web Development & AI Automation Solutions for Small Business"
+        description="Professional website development and AI-powered automation solutions designed for MSMEs in India. Mobile-responsive designs, SEO optimization, WhatsApp integration, and intelligent chatbots starting at ₹25,000."
+        canonical="/solutions"
+        keywords="web development India, AI automation solutions, MSME website design, WhatsApp chatbot integration, SEO-optimized websites, small business technology"
+        structuredData={[breadcrumbSchema, serviceSchema]}
+      />
       <Navbar />
 
       {/* Hero Section */}

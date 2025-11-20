@@ -32,7 +32,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-              <img src="/logo.png" alt="Cybiqon AI Logo" className="w-8 h-8 object-contain" />
+              <img src="/logo.png" alt="Cybiqon AI Logo" className="w-8 h-8 object-contain" loading="eager" />
               <span className="text-xl font-bold font-heading gradient-text">Cybiqon AI</span>
             </Link>
 

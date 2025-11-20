@@ -2,6 +2,7 @@ import { CheckCircle, Heart, Lightbulb, Target, Users, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const About = () => {
   const handleBookCall = () => {
@@ -31,12 +32,38 @@ const About = () => {
     }
   ];
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://cybiqon.in/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'About',
+        item: 'https://cybiqon.in/about'
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="About Cybiqon AI | MSME Digital Transformation Partner in India"
+        description="Learn about Cybiqon AI Solutions - a passionate team dedicated to making enterprise-level technology accessible to small and medium businesses across India. Our mission is to empower every MSME with affordable digital solutions."
+        canonical="/about"
+        keywords="about Cybiqon AI, MSME technology partner India, digital transformation company, small business solutions, affordable technology India"
+        structuredData={breadcrumbSchema}
+      />
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-24 sm:pt-32 pb-16 section-padding">
+      <section className="pt-32 sm:pt-32 pb-12 md:pb-16 lg:pb-24 px-4">
         <div className="content-container">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-6">

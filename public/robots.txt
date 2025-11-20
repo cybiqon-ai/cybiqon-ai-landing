@@ -1,3 +1,5 @@
+# Cybiqon AI Solutions - robots.txt
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +14,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://cybiqon.in/sitemap.xml
+
+# Crawl-delay (optional - for less aggressive crawling)
+# Crawl-delay: 10
