@@ -18,10 +18,30 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const CaseStudies = () => {
   const handleBookCall = () => {
     window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://cybiqon.in/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Case Studies',
+        item: 'https://cybiqon.in/case-studies'
+      }
+    ]
   };
 
   const featuredCaseStudy = {
@@ -125,6 +145,13 @@ const CaseStudies = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Client Success Stories | MSME Digital Transformation Case Studies"
+        description="See how we've helped businesses like LeadzGalaxy achieve 10x growth through custom web applications and AI automation. Real results from real projects - explore our portfolio."
+        canonical="/case-studies"
+        keywords="web development case studies, MSME success stories, business automation results, website portfolio India"
+        structuredData={breadcrumbSchema}
+      />
       <Navbar />
 
       {/* Hero Section */}

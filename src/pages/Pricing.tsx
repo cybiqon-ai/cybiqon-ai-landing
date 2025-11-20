@@ -12,10 +12,59 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const Pricing = () => {
   const handleBookCall = () => {
     window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://cybiqon.in/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Pricing',
+        item: 'https://cybiqon.in/pricing'
+      }
+    ]
+  };
+
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Website Development Packages',
+    description: 'Professional website development packages for MSMEs in India',
+    brand: {
+      '@type': 'Brand',
+      name: 'Cybiqon AI Solutions'
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Starter Website',
+        price: '25000',
+        priceCurrency: 'INR',
+        description: 'Perfect for small businesses ready to get online with a professional presence',
+        availability: 'https://schema.org/InStock'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Business Pro',
+        price: '45000',
+        priceCurrency: 'INR',
+        description: 'For growing businesses that need more pages, features, and customization',
+        availability: 'https://schema.org/InStock'
+      }
+    ]
   };
 
   const packages = [
@@ -118,6 +167,13 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Affordable Website & AI Packages for Indian MSMEs | Starting ₹25,000"
+        description="Transparent pricing for professional website development and AI automation. Starter Website ₹25,000, Business Pro ₹45,000. No hidden costs, includes 3-6 months support. Perfect for small and medium businesses in India."
+        canonical="/pricing"
+        keywords="website development cost India, affordable web design packages, MSME website pricing, AI chatbot pricing, small business website cost"
+        structuredData={[breadcrumbSchema, productSchema]}
+      />
       <Navbar />
 
       {/* Hero Section */}

@@ -2,10 +2,37 @@ import { FileText, CheckCircle, AlertTriangle, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const Terms = () => {
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://cybiqon.in/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Terms of Service',
+        item: 'https://cybiqon.in/terms'
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Terms of Service | Cybiqon AI Solutions"
+        description="Read the terms and conditions for using Cybiqon AI Solutions services. Understand our service agreements, payment terms, and client responsibilities."
+        canonical="/terms"
+        keywords="Cybiqon terms of service, service agreement, web development contract"
+        structuredData={breadcrumbSchema}
+      />
       <Navbar />
 
       {/* Hero Section */}
@@ -335,7 +362,7 @@ const Terms = () => {
                     If you have any questions about these Terms of Service, please contact us:
                   </p>
                   <div className="space-y-2 text-sm">
-                    <p><strong>Email:</strong> <a href="mailto:itspyguru@gmail.com" className="text-primary hover:underline">itspyguru@gmail.com</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:support@cybiqon.ai" className="text-primary hover:underline">support@cybiqon.ai</a></p>
                     <p><strong>Phone:</strong> +91 88962 70660</p>
                   </div>
                 </div>

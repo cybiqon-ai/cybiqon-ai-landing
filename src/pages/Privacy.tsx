@@ -2,10 +2,37 @@ import { Shield, CheckCircle, Lock, Eye, UserX, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const Privacy = () => {
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://cybiqon.in/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Privacy Policy',
+        item: 'https://cybiqon.in/privacy'
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Privacy Policy | Cybiqon AI Solutions"
+        description="Learn how Cybiqon AI Solutions collects, uses, and protects your personal information. We are committed to transparency and data protection for all our clients."
+        canonical="/privacy"
+        keywords="Cybiqon privacy policy, data protection, MSME data security"
+        structuredData={breadcrumbSchema}
+      />
       <Navbar />
 
       {/* Hero Section */}
@@ -242,7 +269,7 @@ const Privacy = () => {
                   </li>
                 </ul>
                 <p className="text-sm text-muted-foreground mt-6">
-                  To exercise these rights, contact us at <a href="mailto:itspyguru@gmail.com" className="text-primary hover:underline">itspyguru@gmail.com</a>.
+                  To exercise these rights, contact us at <a href="mailto:support@cybiqon.ai" className="text-primary hover:underline">support@cybiqon.ai</a>.
                 </p>
               </div>
             </div>
@@ -295,7 +322,7 @@ const Privacy = () => {
                     please contact us:
                   </p>
                   <div className="space-y-2 text-sm">
-                    <p><strong>Email:</strong> <a href="mailto:itspyguru@gmail.com" className="text-primary hover:underline">itspyguru@gmail.com</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:support@cybiqon.ai" className="text-primary hover:underline">support@cybiqon.ai</a></p>
                     <p><strong>Phone:</strong> +91 88962 70660</p>
                   </div>
                 </div>

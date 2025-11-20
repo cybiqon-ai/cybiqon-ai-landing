@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   ChevronDown,
   HelpCircle,
@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const FAQ = () => {
   const handleBookCall = () => {
@@ -217,8 +218,54 @@ const FAQ = () => {
     }
   ];
 
+  // Generate FAQ schema from categories
+  const faqSchema = useMemo(() => {
+    const allQuestions = faqCategories.flatMap(category =>
+      category.questions.map(q => ({
+        '@type': 'Question',
+        name: q.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: q.answer
+        }
+      }))
+    );
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: allQuestions
+    };
+  }, []);
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://cybiqon.in/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'FAQ',
+        item: 'https://cybiqon.in/faq'
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Frequently Asked Questions | Cybiqon AI Solutions"
+        description="Find answers to common questions about Cybiqon's website development and AI automation services. Learn about pricing, process, timelines, support, and more for MSMEs in India."
+        canonical="/faq"
+        keywords="Cybiqon FAQ, website development questions, MSME web design FAQ, AI automation questions, website cost India"
+        structuredData={[breadcrumbSchema, faqSchema]}
+      />
       <Navbar />
 
       {/* Hero Section */}

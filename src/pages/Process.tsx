@@ -17,10 +17,59 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const Process = () => {
   const handleBookCall = () => {
     window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://cybiqon.in/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Process',
+        item: 'https://cybiqon.in/process'
+      }
+    ]
+  };
+
+  const howToSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'How to Get Your Website Built with Cybiqon',
+    description: 'Our simple 4-step process from discovery to launch',
+    step: [
+      {
+        '@type': 'HowToStep',
+        name: 'Discovery Call',
+        text: 'Free 30-45 minute consultation to understand your business and goals'
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Planning & Design',
+        text: 'Create site structure, design mockups, and get your approval'
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Development',
+        text: 'Build your website with regular progress updates'
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Testing & Launch',
+        text: 'Thorough testing and go live with ongoing support'
+      }
+    ]
   };
 
   const steps = [
@@ -140,6 +189,13 @@ const Process = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Our 4-Step Website Development Process | From Discovery to Launch"
+        description="Learn how we build your website in 4 simple steps: Discovery Call, Planning & Design, Development, and Testing & Launch. Transparent process with regular updates. Ready in 3-4 weeks."
+        canonical="/process"
+        keywords="website development process, how website is built, web design timeline, MSME website development steps"
+        structuredData={[breadcrumbSchema, howToSchema]}
+      />
       <Navbar />
 
       {/* Hero Section */}
