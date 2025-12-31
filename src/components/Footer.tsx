@@ -66,8 +66,8 @@ const Footer = () => {
             <div className="space-y-3 text-sm text-muted-foreground mb-4">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                <a href="mailto:support@cybiqon.ai" className="hover:text-primary transition-colors">
-                  support@cybiqon.ai
+                <a href="mailto:support@cybiqon.in" className="hover:text-primary transition-colors">
+                  support@cybiqon.in
                 </a>
               </div>
               <div className="flex items-center gap-2">

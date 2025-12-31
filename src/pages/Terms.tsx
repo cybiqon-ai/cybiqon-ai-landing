@@ -362,7 +362,7 @@ const Terms = () => {
                     If you have any questions about these Terms of Service, please contact us:
                   </p>
                   <div className="space-y-2 text-sm">
-                    <p><strong>Email:</strong> <a href="mailto:support@cybiqon.ai" className="text-primary hover:underline">support@cybiqon.ai</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:support@cybiqon.in" className="text-primary hover:underline">support@cybiqon.in</a></p>
                     <p><strong>Phone:</strong> +91 88962 70660</p>
                   </div>
                 </div>

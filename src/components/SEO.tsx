@@ -35,7 +35,7 @@ const SEO = ({
       '@type': 'ContactPoint',
       telephone: '+91-88962-70660',
       contactType: 'customer service',
-      email: 'support@cybiqon.ai',
+      email: 'support@cybiqon.in',
       areaServed: 'IN',
       availableLanguage: ['English', 'Hindi']
     },

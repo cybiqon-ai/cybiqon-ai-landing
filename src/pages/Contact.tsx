@@ -49,7 +49,7 @@ const Contact = () => {
     logo: 'https://cybiqon.in/logo.png',
     image: 'https://cybiqon.in/logo.png',
     telephone: '+91-88962-70660',
-    email: 'support@cybiqon.ai',
+    email: 'support@cybiqon.in',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'IN'
@@ -78,9 +78,9 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email Us",
-      description: "support@cybiqon.ai",
+      description: "support@cybiqon.in",
       action: "Send Email",
-      link: "mailto:support@cybiqon.ai",
+      link: "mailto:support@cybiqon.in",
       highlight: false
     },
     {
@@ -139,7 +139,7 @@ const Contact = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="Contact Cybiqon AI | Book Your Free Consultation"
-        description="Get in touch with Cybiqon AI Solutions. Book a free 30-minute consultation, email us at support@cybiqon.ai, or call +91 88962 70660. We respond within 24 hours."
+        description="Get in touch with Cybiqon AI Solutions. Book a free 30-minute consultation, email us at support@cybiqon.in, or call +91 88962 70660. We respond within 24 hours."
         canonical="/contact"
         keywords="contact Cybiqon, book consultation, MSME web design inquiry, get quote website India"
         structuredData={[breadcrumbSchema, localBusinessSchema]}

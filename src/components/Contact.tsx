@@ -47,7 +47,7 @@ const Contact = () => {
             {/* Quick Contact Options */}
             <div className="grid md:grid-cols-3 gap-4">
               <a
-                href="mailto:support@cybiqon.ai"
+                href="mailto:support@cybiqon.in"
                 className="flex flex-col items-center gap-3 p-6 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
               >
                 <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -56,7 +56,7 @@ const Contact = () => {
                 <div className="text-center">
                   <p className="font-semibold mb-1">Email Us</p>
                   <p className="text-sm text-muted-foreground">
-                    support@cybiqon.ai
+                    support@cybiqon.in
                   </p>
                 </div>
               </a>
