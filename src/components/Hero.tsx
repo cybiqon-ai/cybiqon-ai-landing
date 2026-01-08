@@ -42,10 +42,11 @@ const Hero = () => {
               <span className="gradient-text">Strong Online Presence</span>
             </h1>
 
-            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
-              We help small and medium businesses grow with affordable websites, smart automation,
-              and ongoing support<br />
-              <span className="text-foreground font-semibold">no tech headaches</span>.
+            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              We build websites, apps, AI automations, and custom tools for growing businesses.
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground/80 max-w-2xl mx-auto mt-4">
+              Affordable websites, web scraping, Chrome extensions, and smart automation — without tech headaches.
             </p>
 
             {/* Trust signals - micro */}
