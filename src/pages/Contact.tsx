@@ -48,7 +48,7 @@ const Contact = () => {
     url: 'https://cybiqon.in',
     logo: 'https://cybiqon.in/logo.png',
     image: 'https://cybiqon.in/logo.png',
-    telephone: '+91-88962-70660',
+    telephone: '+91-92507-11473',
     email: 'support@cybiqon.in',
     address: {
       '@type': 'PostalAddress',
@@ -56,6 +56,8 @@ const Contact = () => {
     },
     openingHours: 'Mo-Fr 10:00-18:00',
     sameAs: [
+      'https://www.linkedin.com/company/cybiqon-ai-solutions',
+      'https://www.facebook.com/cybiqon.ai.solutions/',
       'https://www.instagram.com/cybiqon.ai',
       'https://t.me/cybiqonai'
     ],
@@ -86,9 +88,9 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Call or WhatsApp",
-      description: "+91 88962 70660",
+      description: "+91 92507 11473",
       action: "WhatsApp Us",
-      link: "https://wa.me/918896270660",
+      link: "https://wa.me/919250711473",
       highlight: false
     },
     {
@@ -116,10 +118,10 @@ const Contact = () => {
 
   const socialLinks = [
     {
-      name: "Telegram",
-      icon: Send,
-      url: "https://t.me/cybiqonai",
-      color: "text-blue-500"
+      name: "LinkedIn",
+      icon: Linkedin,
+      url: "https://www.linkedin.com/company/cybiqon-ai-solutions",
+      color: "text-blue-600"
     },
     {
       name: "Instagram",
@@ -128,10 +130,10 @@ const Contact = () => {
       color: "text-pink-500"
     },
     {
-      name: "LinkedIn",
-      icon: Linkedin,
-      url: "#",
-      color: "text-blue-600"
+      name: "Telegram",
+      icon: Send,
+      url: "https://t.me/cybiqonai",
+      color: "text-blue-500"
     }
   ];
 
@@ -139,7 +141,7 @@ const Contact = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="Contact Cybiqon AI | Book Your Free Consultation"
-        description="Get in touch with Cybiqon AI Solutions. Book a free 30-minute consultation, email us at support@cybiqon.in, or call +91 88962 70660. We respond within 24 hours."
+        description="Get in touch with Cybiqon AI Solutions. Book a free 30-minute consultation, email us at support@cybiqon.in, or call +91 92507 11473. We respond within 24 hours."
         canonical="/contact"
         keywords="contact Cybiqon, book consultation, MSME web design inquiry, get quote website India"
         structuredData={[breadcrumbSchema, localBusinessSchema]}

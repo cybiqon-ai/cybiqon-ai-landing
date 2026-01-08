@@ -19,7 +19,7 @@ const Navbar = () => {
     { label: "Pricing", path: "/pricing" },
     { label: "Process", path: "/process" },
     { label: "Case Studies", path: "/case-studies" },
-    { label: "FAQ", path: "/faq" },
+    // { label: "FAQ", path: "/faq" },
     { label: "Contact", path: "/contact" }
   ];
 

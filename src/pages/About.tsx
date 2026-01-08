@@ -63,7 +63,7 @@ const About = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 sm:pt-32 pb-12 md:pb-16 lg:pb-24 px-4">
+      <section className="pt-32 sm:pt-32 pb-18 md:pb-12 lg:pb-24 px-4">
         <div className="content-container">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-6">
@@ -72,6 +72,58 @@ const About = () => {
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
               We're a passionate team dedicated to making enterprise-level technology accessible to small and medium businesses across India.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Founders Section */}
+      <section className="py-8 md:py-3 bg-background">
+        <div className="content-container">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-1">
+              Meet Our <span className="gradient-text">Founders</span>
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              The visionaries behind Cybiqon AI
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-14">
+            {/* Founder 1 - Muskan Singh */}
+            <div className="text-center">
+              <div className="mb-2">
+                <div className="w-44 h-44 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-br from-primary to-secondary">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-background">
+                    <img
+                      src="/founder1.jpg"
+                      alt="Muskan Singh - Co-Founder & CEO"
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: '50% 25%' }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-foreground">Muskan Singh</h3>
+              <p className="text-muted-foreground text-sm">Co-Founder & CEO</p>
+            </div>
+
+            {/* Founder 2 - Prajjwal Pathak */}
+            <div className="text-center">
+              <div className="mb-2">
+                <div className="w-44 h-44 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-br from-primary to-secondary">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-background">
+                    <img
+                      src="/founder2.jpg"
+                      alt="Prajjwal Pathak - Co-Founder & CTO"
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: '50% 30%' }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-foreground">Prajjwal Pathak</h3>
+              <p className="text-muted-foreground text-sm">Co-Founder & CTO</p>
+            </div>
           </div>
         </div>
       </section>

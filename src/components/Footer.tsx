@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, Linkedin, Send, Instagram } from "lucide-react";
+import { Mail, Phone, Linkedin, Facebook, MessageCircle, Send, Instagram } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -72,17 +72,37 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                <span>+91 88962 70660</span>
+                <span>+91 92507 11473</span>
               </div>
             </div>
 
             <div className="flex gap-3">
               <a
-                href="#"
-                className="w-9 h-9 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors cursor-not-allowed opacity-50"
-                title="LinkedIn - Coming Soon"
+                href="https://www.linkedin.com/company/cybiqon-ai-solutions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors"
+                aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.facebook.com/cybiqon.ai.solutions/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href="https://wa.me/919250711473"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle className="w-4 h-4" />
               </a>
               <a
                 href="https://t.me/cybiqonai"
@@ -109,7 +129,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>&copy; 2025 Cybiqon AI Solutions. All rights reserved.</p>
+            <p>&copy; 2026 Cybiqon AI Solutions. All rights reserved.</p>
             <div className="flex gap-6">
               <Link to="/privacy" className="hover:text-primary transition-colors">
                 Privacy Policy
