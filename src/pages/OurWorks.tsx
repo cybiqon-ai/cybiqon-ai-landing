@@ -36,7 +36,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "Airflow",
     description: "Stunning 3D visualization and animation project showcasing fluid dynamics and motion design.",
     category: "3d",
-    liveUrl: "#",
+    liveUrl: "https://airflow.cybiqon.in",
     tags: ["3D", "Animation", "Visual Design"],
     featured: true,
     gradient: "from-cyan-500 to-blue-600",
