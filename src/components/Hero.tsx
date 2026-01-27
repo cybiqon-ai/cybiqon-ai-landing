@@ -46,7 +46,7 @@ const Hero = () => {
               We build websites, apps, AI automations, and custom tools for growing businesses.
             </p>
             <p className="text-base md:text-lg text-muted-foreground/80 max-w-2xl mx-auto mt-4">
-              Affordable websites, web scraping, Chrome extensions, and smart automation — without tech headaches.
+              Fast delivery. Fair pricing. Zero tech headaches — built for Indian MSMEs.
             </p>
 
             {/* Trust signals - micro */}
@@ -80,7 +80,7 @@ const Hero = () => {
                 variant="outline"
                 className="border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300 text-lg px-8 py-6"
               >
-                See Our Solutions
+                See Our Services
               </Button>
             </div>
 
