@@ -166,7 +166,7 @@ const Process = () => {
     { milestone: "Discovery Call", days: "Day 1" },
     { milestone: "Design Approval", days: "Day 5-7" },
     { milestone: "Development Complete", days: "Day 21-28" },
-    { milestone: "Website Launch", days: "Day 24-31" }
+    { milestone: "Website Launch", days: "Day 30-34" }
   ];
 
   const whatYouNeedToProvide = [

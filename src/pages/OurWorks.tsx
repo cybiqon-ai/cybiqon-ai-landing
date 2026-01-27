@@ -8,6 +8,7 @@ import {
   Filter,
   ChevronLeft,
   ChevronRight,
+  Box,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,13 +16,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 
-type Category = "all" | "websites" | "extensions";
+type Category = "all" | "websites" | "extensions" | "3d";
 
 interface PortfolioItem {
   id: string;
   title: string;
   description: string;
-  category: "websites" | "extensions";
+  category: "websites" | "extensions" | "3d";
   liveUrl: string;
   tags: string[];
   featured?: boolean;
@@ -30,6 +31,21 @@ interface PortfolioItem {
 }
 
 const portfolioItems: PortfolioItem[] = [
+  {
+    id: "airflow",
+    title: "Airflow",
+    description: "Stunning 3D visualization and animation project showcasing fluid dynamics and motion design.",
+    category: "3d",
+    liveUrl: "#",
+    tags: ["3D", "Animation", "Visual Design"],
+    featured: true,
+    gradient: "from-cyan-500 to-blue-600",
+    images: [
+      "/portfolio/airflow1.png",
+      "/portfolio/airflow2.png",
+      "/portfolio/airflow3.png",
+    ],
+  },
   {
     id: "coffeehub",
     title: "CoffeeHub",
@@ -94,6 +110,7 @@ const portfolioItems: PortfolioItem[] = [
 
 const categories: { id: Category; label: string; icon: typeof Globe }[] = [
   { id: "all", label: "All Projects", icon: Filter },
+  { id: "3d", label: "3D", icon: Box },
   { id: "websites", label: "Websites", icon: Globe },
   { id: "extensions", label: "Chrome Extensions", icon: Puzzle },
 ];
@@ -279,6 +296,8 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
         return <Globe className="w-4 h-4" />;
       case "extensions":
         return <Puzzle className="w-4 h-4" />;
+      case "3d":
+        return <Box className="w-4 h-4" />;
       default:
         return <Globe className="w-4 h-4" />;
     }
@@ -290,6 +309,8 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
         return "Website";
       case "extensions":
         return "Extension";
+      case "3d":
+        return "3D";
       default:
         return item.category;
     }
@@ -365,6 +386,8 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
               <div className="text-center text-white">
                 {item.category === "websites" ? (
                   <Globe className="w-16 h-16 mx-auto mb-2 opacity-50" />
+                ) : item.category === "3d" ? (
+                  <Box className="w-16 h-16 mx-auto mb-2 opacity-50" />
                 ) : (
                   <Puzzle className="w-16 h-16 mx-auto mb-2 opacity-50" />
                 )}
