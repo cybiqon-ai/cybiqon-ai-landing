@@ -1,0 +1,12 @@
+name = "cybiqon-ai-landing"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cybiqon-blog"
+database_id = "0a9bcd34-fd85-4972-9e5e-ec86dfe5ebab"
+
+[[r2_buckets]]
+binding = "BLOG_IMAGES"
+bucket_name = "cybiqon-blog"
