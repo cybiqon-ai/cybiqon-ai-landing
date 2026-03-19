@@ -1,16 +1,19 @@
 {
-  "/blog/page": "app/blog/page.js",
-  "/sitemap.xml/[[...__metadata_id__]]/route": "app/sitemap.xml/[[...__metadata_id__]]/route.js",
-  "/page": "app/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/about/page": "app/about/page.js",
+  "/case-studies/page": "app/case-studies/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/faq/page": "app/faq/page.js",
+  "/our-works/page": "app/our-works/page.js",
   "/pricing/page": "app/pricing/page.js",
   "/process/page": "app/process/page.js",
-  "/our-works/page": "app/our-works/page.js",
-  "/case-studies/page": "app/case-studies/page.js",
-  "/faq/page": "app/faq/page.js",
-  "/contact/page": "app/contact/page.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/page": "app/page.js",
   "/privacy/page": "app/privacy/page.js",
   "/terms/page": "app/terms/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/robots.txt/route": "app/robots.txt/route.js"
+  "/api/blog/route": "app/api/blog/route.js",
+  "/api/blog/[slug]/route": "app/api/blog/[slug]/route.js",
+  "/blog/page": "app/blog/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js"
 }
