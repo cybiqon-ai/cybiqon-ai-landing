@@ -1,0 +1,16 @@
+{
+  "/blog/page": "app/blog/page.js",
+  "/sitemap.xml/[[...__metadata_id__]]/route": "app/sitemap.xml/[[...__metadata_id__]]/route.js",
+  "/page": "app/page.js",
+  "/about/page": "app/about/page.js",
+  "/pricing/page": "app/pricing/page.js",
+  "/process/page": "app/process/page.js",
+  "/our-works/page": "app/our-works/page.js",
+  "/case-studies/page": "app/case-studies/page.js",
+  "/faq/page": "app/faq/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/privacy/page": "app/privacy/page.js",
+  "/terms/page": "app/terms/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/robots.txt/route": "app/robots.txt/route.js"
+}

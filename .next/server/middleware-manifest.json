@@ -1,0 +1,57 @@
+{
+  "version": 3,
+  "middleware": {},
+  "functions": {
+    "/blog/page": {
+      "files": [
+        "server/server-reference-manifest.js",
+        "server/app/blog/page_client-reference-manifest.js",
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/blog/page.js"
+      ],
+      "name": "app/blog/page",
+      "page": "/blog/page",
+      "matchers": [
+        {
+          "regexp": "^/blog$",
+          "originalSource": "/blog"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "H7IBdiRIGeVswu24EfRo7lmqa9ISVi6QgYqhow3wAqQ="
+      }
+    },
+    "/sitemap.xml/[[...__metadata_id__]]/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/sitemap.xml/[[...__metadata_id__]]/route.js"
+      ],
+      "name": "app/sitemap.xml/[[...__metadata_id__]]/route",
+      "page": "/sitemap.xml/[[...__metadata_id__]]/route",
+      "matchers": [
+        {
+          "regexp": "^/sitemap\\.xml(?:/(?<__metadata_id__>.+?))?$",
+          "originalSource": "/sitemap.xml/[[...__metadata_id__]]"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "H7IBdiRIGeVswu24EfRo7lmqa9ISVi6QgYqhow3wAqQ="
+      }
+    }
+  },
+  "sortedMiddleware": []
+}
