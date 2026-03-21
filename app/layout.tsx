@@ -28,11 +28,11 @@ const siteUrl = "https://cybiqon.in";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Cybiqon AI Solutions | Modern Websites & AI Automation for Business",
+    default: "Affordable Web Development & AI Automation for Indian MSMEs | Cybiqon AI Solutions",
     template: "%s | Cybiqon AI Solutions",
   },
   description:
-    "Transform your business with modern websites and AI-powered automation. Affordable solutions designed for small and medium businesses to grow online.",
+    "Affordable websites and AI automation built for Indian MSMEs. Professional web development starting at ₹9,999, WhatsApp bots, data scraping, and Chrome extensions. Fast delivery, transparent pricing.",
   authors: [{ name: "Cybiqon AI Solutions" }],
   robots: {
     index: true,
@@ -87,7 +87,7 @@ const organizationSchema = {
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   description:
-    "Modern websites and AI-powered automation solutions for MSMEs in India",
+    "Affordable websites and AI-powered automation solutions for Indian MSMEs",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+91-92507-11473",
@@ -108,6 +108,34 @@ const organizationSchema = {
   },
 };
 
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Cybiqon AI Solutions",
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  image: `${siteUrl}/logo.png`,
+  description:
+    "Affordable website development, Android app development, AI automation, data scraping, and Chrome extension services for Indian MSMEs.",
+  telephone: "+91-92507-11473",
+  email: "support@cybiqon.in",
+  priceRange: "₹₹",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "IN",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "India",
+  },
+  openingHours: "Mo-Sa 09:00-18:00",
+  sameAs: [
+    "https://www.linkedin.com/company/cybiqon-ai-solutions",
+    "https://www.facebook.com/cybiqon.ai.solutions/",
+    "https://www.instagram.com/cybiqon.ai",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -121,6 +149,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessSchema),
           }}
         />
       </head>

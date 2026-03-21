@@ -64,7 +64,7 @@ const FAQ = () => {
         {
           id: "q5",
           question: "How much does a website cost?",
-          answer: "Our Starter Website package starts at ₹25,000 (one-time payment). Business Pro is ₹45,000. Custom solutions are quoted based on your specific needs. All prices are transparent—no hidden fees from us."
+          answer: "Our website packages start at just ₹9,999 as part of our current launch offer. Custom solutions are quoted based on your specific needs. Check our Pricing page for the latest plans and pricing — all prices are transparent with no hidden fees."
         },
         {
           id: "q6",
@@ -74,7 +74,7 @@ const FAQ = () => {
         {
           id: "q7",
           question: "Do you offer payment plans?",
-          answer: "Yes! For packages over ₹30,000, we offer 50% upfront and 50% on delivery. We're flexible and can discuss options that work for your budget during the free consultation call."
+          answer: "Yes! For packages over ₹20,000, we offer 50% upfront and 50% on delivery. We're flexible and can discuss options that work for your budget during the free consultation call."
         },
         {
           id: "q8",

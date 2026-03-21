@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Calendar, Mail, Phone, ArrowRight } from "lucide-react";
+import { Calendar, Mail, Phone, ArrowRight, FileSearch } from "lucide-react";
 import Link from "next/link";
 
 const Contact = () => {
@@ -35,7 +35,10 @@ const Contact = () => {
                 Book Your Free 30-Min Call
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Get instant answers, exact quote, and timeline—no commitment required
+                Get instant answers, exact quote, and timeline — no commitment required
+              </p>
+              <p className="text-sm font-medium text-primary mt-2">
+                We respond within 24 hours — guaranteed
               </p>
             </div>
 
@@ -45,7 +48,7 @@ const Contact = () => {
               <div className="flex-1 border-t border-border"></div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-4 gap-4">
               <a
                 href="mailto:support@cybiqon.in"
                 className="flex flex-col items-center gap-3 p-6 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
@@ -73,6 +76,19 @@ const Contact = () => {
                   <p className="text-sm text-muted-foreground">+91 92507 11473</p>
                 </div>
               </a>
+
+              <Link
+                href="/free-audit"
+                className="flex flex-col items-center gap-3 p-6 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
+              >
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <FileSearch className="w-7 h-7 text-white" />
+                </div>
+                <div className="text-center">
+                  <p className="font-semibold mb-1">Free Website Audit</p>
+                  <p className="text-sm text-muted-foreground">Get a detailed review</p>
+                </div>
+              </Link>
 
               <Link
                 href="/contact"

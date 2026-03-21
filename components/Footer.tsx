@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="py-12 border-t border-border bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8">
           <div>
             <Link href="/" className="flex items-center gap-1 mb-4 hover:opacity-80 transition-opacity">
               <img src="/logo.png" alt="Cybiqon AI Logo" className="w-6 h-6 object-contain" loading="lazy" />
@@ -24,6 +24,17 @@ const Footer = () => {
               <Link href="/pricing" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Pricing</Link>
               <Link href="/case-studies" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Case Studies</Link>
               <Link href="/blog" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-bold mb-4">Services</h3>
+            <div className="space-y-2">
+              <Link href="/pricing#websites" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Website Development</Link>
+              <Link href="/pricing#apps" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Android Apps</Link>
+              <Link href="/pricing#automation" className="block text-sm text-muted-foreground hover:text-primary transition-colors">AI Automation</Link>
+              <Link href="/pricing#scraping" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Bulk Scraping</Link>
+              <Link href="/pricing#extensions" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Chrome Extensions</Link>
             </div>
           </div>
 

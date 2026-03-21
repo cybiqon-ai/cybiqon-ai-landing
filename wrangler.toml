@@ -8,6 +8,9 @@ binding = "DB"
 database_name = "cybiqon-blog"
 database_id = "0a9bcd34-fd85-4972-9e5e-ec86dfe5ebab"
 
+[vars]
+RESEND_API_KEY = "re_Sfm1h9Bk_FQMEdTrGf5oisRkGYE3XtL4Y"
+
 [[r2_buckets]]
 binding = "BLOG_IMAGES"
 bucket_name = "cybiqon-blog"
