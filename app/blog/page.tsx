@@ -8,7 +8,7 @@ export const runtime = "edge";
 export const metadata: Metadata = {
   title: "Blog | AI, Automation & MSME Growth Insights",
   description: "Practical insights on AI automation, no-code tools, and digital growth strategies for Indian MSMEs. Updated daily.",
-  keywords: "AI blog, MSME automation, no-code India, business growth, AI tools",
+  keywords: "AI blog India, MSME automation tips, no-code tools India, small business growth strategies, AI tools for MSMEs, WhatsApp automation, digital transformation India",
   alternates: { canonical: "/blog" },
 };
 

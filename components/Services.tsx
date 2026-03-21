@@ -1,25 +1,30 @@
-import { Code2, Bot, Database, Puzzle } from "lucide-react";
+import { Code2, Bot, Database, Puzzle, TabletSmartphone } from "lucide-react";
 
 const services = [
   {
     icon: Code2,
     title: "Website Development",
-    description: "Beautiful, responsive websites that work perfectly on all devices. Built with modern technology for speed and reliability."
+    description: "Get found on Google and turn visitors into customers. Mobile-first websites designed for Indian shoppers — built in 2-3 weeks, starting ₹9,999."
+  },
+  {
+    icon: TabletSmartphone,
+    title: "Android App Development",
+    description: "Custom Android apps for your business — inventory management, customer ordering, field staff tracking, or anything your workflow needs."
   },
   {
     icon: Bot,
     title: "AI Automation",
-    description: "Automate repetitive tasks with AI. From customer support chatbots to workflow automation, we've got you covered."
+    description: "Stop spending 3 hours a day on WhatsApp replies. Our AI handles customer queries, follow-ups, and lead capture — 24/7, in Hindi or English."
   },
   {
     icon: Database,
     title: "Bulk Scraping",
-    description: "Extract valuable data at scale from websites and platforms. Clean, structured data delivered for lead generation, market research, and business intelligence."
+    description: "Extract competitor prices, supplier catalogs, and leads from JustDial/IndiaMART — delivered in Excel, ready to use."
   },
   {
     icon: Puzzle,
     title: "Chrome Extensions",
-    description: "Custom browser extensions to boost productivity and automate workflows. From data extraction tools to custom utilities tailored to your needs."
+    description: "Custom browser tools for your sales team — auto-fill GST portals, build quotes faster, extract data on the go."
   }
 ];
 
@@ -36,7 +41,7 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
           {services.map((service, index) => (
             <div
               key={index}

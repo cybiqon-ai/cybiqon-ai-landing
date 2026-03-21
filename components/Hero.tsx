@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Users, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle2, Users, TrendingUp, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 import AnimatedBackground from "./AnimatedBackground";
 import BusinessGrowthVisual from "./BusinessGrowthVisual";
 import IndustrySphere3D from "./IndustrySphere3D";
@@ -39,16 +40,20 @@ const Hero = () => {
           {/* Main headline */}
           <div className="text-center space-y-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight font-heading mb-8">
-              <span className="text-foreground">Your Business Deserves a</span>
+              <span className="text-foreground">Finally, Tech That Works for</span>
               <br />
-              <span className="gradient-text">Strong Online Presence</span>
+              <span className="gradient-text">Indian MSMEs</span>
+              <span className="text-foreground"> — Not Against Them</span>
             </h1>
 
             <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              We build websites, apps, AI automations, and custom tools for growing businesses.
+              We build affordable websites and AI automations so you can focus on running your business — not chasing tech vendors.
             </p>
             <p className="text-base md:text-lg text-muted-foreground/80 max-w-2xl mx-auto mt-4">
-              Fast delivery. Fair pricing. Zero tech headaches — built for Indian MSMEs.
+              Fast delivery. Fair pricing. Zero tech headaches.
+            </p>
+            <p className="text-sm md:text-base font-semibold text-primary max-w-2xl mx-auto mt-2">
+              Enterprise-level tech at MSME-friendly prices
             </p>
 
             {/* Trust signals - micro */}
@@ -86,11 +91,19 @@ const Hero = () => {
               </Button>
             </div>
 
-            {/* Social proof hint */}
-            <p className="text-sm text-muted-foreground flex items-center justify-center gap-2 pt-2">
-              <Users className="w-4 h-4 text-secondary" />
-              Trusted by businesses like yours
+            {/* Free audit link */}
+            <p className="text-sm md:text-base text-muted-foreground pt-1">
+              or get a{" "}
+              <Link href="/free-audit" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80 transition-colors">
+                Free Website Audit
+              </Link>
             </p>
+
+            {/* Guarantee badge */}
+            <div className="flex items-center justify-center gap-2 pt-2 text-sm text-muted-foreground">
+              <ShieldCheck className="w-5 h-5 text-secondary" />
+              <span className="font-medium">100% Satisfaction Guarantee | Money-Back Promise</span>
+            </div>
           </div>
 
           {/* Business Growth Visual - moved down */}

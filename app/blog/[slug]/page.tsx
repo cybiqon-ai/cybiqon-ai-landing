@@ -30,15 +30,16 @@ function estimateReadingTime(html: string): number {
 }
 
 interface PageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
+    const { slug } = await params;
     const db = getDB();
     const post = await db.prepare(
       "SELECT title, excerpt, image_url, tags, slug FROM blog_posts WHERE slug = ? AND published = 1"
-    ).bind(params.slug).first<Post>();
+    ).bind(slug).first<Post>();
 
     if (!post) return { title: "Post Not Found" };
 
@@ -66,10 +67,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
+  const { slug } = await params;
   const db = getDB();
   const post = await db.prepare(
     "SELECT * FROM blog_posts WHERE slug = ? AND published = 1"
-  ).bind(params.slug).first<Post>();
+  ).bind(slug).first<Post>();
 
   if (!post) notFound();
 

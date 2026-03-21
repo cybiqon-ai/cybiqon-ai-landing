@@ -1,22 +1,22 @@
-import { Building2, CheckCircle, Handshake, Headphones } from "lucide-react";
+import { ShieldCheck, Code2, Clock, Building2 } from "lucide-react";
 
 const TrustBar = () => {
   const trustItems = [
     {
+      icon: ShieldCheck,
+      text: "100% Satisfaction Guarantee",
+    },
+    {
+      icon: Code2,
+      text: "You Own the Code",
+    },
+    {
+      icon: Clock,
+      text: "24hr Response Time",
+    },
+    {
       icon: Building2,
-      text: "MSME Specialists",
-    },
-    {
-      icon: CheckCircle,
-      text: "Transparent Pricing",
-    },
-    {
-      icon: Handshake,
-      text: "Partnership Approach",
-    },
-    {
-      icon: Headphones,
-      text: "Real Support",
+      text: "Founded by MSMEs, for MSMEs",
     },
   ];
 

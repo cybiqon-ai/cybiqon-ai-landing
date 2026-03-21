@@ -1,4 +1,4 @@
-import { DollarSign, Zap, TrendingUp } from "lucide-react";
+import { DollarSign, Zap, TrendingUp, Users, Code2, MessageCircle } from "lucide-react";
 
 const features = [
   {
@@ -15,7 +15,22 @@ const features = [
     icon: TrendingUp,
     title: "Fast & SEO Optimized",
     description: "Lightning-fast websites that rank on Google. Get found by customers searching for your services online."
-  }
+  },
+  {
+    icon: Users,
+    title: "You Get the Founders",
+    description: "Work directly with Muskan & Prajjwal — not interns or account managers. Your project gets founder-level attention from day one."
+  },
+  {
+    icon: Code2,
+    title: "Full Code Ownership",
+    description: "No vendor lock-in, ever. You own 100% of the code, files, and credentials. Walk away anytime — but we bet you won't want to."
+  },
+  {
+    icon: MessageCircle,
+    title: "WhatsApp-First Support",
+    description: "Reach us where you already are. Quick questions, status updates, feedback — just send a WhatsApp message. We respond within 24 hours."
+  },
 ];
 
 const WhyChooseUs = () => {
@@ -31,7 +46,7 @@ const WhyChooseUs = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {features.map((feature, index) => (
             <div
               key={index}

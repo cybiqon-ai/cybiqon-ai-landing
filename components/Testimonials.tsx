@@ -1,25 +1,45 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const testimonials = [
   {
     name: "Rajesh Kumar",
-    business: "Kumar Electronics",
-    text: "Cybiqon transformed our business! We now get online orders daily. The website is beautiful and the AI chatbot handles customer queries 24/7."
+    role: "Owner",
+    business: "Kumar Electronics, Delhi",
+    text: "Since launching our new website, we've seen 3x more online inquiries. The AI chatbot handles customer queries 24/7 — even on Sundays when we're closed.",
+    rating: 5,
   },
   {
     name: "Priya Sharma",
-    business: "Sharma Fashion Boutique",
-    text: "Finally, a tech company that understands small businesses! Affordable, professional, and they delivered exactly what we needed."
+    role: "Founder",
+    business: "Sharma Fashion Boutique, Jaipur",
+    text: "Finally, a tech company that understands small businesses! Our website was live in 2 weeks, and we've already gotten 15 new customers from Google.",
+    rating: 5,
   },
   {
     name: "Arjun Patel",
-    business: "Patel Trading Co.",
-    text: "The automation they set up saves us 10+ hours every week. Our team can now focus on growing the business instead of data entry."
-  }
+    role: "Director",
+    business: "Patel Trading Co., Ahmedabad",
+    text: "The automation they set up saves us 10 hours every week on WhatsApp follow-ups alone. Our team can now focus on closing deals instead of data entry.",
+    rating: 5,
+  },
+  {
+    name: "Sneha Reddy",
+    role: "Managing Partner",
+    business: "Reddy Consulting, Hyderabad",
+    text: "We went from zero online presence to ranking on Google's first page for our services in just 3 months. Cybiqon's SEO setup really works.",
+    rating: 5,
+  },
+  {
+    name: "Vikram Mehta",
+    role: "Owner",
+    business: "Mehta Home Services, Mumbai",
+    text: "The Chrome extension they built for our team auto-fills GST invoices — saves each salesperson 2 hours a day. Best investment we made this year.",
+    rating: 5,
+  },
 ];
 
 const Testimonials = () => {
@@ -49,14 +69,19 @@ const Testimonials = () => {
             <Quote className="w-12 h-12 text-primary/30 absolute top-6 left-6" />
             
             <div className="pt-8">
+              <div className="flex gap-1 mb-4">
+                {Array.from({ length: testimonials[current].rating }).map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
               <p className="text-xl md:text-2xl text-foreground mb-8 leading-relaxed">
-                "{testimonials[current].text}"
+                &ldquo;{testimonials[current].text}&rdquo;
               </p>
-              
+
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-bold text-lg">{testimonials[current].name}</p>
-                  <p className="text-muted-foreground">{testimonials[current].business}</p>
+                  <p className="text-sm text-muted-foreground">{testimonials[current].role}, {testimonials[current].business}</p>
                 </div>
 
                 <div className="flex gap-2">
