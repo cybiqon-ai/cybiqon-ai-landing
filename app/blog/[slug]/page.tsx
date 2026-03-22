@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Calendar, Clock, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, User } from "lucide-react";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
 import TagPill from "@/components/blog/TagPill";
@@ -75,7 +75,12 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   if (!post) notFound();
 
-  const tagList = post.tags ? post.tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
+  const tagList = post.tags
+    ? post.tags
+        .split(",")
+        .map((t) => t.trim())
+        .filter((t) => t && !/["\[\]{}()]/.test(t))
+    : [];
   const date = new Date(post.created_at);
   const readingTime = estimateReadingTime(post.content);
 
@@ -105,42 +110,74 @@ export default async function BlogPostPage({ params }: PageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <article className="pt-24 sm:pt-32 section-padding">
-        <div className="content-container max-w-4xl mx-auto">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
-            <ArrowLeft className="w-4 h-4" /> Back to Blog
+      <article className="pt-24 pb-8 md:pt-32 md:pb-16">
+        <div className="mx-auto max-w-3xl px-6 md:px-10">
+          {/* Back link */}
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors mb-8"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" /> Back to blog
           </Link>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-heading mb-6 leading-tight">{post.title}</h1>
+          {/* Topic pill */}
+          {post.topic && (
+            <p className="inline-block text-[11px] font-medium px-2.5 py-1 rounded-full bg-primary/10 text-primary mb-4">
+              {post.topic}
+            </p>
+          )}
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+          {/* Title */}
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold mb-4 leading-tight tracking-tight">
+            {post.title}
+          </h1>
+
+          {/* Meta row */}
+          <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground mb-6">
             <div className="flex items-center gap-1.5">
-              <Calendar className="w-4 h-4" />
-              <time dateTime={date.toISOString()}>{format(date, "MMMM d, yyyy")}</time>
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+                <User className="w-3 h-3 text-primary" />
+              </div>
+              <span className="font-medium text-foreground">Cybiqon Team</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4" />
+              <Calendar className="w-3.5 h-3.5" />
+              <time dateTime={date.toISOString()}>{format(date, "MMM d, yyyy")}</time>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5" />
               <span>{readingTime} min read</span>
             </div>
           </div>
 
+          {/* Tags */}
           {tagList.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-8">
-              {tagList.map((tag) => (<TagPill key={tag} tag={tag} />))}
+            <div className="flex flex-wrap gap-1.5 mb-8">
+              {tagList.slice(0, 6).map((tag) => (
+                <TagPill key={tag} tag={tag} />
+              ))}
             </div>
           )}
 
+          {/* Featured image */}
           {post.image_url && (
-            <div className="rounded-2xl overflow-hidden mb-10 border border-border">
-              <img src={post.image_url} alt={post.title} className="w-full h-auto object-cover" loading="eager" />
+            <div className="rounded-xl overflow-hidden mb-10 border border-border">
+              <img
+                src={post.image_url}
+                alt={post.title}
+                className="w-full h-auto object-cover"
+                loading="eager"
+              />
             </div>
           )}
 
+          {/* Article content */}
           <div
-            className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-p:text-muted-foreground prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-ul:text-muted-foreground prose-ol:text-muted-foreground prose-li:marker:text-primary prose-img:rounded-xl prose-img:border prose-img:border-border prose-blockquote:border-primary prose-blockquote:text-muted-foreground"
+            className="prose prose-sm md:prose-base max-w-none prose-headings:font-extrabold prose-h2:text-lg prose-h2:md:text-xl prose-h2:mt-8 prose-h2:mb-3 prose-h3:text-base prose-h3:mt-6 prose-h3:mb-2 prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:text-sm prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-ul:text-muted-foreground prose-ul:text-sm prose-ol:text-muted-foreground prose-ol:text-sm prose-li:marker:text-primary prose-img:rounded-xl prose-img:border prose-img:border-border prose-blockquote:border-primary prose-blockquote:text-muted-foreground prose-blockquote:text-sm"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
+          {/* CTA */}
           <BlogCTA />
         </div>
       </article>
