@@ -1,20 +1,13 @@
 "use client";
 
-import type { Metadata } from "next";
-import { CheckCircle, Heart, Lightbulb, Target, Users, Zap } from "lucide-react";
+import { CheckCircle, Heart, Lightbulb, Target, Users, Zap, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const About = () => {
   const handleBookCall = () => {
     window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
   };
-
-  const values = [
-    { icon: Heart, title: "Transparency", description: "Honest pricing, clear communication, no hidden surprises. We believe trust is built on openness." },
-    { icon: Target, title: "Quality", description: "Modern, reliable solutions built with care. We don't cut corners\u2014your success is our reputation." },
-    { icon: Users, title: "Partnership", description: "You're not just a client, you're a partner. We succeed when you succeed, and we're here for the long haul." },
-    { icon: Zap, title: "Growth", description: "We're growing with you. As a young company, we understand the challenges MSMEs face every day." },
-  ];
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -29,140 +22,256 @@ const About = () => {
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <section className="pt-32 sm:pt-32 pb-18 md:pb-12 lg:pb-24 px-4">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-6">
-              Building the Future of <span className="gradient-text">MSME Digital Transformation</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-              We're a passionate team dedicated to making enterprise-level technology accessible to small and medium businesses across India.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Hero — split layout */}
+      <HeroSection handleBookCall={handleBookCall} />
 
-      <section className="py-8 md:py-3 bg-background">
-        <div className="content-container">
-          <div className="text-center mb-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-1">Meet Our <span className="gradient-text">Founders</span></h2>
-            <p className="text-muted-foreground text-lg">The visionaries behind Cybiqon AI</p>
-          </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-14">
-            <div className="text-center">
-              <div className="mb-2">
-                <div className="w-44 h-44 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-br from-primary to-secondary">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-background">
-                    <img src="/founder1.jpg" alt="Muskan Singh - Co-Founder & CEO" className="w-full h-full object-cover" style={{ objectPosition: '50% 25%' }} />
-                  </div>
-                </div>
-              </div>
-              <h3 className="text-lg font-semibold text-foreground">Muskan Singh</h3>
-              <p className="text-muted-foreground text-sm">Co-Founder & CEO</p>
-            </div>
-            <div className="text-center">
-              <div className="mb-2">
-                <div className="w-44 h-44 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-br from-primary to-secondary">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-background">
-                    <img src="/founder2.jpg" alt="Prajjwal Pathak - Co-Founder & CTO" className="w-full h-full object-cover" style={{ objectPosition: '50% 30%' }} />
-                  </div>
-                </div>
-              </div>
-              <h3 className="text-lg font-semibold text-foreground">Prajjwal Pathak</h3>
-              <p className="text-muted-foreground text-sm">Co-Founder & CTO</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Our Story */}
+      <StorySection />
 
-      <section className="section-padding bg-muted/30">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8 text-center">Our <span className="gradient-text">Story</span></h2>
-            <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
-              <p>Cybiqon AI Solutions started with a simple observation: while large enterprises have access to cutting-edge technology and automation, small and medium businesses are often left behind—not because they don't need these tools, but because they're told they're too expensive or too complex.</p>
-              <p>We knew there had to be a better way. A way to bring modern websites, AI automation, and digital transformation to the businesses that form the backbone of India's economy—MSMEs.</p>
-              <p className="text-foreground font-semibold">That's why we built Cybiqon: to democratize technology for small businesses.</p>
-              <p>We're a growing company with a big mission. We're not a decades-old agency with hundreds of employees, and we're proud of that. It means we're nimble, we care deeply about every project, and we treat every client like the partner they are—not a ticket number.</p>
-              <p>Every business we help grow online, every hour we save through automation, every owner who gains confidence in their digital presence—that's why we do what we do.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Mission & Vision */}
+      <MissionVisionSection />
 
-      <section className="section-padding">
-        <div className="content-container">
-          <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            <div className="glass-card p-8">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6"><Target className="w-8 h-8 text-white" /></div>
-              <h3 className="text-2xl font-bold font-heading mb-4">Our Mission</h3>
-              <p className="text-muted-foreground leading-relaxed">To empower every MSME in India with affordable, professional digital solutions that help them compete, grow, and thrive in the modern marketplace. We believe small businesses deserve big opportunities.</p>
-            </div>
-            <div className="glass-card p-8">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center mb-6"><Lightbulb className="w-8 h-8 text-white" /></div>
-              <h3 className="text-2xl font-bold font-heading mb-4">Our Vision</h3>
-              <p className="text-muted-foreground leading-relaxed">A future where every MSME has the digital tools they need to succeed—where technology is an enabler, not a barrier. Where business owners can focus on what they do best, while we handle the tech.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Values */}
+      <ValuesSection />
 
-      <section className="section-padding bg-muted/30">
-        <div className="content-container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">Our <span className="gradient-text">Values</span></h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">These aren't just words on a page—they guide every decision we make and every solution we build.</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-            {values.map((value, index) => (
-              <div key={index} className="glass-card p-6 text-center hover:shadow-xl transition-all duration-300">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4"><value.icon className="w-7 h-7 text-white" /></div>
-                <h3 className="text-xl font-bold font-heading mb-3">{value.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* How We're Different */}
+      <DifferentSection />
 
-      <section className="section-padding">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-12 text-center">How We're <span className="gradient-text">Different</span></h2>
-            <div className="space-y-6">
-              {[
-                { title: "MSME-First Mindset", desc: "We don't just say we work with small businesses—we're built for them. Our pricing, processes, and communication style are designed for busy business owners, not corporate IT departments." },
-                { title: "Modern Technology, No Jargon", desc: "We use cutting-edge tech (React, AI tools, cloud platforms) but explain everything in plain English. You don't need to know the tech—you just need to see the results." },
-                { title: "Partnership Over Vendor", desc: "We're not here to build your site and disappear. We're here to help you grow. That means ongoing support, honest advice, and celebrating your wins with you." },
-                { title: "Quality Without Compromise", desc: "Affordable doesn't mean cheap. We build the same quality we'd want for our own businesses—secure, fast, mobile-friendly, and built to last." },
-              ].map((item, i) => (
-                <div key={i} className="flex gap-4 items-start">
-                  <CheckCircle className="w-6 h-6 text-secondary flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-lg mb-2">{item.title}</h4>
-                    <p className="text-muted-foreground">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-gradient-to-b from-muted/30 to-transparent">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">We're Growing <span className="gradient-text">With You</span></h2>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">As a young company, we understand the challenges you face. We've experienced the uncertainty of starting something new, the excitement of growth, and the importance of every customer. We're building Cybiqon with the same care and attention you're building your business.</p>
-            <p className="text-lg text-foreground font-semibold mb-8">Your success stories become our success stories. Let's write yours together.</p>
-            <Button onClick={handleBookCall} size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-lg px-8 py-6 glow-effect-warm text-white font-semibold shadow-lg hover:shadow-xl">
-              Partner With Us
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* CTA */}
+      <CTASection handleBookCall={handleBookCall} />
     </div>
   );
 };
+
+/* ─── Hero ─── */
+function HeroSection({ handleBookCall }: { handleBookCall: () => void }) {
+  return (
+    <section className="pt-24 pb-12 md:pt-28 md:pb-14">
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-10 items-center">
+          {/* Left */}
+          <div>
+            <p className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/15 rounded-full text-[11px] font-medium text-primary mb-4">
+              <Users className="w-3 h-3" />
+              Founded by MSMEs, for MSMEs
+            </p>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.15] tracking-tight mb-4">
+              We make technology work for <span className="text-primary">small businesses</span>
+            </h1>
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg mb-5">
+              Cybiqon AI Solutions brings modern websites, AI automation, and digital tools to the businesses that form the backbone of India&apos;s economy — at prices they can actually afford.
+            </p>
+            <Button
+              onClick={handleBookCall}
+              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold shadow-lg hover:shadow-xl text-xs px-5 py-4"
+            >
+              Partner with us <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+            </Button>
+          </div>
+
+          {/* Right — Founders */}
+          <div className="flex items-center justify-center gap-5 lg:justify-end">
+            <div className="text-center">
+              <div className="w-28 h-28 md:w-32 md:h-32 rounded-2xl p-[3px] bg-gradient-to-br from-primary to-secondary mb-2">
+                <div className="w-full h-full rounded-[13px] overflow-hidden bg-background">
+                  <img src="/founder1.jpg" alt="Muskan Singh - Co-Founder & CEO" className="w-full h-full object-cover" style={{ objectPosition: '50% 25%' }} />
+                </div>
+              </div>
+              <p className="text-sm font-semibold">Muskan Singh</p>
+              <p className="text-[11px] text-muted-foreground">Co-Founder & CEO</p>
+            </div>
+            <div className="text-center mt-8">
+              <div className="w-28 h-28 md:w-32 md:h-32 rounded-2xl p-[3px] bg-gradient-to-br from-amber-500 to-orange-500 mb-2">
+                <div className="w-full h-full rounded-[13px] overflow-hidden bg-background">
+                  <img src="/founder2.jpg" alt="Prajjwal Pathak - Co-Founder & CTO" className="w-full h-full object-cover" style={{ objectPosition: '50% 30%' }} />
+                </div>
+              </div>
+              <p className="text-sm font-semibold">Prajjwal Pathak</p>
+              <p className="text-[11px] text-muted-foreground">Co-Founder & CTO</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Story ─── */
+function StorySection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  return (
+    <section className="py-12 md:py-14 bg-muted/30" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className="grid lg:grid-cols-[0.35fr_0.65fr] gap-8 items-start">
+          <div className={`reveal ${isVisible ? "visible" : ""}`}>
+            <h2 className="text-xl md:text-2xl font-extrabold tracking-tight mb-2">
+              Our <span className="text-primary">story</span>
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              How we started and why we keep going
+            </p>
+          </div>
+          <div className={`space-y-4 text-sm leading-relaxed text-muted-foreground reveal ${isVisible ? "visible" : ""}`} style={{ transitionDelay: "0.1s" }}>
+            <p>Cybiqon started with a simple observation: while large enterprises have access to cutting-edge technology, small businesses are left behind — not because they don&apos;t need these tools, but because they&apos;re told they&apos;re too expensive or too complex.</p>
+            <p>We knew there had to be a better way. A way to bring modern websites, AI automation, and digital tools to the businesses that form the backbone of India&apos;s economy.</p>
+            <p className="text-foreground font-semibold text-sm border-l-2 border-primary pl-4">
+              We&apos;re not a decades-old agency with hundreds of employees — and we&apos;re proud of that. It means we care deeply about every project and treat every client like a partner, not a ticket number.
+            </p>
+            <p>Every business we help grow online, every hour we save through automation, every owner who gains confidence in their digital presence — that&apos;s why we do what we do.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Mission & Vision ─── */
+function MissionVisionSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  return (
+    <section className="py-12 md:py-14" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-4">
+          {/* Mission — larger card */}
+          <div className={`warm-card p-6 reveal ${isVisible ? "visible" : ""}`}>
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-4">
+              <Target className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="text-base font-bold mb-2">Our mission</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              To empower every MSME in India with affordable, professional digital solutions that help them compete, grow, and thrive. We believe small businesses deserve big opportunities.
+            </p>
+          </div>
+
+          {/* Vision — smaller, different surface */}
+          <div className={`border border-border bg-white rounded-2xl p-6 reveal ${isVisible ? "visible" : ""}`} style={{ transitionDelay: "0.1s" }}>
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center mb-4">
+              <Lightbulb className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="text-base font-bold mb-2">Our vision</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              A future where every MSME has the digital tools they need to succeed — where technology is an enabler, not a barrier, and business owners can focus on what they do best.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Values ─── */
+function ValuesSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  const values = [
+    { icon: Heart, title: "Transparency", description: "Honest pricing, clear communication, no hidden surprises. Trust is built on openness." },
+    { icon: Target, title: "Quality", description: "Modern, reliable solutions built with care. We don't cut corners — your success is our reputation." },
+    { icon: Users, title: "Partnership", description: "You're not just a client. We succeed when you succeed, and we're here for the long haul." },
+    { icon: Zap, title: "Growth", description: "As a young company, we understand the challenges MSMEs face every single day." },
+  ];
+
+  return (
+    <section className="py-12 md:py-14 bg-muted/30" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className={`mb-8 reveal ${isVisible ? "visible" : ""}`}>
+          <h2 className="text-xl md:text-2xl font-extrabold tracking-tight mb-2">
+            What we <span className="text-primary">stand for</span>
+          </h2>
+          <p className="text-xs md:text-sm text-muted-foreground max-w-lg">
+            These aren&apos;t just words — they guide every decision we make.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4">
+          {values.map((value, index) => (
+            <div
+              key={index}
+              className={`flex items-start gap-4 p-5 rounded-xl ${index === 0 ? "bg-emerald-50 border border-emerald-200/60" : index === 1 ? "glass-card" : index === 2 ? "warm-card" : "border border-border bg-white rounded-2xl"} reveal ${isVisible ? "visible" : ""}`}
+              style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
+            >
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                <value.icon className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold mb-1">{value.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{value.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── How We're Different ─── */
+function DifferentSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  const points = [
+    { title: "MSME-first mindset", desc: "Our pricing, processes, and communication style are designed for busy business owners, not corporate IT departments." },
+    { title: "Modern tech, no jargon", desc: "We use cutting-edge tools but explain everything in plain language. You don't need to know the tech — you just need to see the results." },
+    { title: "Partnership over vendor", desc: "We're not here to build your site and disappear. We're here to help you grow — ongoing support, honest advice, and celebrating your wins." },
+    { title: "Quality without compromise", desc: "Affordable doesn't mean cheap. We build the same quality we'd want for our own businesses — secure, fast, mobile-friendly, and built to last." },
+  ];
+
+  return (
+    <section className="py-12 md:py-14" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className={`mb-8 reveal ${isVisible ? "visible" : ""}`}>
+          <h2 className="text-xl md:text-2xl font-extrabold tracking-tight mb-2">
+            How we&apos;re <span className="text-primary">different</span>
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-x-8 gap-y-5">
+          {points.map((item, i) => (
+            <div
+              key={i}
+              className={`flex gap-3 items-start reveal ${isVisible ? "visible" : ""}`}
+              style={{ transitionDelay: `${(i + 1) * 0.1}s` }}
+            >
+              <CheckCircle className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-bold text-sm mb-1">{item.title}</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── CTA ─── */
+function CTASection({ handleBookCall }: { handleBookCall: () => void }) {
+  const { ref, isVisible } = useScrollReveal();
+
+  return (
+    <section className="py-12 md:py-14 bg-primary" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className={`flex flex-col md:flex-row md:items-center md:justify-between gap-6 reveal ${isVisible ? "visible" : ""}`}>
+          <div>
+            <h2 className="text-lg md:text-xl font-extrabold text-white tracking-tight mb-1.5">
+              Your success stories become ours
+            </h2>
+            <p className="text-xs md:text-sm text-white/70 max-w-md">
+              We&apos;re growing with you. Let&apos;s write your growth story together.
+            </p>
+          </div>
+          <Button
+            onClick={handleBookCall}
+            className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg text-xs px-6 py-4 flex-shrink-0"
+          >
+            Book a free call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default About;

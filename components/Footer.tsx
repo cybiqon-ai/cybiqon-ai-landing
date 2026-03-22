@@ -3,8 +3,8 @@ import { Mail, Phone, Linkedin, Facebook, MessageCircle, Send, Instagram } from 
 
 const Footer = () => {
   return (
-    <footer className="py-12 border-t border-border bg-muted/30">
-      <div className="container mx-auto px-4">
+    <footer className="py-8 md:py-12 border-t border-border bg-muted/30">
+      <div className="mx-auto max-w-5xl px-4 md:px-2 lg:px-1">
         <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8">
           <div>
             <Link href="/" className="flex items-center gap-1 mb-4 hover:opacity-80 transition-opacity">

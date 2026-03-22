@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { Store, Utensils, Heart, Wrench, Shirt, Home } from "lucide-react";
 
 const industries = [
-  { icon: Store, name: "Retail Shops", color: "from-blue-500 to-indigo-500" },
-  { icon: Utensils, name: "Restaurants", color: "from-orange-500 to-amber-500" },
-  { icon: Heart, name: "Healthcare", color: "from-emerald-500 to-green-500" },
-  { icon: Wrench, name: "Services", color: "from-blue-600 to-cyan-500" },
-  { icon: Shirt, name: "Fashion", color: "from-violet-500 to-purple-500" },
-  { icon: Home, name: "Real Estate", color: "from-green-600 to-teal-500" },
+  { icon: Store, name: "Retail Shops", color: "from-blue-500 to-indigo-500", result: "3x more inquiries" },
+  { icon: Utensils, name: "Restaurants", color: "from-orange-500 to-amber-500", result: "Online orders in 2 weeks" },
+  { icon: Heart, name: "Healthcare", color: "from-emerald-500 to-green-500", result: "Patient bookings automated" },
+  { icon: Wrench, name: "Services", color: "from-blue-600 to-cyan-500", result: "10+ hours saved weekly" },
+  { icon: Shirt, name: "Fashion", color: "from-violet-500 to-purple-500", result: "First page on Google" },
+  { icon: Home, name: "Real Estate", color: "from-green-600 to-teal-500", result: "Lead capture automated" },
 ];
 
 const IndustryShowcase = () => {
@@ -18,42 +18,47 @@ const IndustryShowcase = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % industries.length);
-    }, 1500);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="section-padding relative overflow-hidden">
-      {/* Content Layer */}
+    <section className="hidden md:block py-8 md:py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-4">
-            We Serve <span className="gradient-text">All Industries</span>
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
+            We Serve <span className="text-primary">All Industries</span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            From local shops to growing enterprises
+          <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
+            From local shops to growing enterprises — with real results
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-4xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-3xl mx-auto">
           {industries.map((industry, index) => (
-            <div
+            <button
               key={index}
-              className={`flex flex-col items-center gap-2 p-4 rounded-xl transition-all duration-500 ${
+              onClick={() => setActiveIndex(index)}
+              className={`flex flex-col items-center gap-1.5 p-3 rounded-xl transition-all duration-500 cursor-pointer ${
                 index === activeIndex
                   ? 'scale-110 glass-card shadow-xl'
-                  : 'scale-90 opacity-50 hover:opacity-100'
+                  : 'scale-90 opacity-50 hover:opacity-80'
               }`}
             >
               <div
-                className={`w-16 h-16 rounded-xl bg-gradient-to-br ${industry.color} flex items-center justify-center ${
-                  index === activeIndex ? 'animate-bounce' : ''
+                className={`w-12 h-12 rounded-lg bg-gradient-to-br ${industry.color} flex items-center justify-center transition-transform duration-500 ${
+                  index === activeIndex ? 'scale-110' : ''
                 }`}
               >
-                <industry.icon className="w-8 h-8 text-white" />
+                <industry.icon className="w-6 h-6 text-white" />
               </div>
-              <span className="text-sm font-medium">{industry.name}</span>
-            </div>
+              <span className="text-xs font-medium">{industry.name}</span>
+              {index === activeIndex && (
+                <span className="text-xs font-medium text-secondary bg-secondary/10 px-2.5 py-1 rounded-full">
+                  {industry.result}
+                </span>
+              )}
+            </button>
           ))}
         </div>
       </div>
