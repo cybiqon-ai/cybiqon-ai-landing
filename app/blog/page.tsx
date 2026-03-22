@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Badge } from "@/components/ui/badge";
 import BlogTagFilter from "@/components/blog/BlogTagFilter";
 import { getDB } from "@/lib/db";
 
@@ -47,18 +46,18 @@ export default async function BlogPage() {
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <section className="pt-24 sm:pt-32 pb-12 section-padding">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-4 bg-gradient-to-r from-blue-50 to-emerald-50 text-primary border-primary/20">
-              Insights & Ideas
-            </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-6">
-              The Cybiqon <span className="gradient-text">Blog</span>
+      {/* Hero */}
+      <section className="pt-24 pb-8 md:pt-28 md:pb-10">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/15 rounded-full text-[11px] font-medium text-primary mb-4">
+              Insights & ideas
+            </p>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.15] tracking-tight mb-3">
+              The Cybiqon <span className="text-primary">blog</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-              Daily insights on AI, automation, and how technology is
-              transforming small businesses in India.
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg">
+              Daily insights on AI, automation, and how technology is transforming small businesses in India.
             </p>
           </div>
         </div>

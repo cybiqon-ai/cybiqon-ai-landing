@@ -10,10 +10,12 @@ import {
   Calendar,
   ArrowRight,
   Instagram,
-  Linkedin
+  Linkedin,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import Link from "next/link";
 
 const Contact = () => {
   const handleBookCall = () => {
@@ -24,19 +26,9 @@ const Contact = () => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://cybiqon.in/'
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Contact',
-        item: 'https://cybiqon.in/contact'
-      }
-    ]
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://cybiqon.in/' },
+      { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://cybiqon.in/contact' },
+    ],
   };
 
   const localBusinessSchema = {
@@ -49,357 +41,69 @@ const Contact = () => {
     image: 'https://cybiqon.in/logo.png',
     telephone: '+91-92507-11473',
     email: 'support@cybiqon.in',
-    address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'IN'
-    },
+    address: { '@type': 'PostalAddress', addressCountry: 'IN' },
     openingHours: 'Mo-Fr 10:00-18:00',
     sameAs: [
       'https://www.linkedin.com/company/cybiqon-ai-solutions',
       'https://www.facebook.com/cybiqon.ai.solutions/',
       'https://www.instagram.com/cybiqon.ai',
-      'https://t.me/cybiqonai'
+      'https://t.me/cybiqonai',
     ],
     priceRange: '₹₹',
-    areaServed: {
-      '@type': 'Country',
-      name: 'India'
-    }
+    areaServed: { '@type': 'Country', name: 'India' },
   };
-
-  const contactMethods = [
-    {
-      icon: Calendar,
-      title: "Book a Free Call",
-      description: "30-minute consultation to discuss your project",
-      action: "Schedule Now",
-      link: "https://tidycal.com/itspyguru/cybiqon-30-minute-meeting",
-      highlight: true
-    },
-    {
-      icon: Mail,
-      title: "Email Us",
-      description: "support@cybiqon.in",
-      action: "Send Email",
-      link: "mailto:support@cybiqon.in",
-      highlight: false
-    },
-    {
-      icon: Phone,
-      title: "Call or WhatsApp",
-      description: "+91 92507 11473",
-      action: "WhatsApp Us",
-      link: "https://wa.me/919250711473",
-      highlight: false
-    },
-    {
-      icon: Send,
-      title: "Telegram",
-      description: "Quick messages and updates",
-      action: "Message on Telegram",
-      link: "https://t.me/cybiqonai",
-      highlight: false
-    }
-  ];
-
-  const officeHours = [
-    { day: "Monday - Friday", hours: "9:00 AM - 7:00 PM IST" },
-    { day: "Saturday", hours: "10:00 AM - 4:00 PM IST" },
-    { day: "Sunday", hours: "Closed (Emergency support available)" }
-  ];
-
-  const quickLinks = [
-    { label: "View Our Solutions", link: "/solutions" },
-    { label: "Check Pricing", link: "/pricing" },
-    { label: "See How It Works", link: "/process" },
-    { label: "Read FAQs", link: "/faq" }
-  ];
-
-  const socialLinks = [
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      url: "https://www.linkedin.com/company/cybiqon-ai-solutions",
-      color: "text-blue-600"
-    },
-    {
-      name: "Instagram",
-      icon: Instagram,
-      url: "https://www.instagram.com/cybiqon.ai",
-      color: "text-pink-500"
-    },
-    {
-      name: "Telegram",
-      icon: Send,
-      url: "https://t.me/cybiqonai",
-      color: "text-blue-500"
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-background">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
 
-      {/* Hero Section */}
-      <section className="pt-24 sm:pt-32 pb-16 section-padding">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-4 bg-gradient-to-r from-blue-50 to-emerald-50 text-primary border-primary/20">
-              We're Here to Help
-            </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading mb-6">
-              Let's Talk About <span className="gradient-text">Your Project</span>
+      {/* Hero */}
+      <section className="pt-24 pb-8 md:pt-28 md:pb-10">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/15 rounded-full text-[11px] font-medium text-primary mb-4">
+              We&apos;re here to help
+            </p>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.15] tracking-tight mb-3">
+              Let&apos;s talk about your <span className="text-primary">project</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-              Ready to get your business online? Have questions? Want to discuss a custom solution?
-              Reach out—we're friendly, responsive, and always happy to help.
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg">
+              Ready to get your business online? Have questions? Reach out — we&apos;re friendly, responsive, and always happy to help.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Primary Contact Methods */}
-      <section className="section-padding bg-gradient-to-b from-muted/30 to-transparent">
-        <div className="content-container">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-12 text-center">
-              Choose Your <span className="gradient-text">Preferred Method</span>
-            </h2>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {contactMethods.map((method, index) => (
-                <a
-                  key={index}
-                  href={method.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`glass-card p-6 text-center hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group ${
-                    method.highlight ? 'border-2 border-primary scale-105' : ''
-                  }`}
-                >
-                  {method.highlight && (
-                    <Badge className="mb-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white">
-                      Recommended
-                    </Badge>
-                  )}
-                  <div className={`w-16 h-16 rounded-2xl ${
-                    method.highlight
-                      ? 'bg-gradient-to-br from-amber-500 to-orange-500'
-                      : 'bg-gradient-to-br from-primary to-secondary'
-                  } flex items-center justify-center mx-auto mb-4`}>
-                    <method.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="font-bold text-lg mb-2">{method.title}</h4>
-                  <p className="text-sm text-muted-foreground mb-4">{method.description}</p>
-                  <div className="flex items-center justify-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all">
-                    {method.action}
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Contact Methods */}
+      <ContactMethodsSection handleBookCall={handleBookCall} />
 
       {/* Why Book a Call */}
-      <section className="section-padding">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8 text-center">
-              Why <span className="gradient-text">Book a Call?</span>
-            </h2>
-            <p className="text-lg text-muted-foreground text-center mb-12">
-              A quick 30-minute conversation helps us understand your needs and give you honest, personalized advice.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="glass-card p-6">
-                <MessageSquare className="w-10 h-10 text-primary mb-4" />
-                <h4 className="font-bold mb-2">Get Clear Answers</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Ask anything about our process, pricing, timeline, or what solution is right for you.
-                  No jargon, no sales pitch—just honest conversation.
-                </p>
-              </div>
-
-              <div className="glass-card p-6">
-                <Clock className="w-10 h-10 text-primary mb-4" />
-                <h4 className="font-bold mb-2">Exact Quote & Timeline</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  We'll understand your requirements and give you a detailed quote and timeline on the spot.
-                  No waiting, no back-and-forth.
-                </p>
-              </div>
-
-              <div className="glass-card p-6">
-                <MapPin className="w-10 h-10 text-primary mb-4" />
-                <h4 className="font-bold mb-2">See If We're a Fit</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Not every project is a good fit—and that's okay! We'll be upfront if we're not the right
-                  agency for your needs and point you in the right direction.
-                </p>
-              </div>
-
-              <div className="glass-card p-6">
-                <ArrowRight className="w-10 h-10 text-primary mb-4" />
-                <h4 className="font-bold mb-2">Fast-Track Your Project</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  If you're ready to move forward, we can start planning immediately after the call.
-                  The sooner we start, the sooner you're online!
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-12 text-center">
-              <Button
-                onClick={handleBookCall}
-                size="lg"
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-lg px-8 py-6 glow-effect-warm text-white font-semibold shadow-lg hover:shadow-xl"
-              >
-                Book Your Free 30-Minute Call <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WhyBookSection handleBookCall={handleBookCall} />
 
       {/* Office Hours & Response Time */}
-      <section className="section-padding bg-muted/30">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Office Hours */}
-              <div className="glass-card p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <Clock className="w-8 h-8 text-primary" />
-                  <h3 className="text-2xl font-bold font-heading">Office Hours</h3>
-                </div>
-                <div className="space-y-3">
-                  {officeHours.map((schedule, index) => (
-                    <div key={index} className="flex justify-between items-center border-b border-border pb-3">
-                      <span className="font-medium">{schedule.day}</span>
-                      <span className="text-muted-foreground">{schedule.hours}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground mt-6">
-                  Based in India (IST timezone). We're flexible for international clients!
-                </p>
-              </div>
+      <DetailsSection />
 
-              {/* Response Time */}
-              <div className="glass-card p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <MessageSquare className="w-8 h-8 text-primary" />
-                  <h3 className="text-2xl font-bold font-heading">Response Time</h3>
-                </div>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-bold mb-2">Email & WhatsApp</h4>
-                    <p className="text-sm text-muted-foreground">
-                      We typically respond within <strong className="text-foreground">24 hours</strong>
-                      {" "}(usually much faster during business hours).
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-bold mb-2">Emergency Support</h4>
-                    <p className="text-sm text-muted-foreground">
-                      For active clients with urgent issues, we offer priority support even outside office hours.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-bold mb-2">Scheduled Calls</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Book a call for a guaranteed time slot. We'll send a calendar invite and reminder.
-                    </p>
-                  </div>
-                </div>
-              </div>
+      {/* Social + Quick Links */}
+      <BottomSection />
+
+      {/* CTA */}
+      <section className="py-12 md:py-14 bg-primary">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <h2 className="text-lg md:text-xl font-extrabold text-white tracking-tight mb-1.5">
+                Ready to get started?
+              </h2>
+              <p className="text-xs md:text-sm text-white/70 max-w-md">
+                Book a quick call and we&apos;ll map out the best path forward — together.
+              </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Media */}
-      <section className="section-padding">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8">
-              Follow Us on <span className="gradient-text">Social Media</span>
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Stay updated with tips, project showcases, and MSME resources.
-            </p>
-
-            <div className="flex justify-center gap-6">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-16 h-16 rounded-2xl glass-card flex items-center justify-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
-                >
-                  <social.icon className={`w-8 h-8 ${social.color} group-hover:scale-110 transition-transform`} />
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Links */}
-      <section className="section-padding bg-muted/30">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8">
-              Not Ready to Reach Out Yet?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Learn more about what we do before getting in touch:
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              {quickLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.link}
-                  className="glass-card p-6 flex items-center justify-between hover:shadow-lg transition-all duration-300 group"
-                >
-                  <span className="font-semibold">{link.label}</span>
-                  <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-2 transition-transform" />
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="section-padding">
-        <div className="content-container">
-          <div className="max-w-3xl mx-auto text-center glass-card p-12">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-              Ready to <span className="gradient-text">Get Started?</span>
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              The easiest way to move forward is to book a quick call. We'll answer your questions,
-              understand your needs, and map out the best path forward—together.
-            </p>
             <Button
               onClick={handleBookCall}
-              size="lg"
-              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-lg px-8 py-6 glow-effect-warm text-white font-semibold shadow-lg hover:shadow-xl"
+              className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg text-xs px-6 py-4 flex-shrink-0"
             >
-              Book Your Free Call <ArrowRight className="ml-2 w-5 h-5" />
+              Book your free call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
             </Button>
           </div>
         </div>
@@ -407,5 +111,285 @@ const Contact = () => {
     </div>
   );
 };
+
+/* ─── Contact Methods ─── */
+
+function ContactMethodsSection({ handleBookCall }: { handleBookCall: () => void }) {
+  const { ref, isVisible } = useScrollReveal();
+
+  const methods = [
+    {
+      icon: Calendar,
+      title: "Book a free call",
+      description: "30-minute consultation to discuss your project",
+      action: "Schedule now",
+      link: "https://tidycal.com/itspyguru/cybiqon-30-minute-meeting",
+      highlight: true,
+      cardStyle: "warm-card",
+    },
+    {
+      icon: Mail,
+      title: "Email us",
+      description: "support@cybiqon.in",
+      action: "Send email",
+      link: "mailto:support@cybiqon.in",
+      highlight: false,
+      cardStyle: "glass-card",
+    },
+    {
+      icon: Phone,
+      title: "Call or WhatsApp",
+      description: "+91 92507 11473",
+      action: "WhatsApp us",
+      link: "https://wa.me/919250711473",
+      highlight: false,
+      cardStyle: "success-card",
+    },
+    {
+      icon: Send,
+      title: "Telegram",
+      description: "Quick messages and updates",
+      action: "Message on Telegram",
+      link: "https://t.me/cybiqonai",
+      highlight: false,
+      cardStyle: "border border-border bg-white rounded-2xl",
+    },
+  ];
+
+  return (
+    <section className="pb-10" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {methods.map((method, i) => (
+            <a
+              key={i}
+              href={method.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${method.cardStyle} p-4 group hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 relative block reveal ${isVisible ? "visible" : ""}`}
+              style={{ transitionDelay: `${i * 0.08}s` }}
+            >
+              {method.highlight && (
+                <Badge className="absolute -top-2 left-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] px-2 py-0">
+                  Recommended
+                </Badge>
+              )}
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center mb-3 ${
+                method.highlight
+                  ? 'bg-gradient-to-br from-amber-500 to-orange-500'
+                  : 'bg-gradient-to-br from-primary to-secondary'
+              }`}>
+                <method.icon className="w-4 h-4 text-white" />
+              </div>
+              <h4 className="text-sm font-bold mb-0.5">{method.title}</h4>
+              <p className="text-[11px] text-muted-foreground mb-3">{method.description}</p>
+              <div className="flex items-center gap-1 text-xs font-medium text-primary group-hover:gap-1.5 transition-all">
+                {method.action}
+                <ArrowRight className="w-3 h-3" />
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Why Book a Call ─── */
+
+function WhyBookSection({ handleBookCall }: { handleBookCall: () => void }) {
+  const { ref, isVisible } = useScrollReveal();
+
+  const reasons = [
+    { icon: MessageSquare, title: "Get clear answers", desc: "Ask anything about our process, pricing, or timeline. No jargon, no sales pitch." },
+    { icon: Clock, title: "Exact quote & timeline", desc: "We'll understand your requirements and give you a detailed quote on the spot." },
+    { icon: MapPin, title: "See if we're a fit", desc: "Not every project is a good fit — and that's okay. We'll be upfront and honest." },
+    { icon: ArrowRight, title: "Fast-track your project", desc: "Ready to move forward? We can start planning immediately after the call." },
+  ];
+
+  return (
+    <section className="py-12 md:py-14 bg-muted/30" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className={`mb-6 reveal ${isVisible ? "visible" : ""}`}>
+          <h2 className="text-xl md:text-2xl font-extrabold tracking-tight mb-2">
+            Why <span className="text-primary">book a call</span>?
+          </h2>
+          <p className="text-xs md:text-sm text-muted-foreground max-w-lg">
+            A quick 30-minute conversation helps us understand your needs and give you honest, personalized advice.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          {reasons.map((item, i) => (
+            <div
+              key={i}
+              className={`flex items-start gap-3 p-4 rounded-xl ${
+                i === 0 ? "warm-card" : i === 1 ? "glass-card" : i === 2 ? "success-card" : "border border-border bg-white rounded-2xl"
+              } reveal ${isVisible ? "visible" : ""}`}
+              style={{ transitionDelay: `${(i + 1) * 0.1}s` }}
+            >
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                <item.icon className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold mb-1">{item.title}</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className={`reveal ${isVisible ? "visible" : ""}`} style={{ transitionDelay: "0.5s" }}>
+          <Button
+            onClick={handleBookCall}
+            className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold shadow-lg text-xs px-5 py-4"
+          >
+            Book your free 30-minute call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Office Hours & Response Time ─── */
+
+function DetailsSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  const officeHours = [
+    { day: "Monday - Friday", hours: "9:00 AM - 7:00 PM IST" },
+    { day: "Saturday", hours: "10:00 AM - 4:00 PM IST" },
+    { day: "Sunday", hours: "Closed (emergency support available)" },
+  ];
+
+  return (
+    <section className="py-12 md:py-14" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className="grid md:grid-cols-2 gap-4">
+          {/* Office Hours */}
+          <div className={`warm-card p-5 reveal ${isVisible ? "visible" : ""}`}>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                <Clock className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-sm font-bold">Office hours</h3>
+            </div>
+            <div className="space-y-2.5">
+              {officeHours.map((schedule, i) => (
+                <div key={i} className="flex justify-between items-center border-b border-border/50 pb-2.5 last:border-0 last:pb-0">
+                  <span className="text-xs font-medium">{schedule.day}</span>
+                  <span className="text-xs text-muted-foreground">{schedule.hours}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-[11px] text-muted-foreground mt-3">
+              Based in India (IST). Flexible for international clients.
+            </p>
+          </div>
+
+          {/* Response Time */}
+          <div className={`glass-card p-5 reveal ${isVisible ? "visible" : ""}`} style={{ transitionDelay: "0.1s" }}>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                <MessageSquare className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-sm font-bold">Response time</h3>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <h4 className="text-xs font-bold mb-0.5">Email & WhatsApp</h4>
+                <p className="text-[11px] text-muted-foreground">
+                  Typically within <strong className="text-foreground">24 hours</strong> (usually much faster during business hours).
+                </p>
+              </div>
+              <div>
+                <h4 className="text-xs font-bold mb-0.5">Emergency support</h4>
+                <p className="text-[11px] text-muted-foreground">
+                  Active clients with urgent issues get priority support even outside office hours.
+                </p>
+              </div>
+              <div>
+                <h4 className="text-xs font-bold mb-0.5">Scheduled calls</h4>
+                <p className="text-[11px] text-muted-foreground">
+                  Book a call for a guaranteed time slot. We&apos;ll send a calendar invite and reminder.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Social + Quick Links ─── */
+
+function BottomSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  const socialLinks = [
+    { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/cybiqon-ai-solutions" },
+    { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/cybiqon.ai" },
+    { name: "Telegram", icon: Send, url: "https://t.me/cybiqonai" },
+  ];
+
+  const quickLinks = [
+    { label: "View our solutions", link: "/pricing" },
+    { label: "Check pricing", link: "/pricing" },
+    { label: "See how it works", link: "/process" },
+    { label: "Read FAQs", link: "/faq" },
+  ];
+
+  return (
+    <section className="py-12 md:py-14 bg-muted/30" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+        <div className="grid md:grid-cols-[0.4fr_0.6fr] gap-8">
+          {/* Social */}
+          <div className={`reveal ${isVisible ? "visible" : ""}`}>
+            <h3 className="text-sm font-bold mb-3">Follow us</h3>
+            <p className="text-xs text-muted-foreground mb-4">
+              Tips, project showcases, and MSME resources.
+            </p>
+            <div className="flex gap-2">
+              {socialLinks.map((social, i) => (
+                <a
+                  key={i}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full glass-card flex items-center justify-center hover:border-primary transition-colors"
+                  aria-label={social.name}
+                >
+                  <social.icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className={`reveal ${isVisible ? "visible" : ""}`} style={{ transitionDelay: "0.1s" }}>
+            <h3 className="text-sm font-bold mb-3">Not ready to reach out yet?</h3>
+            <p className="text-xs text-muted-foreground mb-4">
+              Learn more about what we do before getting in touch.
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {quickLinks.map((link, i) => (
+                <Link
+                  key={i}
+                  href={link.link}
+                  className="flex items-center justify-between p-3 rounded-xl border border-border bg-white hover:border-primary/40 hover:shadow-sm transition-all group text-xs font-medium"
+                >
+                  {link.label}
+                  <ArrowRight className="w-3 h-3 text-primary group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default Contact;

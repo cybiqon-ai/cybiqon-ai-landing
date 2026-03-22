@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Users, TrendingUp, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import AnimatedBackground from "./AnimatedBackground";
-import BusinessGrowthVisual from "./BusinessGrowthVisual";
-import IndustrySphere3D from "./IndustrySphere3D";
+import HeroDashboardMockup from "./HeroDashboardMockup";
+import HeroSocialProof from "./HeroSocialProof";
 
 const Hero = () => {
   const handleBookCall = () => {
@@ -17,98 +17,94 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-20">
+    <section className="relative min-h-[auto] lg:min-h-[100dvh] flex items-center overflow-hidden pt-24 pb-16 lg:pt-16 lg:pb-10">
       <AnimatedBackground />
 
-      {/* 3D Sphere positioned in right whitespace - moved up more */}
-      <div className="absolute bottom-40 right-10 hidden xl:block pointer-events-none">
-        <div className="relative w-[400px] h-[400px]">
-          <IndustrySphere3D enabled={true} />
-        </div>
-      </div>
+      <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10 lg:px-16">
+        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-center">
+          {/* Left column - Text content */}
+          <div className="space-y-4">
+            {/* Eyebrow text */}
+            <div className="lg:text-left text-center">
+              <p className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-emerald-50 border border-blue-200 rounded-full text-xs font-medium text-primary">
+                <TrendingUp className="w-3.5 h-3.5" />
+                Helping Indian MSMEs Grow Online Since 2025
+              </p>
+            </div>
 
-      <div className="content-container relative z-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Eyebrow text */}
-          <div className="text-center mb-6 animate-fade-in">
-            <p className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-emerald-50 border border-blue-200 rounded-full text-sm font-medium text-primary">
-              <TrendingUp className="w-4 h-4" />
-              Helping Indian MSMEs Grow Online Since 2025
-            </p>
-          </div>
-
-          {/* Main headline */}
-          <div className="text-center space-y-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight font-heading mb-8">
+            {/* Main headline */}
+            <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-[1.15] tracking-tight lg:text-left text-center">
               <span className="text-foreground">Finally, Tech That Works for</span>
               <br />
               <span className="gradient-text">Indian MSMEs</span>
               <span className="text-foreground"> — Not Against Them</span>
             </h1>
 
-            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg lg:text-left text-center">
               We build affordable websites and AI automations so you can focus on running your business — not chasing tech vendors.
             </p>
-            <p className="text-base md:text-lg text-muted-foreground/80 max-w-2xl mx-auto mt-4">
+
+            <p className="text-xs md:text-sm font-semibold text-primary lg:text-left text-center">
               Fast delivery. Fair pricing. Zero tech headaches.
-            </p>
-            <p className="text-sm md:text-base font-semibold text-primary max-w-2xl mx-auto mt-2">
-              Enterprise-level tech at MSME-friendly prices
             </p>
 
             {/* Trust signals - micro */}
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm md:text-base text-muted-foreground pt-4 pb-6">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-secondary" />
+            <div className="flex flex-wrap lg:justify-start justify-center gap-3 md:gap-5 text-xs md:text-sm text-muted-foreground">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
                 <span>2 Products Launched</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-secondary" />
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
                 <span>100% MSME Focused</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-secondary" />
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
                 <span>Based in India</span>
               </div>
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 lg:justify-start justify-center items-center pt-1">
               <Button
                 onClick={handleBookCall}
                 size="lg"
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-lg px-8 py-6 glow-effect-warm text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-sm px-6 py-5 glow-effect-warm text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
-                Book Free 30-Min Call <ArrowRight className="ml-2 w-5 h-5" />
+                Book Free 30-Min Call <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
               <Button
                 onClick={scrollToSolutions}
                 size="lg"
                 variant="outline"
-                className="border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300 text-lg px-8 py-6"
+                className="border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300 text-sm px-6 py-5"
               >
                 See Our Services
               </Button>
             </div>
 
-            {/* Free audit link */}
-            <p className="text-sm md:text-base text-muted-foreground pt-1">
-              or get a{" "}
-              <Link href="/free-audit" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80 transition-colors">
-                Free Website Audit
-              </Link>
-            </p>
-
-            {/* Guarantee badge */}
-            <div className="flex items-center justify-center gap-2 pt-2 text-sm text-muted-foreground">
-              <ShieldCheck className="w-5 h-5 text-secondary" />
-              <span className="font-medium">100% Satisfaction Guarantee | Money-Back Promise</span>
+            {/* Free audit + Guarantee */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs md:text-sm text-muted-foreground lg:justify-start justify-center">
+              <span>
+                or get a{" "}
+                <Link href="/free-audit" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80 transition-colors">
+                  Free Website Audit
+                </Link>
+              </span>
+              <span className="hidden sm:block text-border">|</span>
+              <span className="flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-secondary" />
+                <span className="font-medium">100% Satisfaction Guarantee</span>
+              </span>
             </div>
           </div>
 
-          {/* Business Growth Visual - moved down */}
-          <div className="mt-16 md:mt-20 lg:mt-24 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <BusinessGrowthVisual />
+          {/* Right column - Dashboard mockup + social proof */}
+          <div className="hidden lg:block pt-4">
+            <HeroDashboardMockup />
+            <div className="w-[calc(100%+4rem)] -mr-16">
+              <HeroSocialProof />
+            </div>
           </div>
         </div>
       </div>

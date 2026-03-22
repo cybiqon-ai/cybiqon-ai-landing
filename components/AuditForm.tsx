@@ -58,30 +58,29 @@ export default function AuditForm() {
 
   if (submitted) {
     return (
-      <div className="glass-card p-8 md:p-12 text-center space-y-4">
-        <CheckCircle2 className="w-16 h-16 text-secondary mx-auto" />
-        <h3 className="text-2xl font-bold">Thank You!</h3>
-        <p className="text-muted-foreground text-lg">
-          We&apos;ll review your website and get back within 48 hours with a
-          detailed audit report.
+      <div className="glass-card p-6 md:p-8 text-center space-y-3">
+        <CheckCircle2 className="w-10 h-10 text-secondary mx-auto" />
+        <h3 className="text-base font-bold">Thank you</h3>
+        <p className="text-xs text-muted-foreground">
+          We&apos;ll review your website and get back within 48 hours with a detailed audit report.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="glass-card p-8 md:p-10">
-      <h3 className="text-2xl font-bold mb-6">Get Your Free Audit</h3>
+    <div className="glass-card p-5 md:p-6">
+      <h3 className="text-sm font-bold mb-4">Get your free audit</h3>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel className="text-xs">Full name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Rajesh Kumar" {...field} />
+                  <Input placeholder="Rajesh Kumar" className="text-sm" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -92,13 +91,9 @@ export default function AuditForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email Address</FormLabel>
+                <FormLabel className="text-xs">Email address</FormLabel>
                 <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="rajesh@yourbusiness.com"
-                    {...field}
-                  />
+                  <Input type="email" placeholder="rajesh@yourbusiness.com" className="text-sm" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -109,13 +104,9 @@ export default function AuditForm() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number</FormLabel>
+                <FormLabel className="text-xs">Phone number</FormLabel>
                 <FormControl>
-                  <Input
-                    type="tel"
-                    placeholder="9876543210"
-                    {...field}
-                  />
+                  <Input type="tel" placeholder="9876543210" className="text-sm" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -126,13 +117,9 @@ export default function AuditForm() {
             name="website_url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Website URL</FormLabel>
+                <FormLabel className="text-xs">Website URL</FormLabel>
                 <FormControl>
-                  <Input
-                    type="url"
-                    placeholder="https://yourbusiness.com"
-                    {...field}
-                  />
+                  <Input type="url" placeholder="https://yourbusiness.com" className="text-sm" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -141,15 +128,15 @@ export default function AuditForm() {
           <Button
             type="submit"
             disabled={form.formState.isSubmitting}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold text-lg py-6"
+            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold text-xs px-5 py-4"
           >
             {form.formState.isSubmitting ? (
               <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
                 Submitting...
               </>
             ) : (
-              "Get My Free Audit"
+              "Get my free audit"
             )}
           </Button>
         </form>

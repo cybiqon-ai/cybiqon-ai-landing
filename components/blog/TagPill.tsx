@@ -4,7 +4,7 @@ interface TagPillProps {
 
 const TagPill = ({ tag }: TagPillProps) => {
   return (
-    <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+    <span className="inline-block px-2 py-0.5 text-[10px] font-medium rounded-full bg-muted text-muted-foreground">
       {tag}
     </span>
   );

@@ -1,27 +1,33 @@
-import { Building2, IndianRupee, ShieldCheck, Clock } from "lucide-react";
+"use client";
+
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const stats = [
-  { icon: Building2, value: "6+", label: "Industries Served" },
-  { icon: IndianRupee, value: "₹9,999", label: "Starting Price" },
-  { icon: ShieldCheck, value: "100%", label: "Satisfaction Guarantee" },
-  { icon: Clock, value: "24hr", label: "Response Time" },
+  { value: "6+", label: "Industries Served" },
+  { value: "\u20B99,999", label: "Starting Price" },
+  { value: "100%", label: "Satisfaction Guarantee" },
+  { value: "24hr", label: "Response Time" },
 ];
 
 const Stats = () => {
+  const { ref, isVisible } = useScrollReveal();
+
   return (
-    <section className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/20 to-transparent" />
+    <section className="py-8 md:py-14 relative bg-primary" ref={ref}>
       <div className="container mx-auto px-4 relative">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-3">
-                <stat.icon className="w-6 h-6 text-white" />
-              </div>
-              <div className="text-3xl md:text-4xl font-extrabold gradient-text mb-1">
+            <div
+              key={index}
+              className={`text-center reveal ${isVisible ? "visible" : ""}`}
+              style={{ transitionDelay: `${index * 0.1}s` }}
+            >
+              <div className="text-3xl md:text-4xl font-extrabold text-white mb-1 tracking-tight">
                 {stat.value}
               </div>
-              <div className="text-muted-foreground text-sm md:text-base">{stat.label}</div>
+              <div className="text-white/70 text-[11px] md:text-xs uppercase tracking-wider font-medium">
+                {stat.label}
+              </div>
             </div>
           ))}
         </div>

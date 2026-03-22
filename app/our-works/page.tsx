@@ -6,7 +6,6 @@ import {
   Puzzle,
   ExternalLink,
   ArrowRight,
-  Sparkles,
   Filter,
   ChevronLeft,
   ChevronRight,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 type Category = "all" | "websites" | "extensions" | "3d";
 
@@ -78,7 +78,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     id: "freshcart",
     title: "FreshCart",
-    description: "Grocery delivery platform with real-time inventory and seamless checkout experience.",
+    description: "Grocery delivery platform with real-time inventory and checkout experience.",
     category: "websites",
     liveUrl: "https://freshcart.cybiqon.in",
     tags: ["React", "E-commerce", "Mobile-First"],
@@ -108,14 +108,15 @@ const portfolioItems: PortfolioItem[] = [
 ];
 
 const categories: { id: Category; label: string; icon: typeof Globe }[] = [
-  { id: "all", label: "All Projects", icon: Filter },
+  { id: "all", label: "All", icon: Filter },
   { id: "3d", label: "3D", icon: Box },
   { id: "websites", label: "Websites", icon: Globe },
-  { id: "extensions", label: "Chrome Extensions", icon: Puzzle },
+  { id: "extensions", label: "Extensions", icon: Puzzle },
 ];
 
 const OurWorks = () => {
   const [activeCategory, setActiveCategory] = useState<Category>("all");
+  const { ref: gridRef, isVisible: gridVisible } = useScrollReveal();
 
   const filteredItems = useMemo(() => {
     if (activeCategory === "all") return portfolioItems;
@@ -130,19 +131,9 @@ const OurWorks = () => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://cybiqon.in/'
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Our Works',
-        item: 'https://cybiqon.in/our-works'
-      }
-    ]
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://cybiqon.in/' },
+      { '@type': 'ListItem', position: 2, name: 'Our Works', item: 'https://cybiqon.in/our-works' },
+    ],
   };
 
   const portfolioSchema = {
@@ -150,44 +141,35 @@ const OurWorks = () => {
     '@type': 'CollectionPage',
     name: 'Our Works - Cybiqon AI Portfolio',
     description: 'Showcase of websites, apps, and Chrome extensions built by Cybiqon AI Solutions',
-    provider: {
-      '@type': 'Organization',
-      name: 'Cybiqon AI Solutions'
-    }
+    provider: { '@type': 'Organization', name: 'Cybiqon AI Solutions' },
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioSchema) }} />
 
-      {/* Hero Section */}
-      <section className="pt-20 sm:pt-24 pb-4 section-padding">
-        <div className="content-container">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-4 bg-gradient-to-r from-blue-50 to-emerald-50 text-primary border-primary/20">
-              Our Portfolio
-            </Badge>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-heading mb-4">
-              See What <span className="gradient-text">We've Built</span>
+      {/* Hero */}
+      <section className="pt-24 pb-8 md:pt-28 md:pb-10">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/15 rounded-full text-[11px] font-medium text-primary mb-4">
+              Portfolio
+            </p>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.15] tracking-tight mb-3">
+              See what we&apos;ve <span className="text-primary">built</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Showcase of websites, apps, and designs we've created for businesses just like yours.
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg">
+              Websites, apps, and tools we&apos;ve created for businesses just like yours.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Category Filter Section */}
-      <section className="pb-6 px-4 sm:px-6 lg:px-8">
-        <div className="content-container">
-          <div className="flex flex-wrap justify-center gap-3">
+      {/* Filter */}
+      <section className="pb-6">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+          <div className="flex flex-wrap gap-2">
             {categories.map((category) => {
               const Icon = category.icon;
               const isActive = activeCategory === category.id;
@@ -195,16 +177,13 @@ const OurWorks = () => {
                 <button
                   key={category.id}
                   onClick={() => setActiveCategory(category.id)}
-                  className={`
-                    inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium
-                    transition-all duration-300 border-2
-                    ${isActive
-                      ? "bg-primary text-white border-primary shadow-lg shadow-primary/25"
-                      : "bg-white text-muted-foreground border-border hover:border-primary/50 hover:text-primary"
-                    }
-                  `}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border ${
+                    isActive
+                      ? "bg-primary text-white border-primary shadow-sm"
+                      : "bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-primary"
+                  }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-3.5 h-3.5" />
                   {category.label}
                 </button>
               );
@@ -214,17 +193,17 @@ const OurWorks = () => {
       </section>
 
       {/* Portfolio Grid */}
-      <section className="section-padding pb-12">
-        <div className="content-container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="pb-14 md:pb-18" ref={gridRef}>
+        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredItems.map((item, index) => (
-              <PortfolioCard key={item.id} item={item} index={index} />
+              <PortfolioCard key={item.id} item={item} index={index} isVisible={gridVisible} />
             ))}
           </div>
 
           {filteredItems.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground text-lg">
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-sm">
                 No projects found in this category yet.
               </p>
             </div>
@@ -232,24 +211,23 @@ const OurWorks = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-gradient-to-b from-muted/30 to-transparent">
-        <div className="content-container">
-          <div className="max-w-3xl mx-auto text-center glass-card p-12">
-            <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-              Want Something <span className="gradient-text">Like This?</span>
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Let's discuss your project and create something amazing together.
-              Book a free 30-minute consultation to get started.
-            </p>
+      {/* CTA */}
+      <section className="py-12 md:py-14 bg-primary">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <h2 className="text-lg md:text-xl font-extrabold text-white tracking-tight mb-1.5">
+                Want something like this?
+              </h2>
+              <p className="text-xs md:text-sm text-white/70 max-w-md">
+                Book a free 30-minute consultation and let&apos;s discuss your project.
+              </p>
+            </div>
             <Button
               onClick={handleBookCall}
-              size="lg"
-              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-lg px-8 py-6 glow-effect-warm text-white font-semibold shadow-lg hover:shadow-xl"
+              className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg text-xs px-6 py-4 flex-shrink-0"
             >
-              Book a Call <ArrowRight className="ml-2 w-5 h-5" />
+              Book a call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
             </Button>
           </div>
         </div>
@@ -258,12 +236,15 @@ const OurWorks = () => {
   );
 };
 
+/* ─── Portfolio Card ─── */
+
 interface PortfolioCardProps {
   item: PortfolioItem;
   index: number;
+  isVisible: boolean;
 }
 
-const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
+const PortfolioCard = ({ item, index, isVisible }: PortfolioCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const hasImages = item.images && item.images.length > 0;
 
@@ -271,9 +252,7 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
     e.preventDefault();
     e.stopPropagation();
     if (item.images) {
-      setCurrentImageIndex((prev) =>
-        prev === 0 ? item.images!.length - 1 : prev - 1
-      );
+      setCurrentImageIndex((prev) => (prev === 0 ? item.images!.length - 1 : prev - 1));
     }
   };
 
@@ -281,35 +260,25 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
     e.preventDefault();
     e.stopPropagation();
     if (item.images) {
-      setCurrentImageIndex((prev) =>
-        prev === item.images!.length - 1 ? 0 : prev + 1
-      );
+      setCurrentImageIndex((prev) => (prev === item.images!.length - 1 ? 0 : prev + 1));
     }
   };
 
   const getCategoryIcon = () => {
     switch (item.category) {
-      case "websites":
-        return <Globe className="w-4 h-4" />;
-      case "extensions":
-        return <Puzzle className="w-4 h-4" />;
-      case "3d":
-        return <Box className="w-4 h-4" />;
-      default:
-        return <Globe className="w-4 h-4" />;
+      case "websites": return <Globe className="w-3 h-3" />;
+      case "extensions": return <Puzzle className="w-3 h-3" />;
+      case "3d": return <Box className="w-3 h-3" />;
+      default: return <Globe className="w-3 h-3" />;
     }
   };
 
   const getCategoryLabel = () => {
     switch (item.category) {
-      case "websites":
-        return "Website";
-      case "extensions":
-        return "Extension";
-      case "3d":
-        return "3D";
-      default:
-        return item.category;
+      case "websites": return "Website";
+      case "extensions": return "Extension";
+      case "3d": return "3D";
+      default: return item.category;
     }
   };
 
@@ -318,16 +287,13 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
       href={item.liveUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group glass-card overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block"
-      style={{
-        animationDelay: `${index * 100}ms`,
-      }}
+      className={`group border border-border bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 block reveal ${isVisible ? "visible" : ""}`}
+      style={{ transitionDelay: `${index * 0.08}s` }}
     >
-      {/* Image/Placeholder Area */}
+      {/* Image area */}
       <div className="relative aspect-[16/10] overflow-hidden">
         {hasImages ? (
           <>
-            {/* Actual Images Carousel */}
             <div className="absolute inset-0">
               {item.images!.map((image, imgIndex) => (
                 <img
@@ -342,33 +308,29 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
               ))}
             </div>
 
-            {/* Carousel Arrow Buttons */}
             {item.images!.length > 1 && (
               <>
                 <button
                   onClick={handlePrevImage}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
                   aria-label="Previous image"
                 >
-                  <ChevronLeft className="w-5 h-5 text-gray-700" />
+                  <ChevronLeft className="w-4 h-4 text-gray-700" />
                 </button>
                 <button
                   onClick={handleNextImage}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
                   aria-label="Next image"
                 >
-                  <ChevronRight className="w-5 h-5 text-gray-700" />
+                  <ChevronRight className="w-4 h-4 text-gray-700" />
                 </button>
 
-                {/* Dot Indicators */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex gap-1">
                   {item.images!.map((_, dotIndex) => (
                     <span
                       key={dotIndex}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        dotIndex === currentImageIndex
-                          ? "bg-white w-4"
-                          : "bg-white/60"
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                        dotIndex === currentImageIndex ? "bg-white w-3" : "bg-white/50"
                       }`}
                     />
                   ))}
@@ -377,70 +339,64 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
             )}
           </>
         ) : (
-          /* Gradient Placeholder for items without images */
           <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient}`}>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center text-white">
                 {item.category === "websites" ? (
-                  <Globe className="w-16 h-16 mx-auto mb-2 opacity-50" />
+                  <Globe className="w-10 h-10 mx-auto mb-1 opacity-40" />
                 ) : item.category === "3d" ? (
-                  <Box className="w-16 h-16 mx-auto mb-2 opacity-50" />
+                  <Box className="w-10 h-10 mx-auto mb-1 opacity-40" />
                 ) : (
-                  <Puzzle className="w-16 h-16 mx-auto mb-2 opacity-50" />
+                  <Puzzle className="w-10 h-10 mx-auto mb-1 opacity-40" />
                 )}
-                <p className="text-sm font-medium opacity-75">{item.title}</p>
+                <p className="text-xs font-medium opacity-60">{item.title}</p>
               </div>
             </div>
           </div>
         )}
 
         {/* Badges */}
-        <div className="absolute top-3 left-3 right-3 flex justify-between items-start z-10">
-          <Badge variant="secondary" className="bg-white/90 text-gray-700 gap-1.5">
+        <div className="absolute top-2.5 left-2.5 right-2.5 flex justify-between items-start z-10">
+          <Badge variant="secondary" className="bg-white/90 text-gray-700 gap-1 text-[11px] px-2 py-0.5">
             {getCategoryIcon()}
             {getCategoryLabel()}
           </Badge>
           {item.featured && (
-            <Badge className="bg-amber-500 text-white hover:bg-amber-600">
+            <Badge className="bg-amber-500 text-white hover:bg-amber-600 text-[11px] px-2 py-0.5">
               Featured
             </Badge>
           )}
         </div>
 
-        {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-          <div className="flex items-center gap-2 text-white font-medium">
-            <ExternalLink className="w-5 h-5" />
-            <span>View Live</span>
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+          <div className="flex items-center gap-1.5 text-white text-xs font-medium">
+            <ExternalLink className="w-4 h-4" />
+            <span>View live</span>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-5">
-        <h3 className="text-xl font-bold font-heading mb-2 group-hover:text-primary transition-colors">
+      <div className="p-4">
+        <h3 className="text-sm font-bold mb-1 group-hover:text-primary transition-colors">
           {item.title}
         </h3>
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+        <p className="text-muted-foreground text-xs mb-3 line-clamp-2 leading-relaxed">
           {item.description}
         </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-1.5 mb-3">
           {item.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs px-2.5 py-1 rounded-full bg-muted text-muted-foreground"
-            >
+            <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
               {tag}
             </span>
           ))}
         </div>
 
-        {/* Link */}
-        <div className="flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-          View Live Site
-          <ArrowRight className="w-4 h-4" />
+        <div className="flex items-center gap-1 text-xs font-medium text-primary group-hover:gap-1.5 transition-all">
+          View live site
+          <ArrowRight className="w-3 h-3" />
         </div>
       </div>
     </a>

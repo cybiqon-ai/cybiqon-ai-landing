@@ -8,6 +8,7 @@ import Services from "@/components/Services";
 import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
+import ProblemsWeSolve from "@/components/ProblemsWeSolve";
 
 export const metadata: Metadata = {
   title: "Affordable Website Development & AI Automation for Indian MSMEs | Cybiqon",
@@ -89,32 +90,33 @@ export default function IndexPage() {
       />
       <Hero />
       <TrustBar />
+      <ProblemsWeSolve />
       <div id="solutions">
         <Services />
       </div>
 
-      {/* How It Works */}
-      <section className="py-24 relative bg-muted/30">
+      {/* How It Works — hidden on mobile to reduce scroll */}
+      <section className="hidden md:block py-8 md:py-18 relative bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              How It <span className="gradient-text">Works</span>
+          <div className="text-center mb-10 animate-fade-in">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
+              How It <span className="text-primary">Works</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
               From first call to launch — simple, transparent, and stress-free
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {howItWorksSteps.map((step, index) => (
               <div key={index} className="text-center animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4 relative">
-                  <step.icon className="w-8 h-8 text-white" />
-                  <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-3 relative">
+                  <step.icon className="w-6 h-6 text-white" />
+                  <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-amber-500 text-white text-[11px] font-bold flex items-center justify-center">
                     {index + 1}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-                <p className="text-muted-foreground text-sm">{step.description}</p>
+                <h3 className="text-sm font-bold mb-1.5">{step.title}</h3>
+                <p className="text-muted-foreground text-xs">{step.description}</p>
               </div>
             ))}
           </div>
