@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const OWNERS = [
   { initials: "RS", color: "bg-primary", name: "Ramesh S." },
@@ -31,8 +32,9 @@ const HeroSocialProof = () => {
   }, []);
 
   return (
-    <div
-      className={`glass-card px-4 py-3.5 mt-4 transition-all duration-700 ${
+    <Link
+      href="/free-audit"
+      className={`block glass-card px-4 py-3.5 mt-4 transition-all duration-700 hover:shadow-lg cursor-pointer ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
       }`}
     >
@@ -71,7 +73,7 @@ const HeroSocialProof = () => {
           Live
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 
