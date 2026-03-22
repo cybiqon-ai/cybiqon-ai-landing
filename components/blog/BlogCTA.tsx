@@ -30,7 +30,7 @@ const BlogCTA = () => {
             <Button
               asChild
               variant="outline"
-              className="border-2 border-white/40 text-white hover:bg-white/10 text-xs px-5 py-4"
+              className="border-2 border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white text-xs px-5 py-4"
             >
               <a href="https://wa.me/919250711473" target="_blank" rel="noopener noreferrer">
                 WhatsApp us

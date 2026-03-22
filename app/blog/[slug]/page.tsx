@@ -83,6 +83,9 @@ export default async function BlogPostPage({ params }: PageProps) {
     : [];
   const date = new Date(post.created_at);
   const readingTime = estimateReadingTime(post.content);
+  const sanitizedContent = post.content
+    .replace(/<h1(\s[^>]*)?>/gi, "<h2$1>")
+    .replace(/<\/h1>/gi, "</h2>");
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -174,7 +177,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           {/* Article content */}
           <div
             className="prose prose-sm md:prose-base max-w-none prose-headings:font-extrabold prose-h2:text-lg prose-h2:md:text-xl prose-h2:mt-8 prose-h2:mb-3 prose-h3:text-base prose-h3:mt-6 prose-h3:mb-2 prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:text-sm prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-ul:text-muted-foreground prose-ul:text-sm prose-ol:text-muted-foreground prose-ol:text-sm prose-li:marker:text-primary prose-img:rounded-xl prose-img:border prose-img:border-border prose-blockquote:border-primary prose-blockquote:text-muted-foreground prose-blockquote:text-sm"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
 
           {/* CTA */}

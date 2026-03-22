@@ -6,22 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-      },
-      {
-        userAgent: "Googlebot",
-        allow: "/",
-      },
-      {
-        userAgent: "Bingbot",
-        allow: "/",
-      },
-      {
-        userAgent: "Twitterbot",
-        allow: "/",
-      },
-      {
-        userAgent: "facebookexternalhit",
-        allow: "/",
+        disallow: ["/api/", "/_next/"],
       },
     ],
     sitemap: "https://cybiqon.in/sitemap.xml",

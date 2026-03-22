@@ -231,7 +231,7 @@ const Pricing = () => {
               <Button
                 onClick={handleBookCall}
                 variant="outline"
-                className="border-2 border-white/40 text-white hover:bg-white/10 text-xs px-5 py-4"
+                className="border-2 border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white text-xs px-5 py-4"
               >
                 Book free call
               </Button>
