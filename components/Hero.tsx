@@ -17,13 +17,13 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[auto] lg:min-h-[100dvh] flex items-center overflow-hidden pt-24 pb-16 lg:pt-16 lg:pb-10">
+    <section className="relative min-h-[85dvh] lg:min-h-[100dvh] flex items-center overflow-hidden pt-28 pb-20 lg:pt-16 lg:pb-10">
       <AnimatedBackground />
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10 lg:px-16">
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-center">
           {/* Left column - Text content */}
-          <div className="space-y-4">
+          <div className="space-y-5 md:space-y-4">
             {/* Eyebrow text */}
             <div className="lg:text-left text-center">
               <p className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-emerald-50 border border-blue-200 rounded-full text-xs font-medium text-primary">
@@ -33,23 +33,23 @@ const Hero = () => {
             </div>
 
             {/* Main headline */}
-            <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-[1.15] tracking-tight lg:text-left text-center">
-              <span className="text-foreground">Finally, Tech That Works for</span>
-              <br />
+            <h1 className="text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-[1.15] tracking-tight lg:text-left text-center">
+              <span className="text-foreground">Finally, Tech That Works for </span>
               <span className="gradient-text">Indian MSMEs</span>
+              <br className="hidden lg:block" />
               <span className="text-foreground"> — Not Against Them</span>
             </h1>
 
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg lg:text-left text-center">
+            <p className="text-base md:text-base text-muted-foreground leading-relaxed max-w-lg lg:text-left text-center">
               We build affordable websites and AI automations so you can focus on running your business — not chasing tech vendors.
             </p>
 
-            <p className="text-xs md:text-sm font-semibold text-primary lg:text-left text-center">
+            <p className="text-sm md:text-sm font-semibold text-primary lg:text-left text-center">
               Fast delivery. Fair pricing. Zero tech headaches.
             </p>
 
             {/* Trust signals - micro */}
-            <div className="flex flex-wrap lg:justify-start justify-center gap-3 md:gap-5 text-xs md:text-sm text-muted-foreground">
+            <div className="flex flex-wrap lg:justify-start justify-center gap-3 md:gap-5 text-sm md:text-sm text-muted-foreground">
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
                 <span>2 Products Launched</span>
