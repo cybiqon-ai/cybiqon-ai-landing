@@ -47,11 +47,7 @@ const testimonials = [
   },
 ];
 
-const cardStyles = [
-  "glass-card",
-  "border border-border bg-white rounded-2xl shadow-lg",
-  "warm-card",
-];
+const cardStyles = ["card-surface", "card-surface", "card-surface"];
 
 const Testimonials = () => {
   const [page, setPage] = useState(0);
@@ -87,7 +83,7 @@ const Testimonials = () => {
         </div>
 
         {/* Desktop: 3-card staggered grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <div className="hidden md:grid md:grid-cols-3 gap-5 max-w-[90rem] mx-auto">
           {visible.map((testimonial, index) => (
             <div
               key={`${page}-${index}`}

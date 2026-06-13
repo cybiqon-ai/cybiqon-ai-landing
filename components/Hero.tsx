@@ -20,20 +20,20 @@ const Hero = () => {
     <section className="relative min-h-[85dvh] lg:min-h-[100dvh] flex items-center overflow-hidden pt-28 pb-20 lg:pt-16 lg:pb-10">
       <AnimatedBackground />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10 lg:px-16">
+      <div className="relative z-10 mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16">
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-center">
           {/* Left column - Text content */}
           <div className="space-y-5 md:space-y-4">
             {/* Eyebrow text */}
             <div className="lg:text-left text-center">
-              <p className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-emerald-50 border border-blue-200 rounded-full text-xs font-medium text-primary">
-                <TrendingUp className="w-3.5 h-3.5" />
+              <p className="inline-flex items-center gap-2 px-3 py-1.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground">
+                <TrendingUp className="w-3.5 h-3.5 text-primary" />
                 Helping Indian MSMEs Grow Online Since 2025
               </p>
             </div>
 
             {/* Main headline */}
-            <h1 className="text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-[1.15] tracking-tight lg:text-left text-center">
+            <h1 className="display text-4xl md:text-5xl lg:text-[3.25rem] xl:text-6xl lg:text-left text-center">
               <span className="text-foreground">Finally, Tech That Works for </span>
               <span className="gradient-text">Indian MSMEs</span>
               <br className="hidden lg:block" />
@@ -64,20 +64,21 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* CTAs */}
+            {/* CTAs — one reserved accent (orange) for the primary action */}
             <div className="flex flex-col sm:flex-row gap-3 lg:justify-start justify-center items-center pt-1">
               <Button
                 onClick={handleBookCall}
                 size="lg"
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-sm px-6 py-5 glow-effect-warm text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                variant="accent"
+                className="text-sm px-6"
               >
-                Book Free 30-Min Call <ArrowRight className="ml-2 w-4 h-4" />
+                Book Free 30-Min Call <ArrowRight />
               </Button>
               <Button
                 onClick={scrollToSolutions}
                 size="lg"
                 variant="outline"
-                className="border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300 text-sm px-6 py-5"
+                className="text-sm px-6"
               >
                 See Our Services
               </Button>

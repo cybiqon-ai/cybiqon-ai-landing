@@ -51,10 +51,7 @@ const Navbar = () => {
                   </Link>
                 ))}
               </div>
-              <Button
-                onClick={handleBookCall}
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-white font-semibold shadow-md hover:shadow-lg"
-              >
+              <Button onClick={handleBookCall} variant="accent">
                 Book Free Call
               </Button>
             </div>
@@ -90,7 +87,8 @@ const Navbar = () => {
                 ))}
                 <Button
                   onClick={() => { handleBookCall(); setMobileMenuOpen(false); }}
-                  className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-white font-semibold"
+                  variant="accent"
+                  className="w-full"
                 >
                   Book Free Call
                 </Button>

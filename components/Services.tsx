@@ -31,7 +31,7 @@ const services = [
     title: "Bulk Scraping",
     description: "Extract competitor prices, supplier catalogs, and leads from JustDial/IndiaMART — delivered in Excel, ready to use.",
     featured: false,
-    cardStyle: "border border-border bg-white rounded-2xl",
+    cardStyle: "card-surface",
   },
   {
     icon: Puzzle,
@@ -57,7 +57,7 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-5 max-w-[90rem] mx-auto">
           {services.map((service, index) => (
             <div
               key={index}
@@ -65,8 +65,8 @@ const Services = () => {
               style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
             >
               <div className={`${service.featured ? "flex flex-col md:flex-row md:items-start md:gap-5" : ""}`}>
-                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-3 group-hover:scale-110 transition-transform flex-shrink-0 ${service.featured ? "w-11 h-11" : ""}`}>
-                  <service.icon className={`text-white ${service.featured ? "w-5 h-5" : "w-5 h-5"}`} />
+                <div className={`icon-chip w-10 h-10 mb-3 group-hover:scale-105 transition-transform flex-shrink-0 ${service.featured ? "w-11 h-11" : ""}`}>
+                  <service.icon className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className={`font-bold mb-1.5 ${service.featured ? "text-lg" : "text-base"}`}>{service.title}</h3>

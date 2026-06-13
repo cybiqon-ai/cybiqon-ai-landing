@@ -106,12 +106,12 @@ export default function IndexPage() {
               From first call to launch — simple, transparent, and stress-free
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[90rem] mx-auto">
             {howItWorksSteps.map((step, index) => (
               <div key={index} className="text-center animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-3 relative">
-                  <step.icon className="w-6 h-6 text-white" />
-                  <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-amber-500 text-white text-[11px] font-bold flex items-center justify-center">
+                <div className="icon-chip w-12 h-12 rounded-xl mx-auto mb-3 relative">
+                  <step.icon className="w-6 h-6" />
+                  <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-primary text-primary-foreground text-[11px] font-bold flex items-center justify-center">
                     {index + 1}
                   </span>
                 </div>

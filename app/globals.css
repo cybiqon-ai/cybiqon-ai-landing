@@ -35,8 +35,8 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     --success: 160 84% 35%;
     --success-foreground: 0 0% 100%;
 
-    /* Muted colors */
-    --muted: 210 40% 98%; /* Slate 50 background */
+    /* Muted colors — warm neutral surface (calmer than cool slate) */
+    --muted: 40 22% 97%; /* warm near-white section surface */
     --muted-foreground: 215 16% 47%; /* Slate 500 text */
 
     /* Destructive */
@@ -48,13 +48,18 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     --input: 214 32% 91%;
     --ring: 221 83% 53%; /* Primary blue */
 
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* softer, more premium corners */
 
-    /* Gradients */
+    /* Gradients (kept for legacy refs; used sparingly now) */
     --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(160 84% 39%)); /* Blue to Green */
     --gradient-warm: linear-gradient(135deg, hsl(38 92% 50%), hsl(25 95% 53%)); /* Orange gradient */
     --gradient-glow: radial-gradient(circle at center, hsl(38 92% 50% / 0.15), transparent); /* Warm glow */
     --gradient-success: linear-gradient(to right, hsl(160 84% 39%), hsl(160 84% 35%)); /* Green gradient */
+
+    /* Elevation — cool neutral ink, never tinted. The premium depth scale. */
+    --shadow-sm: 0 1px 2px hsl(215 25% 27% / 0.05), 0 1px 3px hsl(215 25% 27% / 0.06);
+    --shadow-md: 0 8px 24px -10px hsl(215 28% 22% / 0.16);
+    --shadow-lg: 0 24px 60px -24px hsl(215 30% 20% / 0.22);
 
     /* Sidebar */
     --sidebar-background: 0 0% 100%;
@@ -111,48 +116,55 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 }
 
 @layer utilities {
-  /* Glass morphism card - updated for warm design */
-  .glass-card {
-    @apply bg-white/70 backdrop-blur-xl border border-primary/15 rounded-2xl shadow-lg;
-    transition: all 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .glass-card:hover {
-    @apply border-primary/30 shadow-xl;
-    transform: translateY(-4px);
-  }
-
-  /* Warm card variant */
-  .warm-card {
-    @apply bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl shadow-md;
-  }
-
-  /* Success card variant */
+  /* ── One card system ──────────────────────────────────────────────
+     Restraint over decoration: a single neutral surface with a hairline
+     border and a soft, cool shadow that lifts on hover. The old
+     glass/warm/success classes alias to it so no color noise remains —
+     accent now lives in small icon chips, not full gradient fills. */
+  .card-surface,
+  .glass-card,
+  .warm-card,
   .success-card {
-    @apply bg-gradient-to-br from-emerald-50 to-green-50 border-2 border-emerald-200 rounded-2xl shadow-md;
+    @apply bg-card border border-border rounded-xl;
+    box-shadow: var(--shadow-sm);
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 300ms ease, border-color 300ms ease;
+  }
+  .card-surface:hover,
+  .glass-card:hover,
+  .warm-card:hover,
+  .success-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: hsl(var(--primary) / 0.22);
   }
 
-  /* Gradient text - updated for new palette */
+  /* Small accent chip for icons — the disciplined way to use color. */
+  .icon-chip {
+    @apply inline-flex items-center justify-center rounded-lg bg-primary/10 text-primary;
+  }
+
+  /* Display heading — confident, optically tightened. */
+  .display {
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  /* Accent text — now a single solid hue, not a rainbow gradient. */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent;
+    @apply text-primary;
   }
-
-  /* Warm gradient text */
   .gradient-text-warm {
-    @apply bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent;
+    @apply text-accent;
   }
 
-  /* Glow effects - updated for warm colors */
-  .glow-effect {
-    box-shadow: 0 4px 20px hsl(var(--primary) / 0.25);
-  }
-
-  .glow-effect-warm {
-    box-shadow: 0 4px 20px hsl(var(--accent) / 0.3);
-  }
-
+  /* Glow effects collapsed to one restrained neutral elevation. */
+  .glow-effect,
+  .glow-effect-warm,
   .glow-effect-success {
-    box-shadow: 0 4px 20px hsl(var(--secondary) / 0.25);
+    box-shadow: var(--shadow-md);
   }
 
   /* Floating animations */
@@ -174,14 +186,14 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     50% { transform: translateY(-30px) rotate(5deg); }
   }
 
-  /* Section spacing - responsive */
+  /* Section spacing - responsive (more generous; whitespace as structure) */
   .section-padding {
-    @apply py-12 md:py-16 lg:py-24;
+    @apply py-16 md:py-24 lg:py-28;
   }
 
-  /* Container max-width */
+  /* Container max-width — generous premium width, fuller use of the screen */
   .content-container {
-    @apply container mx-auto px-4 max-w-7xl;
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-[90rem];
   }
 
   /* Scroll-triggered reveal animations */
@@ -203,15 +215,5 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   .reveal-delay-5 { transition-delay: 0.5s; }
 }
 
-/* Dark mode card variants */
-.dark .warm-card {
-  @apply bg-amber-950/20 border-amber-800;
-}
-
-.dark .success-card {
-  @apply bg-emerald-950/20 border-emerald-800;
-}
-
-.dark .glass-card {
-  @apply bg-white/5 border-white/10;
-}
+/* Dark mode: the unified card already uses bg-card/border tokens, so no
+   per-variant color overrides are needed. */
