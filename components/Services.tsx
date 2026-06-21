@@ -1,7 +1,4 @@
-"use client";
-
 import { Code2, Bot, Database, Puzzle, TabletSmartphone } from "lucide-react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const services = [
   {
@@ -43,12 +40,10 @@ const services = [
 ];
 
 const Services = () => {
-  const { ref, isVisible } = useScrollReveal();
-
   return (
-    <section className="py-8 md:py-18 relative" ref={ref}>
+    <section className="py-8 md:py-18 relative">
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-10 reveal ${isVisible ? "visible" : ""}`}>
+        <div className="text-center mb-10 reveal">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
             Our <span className="text-primary">Services</span>
           </h2>
@@ -61,7 +56,7 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className={`${service.cardStyle} p-5 ${service.featured ? "md:col-span-2 p-6" : ""} ${index >= 3 ? "hidden md:block" : ""} hover:shadow-xl transition-all duration-300 group reveal ${isVisible ? "visible" : ""}`}
+              className={`${service.cardStyle} p-5 ${service.featured ? "md:col-span-2 p-6" : ""} ${index >= 3 ? "hidden md:block" : ""} hover:shadow-xl transition-all duration-300 group reveal`}
               style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
             >
               <div className={`${service.featured ? "flex flex-col md:flex-row md:items-start md:gap-5" : ""}`}>

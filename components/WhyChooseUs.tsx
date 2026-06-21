@@ -1,7 +1,4 @@
-"use client";
-
 import { DollarSign, Zap, TrendingUp, Users, Code2, MessageCircle } from "lucide-react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const features = [
   {
@@ -49,12 +46,10 @@ const features = [
 ];
 
 const WhyChooseUs = () => {
-  const { ref, isVisible } = useScrollReveal();
-
   return (
-    <section className="py-8 md:py-18 relative" ref={ref}>
+    <section className="py-8 md:py-18 relative">
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-10 reveal ${isVisible ? "visible" : ""}`}>
+        <div className="text-center mb-10 reveal">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
             Why Choose <span className="text-primary">Cybiqon AI</span>
           </h2>
@@ -67,7 +62,7 @@ const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`${feature.cardStyle} ${feature.span} p-5 ${index >= 3 ? "hidden md:block" : ""} hover:shadow-xl transition-all duration-300 group reveal ${isVisible ? "visible" : ""}`}
+              className={`${feature.cardStyle} ${feature.span} p-5 ${index >= 3 ? "hidden md:block" : ""} hover:shadow-xl transition-all duration-300 group reveal`}
               style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
             >
               <div className={`${feature.span === "md:col-span-3" ? "flex flex-col md:flex-row md:items-center md:gap-5 text-center md:text-left" : ""}`}>

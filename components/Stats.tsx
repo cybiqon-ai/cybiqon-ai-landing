@@ -1,7 +1,3 @@
-"use client";
-
-import { useScrollReveal } from "@/hooks/useScrollReveal";
-
 const stats = [
   { value: "6+", label: "Industries Served" },
   { value: "\u20B99,999", label: "Starting Price" },
@@ -10,16 +6,14 @@ const stats = [
 ];
 
 const Stats = () => {
-  const { ref, isVisible } = useScrollReveal();
-
   return (
-    <section className="py-8 md:py-14 relative bg-primary" ref={ref}>
+    <section className="py-8 md:py-14 relative bg-primary">
       <div className="container mx-auto px-4 relative">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className={`text-center reveal ${isVisible ? "visible" : ""}`}
+              className="text-center reveal"
               style={{ transitionDelay: `${index * 0.1}s` }}
             >
               <div className="display text-3xl md:text-5xl text-white mb-1">

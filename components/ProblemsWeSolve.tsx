@@ -1,7 +1,4 @@
-"use client";
-
 import { X, CheckCircle2 } from "lucide-react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const problems = [
   {
@@ -23,16 +20,11 @@ const problems = [
 ];
 
 const ProblemsWeSolve = () => {
-  const { ref, isVisible } = useScrollReveal();
-
   return (
     <section className="py-8 md:py-16 relative">
       <div className="container mx-auto px-4">
-        <div
-          ref={ref}
-          className={`max-w-5xl mx-auto ${isVisible ? "" : ""}`}
-        >
-          <div className={`text-center mb-10 reveal ${isVisible ? "visible" : ""}`}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10 reveal">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
               Real Problems We <span className="text-primary">Solve</span>
             </h2>
@@ -45,7 +37,7 @@ const ProblemsWeSolve = () => {
             {problems.map((item, index) => (
               <div
                 key={index}
-                className={`${index >= 2 ? "hidden md:grid" : "grid"} md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center reveal ${isVisible ? "visible" : ""}`}
+                className={`${index >= 2 ? "hidden md:grid" : "grid"} md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center reveal`}
                 style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
               >
                 {/* Pain — recessed, muted surface; the X carries the meaning */}

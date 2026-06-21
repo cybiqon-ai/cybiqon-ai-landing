@@ -4,6 +4,7 @@ import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import RevealObserver from "@/components/RevealObserver";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -156,6 +157,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
           <WhatsAppWidget />
+          <RevealObserver />
           <Toaster />
           <Sonner />
         </TooltipProvider>
