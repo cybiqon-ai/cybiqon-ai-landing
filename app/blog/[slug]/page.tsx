@@ -174,6 +174,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
+                referrerPolicy="no-referrer"
               />
             </div>
           )}
