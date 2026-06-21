@@ -33,12 +33,6 @@ const faqCategories = [
           "We specialize in MSMEs across all industries—retail, consulting, home services, restaurants, healthcare, education, and more. If you're a small or medium business looking to grow your online presence, we can help.",
       },
       {
-        id: "q3",
-        question: "Are you based in India?",
-        answer:
-          "Yes! We're proud to be based in India and focused on helping Indian MSMEs thrive in the digital economy. We understand the unique challenges and opportunities of the Indian market.",
-      },
-      {
         id: "q4",
         question: "Do I need technical knowledge to work with you?",
         answer:
@@ -55,7 +49,7 @@ const faqCategories = [
         id: "q5",
         question: "How much does a website cost?",
         answer:
-          "Our website packages start at just ₹9,999 as part of our current launch offer. Custom solutions are quoted based on your specific needs. Check our Pricing page for the latest plans and pricing — all prices are transparent with no hidden fees.",
+          "Our website packages start at ₹9,999, with custom solutions quoted based on your specific needs. See our Pricing page for the latest plans — all prices are transparent, one-time, with no hidden fees.",
       },
       {
         id: "q6",
@@ -64,22 +58,10 @@ const faqCategories = [
           "No monthly fees from us! You only pay for domain registration (~₹500-1000/year) and hosting (~₹3000-5000/year). We can help you set these up or recommend trusted providers.",
       },
       {
-        id: "q7",
-        question: "Do you offer payment plans?",
-        answer:
-          "Yes! For packages over ₹20,000, we offer 50% upfront and 50% on delivery. We're flexible and can discuss options that work for your budget during the free consultation call.",
-      },
-      {
         id: "q8",
         question: "What's included in the price?",
         answer:
           "Everything needed for a complete website: design, development, mobile optimization, SEO setup, Google Analytics, contact forms, WhatsApp integration, testing, launch, and 3-12 months of support (depending on package).",
-      },
-      {
-        id: "q9",
-        question: "Can I add features later?",
-        answer:
-          "Absolutely! You can upgrade or add features anytime. We'll quote only the additional work—you don't pay again for what you already have.",
       },
     ],
   },
@@ -101,22 +83,10 @@ const faqCategories = [
           "We follow a clear 5-step process: (1) Discovery Call, (2) Planning & Design, (3) Development, (4) Testing & Launch, (5) Support & Growth. You'll know exactly what's happening at every stage.",
       },
       {
-        id: "q12",
-        question: "Can you launch faster if I'm in a hurry?",
-        answer:
-          "Yes! We can often expedite for urgent launches. Let us know your deadline on the call and we'll see if we can accommodate—sometimes for a small rush fee.",
-      },
-      {
         id: "q13",
         question: "What do I need to provide?",
         answer:
           "Mainly your business content (text, images, service descriptions) and brand assets (logo, colors if you have them). Don't have everything ready? No problem—we'll guide you through what we need.",
-      },
-      {
-        id: "q14",
-        question: "Can I see my website before it launches?",
-        answer:
-          "Absolutely! You'll get access to a staging site where you can preview and test everything before we go live. We don't launch without your approval.",
       },
     ],
   },
@@ -143,24 +113,6 @@ const faqCategories = [
         answer:
           "Yes! We can integrate WhatsApp chat, contact forms, booking/scheduling tools, CRM systems, payment gateways, and more. Some integrations are included in standard packages; others are add-ons.",
       },
-      {
-        id: "q18",
-        question: "What technology do you use?",
-        answer:
-          "We use modern, professional technology like React, Node.js, and cloud hosting—the same tech used by companies like Netflix and Uber. This means your site is fast, secure, scalable, and easy to maintain.",
-      },
-      {
-        id: "q19",
-        question: "Can I update my website myself?",
-        answer:
-          "We typically build static sites for simplicity and performance. For minor updates, we handle it during the support period. If you need frequent updates, we can build a CMS for an additional cost.",
-      },
-      {
-        id: "q20",
-        question: "Can you build e-commerce websites?",
-        answer:
-          "Yes! E-commerce is part of our Custom Solution package. We can integrate payment gateways (Razorpay, etc.), product catalogs, shopping carts, and order management.",
-      },
     ],
   },
   {
@@ -180,18 +132,6 @@ const faqCategories = [
         answer:
           "You're never locked in! After support ends, you can: (1) Continue with a maintenance package starting at ₹2000/month, (2) Request one-time updates as needed, or (3) Take full control of your website.",
       },
-      {
-        id: "q23",
-        question: "How do I reach you for support?",
-        answer:
-          "Email, WhatsApp, or scheduled calls—whatever works best for you. We typically respond within 24 hours during business hours (usually much faster).",
-      },
-      {
-        id: "q24",
-        question: "Do you provide training?",
-        answer:
-          "Yes! We'll walk you through how to use your website, update Google Analytics, and handle basic tasks. We want you to feel confident managing your online presence.",
-      },
     ],
   },
   {
@@ -210,18 +150,6 @@ const faqCategories = [
         question: "Who owns the website?",
         answer:
           "You do! Once you pay in full, you own the website and all its content. We can provide you with all files, code, and credentials anytime you ask.",
-      },
-      {
-        id: "q27",
-        question: "Do I need Privacy Policy and Terms of Service?",
-        answer:
-          "We recommend it, especially if you collect user data. We can help you create basic policies or recommend legal templates. This is important for compliance and trust.",
-      },
-      {
-        id: "q28",
-        question: "What about backups?",
-        answer:
-          "We include regular automated backups in our hosting recommendations. Your site is safe even if something goes wrong.",
       },
     ],
   },

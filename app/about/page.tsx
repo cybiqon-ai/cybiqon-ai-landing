@@ -113,12 +113,10 @@ function StorySection() {
             </p>
           </div>
           <div className={`space-y-4 text-sm leading-relaxed text-muted-foreground reveal ${isVisible ? "visible" : ""}`} style={{ transitionDelay: "0.1s" }}>
-            <p>Cybiqon started with a simple observation: while large enterprises have access to cutting-edge technology, small businesses are left behind — not because they don&apos;t need these tools, but because they&apos;re told they&apos;re too expensive or too complex.</p>
-            <p>We knew there had to be a better way. A way to bring modern websites, AI automation, and digital tools to the businesses that form the backbone of India&apos;s economy.</p>
+            <p>Cybiqon started with a simple observation: big enterprises get cutting-edge technology, while small businesses are told it&apos;s too expensive or too complex. We knew there was a better way — to bring modern websites, AI automation, and digital tools to the businesses that form the backbone of India&apos;s economy.</p>
             <p className="text-foreground font-semibold text-sm border-l-2 border-primary pl-4">
               We&apos;re not a decades-old agency with hundreds of employees — and we&apos;re proud of that. It means we care deeply about every project and treat every client like a partner, not a ticket number.
             </p>
-            <p>Every business we help grow online, every hour we save through automation, every owner who gains confidence in their digital presence — that&apos;s why we do what we do.</p>
           </div>
         </div>
       </div>

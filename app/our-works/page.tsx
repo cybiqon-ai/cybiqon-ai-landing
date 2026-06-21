@@ -160,7 +160,12 @@ const OurWorks = () => {
               See what we&apos;ve <span className="text-primary">built</span>
             </h1>
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg">
-              Websites, apps, and tools we&apos;ve created for businesses just like yours.
+              Browse the websites, apps, and tools we&apos;ve built. Want the full story
+              and the numbers behind a project?{" "}
+              <a href="/case-studies" className="text-primary font-medium underline underline-offset-4 hover:text-primary/80">
+                Read our case studies
+              </a>
+              .
             </p>
           </div>
         </div>
