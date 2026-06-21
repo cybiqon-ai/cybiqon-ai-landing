@@ -164,12 +164,16 @@ export default async function BlogPostPage({ params }: PageProps) {
 
           {/* Featured image */}
           {post.image_url && (
-            <div className="rounded-xl overflow-hidden mb-10 border border-border">
+            <div className="rounded-xl overflow-hidden mb-10 border border-border aspect-[1200/630]">
               <img
                 src={post.image_url}
                 alt={post.title}
-                className="w-full h-auto object-cover"
+                width={1200}
+                height={630}
+                className="w-full h-full object-cover"
                 loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
             </div>
           )}

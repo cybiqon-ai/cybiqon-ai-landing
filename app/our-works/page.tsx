@@ -40,9 +40,9 @@ const portfolioItems: PortfolioItem[] = [
     featured: true,
     gradient: "from-cyan-500 to-blue-600",
     images: [
-      "/portfolio/airflow1.png",
-      "/portfolio/airflow2.png",
-      "/portfolio/airflow3.png",
+      "/portfolio/airflow1.webp",
+      "/portfolio/airflow2.webp",
+      "/portfolio/airflow3.webp",
     ],
   },
   {
@@ -55,9 +55,9 @@ const portfolioItems: PortfolioItem[] = [
     featured: true,
     gradient: "from-amber-500 to-orange-600",
     images: [
-      "/portfolio/coffeehub1.png",
-      "/portfolio/coffeehub2.png",
-      "/portfolio/coffeehub3.png",
+      "/portfolio/coffeehub1.webp",
+      "/portfolio/coffeehub2.webp",
+      "/portfolio/coffeehub3.webp",
     ],
   },
   {
@@ -70,9 +70,9 @@ const portfolioItems: PortfolioItem[] = [
     featured: true,
     gradient: "from-blue-600 to-indigo-700",
     images: [
-      "/portfolio/torquex1.png",
-      "/portfolio/torquex2.png",
-      "/portfolio/torquex3.png",
+      "/portfolio/torquex1.webp",
+      "/portfolio/torquex2.webp",
+      "/portfolio/torquex3.webp",
     ],
   },
   {
@@ -85,9 +85,9 @@ const portfolioItems: PortfolioItem[] = [
     featured: false,
     gradient: "from-emerald-500 to-teal-600",
     images: [
-      "/portfolio/freshcart1.png",
-      "/portfolio/freshcart2.png",
-      "/portfolio/freshcart3.png",
+      "/portfolio/freshcart1.webp",
+      "/portfolio/freshcart2.webp",
+      "/portfolio/freshcart3.webp",
     ],
   },
   {
@@ -100,9 +100,9 @@ const portfolioItems: PortfolioItem[] = [
     featured: true,
     gradient: "from-purple-500 to-pink-600",
     images: [
-      "/portfolio/cr1.png",
-      "/portfolio/cr2.png",
-      "/portfolio/cr3.png",
+      "/portfolio/cr1.webp",
+      "/portfolio/cr2.webp",
+      "/portfolio/cr3.webp",
     ],
   },
 ];
@@ -304,6 +304,7 @@ const PortfolioCard = ({ item, index, isVisible }: PortfolioCardProps) => {
                     imgIndex === currentImageIndex ? "opacity-100" : "opacity-0"
                   }`}
                   loading="lazy"
+                  decoding="async"
                 />
               ))}
             </div>
