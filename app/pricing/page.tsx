@@ -58,11 +58,11 @@ const Pricing = () => {
     {
       icon: Globe,
       name: "Business Website Development",
-      badge: "Launch Offer",
+      badge: "Most popular",
       badgeColor: "bg-emerald-500",
-      originalPrice: "₹15,000",
+      originalPrice: "₹50,000+",
       salePrice: "₹9,999",
-      savings: "₹5,001",
+      savings: null,
       description: "Professional, mobile-friendly business websites built to convert visitors into leads.",
       features: ["Modern, responsive design", "Contact forms & WhatsApp integration", "Basic SEO optimization", "Google Analytics setup"],
       bestFor: "Startups, local businesses, and service providers",
@@ -73,11 +73,11 @@ const Pricing = () => {
     {
       icon: Smartphone,
       name: "Android App Development",
-      badge: "Limited Period",
+      badge: null,
       badgeColor: "bg-orange-500",
-      originalPrice: "₹45,000",
+      originalPrice: "₹1,50,000+",
       salePrice: "₹29,999",
-      savings: "₹15,001",
+      savings: null,
       description: "Custom Android apps tailored to your business needs.",
       features: ["Clean, intuitive UI design", "Scalable backend architecture", "Play Store–ready builds", "Post-launch support"],
       bestFor: "Booking apps, internal tools, dashboards, or customer apps",
@@ -88,11 +88,11 @@ const Pricing = () => {
     {
       icon: Bot,
       name: "AI Automation & Workflow Setup",
-      badge: "Popular",
+      badge: null,
       badgeColor: "bg-primary",
-      originalPrice: "₹35,000",
+      originalPrice: "₹60,000+",
       salePrice: "₹19,999",
-      savings: "₹15,001",
+      savings: null,
       description: "Automate repetitive business tasks using AI and smart workflows.",
       features: ["WhatsApp automation", "AI chatbots", "Email automation", "Tool integrations"],
       bestFor: "Save time, reduce manual work, and scale faster",
@@ -105,9 +105,9 @@ const Pricing = () => {
       name: "Chrome Extension Development",
       badge: null,
       badgeColor: "",
-      originalPrice: "₹25,000",
+      originalPrice: "₹40,000+",
       salePrice: "₹14,999",
-      savings: "₹10,001",
+      savings: null,
       description: "Custom Chrome extensions for automation, productivity, data extraction, or internal use.",
       features: ["Browser-based automation", "Data extraction tools", "Productivity enhancers", "Custom internal tools"],
       bestFor: "Marketers, founders, and teams needing browser-based tools",
@@ -120,9 +120,9 @@ const Pricing = () => {
       name: "Web Scraping & Data Extraction",
       badge: null,
       badgeColor: "",
-      originalPrice: "₹20,000",
+      originalPrice: "₹30,000+",
       salePrice: "₹11,999",
-      savings: "₹8,001",
+      savings: null,
       description: "Custom web scraping scripts to collect leads, prices, listings, or reports.",
       features: ["Data delivered in Excel/Google Sheets", "API integrations available", "Fast & reliable extraction", "Scalable solutions"],
       bestFor: "Lead generation, price monitoring, and market research",
@@ -167,14 +167,15 @@ const Pricing = () => {
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-50 to-orange-50 border border-orange-200 rounded-full text-[11px] font-medium text-orange-600 mb-4">
               <Sparkles className="w-3 h-3" />
-              Limited time launch offers
+              Simple, honest pricing
             </p>
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.15] tracking-tight mb-3">
               Professional websites from <span className="text-primary">₹9,999</span>
             </h1>
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg mb-4">
-              Apps, automation, extensions & more — all at affordable one-time prices.
-              No hidden fees. No monthly charges.
+              Most agencies charge ₹50,000–₹2,50,000 for this work. Our streamlined,
+              AI-assisted process keeps it a fraction of that — same quality, and you own
+              100% of the code. One-time pricing, no hidden fees, no monthly charges.
             </p>
             <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
               <span className="flex items-center gap-1.5">
@@ -310,16 +311,10 @@ function PricingGrid({
             </div>
             <div className="flex flex-col items-start md:items-end gap-3">
               <div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-sm text-muted-foreground line-through">{featured.originalPrice}</span>
-                  <span className="text-2xl font-extrabold text-emerald-600">{featured.salePrice}</span>
-                  {featured.savings && (
-                    <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[11px] px-2 py-0.5">
-                      Save {featured.savings}
-                    </Badge>
-                  )}
-                </div>
-                <p className="text-[11px] text-muted-foreground">One-time payment</p>
+                <span className="text-2xl font-extrabold text-emerald-600">{featured.salePrice}</span>
+                <p className="text-[11px] text-muted-foreground">
+                  One-time · agencies typically charge {featured.originalPrice}
+                </p>
               </div>
               <Button
                 onClick={handleWhatsApp}
@@ -364,16 +359,10 @@ function PricingGrid({
                   </>
                 ) : (
                   <>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs text-muted-foreground line-through">{service.originalPrice}</span>
-                      <span className="text-xl font-extrabold text-emerald-600">{service.salePrice}</span>
-                    </div>
-                    {service.savings && (
-                      <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px] px-1.5 py-0 mt-1">
-                        Save {service.savings}
-                      </Badge>
-                    )}
-                    <p className="text-[11px] text-muted-foreground mt-1">One-time payment</p>
+                    <div className="text-xl font-extrabold text-emerald-600">{service.salePrice}</div>
+                    <p className="text-[11px] text-muted-foreground mt-1">
+                      One-time · agencies typically charge {service.originalPrice}
+                    </p>
                   </>
                 )}
               </div>

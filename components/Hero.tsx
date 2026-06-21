@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, TrendingUp, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import AnimatedBackground from "./AnimatedBackground";
 import HeroDashboardMockup from "./HeroDashboardMockup";
@@ -34,14 +34,12 @@ const Hero = () => {
 
             {/* Main headline */}
             <h1 className="display text-4xl md:text-5xl lg:text-[3.25rem] xl:text-6xl lg:text-left text-center">
-              <span className="text-foreground">Finally, Tech That Works for </span>
-              <span className="gradient-text">Indian MSMEs</span>
-              <br className="hidden lg:block" />
-              <span className="text-foreground"> — Not Against Them</span>
+              <span className="text-foreground">Your business online in </span>
+              <span className="gradient-text">2-3 weeks</span>
             </h1>
 
             <p className="text-base md:text-base text-muted-foreground leading-relaxed max-w-lg lg:text-left text-center">
-              We build affordable websites and AI automations so you can focus on running your business — not chasing tech vendors.
+              Websites and WhatsApp automation built for Indian MSMEs — fast, affordable, and you own 100% of the code.
             </p>
 
             <p className="text-sm md:text-sm font-semibold text-primary lg:text-left text-center">
@@ -52,15 +50,15 @@ const Hero = () => {
             <div className="flex flex-wrap lg:justify-start justify-center gap-3 md:gap-5 text-sm md:text-sm text-muted-foreground">
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                <span>2 Products Launched</span>
+                <span>Live in 2-3 weeks</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                <span>100% MSME Focused</span>
+                <span>You own the code</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                <span>Based in India</span>
+                <span>Founder-led, based in India</span>
               </div>
             </div>
 
@@ -72,7 +70,7 @@ const Hero = () => {
                 variant="accent"
                 className="text-sm px-6"
               >
-                Book Free 30-Min Call <ArrowRight />
+                Book a free call <ArrowRight />
               </Button>
               <Button
                 onClick={scrollToSolutions}
@@ -80,22 +78,18 @@ const Hero = () => {
                 variant="outline"
                 className="text-sm px-6"
               >
-                See Our Services
+                See what we build
               </Button>
             </div>
 
-            {/* Free audit + Guarantee */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs md:text-sm text-muted-foreground lg:justify-start justify-center">
+            {/* Free audit — secondary action */}
+            <div className="text-sm text-muted-foreground lg:text-left text-center">
               <span>
-                or get a{" "}
+                Not ready to talk? Get a{" "}
                 <Link href="/free-audit" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80 transition-colors">
-                  Free Website Audit
-                </Link>
-              </span>
-              <span className="hidden sm:block text-border">|</span>
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-secondary" />
-                <span className="font-medium">100% Satisfaction Guarantee</span>
+                  free website audit
+                </Link>{" "}
+                — no strings attached.
               </span>
             </div>
           </div>

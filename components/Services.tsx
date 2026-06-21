@@ -68,7 +68,7 @@ const Services = () => {
                   {service.price && (
                     <p className="text-sm font-extrabold text-primary mb-1.5">{service.price}</p>
                   )}
-                  <p className="text-muted-foreground text-xs leading-relaxed">{service.description}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
                 </div>
               </div>
             </div>

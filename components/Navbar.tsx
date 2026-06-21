@@ -52,7 +52,7 @@ const Navbar = () => {
                 ))}
               </div>
               <Button onClick={handleBookCall} variant="accent">
-                Book Free Call
+                Book a free call
               </Button>
             </div>
 
@@ -90,7 +90,7 @@ const Navbar = () => {
                   variant="accent"
                   className="w-full"
                 >
-                  Book Free Call
+                  Book a free call
                 </Button>
               </div>
             </div>

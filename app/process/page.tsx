@@ -193,7 +193,7 @@ const Process = () => {
               onClick={handleBookCall}
               className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg text-xs px-6 py-4 flex-shrink-0"
             >
-              Book your free call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+              Book a free call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
             </Button>
           </div>
         </div>

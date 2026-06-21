@@ -33,7 +33,7 @@ const Contact = () => {
                 className="text-sm px-8"
               >
                 <Calendar className="mr-2 w-5 h-5" />
-                Book Your Free 30-Min Call
+                Book a free call
               </Button>
               <p className="text-xs text-muted-foreground mt-3">
                 Get instant answers, exact quote, and timeline — no commitment required
