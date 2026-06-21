@@ -82,7 +82,7 @@ const Process = () => {
       number: "03",
       icon: Code,
       title: "Development",
-      duration: "2-3 weeks",
+      duration: "1-2 weeks",
       description: "This is where the magic happens. We build your website using modern, professional technology — fast, secure, and mobile-friendly.",
       whatHappens: [
         "Develop all pages based on approved design",
@@ -132,9 +132,9 @@ const Process = () => {
 
   const timeline = [
     { milestone: "Discovery call", days: "Day 1" },
-    { milestone: "Design approval", days: "Day 5-7" },
-    { milestone: "Development complete", days: "Day 21-28" },
-    { milestone: "Website launch", days: "Day 30-34" },
+    { milestone: "Design approval", days: "Day 4-6" },
+    { milestone: "Development complete", days: "Day 14-18" },
+    { milestone: "Website launch", days: "Day 16-21" },
   ];
 
   const whatYouNeedToProvide = [

@@ -56,7 +56,7 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className={`${service.cardStyle} p-5 ${service.featured ? "md:col-span-2 p-6" : ""} ${index >= 3 ? "hidden md:block" : ""} hover:shadow-xl transition-all duration-300 group reveal`}
+              className={`${service.cardStyle} p-5 ${service.featured ? "md:col-span-2 p-6" : ""} hover:shadow-xl transition-all duration-300 group reveal`}
               style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
             >
               <div className={`${service.featured ? "flex flex-col md:flex-row md:items-start md:gap-5" : ""}`}>

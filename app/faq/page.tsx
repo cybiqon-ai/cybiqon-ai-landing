@@ -92,7 +92,7 @@ const faqCategories = [
         id: "q10",
         question: "How long does it take to build a website?",
         answer:
-          "A standard Starter Website takes 3-4 weeks from kickoff to launch. Business Pro takes 4-5 weeks. Custom projects vary based on complexity. We'll give you an exact timeline during the consultation.",
+          "A standard website takes 2-3 weeks from kickoff to launch. Larger or custom projects vary based on complexity. We'll give you an exact timeline during the consultation.",
       },
       {
         id: "q11",

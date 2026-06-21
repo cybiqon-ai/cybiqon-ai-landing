@@ -37,7 +37,7 @@ const ProblemsWeSolve = () => {
             {problems.map((item, index) => (
               <div
                 key={index}
-                className={`${index >= 2 ? "hidden md:grid" : "grid"} md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center reveal`}
+                className={`grid md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center reveal`}
                 style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
               >
                 {/* Pain — recessed, muted surface; the X carries the meaning */}

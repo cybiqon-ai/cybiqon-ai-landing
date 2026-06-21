@@ -179,15 +179,15 @@ const Pricing = () => {
             <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-primary" />
-                Trusted by 10+ businesses
+                Founder-led delivery
               </span>
               <span className="flex items-center gap-1.5">
                 <CheckCircle className="w-3.5 h-3.5 text-secondary" />
-                2 products launched
+                You own 100% of the code
               </span>
               <span className="flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5 text-primary" />
-                100% satisfaction guarantee
+                No hidden fees, ever
               </span>
             </div>
           </div>

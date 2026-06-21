@@ -95,8 +95,8 @@ export default function IndexPage() {
         <Services />
       </div>
 
-      {/* How It Works — hidden on mobile to reduce scroll */}
-      <section className="hidden md:block py-8 md:py-18 relative bg-muted/30">
+      {/* How It Works */}
+      <section className="py-8 md:py-18 relative bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10 animate-fade-in">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">

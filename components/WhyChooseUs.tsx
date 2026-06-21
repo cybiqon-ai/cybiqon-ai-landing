@@ -62,7 +62,7 @@ const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`${feature.cardStyle} ${feature.span} p-5 ${index >= 3 ? "hidden md:block" : ""} hover:shadow-xl transition-all duration-300 group reveal`}
+              className={`${feature.cardStyle} ${feature.span} p-5 hover:shadow-xl transition-all duration-300 group reveal`}
               style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
             >
               <div className={`${feature.span === "md:col-span-3" ? "flex flex-col md:flex-row md:items-center md:gap-5 text-center md:text-left" : ""}`}>

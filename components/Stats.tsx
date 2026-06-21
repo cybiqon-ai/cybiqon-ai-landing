@@ -1,8 +1,8 @@
 const stats = [
-  { value: "6+", label: "Industries Served" },
-  { value: "\u20B99,999", label: "Starting Price" },
-  { value: "100%", label: "Satisfaction Guarantee" },
-  { value: "24hr", label: "Response Time" },
+  { value: "24-hr", label: "Response time" },
+  { value: "100%", label: "Code ownership \u2014 it's yours" },
+  { value: "Free", label: "Website audit, no strings" },
+  { value: "\u20B90", label: "Hidden fees, ever" },
 ];
 
 const Stats = () => {
