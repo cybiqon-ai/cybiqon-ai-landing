@@ -103,7 +103,7 @@ const Contact = () => {
               onClick={handleBookCall}
               className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg text-xs px-6 py-4 flex-shrink-0"
             >
-              Book your free call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+              Book a free call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
             </Button>
           </div>
         </div>
@@ -244,7 +244,7 @@ function WhyBookSection({ handleBookCall }: { handleBookCall: () => void }) {
             onClick={handleBookCall}
             className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold shadow-lg text-xs px-5 py-4"
           >
-            Book your free 30-minute call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+            Book a free call <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
           </Button>
         </div>
       </div>

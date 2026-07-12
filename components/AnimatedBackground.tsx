@@ -12,24 +12,23 @@ const businessIcons = [
 const AnimatedBackground = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Animated gradient blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-      <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-accent/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
-      
-      {/* Floating business icons */}
+      {/* Single restrained ambient wash — one hue, low opacity */}
+      <div className="absolute -top-24 left-1/3 w-[44rem] h-[44rem] bg-primary/[0.06] rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-0 right-1/4 w-[34rem] h-[34rem] bg-primary/[0.04] rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+
+      {/* Floating business icons — faint thematic texture */}
       {businessIcons.map((item, index) => (
         <div
           key={index}
-          className={`absolute ${item.position} opacity-5 animate-float-slow`}
+          className={`absolute ${item.position} opacity-[0.035] animate-float-slow`}
           style={{ animationDelay: `${item.delay}s` }}
         >
           <item.Icon className="w-16 h-16 md:w-24 md:h-24 text-primary" />
         </div>
       ))}
-      
+
       {/* Connection dots/grid */}
-      <svg className="absolute inset-0 w-full h-full opacity-20">
+      <svg className="absolute inset-0 w-full h-full opacity-[0.10]">
         <defs>
           <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
             <circle cx="25" cy="25" r="1.5" fill="hsl(var(--primary))" className="animate-pulse" />

@@ -23,7 +23,7 @@ const IndustryShowcase = () => {
   }, []);
 
   return (
-    <section className="hidden md:block py-8 md:py-16 relative overflow-hidden">
+    <section className="py-8 md:py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
@@ -34,7 +34,7 @@ const IndustryShowcase = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-3xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
           {industries.map((industry, index) => (
             <button
               key={index}
@@ -46,11 +46,11 @@ const IndustryShowcase = () => {
               }`}
             >
               <div
-                className={`w-12 h-12 rounded-lg bg-gradient-to-br ${industry.color} flex items-center justify-center transition-transform duration-500 ${
+                className={`icon-chip w-12 h-12 transition-transform duration-500 ${
                   index === activeIndex ? 'scale-110' : ''
                 }`}
               >
-                <industry.icon className="w-6 h-6 text-white" />
+                <industry.icon className="w-6 h-6" />
               </div>
               <span className="text-xs font-medium">{industry.name}</span>
               {index === activeIndex && (

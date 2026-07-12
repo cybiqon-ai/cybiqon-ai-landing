@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, TrendingUp, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import AnimatedBackground from "./AnimatedBackground";
 import HeroDashboardMockup from "./HeroDashboardMockup";
@@ -20,28 +20,26 @@ const Hero = () => {
     <section className="relative min-h-[85dvh] lg:min-h-[100dvh] flex items-center overflow-hidden pt-28 pb-20 lg:pt-16 lg:pb-10">
       <AnimatedBackground />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10 lg:px-16">
+      <div className="relative z-10 mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16">
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-center">
           {/* Left column - Text content */}
           <div className="space-y-5 md:space-y-4">
             {/* Eyebrow text */}
             <div className="lg:text-left text-center">
-              <p className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-emerald-50 border border-blue-200 rounded-full text-xs font-medium text-primary">
-                <TrendingUp className="w-3.5 h-3.5" />
+              <p className="inline-flex items-center gap-2 px-3 py-1.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground">
+                <TrendingUp className="w-3.5 h-3.5 text-primary" />
                 Helping Indian MSMEs Grow Online Since 2025
               </p>
             </div>
 
             {/* Main headline */}
-            <h1 className="text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-[1.15] tracking-tight lg:text-left text-center">
-              <span className="text-foreground">Finally, Tech That Works for </span>
-              <span className="gradient-text">Indian MSMEs</span>
-              <br className="hidden lg:block" />
-              <span className="text-foreground"> — Not Against Them</span>
+            <h1 className="display text-4xl md:text-5xl lg:text-[3.25rem] xl:text-6xl lg:text-left text-center">
+              <span className="text-foreground">Your business online in </span>
+              <span className="gradient-text">2-3 weeks</span>
             </h1>
 
             <p className="text-base md:text-base text-muted-foreground leading-relaxed max-w-lg lg:text-left text-center">
-              We build affordable websites and AI automations so you can focus on running your business — not chasing tech vendors.
+              Websites and WhatsApp automation built for Indian MSMEs — fast, affordable, and you own 100% of the code.
             </p>
 
             <p className="text-sm md:text-sm font-semibold text-primary lg:text-left text-center">
@@ -52,49 +50,46 @@ const Hero = () => {
             <div className="flex flex-wrap lg:justify-start justify-center gap-3 md:gap-5 text-sm md:text-sm text-muted-foreground">
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                <span>2 Products Launched</span>
+                <span>Live in 2-3 weeks</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                <span>100% MSME Focused</span>
+                <span>You own the code</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                <span>Based in India</span>
+                <span>Founder-led, based in India</span>
               </div>
             </div>
 
-            {/* CTAs */}
+            {/* CTAs — one reserved accent (orange) for the primary action */}
             <div className="flex flex-col sm:flex-row gap-3 lg:justify-start justify-center items-center pt-1">
               <Button
                 onClick={handleBookCall}
                 size="lg"
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 text-sm px-6 py-5 glow-effect-warm text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                variant="accent"
+                className="text-sm px-6"
               >
-                Book Free 30-Min Call <ArrowRight className="ml-2 w-4 h-4" />
+                Book a free call <ArrowRight />
               </Button>
               <Button
                 onClick={scrollToSolutions}
                 size="lg"
                 variant="outline"
-                className="border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300 text-sm px-6 py-5"
+                className="text-sm px-6"
               >
-                See Our Services
+                See what we build
               </Button>
             </div>
 
-            {/* Free audit + Guarantee */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs md:text-sm text-muted-foreground lg:justify-start justify-center">
+            {/* Free audit — secondary action */}
+            <div className="text-sm text-muted-foreground lg:text-left text-center">
               <span>
-                or get a{" "}
+                Not ready to talk? Get a{" "}
                 <Link href="/free-audit" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80 transition-colors">
-                  Free Website Audit
-                </Link>
-              </span>
-              <span className="hidden sm:block text-border">|</span>
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-secondary" />
-                <span className="font-medium">100% Satisfaction Guarantee</span>
+                  free website audit
+                </Link>{" "}
+                — no strings attached.
               </span>
             </div>
           </div>

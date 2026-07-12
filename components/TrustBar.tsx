@@ -21,7 +21,7 @@ const TrustBar = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-r from-blue-50 via-emerald-50 to-amber-50 border-y border-border py-5">
+    <section className="bg-muted/60 border-y border-border py-5">
       <div className="content-container">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {trustItems.map((item, index) => (

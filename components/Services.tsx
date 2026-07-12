@@ -1,7 +1,4 @@
-"use client";
-
 import { Code2, Bot, Database, Puzzle, TabletSmartphone } from "lucide-react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const services = [
   {
@@ -31,7 +28,7 @@ const services = [
     title: "Bulk Scraping",
     description: "Extract competitor prices, supplier catalogs, and leads from JustDial/IndiaMART — delivered in Excel, ready to use.",
     featured: false,
-    cardStyle: "border border-border bg-white rounded-2xl",
+    cardStyle: "card-surface",
   },
   {
     icon: Puzzle,
@@ -43,12 +40,10 @@ const services = [
 ];
 
 const Services = () => {
-  const { ref, isVisible } = useScrollReveal();
-
   return (
-    <section className="py-8 md:py-18 relative" ref={ref}>
+    <section className="py-8 md:py-18 relative">
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-10 reveal ${isVisible ? "visible" : ""}`}>
+        <div className="text-center mb-10 reveal">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
             Our <span className="text-primary">Services</span>
           </h2>
@@ -57,23 +52,23 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-5 max-w-[90rem] mx-auto">
           {services.map((service, index) => (
             <div
               key={index}
-              className={`${service.cardStyle} p-5 ${service.featured ? "md:col-span-2 p-6" : ""} ${index >= 3 ? "hidden md:block" : ""} hover:shadow-xl transition-all duration-300 group reveal ${isVisible ? "visible" : ""}`}
+              className={`${service.cardStyle} p-5 ${service.featured ? "md:col-span-2 p-6" : ""} hover:shadow-xl transition-all duration-300 group reveal`}
               style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
             >
               <div className={`${service.featured ? "flex flex-col md:flex-row md:items-start md:gap-5" : ""}`}>
-                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-3 group-hover:scale-110 transition-transform flex-shrink-0 ${service.featured ? "w-11 h-11" : ""}`}>
-                  <service.icon className={`text-white ${service.featured ? "w-5 h-5" : "w-5 h-5"}`} />
+                <div className={`icon-chip w-10 h-10 mb-3 group-hover:scale-105 transition-transform flex-shrink-0 ${service.featured ? "w-11 h-11" : ""}`}>
+                  <service.icon className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className={`font-bold mb-1.5 ${service.featured ? "text-lg" : "text-base"}`}>{service.title}</h3>
                   {service.price && (
                     <p className="text-sm font-extrabold text-primary mb-1.5">{service.price}</p>
                   )}
-                  <p className="text-muted-foreground text-xs leading-relaxed">{service.description}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
                 </div>
               </div>
             </div>
