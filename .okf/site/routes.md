@@ -28,8 +28,10 @@ All seven now have a server `page.tsx` exporting unique metadata plus a co-locat
 
 | Route | Notes |
 |---|---|
-| `/blog` | server, `runtime="edge"`, D1 query, 30 most recent |
-| `/blog/[slug]` | server, `runtime="edge"`, live D1 query per render |
+| `/blog` | server, edge, **paginated via `?page=N`** (9/page, 9 pages) |
+| `/blog?page=2..9` | same route; real `<Link>` hrefs, `rel=prev/next`, self-canonical |
+| `/blog/[slug]` | server, edge, live D1 query per render |
+| `/blog/tag/[tag]` | server, edge, **21 archives**, paginated, 404s on an unknown tag |
 
 # Apps
 

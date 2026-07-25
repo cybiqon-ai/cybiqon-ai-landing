@@ -70,11 +70,21 @@ characters. One trap worth remembering: the root layout sets
 it **twice** — page titles must omit it, while `openGraph.title` (not templated)
 should include it.
 
+# Crawl paths — rebuilt 25 Jul 2026
+
+`/blog` used to render **9 post links out of 76** with pagination in `useState` and
+no paginated URLs, leaving **46 posts with no internal link anywhere on the site** —
+sitemap-only, which is what Google files under *"Discovered — currently not
+indexed"*.
+
+Now: `/blog?page=1..9` server-rendered with real hrefs (verified live, 76/76 posts
+reachable), 21 `/blog/tag/<slug>` archives, and a sitemap listing all 120 URLs —
+76 posts, 21 tags, 8 paginated indexes, 15 static.
+
 # Still missing
 
 | Gap | Consequence |
 |---|---|
-| **No tag routes** | tag filtering is client-side only, so tags have zero indexable URLs despite being stored on every post |
 | **No OG image generation** | every page shares `/logo.png`; only blog posts get a real image |
 | `sitemap.ts` `lastModified` | uses `new Date()` for every static page — everything always claims to have changed today, a weak and noisy signal |
 | **No author / E-E-A-T page** | posts credit "Cybiqon Team" with no link |

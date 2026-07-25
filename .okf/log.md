@@ -52,3 +52,18 @@
   descriptions, `index, follow`, canonicals and Article JSON-LD with all 76 in the sitemap.
   That claim came from a stale `AUDIT.md` and was never verified. Discovery was never the
   problem; **ranking** is, and that is a content and authority problem, not a technical one.
+
+* **Fix** ([blog](/content/blog.md), [SEO](/site/seo.md)): made every post reachable by a
+  crawler. `/blog` fetched `LIMIT 30` and held the page in `useState`, rendering **9 post
+  links out of 76** with no paginated URLs — so 46 posts had **no internal link anywhere on
+  the site** and were discoverable only through `sitemap.xml`, which is exactly what Google
+  parks under *"Discovered — currently not indexed"*. Replaced the client `BlogTagFilter`
+  with a server `BlogList`: `/blog?page=N` with real hrefs and `rel=prev/next`, plus 21
+  `/blog/tag/<slug>` archives. Verified live: walking pages 1–9 reaches 76/76 posts, and
+  the sitemap now lists 120 URLs.
+
+  Two judgement calls worth keeping. **Tag pages are gated at ≥3 posts and ≤40% share** —
+  215 distinct tags exist across 76 posts and most appear once, so a page per tag would be
+  190+ thin archives, and `MSME` (64/76) / `India` (60/76) would duplicate `/blog`.
+  **Page 2+ canonicals to itself**, not back to `/blog`; self-canonicalising would tell
+  Google those URLs are duplicates and undo the crawl paths the change exists to create.

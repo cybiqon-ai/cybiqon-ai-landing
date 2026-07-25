@@ -1,9 +1,9 @@
 ---
 type: Domain
 title: Blog
-description: Posts are rows in Cloudflare D1, not files — written and inserted by a different repo, and rendered by a live edge query on every request.
+description: Posts are rows in Cloudflare D1, not files — written by a different repo, rendered by a live edge query, and served through server-paginated index and tag-archive routes.
 tags: [blog, d1, cloudflare, content, edge]
-timestamp: 2026-07-25T00:00:00Z
+timestamp: 2026-07-25T17:42:26Z
 ---
 
 # Overview
@@ -39,16 +39,19 @@ insert, so the site does no markdown processing at all.
 
 # Rendering
 
-**Index** (`app/blog/page.tsx`, edge):
+**Index** (`app/blog/page.tsx`, edge) — server-paginated via `?page=N`, 9 per
+page, through `lib/blog.ts::getPagedPosts`. Renders the **server** component
+`components/blog/BlogList.tsx` → `BlogCard.tsx`.
 
-```sql
-SELECT id, slug, title, excerpt, image_url, tags, created_at
-FROM blog_posts WHERE published = 1 ORDER BY created_at DESC LIMIT 30
-```
+⚠️ **This replaced a client-side paginator on 25 Jul 2026, and the reason matters.**
+The old version fetched `LIMIT 30` and held the page number in `useState`, so it
+rendered **9 post links out of 76** with no paginated URLs at all. Of 76 posts: 9
+were linked in HTML, 21 sat behind a paginator with no `href`, and **46 were not on
+`/blog` in any form** — reachable only through `sitemap.xml`. Sitemap-only URLs are
+precisely what Google parks under *"Discovered — currently not indexed"*.
 
-wrapped in try/catch → empty state on failure. Rows go to
-`components/blog/BlogTagFilter.tsx` (client-side tag filter, max 8 tags, 9 posts
-per page) → `components/blog/BlogCard.tsx`.
+Now every post is reachable by walking `/blog?page=1..9` (verified live: 76/76),
+and `rel="prev"`/`rel="next"` are emitted.
 
 **Detail** (`app/blog/[slug]/page.tsx`, edge): `SELECT * … WHERE slug = ? AND
 published = 1`, `notFound()` if missing. `generateMetadata` runs a **second**
@@ -61,9 +64,16 @@ query. Content is injected with `dangerouslySetInnerHTML` after an H1→H2 rewri
 **every post render is a live D1 query at the edge** — and the detail page runs
 two. Acceptable at current traffic; the first thing to change if it grows.
 
-**Tags have no URLs.** They are stored on every row and filtered entirely
-client-side, so there are no `/blog/tag/[tag]` routes for search to index.
-`components/blog/TagPill.tsx` is display-only. Free SEO surface, unclaimed.
+**Tag archives exist as of 25 Jul 2026** — `/blog/tag/<slug>`, server-rendered
+and paginated. They are gated: a tag needs **≥3 posts and ≤40% share** to earn a
+page. 215 distinct tags exist across 76 posts and most appear once, so a page per
+tag would be 190+ thin archives; `MSME` (64/76) and `India` (60/76) are excluded
+as too generic to be anything but a duplicate of `/blog`. That leaves **21 real
+clusters**.
+
+Tag matching wraps both sides in commas — `',' || REPLACE(tags, ', ', ',') || ','
+LIKE '%,AI,%'` — so `AI` cannot also match `AI automation`. Verified against live
+D1: `AI` returns 9, not 25.
 
 # Trusting the HTML
 
