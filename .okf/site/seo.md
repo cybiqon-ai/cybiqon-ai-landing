@@ -89,16 +89,25 @@ reachable), 21 `/blog/tag/<slug>` archives, and a sitemap listing all 120 URLs �
 | `sitemap.ts` `lastModified` | uses `new Date()` for every static page — everything always claims to have changed today, a weak and noisy signal |
 | **No author / E-E-A-T page** | posts credit "Cybiqon Team" with no link |
 
-# Indexing is not being submitted
+# Nothing needs "submitting"
 
-Separate from this repo but directly downstream: the blog pipeline submits new
-URLs to the **Google Indexing API**, and that has been failing since ~10 Jul
-because the OAuth client-secret file went missing. Three weeks of daily posts,
-none submitted.
+The blog pipeline used to POST every new URL to the **Google Indexing API**, and
+that broke on ~10 Jul when the OAuth client-secret file went missing.
 
-Publishing daily into a site whose commercial pages have no metadata, while not
-submitting anything for indexing, is close to the worst possible allocation of a
-content engine.
+**That was never doing anything.** The Indexing API only accepts pages carrying
+`JobPosting` or `BroadcastEvent` structured data — it ignores blog posts, and using
+it for general content breaches the API terms. The call has been removed from the
+pipeline; the outage was protective.
+
+Manually pasting URLs into Search Console's **URL Inspection → Request Indexing**
+also isn't the answer at this scale: it's rate-limited to roughly 10–12/day and it
+only asks for a recrawl — Google still decides independently whether to index.
+Discovery is the sitemap's job, and the sitemap is correct.
+
+What the missing credential still costs is **Search Console query data** —
+impressions, average position, CTR. That is a measurement loss, not an indexing
+one, and it is the one thing worth restoring: it shows which queries the site
+ranks 8th–20th for, where a small improvement actually converts.
 
 # Measurement
 
