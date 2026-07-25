@@ -1,16 +1,23 @@
 ---
 type: Domain
 title: SEO
-description: Strong structured data and a working sitemap, undermined by seven commercial pages that export no metadata at all because they are client components.
-tags: [seo, metadata, json-ld, sitemap, search-console]
-timestamp: 2026-07-25T00:00:00Z
+description: Structured data, sitemap, RSS and per-page metadata are all in place as of 25 Jul 2026; the blog is indexed and the remaining gap is ranking, not discovery.
+tags: [seo, metadata, json-ld, sitemap, search-console, rss]
+timestamp: 2026-07-25T17:22:45Z
 ---
 
 # Overview
 
-The site publishes a blog post **every single day**. Its seven highest
-commercial-intent pages are **invisible to search**. Both things have been true
-for months.
+**The blog is indexed.** `site:cybiqon.in` returns blog URLs; posts carry unique
+titles, descriptions, `index, follow`, canonicals and Article JSON-LD, and all 76
+are in `sitemap.xml`. Discovery was never the problem — an earlier version of this
+concept implied otherwise and was wrong.
+
+For four months the *commercial* pages were the problem: seven of them shipped the
+identical `<title>` as the homepage. **Fixed 25 Jul 2026.**
+
+What remains is **ranking**, which is a content and authority problem rather than a
+technical one — the site targets head terms held by entrenched competitors.
 
 # What works
 
@@ -36,37 +43,37 @@ blog slug from D1, wrapped in try/catch so a D1 failure degrades to static-only
 rather than serving nothing. **`app/robots.ts`** — allows `/`, disallows `/api/`
 and `/_next/`, declares the sitemap.
 
-# The gap that costs money
+# The gap that cost money — FIXED 25 Jul 2026
 
-**Seven pages are `"use client"`, so they export no `metadata` object at all:**
+Until 25 Jul, seven pages were `"use client"` and exported no `metadata` at all:
 
 ```
 /pricing   /our-works   /case-studies   /contact   /about   /process   /faq
 ```
 
-No unique `<title>`, no description, no `alternates.canonical`, no OpenGraph.
-They inherit only the root defaults, so Google sees seven pages with effectively
-the same title and no canonical signal.
+**All seven shipped the identical `<title>` as the homepage** — "Affordable Web
+Development & AI Automation for Indian MSMEs | Cybiqon AI Solutions" — with no
+description, no canonical and no OpenGraph. Google saw seven near-duplicate pages
+where the site's entire commercial intent lives.
 
-These are the pages someone lands on when they are ready to buy.
-
-**The fix is mechanical and identical for each:** rename the existing file to a
-co-located client child, and add a thin *server* `page.tsx` that exports metadata
-and renders it.
+**Fixed** by splitting each into a server `page.tsx` exporting metadata plus a
+co-located client component:
 
 ```
-app/pricing/page.tsx          → server wrapper, exports metadata
-app/pricing/PricingClient.tsx → the existing "use client" body, unchanged
+app/pricing/page.tsx          server — title, description, keywords, canonical, OG
+app/pricing/PricingClient.tsx the original "use client" body, unchanged
 ```
 
-Order by commercial intent: **pricing → our-works → contact**, then the rest.
+All seven now prerender statically with distinct titles under 75 rendered
+characters. One trap worth remembering: the root layout sets
+`template: "%s | Cybiqon AI Solutions"`, so a page title ending in the brand gets
+it **twice** — page titles must omit it, while `openGraph.title` (not templated)
+should include it.
 
-# Also missing
+# Still missing
 
 | Gap | Consequence |
 |---|---|
-| **No Search Console verification** | no `verification` key in metadata |
-| **No RSS feed** | `/rss.xml` 404s |
 | **No tag routes** | tag filtering is client-side only, so tags have zero indexable URLs despite being stored on every post |
 | **No OG image generation** | every page shares `/logo.png`; only blog posts get a real image |
 | `sitemap.ts` `lastModified` | uses `new Date()` for every static page — everything always claims to have changed today, a weak and noisy signal |

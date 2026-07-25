@@ -32,3 +32,23 @@
   names, no testimonials and no results. Rebuilding it is deliberately sequenced **after** the
   Launch-5 clients exist: extracting demo projects into a data file would relocate the problem
   rather than fix it.
+
+* **Fix** ([SEO](/site/seo.md), [routes](/site/routes.md)): all seven `"use client"` money
+  pages split into a server `page.tsx` exporting unique title / description / keywords /
+  canonical / OpenGraph, plus a co-located `XClient.tsx` holding the unchanged body.
+  **They had all been shipping the identical `<title>` as the homepage**, so Google saw seven
+  near-duplicate pages covering the site's entire commercial intent. Verified in the build
+  output: seven distinct titles, correct canonicals, all prerendering statically.
+  Trap worth remembering: the root layout sets `template: "%s | Cybiqon AI Solutions"`, so a
+  page title ending in the brand renders it **twice** — page titles omit it, `openGraph.title`
+  keeps it.
+
+* **Creation** ([routes](/site/routes.md)): `app/rss.xml/route.ts` — edge runtime, 50 most
+  recent posts from D1, XML-escaped, listed in `sitemap.ts` and the layout's
+  `alternates.types`. Degrades to an empty-but-valid feed on a D1 outage rather than a 500.
+
+* **Correction** ([SEO](/site/seo.md)): an earlier version of this bundle implied the blog was
+  not indexed. **It is** — `site:cybiqon.in` returns blog URLs, and posts carry unique titles,
+  descriptions, `index, follow`, canonicals and Article JSON-LD with all 76 in the sitemap.
+  That claim came from a stale `AUDIT.md` and was never verified. Discovery was never the
+  problem; **ranking** is, and that is a content and authority problem, not a technical one.

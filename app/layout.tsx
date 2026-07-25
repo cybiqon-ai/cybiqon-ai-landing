@@ -70,6 +70,9 @@ export const metadata: Metadata = {
       en: siteUrl,
       "x-default": siteUrl,
     },
+    types: {
+      "application/rss+xml": `${siteUrl}/rss.xml`,
+    },
   },
 };
 

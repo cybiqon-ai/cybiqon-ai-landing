@@ -11,18 +11,18 @@ timestamp: 2026-07-25T00:00:00Z
 | Route | File | Rendering |
 |---|---|---|
 | `/` | `app/page.tsx` | server — metadata + Service/Breadcrumb JSON-LD |
-| `/about` | `app/about/page.tsx` | **client** |
-| `/our-works` | `app/our-works/page.tsx` | **client** |
-| `/pricing` | `app/pricing/page.tsx` | **client** |
-| `/process` | `app/process/page.tsx` | **client** |
-| `/case-studies` | `app/case-studies/page.tsx` | **client** |
-| `/faq` | `app/faq/page.tsx` | **client** — FAQPage JSON-LD |
-| `/contact` | `app/contact/page.tsx` | **client** |
+| `/about` | `app/about/page.tsx` → `AboutClient.tsx` | server + metadata |
+| `/our-works` | `app/our-works/page.tsx` → `OurWorksClient.tsx` | server + metadata |
+| `/pricing` | `app/pricing/page.tsx` → `PricingClient.tsx` | server + metadata |
+| `/process` | `app/process/page.tsx` → `ProcessClient.tsx` | server + metadata |
+| `/case-studies` | `app/case-studies/page.tsx` → `CaseStudiesClient.tsx` | server + metadata |
+| `/faq` | `app/faq/page.tsx` → `FaqClient.tsx` | server + metadata, FAQPage JSON-LD |
+| `/contact` | `app/contact/page.tsx` → `ContactClient.tsx` | server + metadata |
 | `/free-audit` | `app/free-audit/page.tsx` | server + metadata |
 | `/privacy`, `/terms` | | server |
 
-The seven `"use client"` pages **export no metadata at all** — see
-[SEO](/site/seo.md). That is the single highest-value fix on the site.
+All seven now have a server `page.tsx` exporting unique metadata plus a co-located
+`XClient.tsx` — fixed 25 Jul 2026, see [SEO](/site/seo.md).
 
 # Blog
 
@@ -41,7 +41,10 @@ app/apps/llmbytes/terms/page.tsx       ✅ 200
 That is the **entire** contents of `app/apps/`. There is no `app/apps/page.tsx`,
 no `[slug]` route, and no `app/apps/llmbytes/page.tsx`.
 
-**404 today:** `/apps` · `/apps/llmbytes` · `/rss.xml`
+**404 today:** `/apps` · `/apps/llmbytes`
+
+`/rss.xml` shipped 25 Jul 2026 — `app/rss.xml/route.ts`, edge runtime, 50 most
+recent posts from D1, listed in the sitemap and in the layout's `alternates.types`.
 
 Both existing pages emit BreadcrumbList JSON-LD pointing at
 `https://cybiqon.in/apps/llmbytes` — **a URL that does not exist**. Structured
@@ -69,8 +72,9 @@ All `runtime="edge"`:
 `app/sitemap.ts` (edge — 14 static URLs + D1 blog URLs, try/catch falls back to
 static-only) · `app/robots.ts` · `app/not-found.tsx`
 
-**No `app/rss.xml/route.ts`** — confirmed 404. The D1 query in `sitemap.ts` is
-directly reusable for it.
+`app/rss.xml/route.ts` — edge, reuses the `sitemap.ts` D1 query shape. XML-escapes
+titles and excerpts, and degrades to an empty-but-valid feed on a D1 outage rather
+than a 500, so subscribers don't drop the feed.
 
 # Layout
 
