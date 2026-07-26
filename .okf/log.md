@@ -1,5 +1,84 @@
 # Update Log
 
+## 2026-07-26
+
+* **Creation** ([routes](/site/routes.md), [design system](/site/design-system.md)): the
+  `/products` catalogue — `data/products.ts` + `data/legal/{llmbytes,meflow,vitaloop}.ts`
+  feeding `/products`, `/products/apps`, and three products × (page + privacy + terms).
+  Replaces the two hand-written llmbytes legal pages that were the entire contents of
+  `app/apps/`, and gives VitaLoop a real privacy URL — its Play submission had been
+  pointing at `vitaloop.app/privacy`, a domain that resolves to nothing.
+
+  **Two things here are load-bearing and should not be "simplified" later.**
+
+  First, there is **no `[slug]` route**. Next 16 emits a Node ISR fallback for a dynamic
+  segment even with `dynamicParams = false`, `next-on-pages` calls that fallback an
+  invalid function, and the build fails. `runtime = "edge"` suppresses it but is mutually
+  exclusive with `generateStaticParams`. Concrete per-product route files are the escape.
+  This cost a failed Cloudflare build on PR #33 — and the reason I missed it is worth
+  recording: I ran `npm run build`, which passes, instead of
+  `npx @cloudflare/next-on-pages`, which is what actually deploys.
+
+  Second, the **`/apps/*` → `/products/*` 308 redirects** in `next.config.mjs`.
+  `/apps/llmbytes/privacy` is the privacy-policy URL registered with Google Play for a
+  published app. Moving it without a redirect breaks a live store listing. Verified in the
+  built `.vercel/output/config.json`, not just in dev. Play Console should still be
+  updated to the new URL — a redirect keeps a link alive, it does not stop the console
+  pointing at a path we no longer serve directly.
+
+  Category pages are views; product URLs stay flat. A category must never own an item's
+  URL, or recategorising something later breaks it — which matters when one of those URLs
+  is registered with Google.
+
+* **Correction** ([design system](/site/design-system.md)): the Ledger theme shipped as a
+  full palette — warm paper, ochre, ink — and the founder's response to the live page was
+  *"its color doesnt match our site, looks odd."* Measured: foreground hue shifted 170°,
+  primary 164°. Two pages read as a different company behind the same navbar. The theme is
+  now **structural only** — `--radius: 0px` and two aliases — and every colour is
+  inherited. The lesson is the general one: structure carried the distinctiveness the
+  brief actually wanted; the palette was where I spent the budget by mistake.
+
+* **Creation** ([lead capture](/content/lead-capture.md), [routes](/site/routes.md)):
+  `/free-website` — the Launch-5 offer page — plus `POST /api/apply`,
+  `data/launch5.ts`, and `migrations/0003_launch5_applications.sql`.
+
+  **`/api/apply` deliberately does not treat the D1 insert as fatal**, unlike
+  `/api/audit`. Its table arrives via a hand-applied migration, so the realistic day-one
+  failure is that the table does not exist yet, and an applicant must not pay for that.
+  The insert is best-effort; on failure the notification email still goes out, subject
+  prefixed `[DB FAILED]`, body opening with a banner naming the migration. Only if **both**
+  sinks fail does the user see an error, and that error hands them the WhatsApp number.
+  Returning `{ success: true }` when nothing was recorded anywhere is exactly the silent
+  failure this company keeps getting bitten by.
+
+  **`SLOTS_TAKEN = 0` and it is a real zero.** Seeding it would rebuild the fabricated
+  live counter that was removed from the homepage the same day.
+
+  Two copy claims were caught in review and corrected before commit: *"the code is
+  public"* (only this repo is) and *"three published products"* (two are live, one is in
+  testing). On a page whose whole argument is that the terms are honest, a rounded-up
+  number is the most expensive available mistake.
+
+* **Fix** ([lead capture](/content/lead-capture.md)): both public lead endpoints now
+  **escape user input** before interpolating it into the notification email, and share a
+  **3-per-hour-per-IP rate limiter** (`lib/leads.ts`, `rate_limit_hits`). Both gaps were
+  recorded in this bundle on 25 Jul as known and unfixed.
+
+  Rate limiting got its own table rather than an `ip_hash` column on `audit_leads`,
+  because SQLite has no `ALTER TABLE ... ADD COLUMN IF NOT EXISTS` and a migration you
+  cannot safely re-run is a migration nobody re-runs after a restore. The IP hash is data
+  minimisation, **not** anonymisation — a SHA-256 of an IPv4 is reversible in minutes of
+  compute. The limiter fails **open** on a missing header or a query error: five slots
+  exist in total, so the cost of abuse is a noisy inbox and the cost of a false reject is
+  a lost lead.
+
+* **Fix**: removed **952 files of `next-on-pages` build output** from git tracking and
+  added `.vercel` to `.gitignore`. I committed them by accident in `21bc326` — the
+  ignore file listed `.next` but not `.vercel`, and a `git add -A` swept the lot into the
+  org's only public repo. Scanned before removing: no secret was exposed. The two
+  `RESEND_API_KEY` hits in the bundle are property reads on the env binding, not values.
+
+
 ## 2026-07-25
 
 * **Initialization**: created this bundle — [site](/site/) (stack, routes, SEO) and

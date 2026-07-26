@@ -8,5 +8,5 @@ Where the words come from and where the leads go.
 
 # Conversion
 
-* [Lead capture](lead-capture.md) - the single form on the site, and everything else that's an off-site CTA.
-* [Content data](content-data.md) - why there is no `data/` directory, and what that costs.
+* [Lead capture](lead-capture.md) - two forms, one shared rate limiter, and the conversions nothing measures.
+* [Content data](content-data.md) - what lives in `data/` now, and what is still welded into its component.

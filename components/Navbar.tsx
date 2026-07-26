@@ -14,12 +14,15 @@ const Navbar = () => {
     window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
   };
 
+  // "Free Website" takes the slot that "Process" had. Nine links do not fit at the lg
+  // breakpoint without wrapping, and this is the page the whole quarter points at —
+  // /process is still reachable from the footer as "How It Works".
   const navLinks = [
     { label: "Home", path: "/" },
     { label: "About", path: "/about" },
     { label: "Our Works", path: "/our-works" },
     { label: "Pricing", path: "/pricing" },
-    { label: "Process", path: "/process" },
+    { label: "Free Website", path: "/free-website" },
     { label: "Case Studies", path: "/case-studies" },
     { label: "Blog", path: "/blog" },
     { label: "Contact", path: "/contact" }
