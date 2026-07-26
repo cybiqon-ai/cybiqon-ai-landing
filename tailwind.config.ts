@@ -4,7 +4,14 @@ import typography from "@tailwindcss/typography";
 
 export default {
   darkMode: ["class"],
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
+  // `./data/**` matters: class names living in a data file outside these globs are
+  // purged silently in prod. `features/` is already unscanned for this reason.
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./lib/**/*.{ts,tsx}",
+    "./data/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -16,6 +23,15 @@ export default {
     },
     extend: {
       colors: {
+        // Only these two are genuinely new — no shadcn slot exists for either.
+        // Everything else the paper theme needs is an EXISTING var redefined
+        // inside `.theme-paper` (see app/globals.css), so `bg-background` and
+        // `text-foreground` keep working and mean the right thing in each scope.
+        // Deliberately no `paper`/`ink`/`rule` keys: they would duplicate
+        // background/foreground/border under a second name and drift apart.
+        ochre: "hsl(var(--ochre))",
+        "rule-strong": "hsl(var(--rule-strong))",
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

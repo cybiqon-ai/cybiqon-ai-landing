@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-b border-border shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
@@ -70,7 +70,7 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="absolute top-[73px] left-0 right-0 bg-white border-b border-border shadow-lg">
+          <div className="absolute top-[73px] left-0 right-0 bg-background border-b border-border shadow-lg">
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col space-y-4">
                 {navLinks.map((link) => (

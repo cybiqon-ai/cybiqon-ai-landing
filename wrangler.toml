@@ -15,3 +15,20 @@ database_id = "0a9bcd34-fd85-4972-9e5e-ec86dfe5ebab"
 [[r2_buckets]]
 binding = "BLOG_IMAGES"
 bucket_name = "cybiqon-blog"
+
+# Preview (branch) deployments get their own binding set. Without these, a preview
+# deploy has NO `DB` binding at all — and because lib/blog.ts fails soft, the blog
+# would render empty and the sitemap would drop every post, with no error anywhere.
+# You would be reviewing a preview that quietly lies about the data layer.
+#
+# Pointed at the same database on purpose: these pages only read, and reviewing a
+# branch against an empty database defeats the point of the preview.
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "cybiqon-blog"
+database_id = "0a9bcd34-fd85-4972-9e5e-ec86dfe5ebab"
+
+[[env.preview.r2_buckets]]
+binding = "BLOG_IMAGES"
+bucket_name = "cybiqon-blog"
