@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getRequestContext } from "@cloudflare/next-on-pages";
 import { POSTS_PER_PAGE, getTagIndex } from "@/lib/blog";
+import { APPS } from "@/data/apps";
 
 export const runtime = "edge";
 
@@ -21,8 +22,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${siteUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${siteUrl}/apps`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    // llmbytes is still served by its hand-written pages until that copy is migrated into
+    // data/apps.ts; listed explicitly so the sitemap stays complete during the migration.
     { url: `${siteUrl}/apps/llmbytes/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${siteUrl}/apps/llmbytes/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    // Everything driven by data/apps.ts — adding an app adds its three URLs automatically.
+    ...APPS.flatMap((app) => [
+      { url: `${siteUrl}/apps/${app.slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 },
+      { url: `${siteUrl}/apps/${app.slug}/privacy`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
+      { url: `${siteUrl}/apps/${app.slug}/terms`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
+    ]),
   ];
 
   let blogPages: MetadataRoute.Sitemap = [];
