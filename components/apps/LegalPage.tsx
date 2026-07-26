@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import LegalDoc from "./LegalDoc";
-import type { AppRecord } from "@/data/apps";
+import { getApp } from "@/data/apps";
+import { notFound } from "next/navigation";
 
 const siteUrl = "https://cybiqon.in";
 
@@ -13,12 +14,14 @@ const siteUrl = "https://cybiqon.in";
  * "Last updated" in the header rather than buried at the bottom.
  */
 export default function LegalPage({
-  app,
+  slug,
   kind,
 }: {
-  app: AppRecord;
+  slug: string;
   kind: "privacy" | "terms";
 }) {
+  const app = getApp(slug);
+  if (!app) notFound();
   const doc = kind === "privacy" ? app.privacy : app.terms;
   const title = kind === "privacy" ? "Privacy Policy" : "Terms of Service";
   const other = kind === "privacy" ? "terms" : "privacy";

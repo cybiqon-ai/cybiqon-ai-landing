@@ -1,0 +1,18 @@
+{
+  "runtime": "edge",
+  "name": "api/audit",
+  "deploymentTarget": "v8-worker",
+  "entrypoint": "index.js",
+  "assets": [],
+  "framework": {
+    "slug": "nextjs",
+    "version": "16.2.1"
+  },
+  "environment": {
+    "__NEXT_BUILD_ID": "fRNsHZ3uFb60gfZab1tGI",
+    "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "GGtd/fh458fU9jLUWBVwNnba6HIJLI1yA0m4xz/d7Dk=",
+    "__NEXT_PREVIEW_MODE_ID": "ede9efbf4f5a00bb16b373c55e20b20b",
+    "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "823ed1df96e2510e9d7473b580558923e67aa46acf4aba650094eb51c96a90b6",
+    "__NEXT_PREVIEW_MODE_SIGNING_KEY": "8775431949a0f8566d932688bb5bb10db81cedf5f6b5f706483fa553080b332b"
+  }
+}
