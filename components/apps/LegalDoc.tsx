@@ -172,6 +172,11 @@ function BlockView({ block }: { block: Block }) {
       return (
         <section>
           {block.heading && <Heading>{block.heading}</Heading>}
+          {block.intro && (
+            <p className="mb-3 text-[15px] leading-relaxed text-muted-foreground">
+              <Inlines nodes={block.intro} />
+            </p>
+          )}
           <dl className="divide-y divide-border border-y border-border">
             {[
               { k: "Email", v: block.email, href: `mailto:${block.email}` },

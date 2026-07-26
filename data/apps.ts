@@ -22,7 +22,7 @@ export type Block =
   | { kind: "checklist"; heading?: string; intro?: Inline[]; items: Inline[][]; note?: Inline[] }
   | { kind: "deflist"; heading?: string; intro?: Inline[]; items: { term: string; def: Inline[] }[]; note?: Inline[] }
   | { kind: "table"; heading?: string; intro?: Inline[]; columns: string[]; rows: Inline[][][] }
-  | { kind: "contact"; heading?: string; email: string; phone: string; app: string };
+  | { kind: "contact"; heading?: string; intro?: Inline[]; email: string; phone: string; app: string };
 
 export interface LegalDoc {
   /** Human-readable, shown verbatim. Changing it is a legal act, not a formatting one. */
@@ -53,10 +53,56 @@ export interface AppRecord {
   terms: LegalDoc;
 }
 
+import { llmbytesPrivacy, llmbytesTerms } from "./legal/llmbytes";
 import { meflowPrivacy, meflowTerms } from "./legal/meflow";
 import { vitaloopPrivacy, vitaloopTerms } from "./legal/vitaloop";
 
 export const APPS: AppRecord[] = [
+  {
+    slug: "llmbytes",
+    name: "LLMBytes",
+    tagline: "AI news, written fresh every day",
+    summary:
+      "A dark-mode AI news reader. A pipeline watches the channels where AI news actually breaks, researches each story, and writes it up — so you get a daily digest and a short-form feed instead of a timeline. Everything is cached, so it reads fine underground.",
+    packageId: "com.cybiqon.llmbytes",
+    status: "live",
+    playUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.llmbytes",
+    platform: "Android",
+    why:
+      "AI news breaks on Telegram and X hours before it reaches a publication, and then arrives as a firehose. LLMBytes exists to do the reading for you: one digest a day, written from the source rather than rewritten from someone else's rewrite.",
+    features: [
+      {
+        title: "A daily digest",
+        description:
+          "Today's Bytes — short items you can read in a couple of minutes, plus one longer piece if the day earned it.",
+      },
+      {
+        title: "Written, not aggregated",
+        description:
+          "Each story is researched and written rather than scraped, with the original sources linked so you can check the claim.",
+      },
+      {
+        title: "Browse by category",
+        description: "Models, research, robotics, policy, industry, ethics, computing and startups.",
+      },
+      {
+        title: "Reads offline",
+        description:
+          "Articles are cached on your device, so the feed works on the metro or anywhere else the signal doesn't.",
+      },
+      {
+        title: "Bookmarks and search",
+        description: "Save anything worth returning to, and search everything you've read.",
+      },
+      {
+        title: "No account needed",
+        description:
+          "No sign-in, no email, no profile. Install it and read — there is nothing to delete later.",
+      },
+    ],
+    privacy: llmbytesPrivacy,
+    terms: llmbytesTerms,
+  },
   {
     slug: "meflow",
     name: "MeFlow",

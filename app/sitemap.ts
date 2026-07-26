@@ -23,10 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${siteUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${siteUrl}/apps`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    // llmbytes is still served by its hand-written pages until that copy is migrated into
-    // data/apps.ts; listed explicitly so the sitemap stays complete during the migration.
-    { url: `${siteUrl}/apps/llmbytes/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${siteUrl}/apps/llmbytes/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     // Everything driven by data/apps.ts — adding an app adds its three URLs automatically.
     ...APPS.flatMap((app) => [
       { url: `${siteUrl}/apps/${app.slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 },
