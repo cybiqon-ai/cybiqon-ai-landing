@@ -1,5 +1,8 @@
 -- Launch-5 applications — the offer at /free-website — plus shared rate limiting.
 --
+-- APPLIED to remote D1 (cybiqon-blog) on 26 Jul 2026. Recorded here because there is no
+-- migration runner and therefore no applied-migrations table to check against.
+--
 -- There is no migration runner in this repo. Apply by hand BEFORE the code that reads
 -- it deploys:
 --

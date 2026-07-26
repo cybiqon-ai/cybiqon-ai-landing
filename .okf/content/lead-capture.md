@@ -26,7 +26,11 @@ the blog.
 | `launch5_applications` | `0003_launch5_applications.sql` |
 | `rate_limit_hits` | `0003_launch5_applications.sql` |
 
-**There is no migration runner.** Migrations are applied by hand:
+**There is no migration runner**, and so no applied-migrations table to check against.
+Migrations are applied by hand, and each file records the date it was applied in its
+header — that header is the only record, so keep it accurate.
+
+`0003` was applied on **26 Jul 2026**. Both tables verified live, indexes present.
 
 ```bash
 npx wrangler d1 execute cybiqon-blog --remote --file=migrations/0003_launch5_applications.sql
