@@ -3,11 +3,14 @@
 import { usePathname } from "next/navigation";
 
 /**
- * Applies the "Ledger" paper theme to the routes that use it.
+ * Applies the "Ledger" structural theme to the routes that use it.
  *
- * Wraps Navbar + main + Footer in the root layout, so the chrome re-themes along
- * with the page. Without this the navbar's indigo wordmark and amber CTA would sit
- * over an ochre-and-paper page and read as a bug rather than a decision.
+ * The theme now inherits every colour from :root and overrides only the radius —
+ * an earlier version re-coloured these pages and they read as a different company
+ * next to the rest of the site. See the .theme-ledger comment in app/globals.css.
+ *
+ * Still wraps Navbar + main + Footer rather than just the page, so the squared
+ * radius reaches the chrome too and the seam isn't visible at the header.
  *
  * Why a pathname wrapper and not a route group: group layouts NEST inside
  * `app/layout.tsx` rather than replacing it, so swapping chrome that way would mean
@@ -22,16 +25,16 @@ import { usePathname } from "next/navigation";
  * toast fired from the apply form will use the default theme. That is acceptable for
  * something transient, but it is a known seam, not an oversight.
  */
-const PAPER_ROUTES = ["/free-website", "/apps"];
+const LEDGER_ROUTES = ["/free-website", "/apps"];
 
 export default function ThemeScope({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() ?? "";
-  const isPaper = PAPER_ROUTES.some(
+  const isLedger = LEDGER_ROUTES.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`)
   );
 
   return (
-    <div className={isPaper ? "theme-paper bg-background text-foreground" : undefined}>
+    <div className={isLedger ? "theme-ledger bg-background text-foreground" : undefined}>
       {children}
     </div>
   );

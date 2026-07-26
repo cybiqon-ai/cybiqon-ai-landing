@@ -72,64 +72,28 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     --sidebar-ring: 221 83% 53%;
   }
 
-  /* ── "Ledger" — the paper theme ──────────────────────────────────────────────
-     Scoped to /free-website and /apps/* via components/ThemeScope.tsx.
+  /* ── "Ledger" — a STRUCTURAL theme, not a colour theme ─────────────────────
+     Applied to /free-website and /apps/* via components/ThemeScope.tsx.
 
-     This REDEFINES the existing shadcn variables rather than adding new colour
-     keys. Every primitive (Button, Input, Form) hardcodes `bg-primary`,
-     `border-input`, `bg-background` — which compile to `hsl(var(--x))`. Adding a
-     parallel key called `paper` would leave an indigo button sitting on an ochre
-     page. Redefining the vars in a subtree flips every primitive for free, and
-     `* { @apply border-border }` in this same layer carries it to every border.
+     It deliberately inherits every colour from :root. An earlier version also
+     re-coloured these pages — warm paper background, ink buttons, an ochre accent —
+     and on the live site it read as a different company: the foreground hue moved
+     170° from cool navy to warm brown, and primary moved 164° from blue to ink.
+     Walking from /pricing to /apps, the page temperature flipped.
 
-     Grounded in the buyer's own world: the commercial document. Indian MSMEs run
-     on invoices, khata pages and IndiaMART listing sheets — ruled rows, paired
-     label/value columns, index numbers, ink on paper. Not the newspaper look;
-     the structure here is form logic, not editorial columns. */
-  .theme-paper {
-    --background: 38 18% 96%;        /* warm paper, cooler than the usual cream */
-    --foreground: 25 18% 12%;        /* warm off-black — never #000 */
+     What actually made those pages feel un-templated was the STRUCTURE — ruled rows
+     instead of cards, real index numbers, no pill badge, no gradient icon tiles,
+     tighter type. None of that needs its own palette. So the only visual override
+     left is the radius, which squares off every shadcn primitive at once and does
+     most of the "document, not card" work by itself.
 
-    --card: 0 0% 100%;               /* pure white panels lift off the paper */
-    --card-foreground: 25 18% 12%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 25 18% 12%;
-
-    /* Buttons are INK, not a colour. The one accent is spent on status, not CTAs. */
-    --primary: 25 18% 12%;
-    --primary-foreground: 38 18% 96%;
-
-    --secondary: 38 14% 92%;
-    --secondary-foreground: 25 18% 12%;
-
-    /* Ochre — turmeric, transport livery, government forms. Saturation 58%. */
-    --accent: 30 58% 42%;
-    --accent-foreground: 38 18% 96%;
-    --success: 30 58% 42%;
-    --success-foreground: 38 18% 96%;
-
-    --muted: 38 14% 92%;
-    --muted-foreground: 28 8% 40%;
-
-    --destructive: 4 62% 42%;        /* desaturated to sit with the ochre */
-    --destructive-foreground: 38 18% 96%;
-
-    --border: 30 12% 82%;            /* hairline rule */
-    --input: 30 12% 82%;
-    --ring: 30 58% 42%;
-
-    /* Does most of the "document, not card" work — borderRadius.lg/md/sm all
-       derive from this, so every shadcn primitive squares off at once. */
+     The two extra tokens exist because no shadcn slot matches them; both point at
+     existing brand values so nothing new enters the palette. */
+  .theme-ledger {
     --radius: 0px;
 
-    /* Genuinely new: no shadcn slot exists for these two. */
-    --ochre: 30 58% 42%;
-    --rule-strong: 25 18% 12%;
-
-    /* Flatter elevation, ink-tinted. Panels are defined by rules, not shadows. */
-    --shadow-sm: 0 1px 0 hsl(25 18% 12% / 0.06);
-    --shadow-md: 0 1px 0 hsl(25 18% 12% / 0.10);
-    --shadow-lg: 0 12px 32px -18px hsl(25 18% 12% / 0.22);
+    --ochre: 221 83% 53%;        /* = --primary. Accents stay on brand blue. */
+    --rule-strong: 215 25% 27%;  /* = --foreground, for the heavier section rules. */
   }
 
   .dark {
