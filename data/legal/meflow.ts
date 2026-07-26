@@ -1,4 +1,4 @@
-import type { LegalDoc } from "../apps";
+import type { LegalDoc } from "../products";
 
 /**
  * Migrated from MeFlow/hosting/privacy.html (436 lines) and

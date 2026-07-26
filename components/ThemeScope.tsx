@@ -25,7 +25,7 @@ import { usePathname } from "next/navigation";
  * toast fired from the apply form will use the default theme. That is acceptable for
  * something transient, but it is a known seam, not an oversight.
  */
-const LEDGER_ROUTES = ["/free-website", "/apps"];
+const LEDGER_ROUTES = ["/free-website", "/products"];
 
 export default function ThemeScope({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() ?? "";

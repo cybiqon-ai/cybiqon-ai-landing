@@ -2,7 +2,7 @@
   "type": "Prerender",
   "expiration": false,
   "isDynamicRoute": false,
-  "group": 16,
+  "group": 6,
   "bypassToken": "ede9efbf4f5a00bb16b373c55e20b20b",
   "fallback": {
     "type": "FileFsRef",

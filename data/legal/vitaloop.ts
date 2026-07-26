@@ -1,4 +1,4 @@
-import type { LegalDoc } from "../apps";
+import type { LegalDoc } from "../products";
 
 /**
  * VitaLoop had NO privacy policy or terms — `ProfileModal.tsx` pointed at

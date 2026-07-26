@@ -1,0 +1,39 @@
+{
+  "type": "Prerender",
+  "expiration": false,
+  "isDynamicRoute": false,
+  "htmlSize": 73827,
+  "group": 17,
+  "bypassToken": "ede9efbf4f5a00bb16b373c55e20b20b",
+  "experimentalBypassFor": [
+    {
+      "type": "header",
+      "key": "next-action"
+    },
+    {
+      "type": "header",
+      "key": "content-type",
+      "value": "multipart/form-data;.*"
+    }
+  ],
+  "fallback": {
+    "type": "FileFsRef",
+    "mode": 33188,
+    "fsPath": "terms.prerender-fallback.html"
+  },
+  "initialHeaders": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/products/layout,_N_T_/products/llmbytes/layout,_N_T_/products/llmbytes/terms/layout,_N_T_/products/llmbytes/terms/page,_N_T_/products/llmbytes/terms",
+    "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+  },
+  "allowQuery": [],
+  "allowHeader": [
+    "host",
+    "x-matched-path",
+    "x-prerender-revalidate",
+    "x-prerender-revalidate-if-generated",
+    "x-next-revalidated-tags",
+    "x-next-revalidate-tag-token"
+  ]
+}

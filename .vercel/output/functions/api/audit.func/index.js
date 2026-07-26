@@ -10,9 +10,9 @@
     "static/chunks/03~yq9q893hmn.js"
   ],
   "lowPriorityFiles": [
-    "static/DW3_rRFeRRH_asCEAybUG/_buildManifest.js",
-    "static/DW3_rRFeRRH_asCEAybUG/_ssgManifest.js",
-    "static/DW3_rRFeRRH_asCEAybUG/_clientMiddlewareManifest.js"
+    "static/XMieQd-VnGdOil2nsDZkU/_buildManifest.js",
+    "static/XMieQd-VnGdOil2nsDZkU/_ssgManifest.js",
+    "static/XMieQd-VnGdOil2nsDZkU/_clientMiddlewareManifest.js"
   ],
   "rootMainFiles": [
     "static/chunks/14.6mqvye-1ik.js",
@@ -332,7 +332,24 @@
     "turbopack": {
       "root": "/mnt/external/dev/cybiqon/products/cybiqon-ai-landing"
     },
-    "distDirRoot": ".next"
+    "distDirRoot": ".next",
+    "_originalRedirects": [
+      {
+        "source": "/apps",
+        "destination": "/products",
+        "permanent": true
+      },
+      {
+        "source": "/apps/:slug",
+        "destination": "/products/:slug",
+        "permanent": true
+      },
+      {
+        "source": "/apps/:slug/:doc(privacy|terms)",
+        "destination": "/products/:slug/:doc",
+        "permanent": true
+      }
+    ]
   },
   "appDir": "/mnt/external/dev/cybiqon/products/cybiqon-ai-landing",
   "relativeAppDir": "",
@@ -412,5 +429,5 @@ Original Message: ${n}`);console.error(`Route ${t} errored during ${r}. These er
     fn(module, module.exports);
     return module.exports;
   }).call({}).default(
-    {"name":"app/api/audit/route","staticRoutes":[{"page":"/","regex":"^/(?:/)?$","routeKeys":{},"namedRegex":"^/(?:/)?$"},{"page":"/_global-error","regex":"^/_global\\-error(?:/)?$","routeKeys":{},"namedRegex":"^/_global\\-error(?:/)?$"},{"page":"/_not-found","regex":"^/_not\\-found(?:/)?$","routeKeys":{},"namedRegex":"^/_not\\-found(?:/)?$"},{"page":"/about","regex":"^/about(?:/)?$","routeKeys":{},"namedRegex":"^/about(?:/)?$"},{"page":"/api/audit","regex":"^/api/audit(?:/)?$","routeKeys":{},"namedRegex":"^/api/audit(?:/)?$"},{"page":"/api/blog","regex":"^/api/blog(?:/)?$","routeKeys":{},"namedRegex":"^/api/blog(?:/)?$"},{"page":"/apps","regex":"^/apps(?:/)?$","routeKeys":{},"namedRegex":"^/apps(?:/)?$"},{"page":"/apps/llmbytes","regex":"^/apps/llmbytes(?:/)?$","routeKeys":{},"namedRegex":"^/apps/llmbytes(?:/)?$"},{"page":"/apps/llmbytes/privacy","regex":"^/apps/llmbytes/privacy(?:/)?$","routeKeys":{},"namedRegex":"^/apps/llmbytes/privacy(?:/)?$"},{"page":"/apps/llmbytes/terms","regex":"^/apps/llmbytes/terms(?:/)?$","routeKeys":{},"namedRegex":"^/apps/llmbytes/terms(?:/)?$"},{"page":"/apps/meflow","regex":"^/apps/meflow(?:/)?$","routeKeys":{},"namedRegex":"^/apps/meflow(?:/)?$"},{"page":"/apps/meflow/privacy","regex":"^/apps/meflow/privacy(?:/)?$","routeKeys":{},"namedRegex":"^/apps/meflow/privacy(?:/)?$"},{"page":"/apps/meflow/terms","regex":"^/apps/meflow/terms(?:/)?$","routeKeys":{},"namedRegex":"^/apps/meflow/terms(?:/)?$"},{"page":"/apps/vitaloop","regex":"^/apps/vitaloop(?:/)?$","routeKeys":{},"namedRegex":"^/apps/vitaloop(?:/)?$"},{"page":"/apps/vitaloop/privacy","regex":"^/apps/vitaloop/privacy(?:/)?$","routeKeys":{},"namedRegex":"^/apps/vitaloop/privacy(?:/)?$"},{"page":"/apps/vitaloop/terms","regex":"^/apps/vitaloop/terms(?:/)?$","routeKeys":{},"namedRegex":"^/apps/vitaloop/terms(?:/)?$"},{"page":"/blog","regex":"^/blog(?:/)?$","routeKeys":{},"namedRegex":"^/blog(?:/)?$"},{"page":"/case-studies","regex":"^/case\\-studies(?:/)?$","routeKeys":{},"namedRegex":"^/case\\-studies(?:/)?$"},{"page":"/contact","regex":"^/contact(?:/)?$","routeKeys":{},"namedRegex":"^/contact(?:/)?$"},{"page":"/faq","regex":"^/faq(?:/)?$","routeKeys":{},"namedRegex":"^/faq(?:/)?$"},{"page":"/free-audit","regex":"^/free\\-audit(?:/)?$","routeKeys":{},"namedRegex":"^/free\\-audit(?:/)?$"},{"page":"/our-works","regex":"^/our\\-works(?:/)?$","routeKeys":{},"namedRegex":"^/our\\-works(?:/)?$"},{"page":"/pricing","regex":"^/pricing(?:/)?$","routeKeys":{},"namedRegex":"^/pricing(?:/)?$"},{"page":"/privacy","regex":"^/privacy(?:/)?$","routeKeys":{},"namedRegex":"^/privacy(?:/)?$"},{"page":"/process","regex":"^/process(?:/)?$","routeKeys":{},"namedRegex":"^/process(?:/)?$"},{"page":"/robots.txt","regex":"^/robots\\.txt(?:/)?$","routeKeys":{},"namedRegex":"^/robots\\.txt(?:/)?$"},{"page":"/rss.xml","regex":"^/rss\\.xml(?:/)?$","routeKeys":{},"namedRegex":"^/rss\\.xml(?:/)?$"},{"page":"/sitemap.xml","regex":"^/sitemap\\.xml(?:/)?$","routeKeys":{},"namedRegex":"^/sitemap\\.xml(?:/)?$"},{"page":"/terms","regex":"^/terms(?:/)?$","routeKeys":{},"namedRegex":"^/terms(?:/)?$"}],"dynamicRoutes":[{"page":"/api/blog/[slug]","regex":"^/api/blog/([^/]+?)(?:/)?$","routeKeys":{"nxtPslug":"nxtPslug"},"namedRegex":"^/api/blog/(?<nxtPslug>[^/]+?)(?:/)?$"},{"page":"/blog/tag/[tag]","regex":"^/blog/tag/([^/]+?)(?:/)?$","routeKeys":{"nxtPtag":"nxtPtag"},"namedRegex":"^/blog/tag/(?<nxtPtag>[^/]+?)(?:/)?$"},{"page":"/blog/[slug]","regex":"^/blog/([^/]+?)(?:/)?$","routeKeys":{"nxtPslug":"nxtPslug"},"namedRegex":"^/blog/(?<nxtPslug>[^/]+?)(?:/)?$"}],"nextConfig":{"basePath":""}}
+    {"name":"app/api/audit/route","staticRoutes":[{"page":"/","regex":"^/(?:/)?$","routeKeys":{},"namedRegex":"^/(?:/)?$"},{"page":"/_global-error","regex":"^/_global\\-error(?:/)?$","routeKeys":{},"namedRegex":"^/_global\\-error(?:/)?$"},{"page":"/_not-found","regex":"^/_not\\-found(?:/)?$","routeKeys":{},"namedRegex":"^/_not\\-found(?:/)?$"},{"page":"/about","regex":"^/about(?:/)?$","routeKeys":{},"namedRegex":"^/about(?:/)?$"},{"page":"/api/audit","regex":"^/api/audit(?:/)?$","routeKeys":{},"namedRegex":"^/api/audit(?:/)?$"},{"page":"/api/blog","regex":"^/api/blog(?:/)?$","routeKeys":{},"namedRegex":"^/api/blog(?:/)?$"},{"page":"/blog","regex":"^/blog(?:/)?$","routeKeys":{},"namedRegex":"^/blog(?:/)?$"},{"page":"/case-studies","regex":"^/case\\-studies(?:/)?$","routeKeys":{},"namedRegex":"^/case\\-studies(?:/)?$"},{"page":"/contact","regex":"^/contact(?:/)?$","routeKeys":{},"namedRegex":"^/contact(?:/)?$"},{"page":"/faq","regex":"^/faq(?:/)?$","routeKeys":{},"namedRegex":"^/faq(?:/)?$"},{"page":"/free-audit","regex":"^/free\\-audit(?:/)?$","routeKeys":{},"namedRegex":"^/free\\-audit(?:/)?$"},{"page":"/our-works","regex":"^/our\\-works(?:/)?$","routeKeys":{},"namedRegex":"^/our\\-works(?:/)?$"},{"page":"/pricing","regex":"^/pricing(?:/)?$","routeKeys":{},"namedRegex":"^/pricing(?:/)?$"},{"page":"/privacy","regex":"^/privacy(?:/)?$","routeKeys":{},"namedRegex":"^/privacy(?:/)?$"},{"page":"/process","regex":"^/process(?:/)?$","routeKeys":{},"namedRegex":"^/process(?:/)?$"},{"page":"/products","regex":"^/products(?:/)?$","routeKeys":{},"namedRegex":"^/products(?:/)?$"},{"page":"/products/apps","regex":"^/products/apps(?:/)?$","routeKeys":{},"namedRegex":"^/products/apps(?:/)?$"},{"page":"/products/llmbytes","regex":"^/products/llmbytes(?:/)?$","routeKeys":{},"namedRegex":"^/products/llmbytes(?:/)?$"},{"page":"/products/llmbytes/privacy","regex":"^/products/llmbytes/privacy(?:/)?$","routeKeys":{},"namedRegex":"^/products/llmbytes/privacy(?:/)?$"},{"page":"/products/llmbytes/terms","regex":"^/products/llmbytes/terms(?:/)?$","routeKeys":{},"namedRegex":"^/products/llmbytes/terms(?:/)?$"},{"page":"/products/meflow","regex":"^/products/meflow(?:/)?$","routeKeys":{},"namedRegex":"^/products/meflow(?:/)?$"},{"page":"/products/meflow/privacy","regex":"^/products/meflow/privacy(?:/)?$","routeKeys":{},"namedRegex":"^/products/meflow/privacy(?:/)?$"},{"page":"/products/meflow/terms","regex":"^/products/meflow/terms(?:/)?$","routeKeys":{},"namedRegex":"^/products/meflow/terms(?:/)?$"},{"page":"/products/vitaloop","regex":"^/products/vitaloop(?:/)?$","routeKeys":{},"namedRegex":"^/products/vitaloop(?:/)?$"},{"page":"/products/vitaloop/privacy","regex":"^/products/vitaloop/privacy(?:/)?$","routeKeys":{},"namedRegex":"^/products/vitaloop/privacy(?:/)?$"},{"page":"/products/vitaloop/terms","regex":"^/products/vitaloop/terms(?:/)?$","routeKeys":{},"namedRegex":"^/products/vitaloop/terms(?:/)?$"},{"page":"/robots.txt","regex":"^/robots\\.txt(?:/)?$","routeKeys":{},"namedRegex":"^/robots\\.txt(?:/)?$"},{"page":"/rss.xml","regex":"^/rss\\.xml(?:/)?$","routeKeys":{},"namedRegex":"^/rss\\.xml(?:/)?$"},{"page":"/sitemap.xml","regex":"^/sitemap\\.xml(?:/)?$","routeKeys":{},"namedRegex":"^/sitemap\\.xml(?:/)?$"},{"page":"/terms","regex":"^/terms(?:/)?$","routeKeys":{},"namedRegex":"^/terms(?:/)?$"}],"dynamicRoutes":[{"page":"/api/blog/[slug]","regex":"^/api/blog/([^/]+?)(?:/)?$","routeKeys":{"nxtPslug":"nxtPslug"},"namedRegex":"^/api/blog/(?<nxtPslug>[^/]+?)(?:/)?$"},{"page":"/blog/tag/[tag]","regex":"^/blog/tag/([^/]+?)(?:/)?$","routeKeys":{"nxtPtag":"nxtPtag"},"namedRegex":"^/blog/tag/(?<nxtPtag>[^/]+?)(?:/)?$"},{"page":"/blog/[slug]","regex":"^/blog/([^/]+?)(?:/)?$","routeKeys":{"nxtPslug":"nxtPslug"},"namedRegex":"^/blog/(?<nxtPslug>[^/]+?)(?:/)?$"}],"nextConfig":{"basePath":""}}
   )

@@ -2,8 +2,8 @@
   "type": "Prerender",
   "expiration": false,
   "isDynamicRoute": false,
-  "htmlSize": 71877,
-  "group": 19,
+  "htmlSize": 71893,
+  "group": 9,
   "bypassToken": "ede9efbf4f5a00bb16b373c55e20b20b",
   "experimentalBypassFor": [
     {

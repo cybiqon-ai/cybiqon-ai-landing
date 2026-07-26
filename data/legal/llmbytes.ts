@@ -1,4 +1,4 @@
-import type { LegalDoc } from "../apps";
+import type { LegalDoc } from "../products";
 
 /**
  * Migrated from the hand-written app/apps/llmbytes/{privacy,terms}/page.tsx.
