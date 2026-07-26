@@ -203,6 +203,16 @@ export default function FreeWebsitePage() {
               requested after delivery that was not on this list.
             </p>
             <TradePanel />
+
+            {/* The one real cost, stated next to the trade rather than buried in the
+                FAQ. The outreach messages mention it, so a page that said only "free"
+                here would read as a bait-and-switch the moment someone compared the
+                two — and this offer's entire argument is that the terms are complete. */}
+            <p className="mt-10 border-l-2 border-primary/40 pl-4 text-[15px] leading-relaxed text-foreground">
+              <span className="font-semibold">The one thing you do pay for:</span> your own
+              domain name — roughly ₹700–1,000 a year, paid directly to the registrar. It
+              stays in your name, not mine. There is no other cost.
+            </p>
           </div>
         </div>
       </section>
