@@ -1,9 +1,9 @@
 ---
 type: Reference
 title: Routes
-description: Every route the site serves, which are server vs client components, and the ones that 404 today despite being linked from structured data.
-tags: [routes, app-router, nextjs, 404]
-timestamp: 2026-07-25T00:00:00Z
+description: Every route the site serves, which are server vs client components, and the redirect that keeps a published Play Store policy URL alive.
+tags: [routes, app-router, nextjs, redirects]
+timestamp: 2026-07-26T00:00:00Z
 ---
 
 # Marketing pages
@@ -19,6 +19,7 @@ timestamp: 2026-07-25T00:00:00Z
 | `/faq` | `app/faq/page.tsx` → `FaqClient.tsx` | server + metadata, FAQPage JSON-LD |
 | `/contact` | `app/contact/page.tsx` → `ContactClient.tsx` | server + metadata |
 | `/free-audit` | `app/free-audit/page.tsx` | server + metadata |
+| `/free-website` | `app/free-website/page.tsx` | server + metadata, Breadcrumb + FAQPage JSON-LD |
 | `/privacy`, `/terms` | | server |
 
 All seven now have a server `page.tsx` exporting unique metadata plus a co-located
@@ -33,31 +34,47 @@ All seven now have a server `page.tsx` exporting unique metadata plus a co-locat
 | `/blog/[slug]` | server, edge, live D1 query per render |
 | `/blog/tag/[tag]` | server, edge, **21 archives**, paginated, 404s on an unknown tag |
 
-# Apps
+# Products
+
+Shipped 26 Jul 2026, replacing the two hand-written llmbytes legal pages that were
+the entire former contents of `app/apps/`.
 
 ```
-app/apps/llmbytes/privacy/page.tsx     ✅ 200
-app/apps/llmbytes/terms/page.tsx       ✅ 200
+/products                     index, grouped by category
+/products/apps                category page
+/products/<slug>              llmbytes · meflow · vitaloop
+/products/<slug>/privacy      ← llmbytes' is a live Play Store policy URL
+/products/<slug>/terms
 ```
 
-That is the **entire** contents of `app/apps/`. There is no `app/apps/page.tsx`,
-no `[slug]` route, and no `app/apps/llmbytes/page.tsx`.
+Everything is driven by `data/products.ts`; the routes are thin shims that look up a
+slug and render `components/products/ProductDetail.tsx` or `LegalPage.tsx`. Adding the
+Chrome extension is one data entry plus its shims, and `/products/extensions` appears
+automatically — category pages only render for categories that have something in them.
 
-**404 today:** `/apps` · `/apps/llmbytes`
+**Category pages are views; product URLs stay flat.** A category never owns an item's
+URL, so recategorising something later cannot break its links. That matters because one
+of these URLs is registered with Google Play.
 
-`/rss.xml` shipped 25 Jul 2026 — `app/rss.xml/route.ts`, edge runtime, 50 most
-recent posts from D1, listed in the sitemap and in the layout's `alternates.types`.
+## Why there is no `[slug]` route
 
-Both existing pages emit BreadcrumbList JSON-LD pointing at
-`https://cybiqon.in/apps/llmbytes` — **a URL that does not exist**. Structured
-data asserting a 404 is worse than omitting it.
+Next 16 emits a Node ISR fallback for a dynamic segment **even with
+`dynamicParams = false`**, and `next-on-pages` classifies that fallback as an invalid
+function and **fails the build**. `runtime = "edge"` would suppress it but is mutually
+exclusive with `generateStaticParams`. Concrete per-product route files are the way out.
+This cost a failed Cloudflare build on PR #33 — do not "simplify" it back.
 
-Both pages are hand-written JSX (326 and 264 lines) with the legal copy inline.
-The queued fix replaces them with `data/apps.ts` + `app/apps/page.tsx` +
-`app/apps/[slug]/{page,privacy,terms}` covering llmbytes, meflow and vitaloop.
+## The /apps redirects
 
-That also unblocks **VitaLoop's Play Store submission**, which currently points at
-`vitaloop.app/privacy` — a domain that resolves to nothing.
+`next.config.mjs` carries **permanent 308s** for `/apps`, `/apps/:slug` and
+`/apps/:slug/(privacy|terms)`. These are not tidy-up: `/apps/llmbytes/privacy` is the
+privacy-policy URL registered with Google Play for a published app (see
+`ai-news-app/PLAY_DATA_SAFETY.md`). Verify them in the **built**
+`.vercel/output/config.json`, not just in dev.
+
+VitaLoop's Play submission previously pointed at `vitaloop.app/privacy`, a domain that
+resolves to nothing. It now has a real page — but the copy was **written from scratch**
+and carries two flags for the founder, recorded in [log](/log.md).
 
 # API
 
@@ -67,12 +84,16 @@ All `runtime="edge"`:
 |---|---|
 | `GET /api/blog` | list posts |
 | `GET /api/blog/[slug]` | one post |
-| `POST /api/audit` | the only write — see [lead capture](/content/lead-capture.md) |
+| `POST /api/audit` | free-audit form — see [lead capture](/content/lead-capture.md) |
+| `POST /api/apply` | Launch-5 applications — same |
 
 # Generated
 
-`app/sitemap.ts` (edge — 14 static URLs + D1 blog URLs, try/catch falls back to
-static-only) · `app/robots.ts` · `app/not-found.tsx`
+`app/sitemap.ts` (edge — static URLs + every product URL from `data/products.ts` + D1
+blog URLs, try/catch falls back to static-only) · `app/robots.ts` · `app/not-found.tsx`
+
+`/rss.xml` shipped 25 Jul 2026 — `app/rss.xml/route.ts`, edge runtime, 50 most
+recent posts from D1, listed in the sitemap and in the layout's `alternates.types`.
 
 `app/rss.xml/route.ts` — edge, reuses the `sitemap.ts` D1 query shape. XML-escapes
 titles and excerpts, and degrades to an empty-but-valid feed on a D1 outage rather
@@ -83,7 +104,14 @@ than a 500, so subscribers don't drop the feed.
 `app/layout.tsx` wraps everything in Navbar / Footer / WhatsAppWidget /
 RevealObserver / Toaster / Sonner / TooltipProvider, and carries the GA4 snippet.
 
+# Layout theming
+
+`components/ThemeScope.tsx` applies `.theme-ledger` to `/free-website` and `/products/*`
+by pathname, wrapping Navbar + main + Footer. See
+[design system](/site/design-system.md) for what that theme does and does not change.
+
 # See also
 
 - [SEO](/site/seo.md) — the metadata gap on the client pages
-- [Lead capture](/content/lead-capture.md) — the one write path
+- [Lead capture](/content/lead-capture.md) — the two write paths
+- [Design system](/site/design-system.md) — the Ledger theme these routes opt into

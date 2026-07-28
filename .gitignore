@@ -9,6 +9,12 @@ lerna-debug.log*
 
 node_modules
 .next
+
+# next-on-pages build output. Cloudflare Pages regenerates this on its own runner
+# via `npm run pages:build`, so a committed copy is 950+ generated files that are
+# stale the moment anyone edits a page — and they bury every real diff. This was
+# committed by accident in 21bc326 and removed from tracking on 26 Jul 2026.
+.vercel
 dist
 dist-ssr
 *.local

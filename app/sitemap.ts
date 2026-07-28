@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getRequestContext } from "@cloudflare/next-on-pages";
 import { POSTS_PER_PAGE, getTagIndex } from "@/lib/blog";
+import { PRODUCTS, activeCategories } from "@/data/products";
 
 export const runtime = "edge";
 
@@ -18,11 +19,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/blog`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/faq`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/free-audit`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteUrl}/free-website`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.95 },
     { url: `${siteUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${siteUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${siteUrl}/apps/llmbytes/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${siteUrl}/apps/llmbytes/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${siteUrl}/products`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    // Category pages, only for categories that actually have products.
+    ...activeCategories().map((c) => ({
+      url: `${siteUrl}/products/${c.slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6,
+    })),
+    // Driven by data/products.ts — adding a product adds its three URLs automatically.
+    ...PRODUCTS.flatMap((p) => [
+      { url: `${siteUrl}/products/${p.slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 },
+      { url: `${siteUrl}/products/${p.slug}/privacy`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
+      { url: `${siteUrl}/products/${p.slug}/terms`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
+    ]),
   ];
 
   let blogPages: MetadataRoute.Sitemap = [];

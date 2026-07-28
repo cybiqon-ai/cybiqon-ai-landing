@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import RevealObserver from "@/components/RevealObserver";
+import ThemeScope from "@/components/ThemeScope";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -156,10 +157,14 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-foreground font-sans antialiased">
         <TooltipProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <WhatsAppWidget />
+          {/* ThemeScope re-themes the chrome along with the page on paper routes.
+              Toasters sit outside it because they portal to document.body regardless. */}
+          <ThemeScope>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <WhatsAppWidget />
+          </ThemeScope>
           <RevealObserver />
           <Toaster />
           <Sonner />

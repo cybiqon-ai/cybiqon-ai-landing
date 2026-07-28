@@ -78,6 +78,8 @@ const Contact = () => {
                 </div>
               </a>
 
+              {/* Free Website Audit tile — hidden with the other free-audit prompts. */}
+              {false && (
               <Link
                 href="/free-audit"
                 className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
@@ -90,6 +92,7 @@ const Contact = () => {
                   <p className="text-xs text-muted-foreground">Get a detailed review</p>
                 </div>
               </Link>
+              )}
 
               <Link
                 href="/contact"

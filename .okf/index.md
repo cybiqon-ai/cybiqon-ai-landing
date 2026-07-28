@@ -14,7 +14,7 @@ secret here.
 
 # Site
 
-* [Site](site/) - stack and deployment, the route map, and the SEO gaps that matter commercially.
+* [Site](site/) - stack and deployment, the route map, the Ledger design system, and the SEO gaps that matter commercially.
 
 # Content
 

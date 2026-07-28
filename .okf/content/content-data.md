@@ -1,16 +1,28 @@
 ---
 type: Reference
 title: Content data
-description: There is no data directory — every content list is a const array inside the component that renders it, which is why the portfolio can't be reused anywhere.
+description: A data/ directory now exists and covers products, legal copy and the Launch-5 offer — but every marketing page's content is still a const array welded into the component that renders it.
 tags: [content, data, refactor, portfolio]
-timestamp: 2026-07-25T00:00:00Z
+timestamp: 2026-07-26T00:00:00Z
 ---
 
 # Overview
 
-**The repo has no `data/` directory.** Every list of content — services, pricing
-tiers, FAQs, portfolio items, case studies — is a `const` array declared inside
-the component that renders it.
+`data/` exists as of 26 Jul 2026 and covers the new surfaces. **Every older marketing
+page is still a `const` array declared inside the component that renders it.**
+
+## In `data/`
+
+| File | Feeds |
+|---|---|
+| `data/products.ts` | `/products`, category pages, all three product pages — types, `CATEGORIES`, `PRODUCTS`, `getProduct`, `productsIn`, `activeCategories` |
+| `data/legal/{llmbytes,meflow,vitaloop}.ts` | privacy and terms, as a `Block` discriminated union (prose / checklist / deflist / table / contact) rather than MDX or raw HTML |
+| `data/launch5.ts` | `/free-website` — the trade, fit lists, sequence, FAQs, slot counts |
+
+`data/**` **must** stay in the Tailwind content globs (it is) or any class name stored
+there is purged silently in production while looking fine in dev.
+
+## Still inline
 
 | Content | Location |
 |---|---|
@@ -33,18 +45,16 @@ Content and presentation are welded together, so:
 - Updating a price means editing a client component
 - Nothing can be validated, counted or queried
 
-# The queued fix
-
-The `/apps` hub introduces the first `data/apps.ts`, establishing the pattern:
+# What's next
 
 ```
-data/apps.ts     → app/apps/page.tsx + app/apps/[slug]/…
 data/works.ts    → app/our-works + /case-studies   (after Launch-5 clients exist)
 ```
 
-`data/works.ts` is deliberately sequenced **after** the free-website clients
-exist. Extracting five unnamed demo projects into a data file just relocates the
-problem — the page's real deficiency is that it has no real clients to show.
+Deliberately sequenced **after** the free-website clients exist. Extracting five unnamed
+demo projects into a data file just relocates the problem — the page's real deficiency is
+that it has no real clients to show, and the Launch-5 programme is the thing that fixes
+that.
 
 # Honesty flags
 
@@ -57,6 +67,15 @@ them as such, and two — `LiveActivityTicker` and `SocialProofBar` — contain
 so. Keep it that way — the whole point of the Launch-5 programme is to earn more
 real ones.
 
+**`data/launch5.ts` sets `SLOTS_TAKEN = 0`, and it is a real zero.** The homepage
+carried a fabricated live counter (`useLiveCount(47)` against 2 actual leads) for
+months before it was removed on 26 Jul. Seeding this number would rebuild exactly what
+was just torn out. The file carries the same warning at the constant.
+
+**`components/Hero.tsx`** has three free-audit prompts hidden behind `{false && …}`
+rather than deleted, each with an inline reason. Hidden, not gone — the founder asked for
+them out of the homepage, not out of the codebase.
+
 # Assets
 
 `public/portfolio/*.webp` (15) · `public/logo.png` · `public/founder1.jpg`,
@@ -64,5 +83,7 @@ real ones.
 
 # See also
 
-- [Routes](/site/routes.md) — where the `/apps` data file lands
+- [Routes](/site/routes.md) — the routes these data files feed
+- [Lead capture](/content/lead-capture.md) — `data/launch5.ts` and the form it backs
+- [Design system](/site/design-system.md) — why `data/` must be in the Tailwind globs
 - [SEO](/site/seo.md) — the client-component problem these arrays sit inside
