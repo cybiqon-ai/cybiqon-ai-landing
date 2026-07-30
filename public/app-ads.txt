@@ -1,0 +1,18 @@
+# app-ads.txt - authorised digital sellers for Cybiqon AI Solutions
+#
+# Declares which ad networks may sell inventory in our apps. Buyers check this
+# file against the developer website on an app's store listing; if it is missing,
+# or does not name the seller, a large share of demand will not bid. That is a
+# silent revenue loss rather than an error - nothing breaks, the money simply
+# does not arrive.
+#
+# Deliberately plain ASCII. This is machine-read by a long tail of crawlers, and
+# a stray em-dash in a comment is not worth finding out about the hard way.
+#
+# Format: <domain>, <publisher id>, <DIRECT|RESELLER>, <certification id>
+# Spec:   https://iabtechlab.com/ads-txt/
+#
+# The trailing id is Google's TAG certification authority id, identical for
+# every AdMob publisher. The line below is ours.
+
+google.com, pub-6927966479089034, DIRECT, f08c47fec0942fa0
