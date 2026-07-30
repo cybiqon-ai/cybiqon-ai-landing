@@ -146,3 +146,23 @@
   190+ thin archives, and `MSME` (64/76) / `India` (60/76) would duplicate `/blog`.
   **Page 2+ canonicals to itself**, not back to `/blog`; self-canonicalising would tell
   Google those URLs are duplicates and undo the crawl paths the change exists to create.
+
+* **2026-07-30 — Lumina's product and legal pages.** `/products/lumina`,
+  `/products/lumina/privacy` and `/products/lumina/terms`, all three prerendered as
+  static assets. One `data/legal/lumina.ts`, one entry in `data/products.ts`, three
+  four-line route shims — the slug-driven legal system shipped on 26 Jul took the
+  fourth product with no new page design, which is what it was built for. The
+  sitemap picked up all three URLs on its own.
+
+  **The privacy policy is deliberately not a copy of the other three.** llmbytes,
+  MeFlow and VitaLoop all declare "no third-party ads" and answer *no* to data
+  sharing. Lumina serves Google AdMob, so the advertising ID and coarse
+  IP-derived region leave the device and reach a third party — a different Data
+  Safety answer, and the most common way a small publisher earns a policy strike is
+  shipping an ad SDK against a policy copied from an ad-free app.
+
+  `/products/lumina/privacy` becomes a live Play Console policy URL the moment the
+  app is uploaded, which is why it matters that these are `○ (Static)` in the build
+  output. A static asset cannot 500; an edge function can. See the comment in
+  `components/products/meta.ts` for why the routes are concrete rather than
+  `[slug]`.
