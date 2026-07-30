@@ -3,7 +3,7 @@ type: Reference
 title: Routes
 description: Every route the site serves, which are server vs client components, and the redirect that keeps a published Play Store policy URL alive.
 tags: [routes, app-router, nextjs, redirects]
-timestamp: 2026-07-26T00:00:00Z
+timestamp: 2026-07-30T00:00:00Z
 ---
 
 # Marketing pages
@@ -42,8 +42,8 @@ the entire former contents of `app/apps/`.
 ```
 /products                     index, grouped by category
 /products/apps                category page
-/products/<slug>              llmbytes · meflow · vitaloop
-/products/<slug>/privacy      ← llmbytes' is a live Play Store policy URL
+/products/<slug>              llmbytes · meflow · vitaloop · lumina
+/products/<slug>/privacy      ← llmbytes' and lumina's are live Play policy URLs
 /products/<slug>/terms
 ```
 

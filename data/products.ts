@@ -82,6 +82,7 @@ export interface Product {
 }
 
 import { llmbytesPrivacy, llmbytesTerms } from "./legal/llmbytes";
+import { luminaPrivacy, luminaTerms } from "./legal/lumina";
 import { meflowPrivacy, meflowTerms } from "./legal/meflow";
 import { vitaloopPrivacy, vitaloopTerms } from "./legal/vitaloop";
 
@@ -224,6 +225,54 @@ export const PRODUCTS: Product[] = [
     ],
     privacy: vitaloopPrivacy,
     terms: vitaloopTerms,
+  },
+  {
+    slug: "lumina",
+    category: "app",
+    name: "Lumina: The Lightkeeper's Path",
+    tagline: "A cosy sliding-block puzzle",
+    summary:
+      "Slide crystal blocks aside so a glowing Light Key can reach its lantern, and relight a fading world one puzzle at a time. 150 hand-verified levels across five worlds, a new puzzle every day, and no timers, lives or fail states \u2014 you cannot lose, only not have finished yet.",
+    packageId: "com.cybiqon.lumina",
+    status: "building",
+    playUrl: null,
+    platform: "Android",
+    why:
+      "Most puzzle games on Play are built to interrupt you \u2014 energy meters, countdowns, an ad between every level. Lumina is the opposite argument: every level is solvable at your own pace, every one is proven solvable by the solver that generated it, and the reward for playing is watching a world light back up.",
+    features: [
+      {
+        title: "150 levels, every one verified",
+        description:
+          "Each level is generated and then re-solved by a breadth-first solver, so the three-star target is the true shortest solution \u2014 never a guess that cannot be met.",
+      },
+      {
+        title: "Five worlds, five ideas",
+        description:
+          "Crystal, sand that crumbles once moved, ice that cannot stop short, rime frozen until the Key thaws it, and mirrors that bend the Key's light to the lantern.",
+      },
+      {
+        title: "A new puzzle every day",
+        description:
+          "One daily puzzle with its own streak and rewards, drawn from a pool separate from the campaign so it never spoils a level you have not reached.",
+      },
+      {
+        title: "It teaches you the rules",
+        description:
+          "Each world opens with a small board that solves itself, showing what the new piece does rather than describing it.",
+      },
+      {
+        title: "No fail states",
+        description:
+          "No lives, no energy, no countdown. Undo anything, reset anything, and take as long as you like \u2014 stars are a target, not a pass mark.",
+      },
+      {
+        title: "Plays offline",
+        description:
+          "Every level ships inside the app. No account, no sign-in, and nothing to sync.",
+      },
+    ],
+    privacy: luminaPrivacy,
+    terms: luminaTerms,
   },
 ];
 
