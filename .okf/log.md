@@ -166,3 +166,22 @@
   output. A static asset cannot 500; an edge function can. See the comment in
   `components/products/meta.ts` for why the routes are concrete rather than
   `[slug]`.
+
+* **2026-07-30 — `app-ads.txt`.** `public/app-ads.txt` declares Cybiqon as an authorised
+  seller for AdMob publisher `pub-6927966479089034`, which Lumina's ads run under.
+
+  This is not paperwork. Buyers check the file against the developer website on an app's
+  store listing, and without it a large share of demand will not bid — a **silent revenue
+  loss rather than an error**. Nothing breaks; the money simply does not arrive, and
+  there is no signal anywhere that it is happening.
+
+  Deliberately plain ASCII: the file is machine-read by a long tail of crawlers, and an
+  em-dash in a comment is not worth discovering the hard way.
+
+  **It cannot validate yet.** AdMob verifies by crawling the developer website named on
+  the Play listing, and Lumina is not published. Once it is live, set the developer
+  website to `cybiqon.in` and link the AdMob app to the store listing — the file only
+  starts earning at that point.
+
+  Served from `public/`, like `favicon.ico`; verified that other files in that directory
+  reach the deployed static output and answer at the site root in production.
