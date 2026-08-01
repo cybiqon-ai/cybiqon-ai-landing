@@ -3,13 +3,35 @@ import Link from "next/link";
 import { parsePage } from "@/lib/blog";
 import { getLabIndex, istDate, istStamp } from "@/lib/lab";
 import LabRow from "@/components/lab/LabRow";
+import SubscribeForm from "@/components/lab/SubscribeForm";
+
+/**
+ * Outcomes of the double opt-in flow, which /api/subscribe redirects back to here.
+ *
+ * They live on /lab rather than on dedicated confirm/unsubscribe pages because a page
+ * route costs ~420 KiB in a 3 MiB Worker and a redirect costs nothing. It also lands
+ * the reader somewhere useful — the posts — rather than on a dead-end thank-you page.
+ */
+const NOTICES: Record<string, string> = {
+  subscribed: "You're on the list. New posts will arrive by email.",
+  unsubscribed: "You've been removed. No more emails.",
+  already: "That link has already been used — you're on the list.",
+  invalid: "That confirmation link doesn't look right. Try subscribing again.",
+  error: "Something went wrong handling that link. Try again in a moment.",
+};
 
 export const runtime = "edge";
 
 const siteUrl = "https://cybiqon.in";
 
 interface PageProps {
-  searchParams: Promise<{ page?: string | string[] }>;
+  searchParams: Promise<{
+    page?: string | string[];
+    /** Set by the redirects out of /api/subscribe — see NOTICES below. */
+    subscribed?: string;
+    unsubscribed?: string;
+    subscribe?: string;
+  }>;
 }
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
@@ -39,7 +61,15 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 }
 
 export default async function LabIndex({ searchParams }: PageProps) {
-  const page = parsePage((await searchParams).page);
+  const params = await searchParams;
+  const page = parsePage(params.page);
+
+  const noticeKey = params.subscribed
+    ? "subscribed"
+    : params.unsubscribed
+      ? "unsubscribed"
+      : params.subscribe;
+  const notice = noticeKey ? NOTICES[noticeKey] : undefined;
   const { posts, total, totalPages, since, last } = await getLabIndex(page);
 
   const blogSchema = {
@@ -67,6 +97,12 @@ export default async function LabIndex({ searchParams }: PageProps) {
 
       <div className="mx-auto max-w-[1180px] px-6 md:px-10">
         <section className="pt-16 pb-10 md:pt-24 md:pb-14">
+          {notice && (
+            <p className="lab-readout text-signal border border-border rounded-[3px] px-3 py-2 mb-8 inline-block">
+              {notice}
+            </p>
+          )}
+
           <div className="lab-measure max-w-[640px]">
             <h1 className="lab-display text-[40px] md:text-[54px] text-foreground">
               Notes from the workshop
@@ -123,6 +159,8 @@ export default async function LabIndex({ searchParams }: PageProps) {
                   <LabRow key={post.id} post={post} />
                 ))}
               </div>
+
+              <SubscribeForm source="index" />
 
               {totalPages > 1 && (
                 <nav

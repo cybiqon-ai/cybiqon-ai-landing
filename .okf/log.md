@@ -2,6 +2,30 @@
 
 ## 2026-08-01
 
+* **Creation** ([lab](/content/lab.md), [lead capture](/content/lead-capture.md)): an
+  email list for /lab, double opt-in, at `/api/subscribe`. This closes the gap this
+  bundle has flagged since it was written — 80+ posts and no email capture anywhere.
+
+  It reuses `lib/leads.ts` entirely: IP hashing, the shared `rate_limit_hits` table under
+  a new `subscribe` scope (no schema change — the table already has the column), and the
+  same Resend sender that already works for the audit form, so no new deliverability
+  setup was needed.
+
+  Two behaviours that are deliberate and easy to "fix" by mistake. **Every POST answers
+  identically**, including for an address already confirmed — anything else makes the
+  endpoint an oracle for "is this person on the list". And **only a `pending` row can be
+  confirmed**, so replaying an old confirmation link after someone unsubscribes cannot
+  put them back on the list. Both are tested.
+
+* **Removal** ([routes](/site/routes.md)): `GET /api/blog` and `GET /api/blog/[slug]`.
+  They returned posts as JSON; nothing in any repo in the tree called them, and the
+  nightly publisher writes straight to the D1 REST API rather than through the site. They
+  bought the ~200 KiB of Worker budget `/api/subscribe` needed. Net effect of this
+  session: **2.83 MiB, 174 KiB headroom** — more than before the view counter was added.
+
+  Worth being explicit that this is a one-way door of sorts: if some outside integration
+  turns out to depend on them, restoring one costs ~100 KiB and something else has to go.
+
 * **Creation** ([lab](/content/lab.md)): a view counter and a share row on /lab posts.
 
   Views are counted by a browser beacon (`/api/lab/view`, once per session) rather than

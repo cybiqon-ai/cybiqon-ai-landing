@@ -15,6 +15,7 @@ import ReadoutRail from "@/components/lab/ReadoutRail";
 import LabTOC from "@/components/lab/LabTOC";
 import LabCTA from "@/components/lab/LabCTA";
 import ShareRow from "@/components/lab/ShareRow";
+import SubscribeForm from "@/components/lab/SubscribeForm";
 import ViewBeacon from "@/components/lab/ViewBeacon";
 
 export const runtime = "edge";
@@ -200,6 +201,11 @@ export default async function LabPost({ params }: PageProps) {
               )}
 
               <ShareRow slug={post.slug} title={post.title} />
+
+              {/* Subscribe before the hire-us CTA: a reader who just finished is far
+                  likelier to give an email than to book a call, and putting the larger
+                  ask first spends the goodwill on the less likely outcome. */}
+              <SubscribeForm source="post" />
 
               <LabCTA />
             </div>

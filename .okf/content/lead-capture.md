@@ -1,15 +1,21 @@
 ---
 type: Domain
 title: Lead capture
-description: Two forms writing to D1 and emailing via Resend, sharing one rate limiter — plus a set of off-site CTAs that nothing measures.
+description: Three forms writing to D1 and emailing via Resend, sharing one rate limiter — the newest being the /lab email list, which closes the site's longest-standing conversion gap.
 tags: [leads, forms, d1, resend, conversion, rate-limiting]
-timestamp: 2026-07-26T00:00:00Z
+timestamp: 2026-08-01T00:00:00Z
 ---
 
 # Overview
 
-The site has **two forms**, both edge routes, both writing to the same D1 database as
+The site has **three forms**, all edge routes, all writing to the same D1 database as
 the blog.
+
+The third is the `/lab` email list (`/api/subscribe`, added 1 Aug 2026). It closes what
+this bundle had flagged for months as the largest unclaimed conversion surface: 80+ posts
+with no email capture on any of them. Details in [Lab](lab.md); it reuses `lib/leads.ts`
+wholesale, including the shared `rate_limit_hits` table under a new `subscribe` scope —
+no schema change was needed for the throttle.
 
 ```
 /free-audit                             /free-website

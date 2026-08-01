@@ -107,10 +107,22 @@ All `runtime="edge"`:
 
 | Route | Purpose |
 |---|---|
-| `GET /api/blog` | list posts |
-| `GET /api/blog/[slug]` | one post |
 | `POST /api/audit` | free-audit form — see [lead capture](/content/lead-capture.md) |
 | `POST /api/apply` | Launch-5 applications — same |
+| `POST /api/subscribe` | /lab email list, double opt-in |
+| `GET /api/subscribe?confirm=` / `?unsubscribe=` | activates or removes, then redirects to `/lab` |
+| `POST /api/lab/view` | view-counter beacon |
+
+**`GET /api/blog` and `GET /api/blog/[slug]` were removed on 1 Aug 2026.** They returned
+posts as JSON, nothing on this site consumed them, and no caller was ever found in any
+repo in the tree. They were traded for the ~200 KiB of Worker budget that
+`/api/subscribe` needed — see the size trap in [Lab](/content/lab.md). If an outside
+integration ever turns up depending on them, restoring one costs ~100 KiB and something
+else has to go.
+
+Confirm and unsubscribe are **GETs on the subscribe route**, not pages, for the same
+reason: a page route is ~420 KiB, a redirect is free. They land the reader on `/lab`
+with a `?subscribed=1`-style flag that the index renders as a one-line notice.
 
 # Generated
 
