@@ -29,9 +29,12 @@ export async function GET(): Promise<Response> {
   let posts: Post[] = [];
   try {
     const { env } = getRequestContext();
+    // MSME only — /lab has its own feed at /lab/rss.xml. Mixing them would push a
+    // daily MSME cadence into a feed subscribed to for engineering writing, and vice
+    // versa.
     const { results } = await env.DB.prepare(
       `SELECT slug, title, excerpt, image_url, created_at
-       FROM blog_posts WHERE published = 1
+       FROM blog_posts WHERE section = 'msme' AND published = 1
        ORDER BY created_at DESC LIMIT ?`
     )
       .bind(FEED_LIMIT)

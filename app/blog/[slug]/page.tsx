@@ -5,23 +5,9 @@ import { format } from "date-fns";
 import { notFound } from "next/navigation";
 import TagPill from "@/components/blog/TagPill";
 import BlogCTA from "@/components/blog/BlogCTA";
-import { getDB } from "@/lib/db";
+import { getPostBySlug } from "@/lib/blog";
 
 export const runtime = "edge";
-
-interface Post {
-  id: number;
-  slug: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  image_url: string | null;
-  topic: string | null;
-  angle: string | null;
-  tags: string | null;
-  published: boolean;
-  created_at: string;
-}
 
 function estimateReadingTime(html: string): number {
   const text = html.replace(/<[^>]*>/g, "");
@@ -34,45 +20,40 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  try {
-    const { slug } = await params;
-    const db = getDB();
-    const post = await db.prepare(
-      "SELECT title, excerpt, image_url, tags, slug FROM blog_posts WHERE slug = ? AND published = 1"
-    ).bind(slug).first<Post>();
+  const { slug } = await params;
+  // getPostBySlug swallows D1 failures into null, so the try/catch that used to live
+  // here is now inside it — and the page body gets the same treatment, which it did
+  // not before.
+  const post = await getPostBySlug("msme", slug);
 
-    if (!post) return { title: "Post Not Found" };
+  if (!post) return { title: "Post Not Found" };
 
-    return {
+  return {
+    title: post.title,
+    description: post.excerpt || "",
+    keywords: post.tags || undefined,
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      type: "article",
       title: post.title,
       description: post.excerpt || "",
-      keywords: post.tags || undefined,
-      alternates: { canonical: `/blog/${post.slug}` },
-      openGraph: {
-        type: "article",
-        title: post.title,
-        description: post.excerpt || "",
-        images: post.image_url ? [{ url: post.image_url }] : undefined,
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: post.title,
-        description: post.excerpt || "",
-        images: post.image_url ? [post.image_url] : undefined,
-      },
-    };
-  } catch {
-    return { title: "Post Not Found" };
-  }
+      images: post.image_url ? [{ url: post.image_url }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt || "",
+      images: post.image_url ? [post.image_url] : undefined,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
-  const db = getDB();
-  const post = await db.prepare(
-    "SELECT * FROM blog_posts WHERE slug = ? AND published = 1"
-  ).bind(slug).first<Post>();
+  const post = await getPostBySlug("msme", slug);
 
+  // notFound() signals by throwing, so it stays outside any catch — swallowing it
+  // would turn a missing post into a blank 200.
   if (!post) notFound();
 
   const tagList = post.tags

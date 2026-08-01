@@ -1,5 +1,89 @@
 # Update Log
 
+## 2026-08-01
+
+* **Broke the deploy, then fixed it** — adding /lab's three edge routes pushed the Pages
+  Worker to **3.36 MiB gzipped** against Cloudflare's **3 MiB** free-plan ceiling. The
+  limit is enforced **at upload, not at build**: `npx @cloudflare/next-on-pages` reported
+  success locally and the deploy failed afterwards with *"Your Worker exceeded the size
+  limit of 3 MiB"*. Assets published, the Function did not, so the previous deployment
+  kept serving and there was no outage.
+
+  This is the second time this repo has been bitten by "the local build is not the
+  deploy" — PR #33 was the first. Now measured: gzip every `.js` under
+  `.vercel/output/static/_worker.js/` and total it. Each React edge route is ~440 KiB
+  gzipped, so the site affords about six.
+
+  Two fixes, both worth keeping: `/lab/about` is now static (it has no dynamic data, and
+  the cookie-based theme was the only thing forcing the segment dynamic), and
+  `TooltipProvider` + the radix `<Toaster />` are gone from the root layout — neither was
+  used anywhere, and a dead provider there is paid for by every edge route. Now 2.81 MiB
+  with ~190 KiB of headroom, which is less than half a route: **measure before adding
+  another.**
+
+  The theme moved to a `data-lab-theme` attribute on `<html>` in the process. React does
+  not reconcile attributes it never rendered, so it survives hydration where a class did
+  not — and it needs no server input, which is what lets /lab/about prerender.
+
+* **Creation** ([lab](/content/lab.md)): `/lab`, a second blog — hand-written engineering
+  notes, sharing `blog_posts` with the automated MSME blog via a new `section` column
+  (migration `0004`, applied to remote D1; all 81 existing rows took the `'msme'`
+  default). Two posts migrated from `itspyguru.github.io`, which now serves stubs
+  canonicalised to `cybiqon.in/lab` and drops them from its own sitemap.
+
+  **The section split is the part that can bite.** Slugs are unique table-wide, not per
+  section, so an unscoped read serves a lab post from `/blog/<slug>` in marketing chrome.
+  `getPagedPosts`, `getTagIndex` and `getPostBySlug` take `section` as a **required**
+  argument — a default would have made the leak the quiet option.
+
+  Two scopings outside this repo mattered more than any inside it:
+
+  `ops/scripts/collect_metrics.py::blog_metrics()` — unscoped, publishing one lab post by
+  hand would refresh `last_at` and silence the *"No blog post in Nh — publish pipeline
+  may be down"* warning for 30 hours. That warning exists because the funnel died for 33
+  nights and nobody was told; a false all-clear from the *other* blog is the same bug
+  wearing a new coat.
+
+  `tools/social-media-manager` — `content-clusters.md` and `orchestrator.md` now filter
+  cluster membership on `section = 'msme'`. Step 8's reciprocal-backlink pass runs
+  `UPDATE blog_posts SET content = ?`, and lab posts carry tags (`AI`, `Automation`) that
+  match several pillars' keyword signals. Without the filter the nightly agent could
+  rewrite hand-written prose to insert an MSME link.
+
+* **Decision** ([design system](/site/design-system.md)): `/lab` gets a full palette,
+  which Ledger was denied. Not a reversal — Ledger failed because it recoloured pages
+  *still sitting behind the marketing navbar*, so the temperature flipped mid-header.
+  `/lab` renders no marketing chrome at all, so there is no seam. `--signal` is the
+  brand's own Amber 500 promoted from decoration; `--primary` is the brand indigo lifted
+  for a dark ground.
+
+  Archivo finally shipped, in exactly the scoped component `design-system.md` said it
+  would have to be.
+
+* **Trap found the hard way** — the standard no-flash trick (inline script adds a *class*
+  to `<html>`) **fails silently** here: `app/layout.tsx` renders
+  `<html className={geist.variable}>`, so React owns that prop and hydration reconciles
+  the class away. Renders dark, the toggle appears not to persist, nothing errors. Caught
+  by dumping the post-hydration DOM after a screenshot came back dark twice. Resolved with
+  a `data-lab-theme` attribute — see the size entry above for why the cookie approach that
+  briefly replaced it had to go.
+
+* **Fix** ([blog](/content/blog.md)): `app/blog/[slug]/page.tsx` called `getDB()` outside
+  the try/catch its own `generateMetadata` had, so a D1 outage threw there while every
+  other read path degraded. Both now go through `lib/blog.ts::getPostBySlug`.
+
+* **Fix**: share cards for `/lab` are rendered at publish time with Pillow and uploaded
+  to R2 (`lab/og/<slug>.png`), narrowing the "no OG image generation" gap in
+  [SEO](/site/seo.md) to the 14 marketing pages. Runtime generation via satori was
+  rejected: WASM on the edge, in a build that has broken on next-on-pages before.
+
+* **Found**: `CLOUDFLARE_R2_PUBLIC_URL` in the pipeline `.env` is stale — a
+  `pub-*.r2.dev` endpoint, while every `image_url` in D1 is on `media.cybiqon.in`.
+  `publish_blog.py` silently sidesteps it by hardcoding the host. Using the variable
+  produces URLs that look correct in the publish log and resolve to nothing. Not fixed in
+  `.env` (that file is not mine to edit blind); `publish_lab.py` hardcodes the same host
+  and explains why.
+
 ## 2026-07-26
 
 * **Creation** ([routes](/site/routes.md), [design system](/site/design-system.md)): the

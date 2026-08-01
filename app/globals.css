@@ -96,6 +96,86 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     --rule-strong: 215 25% 27%;  /* = --foreground, for the heavier section rules. */
   }
 
+  /* ── "Lab" — the one place a real palette departure is allowed ──────────────
+     Applied to /lab via app/lab/layout.tsx. Unlike Ledger, this DOES recolour.
+
+     Ledger may not, and the reason is chrome, not colour. Ledger pages sit behind the
+     marketing Navbar and Footer, so recolouring them flipped the page temperature
+     mid-header and two pages read as a different company. /lab renders no marketing
+     chrome at all (see components/ThemeScope.tsx), so there is no seam to notice.
+
+     Two deliberate ties keep it a sibling rather than a stranger:
+       --signal  is the brand's own --accent (Amber 500, 38 92% 50%), promoted from
+                 decoration to the one signal colour.
+       --primary is the brand indigo (221 83% 53%), lifted in lightness so it clears
+                 contrast on a dark surface.
+
+     Direction is "instrument, not terminal": machine-precise metadata against warm
+     long-form prose. Explicitly no scanlines, no glow, no monospace body — the
+     portfolio at itspyguru.github.io already does the fake-terminal thing.
+
+     Dark is the designed default. .lab-noon is a real second design, not an inversion:
+     --signal darkens to a burnt amber because the dark-mode value is a 2.3:1 blur on
+     white, and --muted-foreground is chosen for ~6.4:1 rather than mirrored. */
+  .theme-lab {
+    --background: 220 20% 8%;
+    --foreground: 216 20% 89%;
+    --card: 219 18% 12%;
+    --card-foreground: 216 20% 89%;
+    --popover: 219 18% 12%;
+    --popover-foreground: 216 20% 89%;
+    --muted: 219 18% 12%;
+    --muted-foreground: 216 12% 60%;
+    --border: 218 16% 20%;
+    --input: 218 16% 20%;
+    --primary: 221 90% 74%;
+    --primary-foreground: 220 20% 8%;
+    --accent: 38 88% 58%;
+    --accent-foreground: 220 20% 8%;
+    --ring: 38 88% 58%;
+
+    /* The only genuinely new token. Readouts only — never body text, never a button
+       fill. It earns its loudness by being rare. */
+    --signal: 38 88% 58%;
+
+    --radius: 4px;
+  }
+
+  /* Light mode is keyed off a DATA ATTRIBUTE on <html>, set by a pre-paint script.
+     Both halves of that sentence are load-bearing and were arrived at the hard way.
+
+     Attempt 1 — a *class* on <html>. Fails silently: app/layout.tsx renders
+     `<html className={geist.variable}>`, so React owns that prop and hydration
+     reconciles the added class away. Page renders dark, toggle appears not to
+     persist, nothing errors.
+
+     Attempt 2 — the class on the theme div, rendered server-side from a cookie.
+     Correct, but `cookies()` makes the whole /lab segment dynamic, which forced
+     /lab/about to be an edge function too. At ~440 KiB gzipped per React route that
+     pushed the Worker past Cloudflare's 3 MiB free-plan limit and broke the deploy.
+
+     A data attribute React never renders is not part of its tree, so it is not
+     reconciled — and no server input means /lab/about prerenders as static. */
+  :root[data-lab-theme="noon"] .theme-lab {
+    --background: 220 20% 99%;
+    --foreground: 220 25% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
+    --muted: 220 20% 97%;
+    --muted-foreground: 218 12% 40%;
+    --border: 218 20% 90%;
+    --input: 218 20% 90%;
+    --primary: 221 83% 47%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 33 95% 33%;
+    --accent-foreground: 0 0% 100%;
+    --ring: 33 95% 33%;
+
+    --signal: 33 95% 33%;
+  }
+
   .dark {
     --background: 222 47% 11%;
     --foreground: 210 40% 98%;
@@ -241,3 +321,393 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 
 /* Dark mode: the unified card already uses bg-card/border tokens, so no
    per-variant color overrides are needed. */
+
+/* ══ /lab type system ═══════════════════════════════════════════════════════
+   Hand-rolled rather than @tailwindcss/typography. The plugin is built around a
+   sans body at a ~65ch measure and expresses its scale in em, so every value here
+   would have been an override fighting a default — and its prose-invert path
+   assumes a mirrored palette, which .lab-noon deliberately is not.
+
+   Three faces, three jobs (loaded in app/lab/layout.tsx):
+     --font-archivo       display. Grotesque with a real wdth axis: signage, not
+                          literary. Picked up from a decision design-system.md
+                          recorded and deferred, on the condition it stay scoped.
+     --font-source-serif  prose. The serif does the work rather than being the
+                          showpiece, which is what keeps this off the
+                          high-contrast-serif-display look every AI blog ships.
+     --font-dm-mono       readouts and code. Static, weights 400/500 only.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Display. The wdth axis responds to the container so a headline optically fills
+   its measure instead of wrapping ragged — narrow column condenses, wide column
+   relaxes. Container queries, so it is static per width: nothing animates and
+   prefers-reduced-motion has nothing to say about it.
+
+   Both axes are named explicitly. font-variation-settings is low-level and wins
+   over font-weight for the axes it lists, so setting only "wdth" and relying on
+   font-weight for weight is the kind of thing that works until it doesn't. The
+   font-weight below is for the fallback face, when the variable font hasn't loaded
+   and font-variation-settings is ignored entirely. */
+.lab-measure {
+  container-type: inline-size;
+}
+
+.lab-display {
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-variation-settings: "wght" 700, "wdth" 82;
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+@container (min-width: 560px) {
+  .lab-display {
+    font-variation-settings: "wght" 700, "wdth" 94;
+  }
+}
+
+@container (min-width: 780px) {
+  .lab-display {
+    font-variation-settings: "wght" 700, "wdth" 100;
+  }
+}
+
+/* Readouts: the measurement rail, the index row metadata, the eyebrow labels.
+   tabular-nums is the point — these are columns of figures that must align down
+   the rail, not prose that happens to contain digits. */
+.lab-readout {
+  font-family: var(--font-dm-mono), ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-readout-value {
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--signal));
+}
+
+/* ── Prose ──────────────────────────────────────────────────────────────── */
+
+.lab-prose {
+  font-family: var(--font-source-serif), Georgia, serif;
+  /* 420, not 400. Serif hairlines thin out against a dark ground and 400 reads
+     muddy at 19px; .lab-noon puts it back to 400 because the same weight looks
+     heavy on white. */
+  font-weight: 420;
+  font-size: 19px;
+  line-height: 32px;
+  color: hsl(var(--foreground));
+  max-width: 68ch;
+}
+
+:root[data-lab-theme="noon"] .lab-prose {
+  font-weight: 400;
+}
+
+.lab-prose > * + * {
+  margin-top: 1.6em;
+}
+
+.lab-prose h2,
+.lab-prose h3,
+.lab-prose h4 {
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: "wght" 650, "wdth" 96;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: hsl(var(--foreground));
+  text-wrap: balance;
+}
+
+.lab-prose h2 {
+  font-size: 26px;
+  margin-top: 2.4em;
+  margin-bottom: -0.4em;
+}
+
+.lab-prose h3 {
+  font-size: 20px;
+  margin-top: 2em;
+  margin-bottom: -0.5em;
+}
+
+.lab-prose h4 {
+  font-size: 17px;
+  margin-top: 1.8em;
+  margin-bottom: -0.6em;
+}
+
+/* Anchor targets clear the sticky nothing — there is no sticky header on /lab, but
+   in-page links from the contents rail still land better with breathing room. */
+.lab-prose :is(h2, h3, h4)[id] {
+  scroll-margin-top: 2rem;
+}
+
+.lab-prose a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: hsl(var(--primary) / 0.35);
+  transition: text-decoration-color 150ms ease;
+}
+
+.lab-prose a:hover {
+  text-decoration-color: hsl(var(--primary));
+}
+
+.lab-prose strong {
+  font-weight: 650;
+  color: hsl(var(--foreground));
+}
+
+.lab-prose em {
+  font-style: italic;
+}
+
+.lab-prose ul,
+.lab-prose ol {
+  padding-left: 1.4em;
+}
+
+.lab-prose li + li {
+  margin-top: 0.5em;
+}
+
+.lab-prose ul > li {
+  list-style: disc;
+}
+
+.lab-prose ol > li {
+  list-style: decimal;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-prose li::marker {
+  color: hsl(var(--muted-foreground));
+}
+
+.lab-prose blockquote {
+  border-left: 2px solid hsl(var(--border));
+  padding-left: 1.2em;
+  font-style: italic;
+  color: hsl(var(--muted-foreground));
+}
+
+.lab-prose hr {
+  border: 0;
+  border-top: 1px solid hsl(var(--border));
+  margin-top: 2.8em;
+  margin-bottom: 2.8em;
+}
+
+.lab-prose img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+}
+
+.lab-prose figcaption {
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+  margin-top: 0.6em;
+}
+
+/* Tables come from python-markdown's `extra`. They must scroll inside their own
+   box — a wide table is the classic way a post ends up scrolling the whole page
+   sideways on a phone. */
+.lab-prose .table-scroll,
+.lab-prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.lab-prose table {
+  border-collapse: collapse;
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lab-prose th,
+.lab-prose td {
+  border-bottom: 1px solid hsl(var(--border));
+  padding: 0.55em 1.1em 0.55em 0;
+  text-align: left;
+}
+
+.lab-prose th {
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+}
+
+/* Footnotes, also from `extra`. */
+.lab-prose .footnote {
+  font-size: 15px;
+  color: hsl(var(--muted-foreground));
+}
+
+.lab-prose .footnote hr {
+  margin-top: 3.5em;
+}
+
+.lab-prose sup a {
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Code ───────────────────────────────────────────────────────────────────
+   python-markdown's codehilite emits <div class="codehilite"><pre><code> with
+   Pygments token classes. The palette is defined as variables so .lab-noon can
+   swap it without restating every selector.
+
+   Strings get their own hue rather than reusing --signal or --primary: three
+   distinguishable colours is roughly the floor for code being scannable, and
+   amber is spoken for by readouts. */
+.theme-lab {
+  --code-comment: 216 12% 52%;
+  --code-keyword: 221 90% 78%;
+  --code-string: 160 45% 65%;
+  --code-number: 38 88% 62%;
+  --code-name: 216 20% 89%;
+  --code-punct: 216 12% 58%;
+}
+
+:root[data-lab-theme="noon"] .theme-lab {
+  --code-comment: 218 12% 45%;
+  --code-keyword: 221 83% 45%;
+  --code-string: 165 80% 24%;
+  --code-number: 28 90% 34%;
+  --code-name: 220 25% 12%;
+  --code-punct: 218 12% 42%;
+}
+
+.lab-prose :not(pre) > code {
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 0.82em;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 3px;
+  padding: 0.12em 0.34em;
+  white-space: nowrap;
+}
+
+.lab-prose pre,
+.lab-prose .codehilite {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+.lab-prose .codehilite pre {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.lab-prose pre {
+  padding: 1.1em 1.25em;
+}
+
+.lab-prose pre code {
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: hsl(var(--code-name));
+  background: transparent;
+  border: 0;
+  padding: 0;
+  white-space: pre;
+}
+
+.lab-prose .codehilite .c,
+.lab-prose .codehilite .c1,
+.lab-prose .codehilite .cm,
+.lab-prose .codehilite .ch,
+.lab-prose .codehilite .cs,
+.lab-prose .codehilite .cp {
+  color: hsl(var(--code-comment));
+  font-style: italic;
+}
+
+.lab-prose .codehilite .k,
+.lab-prose .codehilite .kn,
+.lab-prose .codehilite .kd,
+.lab-prose .codehilite .kc,
+.lab-prose .codehilite .kr,
+.lab-prose .codehilite .kt,
+.lab-prose .codehilite .ow,
+.lab-prose .codehilite .nb,
+.lab-prose .codehilite .bp {
+  color: hsl(var(--code-keyword));
+}
+
+.lab-prose .codehilite .s,
+.lab-prose .codehilite .s1,
+.lab-prose .codehilite .s2,
+.lab-prose .codehilite .sb,
+.lab-prose .codehilite .sc,
+.lab-prose .codehilite .sd,
+.lab-prose .codehilite .se,
+.lab-prose .codehilite .sh,
+.lab-prose .codehilite .si,
+.lab-prose .codehilite .sx,
+.lab-prose .codehilite .sr,
+.lab-prose .codehilite .ss {
+  color: hsl(var(--code-string));
+}
+
+.lab-prose .codehilite .m,
+.lab-prose .codehilite .mi,
+.lab-prose .codehilite .mf,
+.lab-prose .codehilite .mh,
+.lab-prose .codehilite .mo,
+.lab-prose .codehilite .il {
+  color: hsl(var(--code-number));
+}
+
+.lab-prose .codehilite .nf,
+.lab-prose .codehilite .nc,
+.lab-prose .codehilite .nd,
+.lab-prose .codehilite .nn {
+  color: hsl(var(--code-name));
+  font-weight: 500;
+}
+
+.lab-prose .codehilite .o,
+.lab-prose .codehilite .p,
+.lab-prose .codehilite .nt,
+.lab-prose .codehilite .na {
+  color: hsl(var(--code-punct));
+}
+
+.lab-prose .codehilite .err {
+  color: hsl(var(--destructive));
+}
+
+/* Line numbers, if codehilite is ever configured with them. */
+.lab-prose .codehilite .linenos {
+  color: hsl(var(--code-comment));
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-prose a,
+  .lab-row,
+  .lab-row * {
+    transition: none !important;
+  }
+}

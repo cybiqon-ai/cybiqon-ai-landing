@@ -1,9 +1,9 @@
 ---
 type: Reference
 title: Routes
-description: Every route the site serves, which are server vs client components, and the redirect that keeps a published Play Store policy URL alive.
+description: Every route the site serves — two blogs on one table, which routes are server vs client, the chrome-suppression scope for /lab, and the redirect that keeps a published Play Store policy URL alive.
 tags: [routes, app-router, nextjs, redirects]
-timestamp: 2026-07-30T00:00:00Z
+timestamp: 2026-08-01T00:00:00Z
 ---
 
 # Marketing pages
@@ -33,6 +33,31 @@ All seven now have a server `page.tsx` exporting unique metadata plus a co-locat
 | `/blog?page=2..9` | same route; real `<Link>` hrefs, `rel=prev/next`, self-canonical |
 | `/blog/[slug]` | server, edge, live D1 query per render |
 | `/blog/tag/[tag]` | server, edge, **21 archives**, paginated, 404s on an unknown tag |
+
+Every blog query is scoped to `section = 'msme'` as of 1 Aug 2026. Slugs are unique
+table-wide, so an unscoped `/blog/[slug]` serves a `/lab` post in marketing chrome.
+
+# Lab
+
+The second blog, added 1 Aug 2026. No `generateStaticParams` — same constraint as
+`/products` below. See [Lab](/content/lab.md).
+
+| Route | Notes |
+|---|---|
+| `/lab` | server, edge, ruled index rather than a card grid, paginated |
+| `/lab/[slug]` | server, edge, `section = 'lab'` |
+| `/lab/about` | **static (prerendered)** — no edge runtime, deliberately |
+| `/lab/rss.xml` | edge, lab-only feed; `/rss.xml` stays MSME-only |
+
+⚠️ `/lab/about` is static for **size**, not style. The Worker has a 3 MiB gzipped ceiling
+on the free plan, enforced at upload rather than at build, and each React route compiled
+for the edge costs ~440 KiB. Keeping this one static is part of what fits the bundle.
+Adding `cookies()`, `headers()` or `searchParams` to `app/lab/layout.tsx` would make the
+whole segment dynamic and break the deploy.
+
+These routes render **no marketing chrome**: `components/ThemeScope.tsx` drops Navbar,
+Footer and the WhatsApp widget for `/lab*`, and `app/lab/layout.tsx` supplies its own.
+Linked from the footer only — the Navbar is already at its breakpoint link count.
 
 # Products
 
@@ -101,14 +126,26 @@ than a 500, so subscribers don't drop the feed.
 
 # Layout
 
-`app/layout.tsx` wraps everything in Navbar / Footer / WhatsAppWidget /
-RevealObserver / Toaster / Sonner / TooltipProvider, and carries the GA4 snippet.
+`app/layout.tsx` wraps everything in Navbar / Footer / WhatsAppWidget / RevealObserver /
+Sonner, and carries the GA4 snippet.
+
+`TooltipProvider` and the radix `<Toaster />` were removed on 1 Aug 2026 — nothing used
+either (no `<Tooltip>` outside `components/ui`, no `useToast()` call), and every dead
+provider in the root layout is paid for by all twelve edge routes in a 3 MiB Worker.
+Sonner stays: `components/AuditForm.tsx` calls `toast.success` / `toast.error`.
 
 # Layout theming
 
-`components/ThemeScope.tsx` applies `.theme-ledger` to `/free-website` and `/products/*`
-by pathname, wrapping Navbar + main + Footer. See
-[design system](/site/design-system.md) for what that theme does and does not change.
+`components/ThemeScope.tsx` decides chrome and theme by pathname. Two scopes:
+
+* **Ledger** (`/free-website`, `/products/*`) — `.theme-ledger` wrapping Navbar + main
+  + Footer, so the squared radius reaches the chrome and there is no seam at the header.
+* **Bare** (`/lab*`) — renders the page with **no** Navbar, Footer or WhatsApp widget.
+  `app/lab/layout.tsx` supplies its own.
+
+Navbar and Footer are passed as **props** rather than children precisely so the
+component can decline to render them; they stay server components either way. See
+[design system](/site/design-system.md) for what each theme changes.
 
 # See also
 

@@ -17,6 +17,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/case-studies`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/rss.xml`, lastModified: new Date(), changeFrequency: "daily", priority: 0.5 },
     { url: `${siteUrl}/blog`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+    // /lab — hand-written, so weekly at most. Its own feed and author page.
+    { url: `${siteUrl}/lab`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
+    { url: `${siteUrl}/lab/about`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.4 },
+    { url: `${siteUrl}/lab/rss.xml`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.3 },
     { url: `${siteUrl}/faq`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/free-audit`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/free-website`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.95 },
@@ -39,11 +43,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogPages: MetadataRoute.Sitemap = [];
   let indexPages: MetadataRoute.Sitemap = [];
   let tagPages: MetadataRoute.Sitemap = [];
+  let labPages: MetadataRoute.Sitemap = [];
 
   try {
     const { env } = getRequestContext();
     const { results } = await env.DB.prepare(
-      "SELECT slug, created_at FROM blog_posts WHERE published = 1 ORDER BY created_at DESC"
+      "SELECT slug, created_at FROM blog_posts WHERE section = 'msme' AND published = 1 ORDER BY created_at DESC"
     ).all();
 
     const posts = results as { slug: string; created_at: string }[];
@@ -69,16 +74,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    const tags = await getTagIndex();
+    const tags = await getTagIndex("msme");
     tagPages = tags.map((tag) => ({
       url: `${siteUrl}/blog/tag/${tag.slug}`,
       lastModified: newest,
       changeFrequency: "weekly" as const,
       priority: 0.6,
     }));
+
+    // /lab posts. Separate query rather than one pass over both sections, because the
+    // two produce different URL prefixes and different change frequencies — and a
+    // single unscoped SELECT here is exactly how a lab post ends up advertised at
+    // /blog/<slug>, which 404s.
+    const labResults = await env.DB.prepare(
+      "SELECT slug, created_at FROM blog_posts WHERE section = 'lab' AND published = 1 ORDER BY created_at DESC"
+    ).all();
+
+    labPages = (labResults.results as { slug: string; created_at: string }[]).map(
+      (post) => ({
+        url: `${siteUrl}/lab/${post.slug}`,
+        lastModified: new Date(post.created_at),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      })
+    );
   } catch {
     // If DB is unavailable, return only static pages
   }
 
-  return [...staticPages, ...blogPages, ...tagPages, ...indexPages];
+  return [...staticPages, ...blogPages, ...labPages, ...tagPages, ...indexPages];
 }

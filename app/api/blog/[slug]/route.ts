@@ -10,8 +10,10 @@ export async function GET(
 
   try {
     const { env } = getRequestContext();
+    // Slugs are unique table-wide, so without the section filter this would serve /lab
+    // posts from the MSME API.
     const post = await env.DB.prepare(
-      "SELECT * FROM blog_posts WHERE slug = ? AND published = 1"
+      "SELECT * FROM blog_posts WHERE slug = ? AND section = 'msme' AND published = 1"
     ).bind(slug).first();
 
     if (!post) {

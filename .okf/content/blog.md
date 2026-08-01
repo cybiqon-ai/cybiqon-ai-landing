@@ -1,12 +1,16 @@
 ---
 type: Domain
 title: Blog
-description: Posts are rows in Cloudflare D1, not files — written by a different repo, rendered by a live edge query, and served through server-paginated index and tag-archive routes.
-tags: [blog, d1, cloudflare, content, edge]
-timestamp: 2026-07-25T17:42:26Z
+description: The automated MSME blog at /blog — posts are rows in Cloudflare D1, not files, written by a different repo and rendered by a live edge query. Shares its table with /lab, separated by a section column.
+tags: [blog, d1, cloudflare, content, edge, msme]
+timestamp: 2026-08-01T00:00:00Z
 ---
 
 # Overview
+
+This concept describes **`/blog`, the automated MSME blog**. The same `blog_posts`
+table also holds `/lab`, the hand-written engineering blog — see [Lab](lab.md).
+Everything below is scoped to `section = 'msme'`.
 
 There is **no MDX, no CMS and no `content/` directory**. Blog posts are rows in
 the Cloudflare D1 database `cybiqon-blog`, and this repo only *reads* them.
@@ -14,7 +18,7 @@ the Cloudflare D1 database `cybiqon-blog`, and this repo only *reads* them.
 **Posts are authored and inserted by `tools/social-media-manager`** — a separate
 repo running a daily Claude-agent pipeline. Nothing in this repo creates a post.
 
-76 posts live, 15 Mar → 25 Jul 2026, roughly one per day.
+81 MSME posts live as of 1 Aug 2026, 15 Mar → 31 Jul, roughly one per day.
 
 # Table
 
@@ -30,9 +34,17 @@ CREATE TABLE blog_posts (
   angle      TEXT,            -- pain_point | education | outcome | news_hook
   tags       TEXT,            -- comma-separated string, not a relation
   published  BOOLEAN DEFAULT 1,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  section    TEXT NOT NULL DEFAULT 'msme',  -- 'msme' | 'lab'  (migration 0004)
+  readouts   TEXT             -- /lab only, JSON [{label, value}]
 );
 ```
+
+⚠️ **`section` must appear in every read of this table.** Slugs are unique
+table-wide rather than per section, so an unscoped query does not just return
+extra rows — it serves a `/lab` post from `/blog/<slug>` in the marketing chrome.
+The nightly publisher does **not** set `section` and relies on the `'msme'`
+default, which is why the default exists. Full account in [Lab](lab.md).
 
 `content` is **HTML**, not markdown — the publishing script renders it before
 insert, so the site does no markdown processing at all.
@@ -89,6 +101,7 @@ break again.
 
 # See also
 
-- [SEO](/site/seo.md) — missing RSS and tag routes
+- [Lab](lab.md) — the hand-written half of the same table, and the section split
+- [SEO](/site/seo.md) — what is indexed and what is still missing
 - [Stack & deployment](/site/stack.md) — the D1 binding and edge runtime
 - The `social-media-manager` bundle — where posts actually come from

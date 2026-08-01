@@ -85,9 +85,9 @@ reachable), 21 `/blog/tag/<slug>` archives, and a sitemap listing all 120 URLs �
 
 | Gap | Consequence |
 |---|---|
-| **No OG image generation** | every page shares `/logo.png`; only blog posts get a real image |
+| **No OG image generation for the 14 marketing pages** | they still share `/logo.png`. Narrowed 1 Aug 2026: `/lab` posts now get a real 1200×630 card each, rendered by `tools/social-media-manager/lab/og_card.py` at publish time and served from `media.cybiqon.in/lab/og/<slug>.png`. The same approach would work for the marketing pages and has not been done. |
 | `sitemap.ts` `lastModified` | uses `new Date()` for every static page — everything always claims to have changed today, a weak and noisy signal |
-| **No author / E-E-A-T page** | posts credit "Cybiqon Team" with no link |
+| **No author / E-E-A-T page for `/blog`** | MSME posts still credit "Cybiqon Team" with no link. Closed for `/lab` on 1 Aug 2026: `/lab/about` is a real author page with `Person` JSON-LD, and lab posts carry a named byline linking to it. |
 
 # Nothing needs "submitting"
 
