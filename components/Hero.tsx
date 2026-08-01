@@ -99,19 +99,19 @@ const Hero = () => {
             )}
           </div>
 
-          {/* Right column - Dashboard mockup + social proof */}
+          {/* Right column - dashboard mockup.
+              HeroSocialProof.tsx used to render below this and was DELETED on
+              1 Aug 2026, along with features/LiveActivityTicker and
+              features/SocialProofBar. Keeping the reason where someone would rebuild
+              it: it showed "{N} MSME owners got their free audit this week" beside a
+              pulsing "Live" badge and five invented names (Ramesh S., Priya K.,
+              Vijay M., Anjali J., Suresh K.). The number came from useLiveCount(47) —
+              it started at 47 and randomly incremented every 15 seconds. The real
+              audit_leads table held 2 rows. That is a fabricated claim on the homepage
+              of a company selling trust to small businesses. It should not come back
+              without real numbers behind it. */}
           <div className="hidden lg:block pt-4">
             <HeroDashboardMockup />
-            <div className="w-[calc(100%+4rem)] -mr-16">
-              {/* HeroSocialProof — hidden with the rest of the free-audit prompts.
-                  Worth stating why plainly: it rendered "{N} MSME owners got their free
-                  audit this week" beside a pulsing "Live" badge and five invented names
-                  (Ramesh S., Priya K., Vijay M., Anjali J., Suresh K.). The number came
-                  from useLiveCount(47) — it starts at 47 and randomly increments every
-                  15 seconds. The real audit_leads table holds 2 rows. That is a
-                  fabricated claim on the homepage of a company selling trust to small
-                  businesses, and it should not go back without real numbers behind it. */}
-            </div>
           </div>
         </div>
       </div>

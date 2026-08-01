@@ -2,6 +2,37 @@
 
 ## 2026-08-01
 
+* **Removal**: dead code audit. 21 files and 5 npm packages, no behaviour change.
+
+  9 unused shadcn components (`dialog`, `separator`, `sheet`, `skeleton`, `toast`,
+  `toaster`, `toggle`, `tooltip`, `use-toast`) plus `hooks/use-toast.ts` and
+  `hooks/use-mobile.tsx`; `features/` (4 files); `components/HeroSocialProof.tsx`;
+  `AUDIT.md`; `blog_implementation_plan.md`; `public/placeholder.svg`. Dropped
+  `@radix-ui/react-{dialog,separator,toast,toggle,tooltip}`. `README.md` was rewritten
+  rather than deleted — this is the public repo, and one with no README reads as
+  abandoned.
+
+  **Two near-misses worth recording, because the naive scan was wrong twice.**
+  `components/ui/label.tsx` looked dead but is reached through `form.tsx`; a
+  scan that ignores intra-directory imports will delete it. And
+  `components/AnimatedBackground.tsx` / `HeroDashboardMockup.tsx` looked dead to a grep
+  for `@/components/X` because `Hero.tsx` imports them **relatively**. The reliable
+  method is transitive reachability from the route files, and even that flagged
+  `lib/image-loader.ts`, which is wired through `next.config.mjs` rather than imported.
+  `hooks/` was missed entirely on the first pass and only surfaced because the build
+  failed — the deleted `toast.tsx` was still imported there.
+
+  **This bought no Worker headroom, and that is the point worth remembering.** Unimported
+  files are never bundled; verified by grepping the built worker for `DialogOverlay`,
+  `SheetContent`, `Skeleton` and `ToastProvider` (zero hits each). The headroom win
+  earlier today came from a different kind of dead: `TooltipProvider` and `<Toaster />`
+  were imported *by the root layout*, so they shipped in all twelve edge routes. Dead
+  code in `app/layout.tsx` costs twelve times; a dead file costs nothing but confusion.
+
+  Left alone deliberately: `public/app-ads.txt` (AdMob authorisation, served by path and
+  therefore invisible to an import scan), `favicon.ico`, and the Postiz stack — that one
+  is a decision, not a cleanup, and it is already backlog D12.
+
 * **Creation** ([lab](/content/lab.md), [lead capture](/content/lead-capture.md)): an
   email list for /lab, double opt-in, at `/api/subscribe`. This closes the gap this
   bundle has flagged since it was written — 80+ posts and no email capture anywhere.
