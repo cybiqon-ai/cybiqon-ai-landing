@@ -18,7 +18,13 @@ secret here.
 
 # Content
 
-* [Content](content/) - how the D1-backed blog works and where lead capture goes.
+* [Content](content/) - two blogs sharing one D1 table, and where lead capture goes.
+
+The site publishes **`/blog`** (automated, MSME, daily, written by
+`tools/social-media-manager`) and **`/lab`** (hand-written engineering notes, no
+schedule). They are one table separated by a `section` column, and slugs are unique
+across both — read [Lab](content/lab.md) before writing any query against
+`blog_posts`.
 
 # Reading notes
 

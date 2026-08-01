@@ -29,8 +29,8 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 export default async function BlogPage({ searchParams }: PageProps) {
   const page = parsePage((await searchParams).page);
   const [{ posts, totalPages }, tags] = await Promise.all([
-    getPagedPosts(page),
-    getTagIndex(),
+    getPagedPosts("msme", page),
+    getTagIndex("msme"),
   ]);
 
   const breadcrumbSchema = {

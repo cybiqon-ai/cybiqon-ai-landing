@@ -32,6 +32,12 @@ export default {
         ochre: "hsl(var(--ochre))",
         "rule-strong": "hsl(var(--rule-strong))",
 
+        // /lab's readout accent. Defined only inside .theme-lab, so `text-signal`
+        // resolves to nothing anywhere else — which is the intent: it is the one
+        // colour that means "this is a measurement", and it should not leak into
+        // the marketing pages as a fourth brand hue.
+        signal: "hsl(var(--signal))",
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -83,6 +89,20 @@ export default {
       },
       fontFamily: {
         sans: ['var(--font-geist)', 'sans-serif'],
+
+        // /lab only — the vars are set in app/lab/layout.tsx and exist nowhere else,
+        // so these degrade to their fallback stacks if used off /lab.
+        //
+        // NOT named `heading`: Navbar.tsx and Footer.tsx both apply a `font-heading`
+        // class that has never resolved to anything, and defining that key now would
+        // silently restyle the wordmark on all 14 marketing pages.
+        //
+        // `mono` is also left alone deliberately — app/process/ProcessClient.tsx uses
+        // font-mono, and redefining the key would change a page this work has no
+        // business touching. Hence `readout`, which is what it is for anyway.
+        display: ['var(--font-archivo)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        prose: ['var(--font-source-serif)', 'Georgia', 'serif'],
+        readout: ['var(--font-dm-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       keyframes: {
         "accordion-down": {

@@ -10,6 +10,21 @@ export const POSTS_PER_PAGE = 9;
 export const MIN_POSTS_PER_TAG = 3;
 export const MAX_TAG_SHARE = 0.4;
 
+/**
+ * blog_posts holds two independent publications:
+ *   "msme" — /blog, written nightly by tools/social-media-manager, 76 posts
+ *   "lab"  — /lab, hand-written engineering notes
+ *
+ * Slugs are unique across the whole table, not per section, so an unscoped query does
+ * not just return too many rows — it will happily render a lab post inside the
+ * marketing chrome at /blog/<slug>. Every read of blog_posts must name its section.
+ *
+ * `section` is deliberately a required argument with no default. A default would make
+ * the leak the quiet option, and this is the one distinction the table cannot express
+ * on its own.
+ */
+export type Section = "msme" | "lab";
+
 export interface BlogPost {
   id: number;
   slug: string;
@@ -20,10 +35,43 @@ export interface BlogPost {
   created_at: string;
 }
 
+/** A post with its body. The MSME list queries deliberately don't select `content`. */
+export interface FullBlogPost extends BlogPost {
+  content: string;
+  topic: string | null;
+  angle: string | null;
+  published: boolean;
+  section: Section;
+  /** /lab only — JSON array of {label, value}. See lib/lab.ts. */
+  readouts: string | null;
+}
+
 export interface TagInfo {
   name: string;
   slug: string;
   count: number;
+}
+
+/**
+ * One published post, or null — for "no such post" and for "D1 is unreachable" alike.
+ *
+ * Both detail routes go through here rather than writing the query twice, because the
+ * section filter is the difference between a 404 and rendering a /lab post inside the
+ * marketing chrome.
+ */
+export async function getPostBySlug(
+  section: Section,
+  slug: string
+): Promise<FullBlogPost | null> {
+  try {
+    const db = getDB();
+    return await db
+      .prepare("SELECT * FROM blog_posts WHERE slug = ? AND section = ? AND published = 1")
+      .bind(slug, section)
+      .first<FullBlogPost>();
+  } catch {
+    return null;
+  }
 }
 
 /** "WhatsApp automation" -> "whatsapp-automation" */
@@ -45,11 +93,14 @@ function splitTags(raw: string | null): string[] {
 }
 
 /** Tags that qualify for their own archive page, most-used first. */
-export async function getTagIndex(): Promise<TagInfo[]> {
+export async function getTagIndex(section: Section): Promise<TagInfo[]> {
   try {
     const db = getDB();
     const { results } = await db
-      .prepare("SELECT tags FROM blog_posts WHERE published = 1 AND tags IS NOT NULL")
+      .prepare(
+        "SELECT tags FROM blog_posts WHERE section = ? AND published = 1 AND tags IS NOT NULL"
+      )
+      .bind(section)
       .all();
 
     const rows = results as unknown as { tags: string | null }[];
@@ -71,8 +122,11 @@ export async function getTagIndex(): Promise<TagInfo[]> {
   }
 }
 
-export async function findTagBySlug(slug: string): Promise<TagInfo | null> {
-  const tags = await getTagIndex();
+export async function findTagBySlug(
+  section: Section,
+  slug: string
+): Promise<TagInfo | null> {
+  const tags = await getTagIndex(section);
   return tags.find((t) => t.slug === slug) ?? null;
 }
 
@@ -85,6 +139,7 @@ export async function findTagBySlug(slug: string): Promise<TagInfo | null> {
  * want here.
  */
 export async function getPagedPosts(
+  section: Section,
   page: number,
   tag?: string
 ): Promise<{ posts: BlogPost[]; total: number; totalPages: number }> {
@@ -94,9 +149,9 @@ export async function getPagedPosts(
     const offset = (page - 1) * POSTS_PER_PAGE;
 
     const where = tag
-      ? "published = 1 AND (',' || REPLACE(tags, ', ', ',') || ',') LIKE ?"
-      : "published = 1";
-    const params = tag ? [`%,${tag},%`] : [];
+      ? "section = ? AND published = 1 AND (',' || REPLACE(tags, ', ', ',') || ',') LIKE ?"
+      : "section = ? AND published = 1";
+    const params: unknown[] = tag ? [section, `%,${tag},%`] : [section];
 
     const countRow = await db
       .prepare(`SELECT COUNT(*) AS n FROM blog_posts WHERE ${where}`)

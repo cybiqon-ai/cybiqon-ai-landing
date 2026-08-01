@@ -1,15 +1,17 @@
 ---
 type: Architecture
 title: Design system
-description: A stock shadcn site plus one scoped structural theme — and the record of why that theme is structural only, after a first attempt recoloured two pages into looking like a different company.
+description: A stock shadcn site, one scoped structural theme, and one scoped full-palette theme — plus the record of why the first may not recolour and the second may.
 tags: [design, tailwind, shadcn, theming, css-variables]
-timestamp: 2026-07-26T00:00:00Z
+timestamp: 2026-08-01T00:00:00Z
 ---
 
 # Overview
 
-The site is **stock shadcn/ui on the slate base colour** (`components.json`), with a
-single scoped variant called **Ledger** applied to `/free-website` and `/products/*`.
+The site is **stock shadcn/ui on the slate base colour** (`components.json`), with two
+scoped variants: **Ledger** (structure only) on `/free-website` and `/products/*`, and
+**Lab** (a full palette) on `/lab`. Why one may recolour and the other may not is the
+most useful thing in this document.
 
 Everything is themed through the CSS-variable indirection shadcn already uses —
 `hsl(var(--primary))` and friends, defined in `app/globals.css`.
@@ -82,19 +84,59 @@ silently in production and looks fine in dev.
 resolves to nothing. Naming any new display family `heading` would silently restyle the
 wordmark on every page.
 
+# Lab — the exception, and why it is one
+
+`/lab` (1 Aug 2026) **does** recolour: a dark blue-graphite ground, amber readouts, a
+serif reading face. That is not a reversal of the decision above; it is the same
+diagnosis applied properly.
+
+Ledger failed because those pages were recoloured **while still sitting behind the
+marketing Navbar and Footer**. Walking `/pricing` → `/products`, the temperature flipped
+mid-header. The lesson was not "colour is forbidden" — it was "do not recolour half a
+page". `/lab` renders no marketing chrome at all (`components/ThemeScope.tsx` drops
+Navbar, Footer and the WhatsApp widget; `app/lab/layout.tsx` brings its own), so there
+is no seam for a reader to notice.
+
+Two ties keep it a sibling rather than a stranger:
+
+* `--signal` is the brand's existing `--accent` (Amber 500, `38 92% 50%`), promoted from
+  decoration to the one colour that means "this is a measurement".
+* `--primary` is the brand indigo `221 83% 53%`, lifted in lightness to clear contrast
+  on a dark ground.
+
+Mechanically it follows the same rule as Ledger: **redefine the existing shadcn
+variables inside a scope class**, so `bg-background` and `text-foreground` keep working
+and mean the right thing. `--signal` is the only genuinely new token, and therefore the
+only new key in `tailwind.config.ts`.
+
+Light mode is `.theme-lab.lab-noon`, applied **server-side from a cookie**. It was first
+built as the usual pre-paint script setting a class on `<html>`; that fails here and
+fails silently, because `app/layout.tsx` renders `<html className={geist.variable}>` and
+React reconciles the class away during hydration. Recorded in [Lab](/content/lab.md).
+
+`font-display`, `font-prose` and `font-readout` are new `fontFamily` keys, scoped to
+`/lab` by where the CSS variables are defined. **Not** `font-heading` — see the trap
+above. `mono` was deliberately left alone because `app/process/ProcessClient.tsx` uses
+`font-mono` and redefining the key would change a page unrelated to this work.
+
 # Not done yet
 
-**Archivo** (variable `wdth` axis) was planned as the display face and deliberately
-deferred: changing the typeface while the layout was still moving makes it impossible to
-tell which change broke the rhythm. If added, it goes in a **scoped** component — putting
-it in the root layout makes all 14 existing pages preload a font they never use — and via
-`next/font/google` with `axes: ["wdth"]` and **no** `weight` key, or the build throws.
+**Archivo** was planned as the display face and deferred until the layout stopped moving,
+on the condition that it land in a **scoped** component rather than the root layout —
+otherwise all 14 pages preload a font they never use. It shipped on 1 Aug 2026 in `/lab`,
+which is that scoped component. Loaded via `next/font/google` with `axes: ["wdth"]` and
+**no** `weight` key; passing both throws at build time.
+
+The **marketing** pages still have no display face. That part is genuinely not done, and
+the original caution still applies to them: changing the typeface while the layout is
+moving makes it impossible to tell which change broke the rhythm.
 
 The other 14 pages still use the original look. Migrating them is page-by-page work that
 has not started.
 
 # See also
 
-- [Routes](/site/routes.md) — which routes opt into Ledger
+- [Routes](/site/routes.md) — which routes opt into which theme
+- [Lab](/content/lab.md) — the section the Lab theme exists for
 - [Stack & deployment](/site/stack.md) — Tailwind and shadcn versions
 - [Content data](/content/content-data.md) — the `data/` directory this theme renders

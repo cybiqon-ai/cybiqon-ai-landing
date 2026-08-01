@@ -18,7 +18,7 @@ export async function generateMetadata({
   searchParams,
 }: PageProps): Promise<Metadata> {
   const { tag: slug } = await params;
-  const tag = await findTagBySlug(slug);
+  const tag = await findTagBySlug("msme", slug);
   if (!tag) return { title: "Tag not found" };
 
   const page = parsePage((await searchParams).page);
@@ -41,15 +41,15 @@ export async function generateMetadata({
 
 export default async function TagPage({ params, searchParams }: PageProps) {
   const { tag: slug } = await params;
-  const tag = await findTagBySlug(slug);
+  const tag = await findTagBySlug("msme", slug);
   // A tag that dropped below the archive threshold 404s rather than serving an empty
   // page — a thin archive is worse than no archive.
   if (!tag) notFound();
 
   const page = parsePage((await searchParams).page);
   const [{ posts, totalPages }, tags] = await Promise.all([
-    getPagedPosts(page, tag.name),
-    getTagIndex(),
+    getPagedPosts("msme", page, tag.name),
+    getTagIndex("msme"),
   ]);
 
   const breadcrumbSchema = {

@@ -26,6 +26,11 @@ const Footer = () => {
               <Link href="/case-studies" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Case Studies</Link>
               <Link href="/products" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Our Products</Link>
               <Link href="/blog" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link>
+              {/* /lab is footer-only by necessity: Navbar.tsx is already at the count
+                  that fits its breakpoint without wrapping (see the comment there —
+                  /process was dropped for the same reason). The footer renders on
+                  every page, so the crawl path into /lab exists regardless. */}
+              <Link href="/lab" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Lab</Link>
             </div>
           </div>
 

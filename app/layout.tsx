@@ -157,13 +157,21 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-foreground font-sans antialiased">
         <TooltipProvider>
-          {/* ThemeScope re-themes the chrome along with the page on paper routes.
+          {/* ThemeScope re-themes the chrome along with the page on Ledger routes, and
+              drops it entirely on /lab, which brings its own header and footer.
+              Navbar/Footer are props rather than children precisely so it can decline to
+              render them; they stay server components either way.
               Toasters sit outside it because they portal to document.body regardless. */}
-          <ThemeScope>
-            <Navbar />
+          <ThemeScope
+            navbar={<Navbar />}
+            footer={
+              <>
+                <Footer />
+                <WhatsAppWidget />
+              </>
+            }
+          >
             <main>{children}</main>
-            <Footer />
-            <WhatsAppWidget />
           </ThemeScope>
           <RevealObserver />
           <Toaster />
