@@ -100,6 +100,35 @@ that used to be true.
 `CLAUDE.md` ground rule 3 — *a cron that can fail silently must report a count, not a
 status* — is where this comes from. The rail applies the same standard to the writing.
 
+# Views and sharing
+
+Added 1 Aug 2026. Migration `0005` puts a `views` column on `blog_posts` — a column
+rather than a `post_views` table because the detail page and index already `SELECT *`,
+so the count arrives in a query that was happening anyway.
+
+**Counted from the browser, not from the render.** `components/lab/ViewBeacon.tsx` POSTs
+to `/api/lab/view` once per browser session. Incrementing during the page render would
+have been free of a route, but a render is a GET: it would count every crawler, every
+RSS fetcher and every Next `<Link>` prefetch. The rail says "views" and should mean
+people. `keepalive` is set so a reader who clicks away immediately still counts.
+
+The endpoint carries `AND section = 'lab'` for the usual reason — without it, a public
+write path into the automated MSME blog's rows. Unknown slugs return 204 and match
+nothing; there is nothing useful to tell a caller probing for valid slugs.
+
+Views render **last** on the rail and are **omitted at zero**: everything above them is a
+property of the writing, this one is a property of its audience, and "0 views" is a claim
+where an absent row is not.
+
+`components/lab/ShareRow.tsx` is styled as readouts rather than brand-coloured social
+chips — those are the one element that would make the page look like every other blog.
+Native `navigator.share` appears only where supported (detected in an effect, not during
+render, or SSR breaks). The link preview comes from the OG card generated at publish
+time; nothing at share time creates it.
+
+⚠️ **This cost ~100 KiB of Worker headroom** — one edge route handler. See the size trap
+below: the budget is now ~90 KiB.
+
 # Design
 
 `/lab` renders **no marketing chrome at all**: `components/ThemeScope.tsx` suppresses
@@ -133,9 +162,11 @@ Cloudflare's free plan caps the Pages Function bundle at 3 MiB gzipped, and it i
 deploy then fails with *"Your Worker exceeded the size limit of 3 MiB"*. Adding `/lab`
 first pushed it to 3.36 MiB.
 
-Every React route compiled for the edge costs **~440 KiB gzipped**, so the budget is
-roughly six of them. Current state: **2.81 MiB, ~190 KiB of headroom** — less than half a
-route. Two things bought that back, and both must stay:
+Every React route compiled for the edge costs **~440 KiB gzipped** and every route
+*handler* about **100 KiB**, so the budget is roughly six pages. Current state after
+adding `/api/lab/view`: **2.91 MiB, ~90 KiB of headroom.** That is not enough for
+another route of any kind. Two things bought the earlier headroom back, and both must
+stay:
 
 * `/lab/about` prerenders as static. It has no dynamic data, so it only costs an edge
   function if the layout forces the segment dynamic. **Keep `cookies()`, `headers()` and
@@ -147,6 +178,10 @@ route. Two things bought that back, and both must stay:
 
 **Before adding another edge route, measure.** Gzip every `.js` under
 `.vercel/output/static/_worker.js/` and total it.
+
+The obvious next ~200 KiB, if it is ever needed: `/api/blog` and `/api/blog/[slug]`.
+Nothing on this site consumes them — they exist as a public read API. Removing them is a
+breaking change for any outside caller, so it is a decision, not a cleanup.
 
 **Share cards are generated at publish time, not at request time.** `og_card.py` renders
 1200×630 PNGs with Pillow and uploads them to R2 at `lab/og/<slug>.png`. Runtime

@@ -2,6 +2,24 @@
 
 ## 2026-08-01
 
+* **Creation** ([lab](/content/lab.md)): a view counter and a share row on /lab posts.
+
+  Views are counted by a browser beacon (`/api/lab/view`, once per session) rather than
+  during the page render. Rendering is a GET — incrementing there would have needed no
+  new route but would have counted crawlers, RSS fetchers and Next `<Link>` prefetches,
+  and a rail that says "views" should mean people. Stored on `blog_posts.views`
+  (migration `0005`) so it comes back in the SELECT the page already runs. Omitted from
+  the rail at zero, and rendered last: everything above it is a property of the writing,
+  this one is a property of its audience.
+
+  The endpoint is scoped `AND section = 'lab'` — without it, a public write path into the
+  MSME blog's rows.
+
+  Cost: ~100 KiB of Worker headroom, leaving **~90 KiB**. Not enough for another route of
+  any kind. If more is ever needed, `/api/blog` and `/api/blog/[slug]` are ~200 KiB and
+  nothing on this site consumes them — but they are a public API, so removing them is a
+  decision rather than a cleanup.
+
 * **Broke the deploy, then fixed it** — adding /lab's three edge routes pushed the Pages
   Worker to **3.36 MiB gzipped** against Cloudflare's **3 MiB** free-plan ceiling. The
   limit is enforced **at upload, not at build**: `npx @cloudflare/next-on-pages` reported

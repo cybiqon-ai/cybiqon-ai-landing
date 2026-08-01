@@ -14,6 +14,8 @@ import {
 import ReadoutRail from "@/components/lab/ReadoutRail";
 import LabTOC from "@/components/lab/LabTOC";
 import LabCTA from "@/components/lab/LabCTA";
+import ShareRow from "@/components/lab/ShareRow";
+import ViewBeacon from "@/components/lab/ViewBeacon";
 
 export const runtime = "edge";
 
@@ -119,6 +121,10 @@ export default async function LabPost({ params }: PageProps) {
 
   return (
     <>
+      {/* Renders nothing; POSTs one view per browser session. Placed here rather than
+          in the layout so it only fires on a post, never on the index or /lab/about. */}
+      <ViewBeacon slug={post.slug} />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -192,6 +198,8 @@ export default async function LabPost({ params }: PageProps) {
                   {tags.join(" · ")}
                 </p>
               )}
+
+              <ShareRow slug={post.slug} title={post.title} />
 
               <LabCTA />
             </div>
