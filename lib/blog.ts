@@ -44,6 +44,8 @@ export interface FullBlogPost extends BlogPost {
   section: Section;
   /** /lab only — JSON array of {label, value}. See lib/lab.ts. */
   readouts: string | null;
+  /** /lab only — incremented by the browser beacon, see app/api/lab/view. */
+  views: number;
 }
 
 export interface TagInfo {

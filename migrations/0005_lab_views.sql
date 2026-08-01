@@ -1,0 +1,20 @@
+-- View counter for /lab posts.
+--
+-- NOT YET APPLIED. Apply by hand BEFORE the code that reads it deploys:
+--
+--   npx wrangler d1 execute cybiqon-blog --local  --file=migrations/0005_lab_views.sql
+--   npx wrangler d1 execute cybiqon-blog --remote --file=migrations/0005_lab_views.sql
+--
+-- Re-run behaviour is the same as 0004: SQLite has no IF NOT EXISTS for ALTER TABLE
+-- ADD COLUMN, so a second run fails with `duplicate column name: views`. That error is
+-- the success signal for "already applied" — it aborts before touching anything.
+--
+-- A column on blog_posts rather than a separate post_views table, deliberately: the
+-- detail page and the index already SELECT * from this table, so the count comes back
+-- in a query that was happening anyway. A join or a second query would buy normalisation
+-- nobody needs and cost a round trip per render at the edge.
+--
+-- NOT NULL DEFAULT 0 so every existing row — including all 82 MSME posts — starts at a
+-- real zero rather than NULL. Only /lab renders it, but the column is table-wide, and a
+-- counter that reads NULL somewhere is a counter you stop trusting.
+ALTER TABLE blog_posts ADD COLUMN views INTEGER NOT NULL DEFAULT 0;

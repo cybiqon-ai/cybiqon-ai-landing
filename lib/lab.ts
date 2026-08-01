@@ -81,14 +81,24 @@ export function parseReadouts(raw: string | null): Readout[] {
   }
 }
 
-/** Derived figures first, then whatever the post measured about the world. */
+/**
+ * Derived figures first, then what the post measured about the world, then how it has
+ * been received.
+ *
+ * Views come last because they are a different kind of number: everything above is a
+ * property of the writing, and this one is a property of its audience. It is omitted
+ * at zero for the same reason the sources row is — "0 views" is a claim, an absent row
+ * is not, and a counter that has not started is not evidence of anything.
+ */
 export function postReadouts(post: FullBlogPost): Readout[] {
   const sources = countSources(post.content);
+  const views = Number(post.views) || 0;
   return [
     { label: "words", value: formatCount(countWords(post.content)) },
     { label: "read", value: `${readingMinutes(post.content)} min` },
     ...(sources > 0 ? [{ label: "sources", value: String(sources) }] : []),
     ...parseReadouts(post.readouts),
+    ...(views > 0 ? [{ label: "views", value: formatCount(views) }] : []),
   ];
 }
 

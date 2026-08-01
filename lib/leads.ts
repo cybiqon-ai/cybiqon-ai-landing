@@ -52,8 +52,15 @@ export async function clientIpHash(request: Request): Promise<string | null> {
     .join("");
 }
 
-/** Endpoints that share the rate_limit_hits table. */
-export type RateLimitScope = "audit" | "apply";
+/**
+ * Endpoints that share the rate_limit_hits table.
+ *
+ * A closed union rather than `string` on purpose: the scope is what keeps one endpoint's
+ * throttle from counting against another's, so a typo here would silently merge two
+ * limits instead of failing. Adding an endpoint means adding it to this list — no
+ * schema change, the table already has the column.
+ */
+export type RateLimitScope = "audit" | "apply" | "subscribe";
 
 /**
  * True when this client has already submitted `max` times inside the window.
