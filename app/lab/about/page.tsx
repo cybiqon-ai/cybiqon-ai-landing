@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const runtime = "edge";
+// No `runtime = "edge"` and no dynamic data: this page prerenders as static.
+//
+// That is a size decision, not a style one. Every React route compiled for the edge
+// costs ~440 KiB gzipped in the Worker, and six of them put the bundle over
+// Cloudflare's 3 MiB free-plan limit — the deploy fails at upload, after
+// `next-on-pages` has already reported success locally. Keeping this page static is
+// what buys the headroom back. The lab layout must therefore stay free of cookies(),
+// headers() and searchParams.
 
 const siteUrl = "https://cybiqon.in";
 

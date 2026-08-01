@@ -5,43 +5,39 @@ import { useEffect, useState } from "react";
 /**
  * Dusk / noon. The only client component in /lab.
  *
- * The theme is rendered on the server from the `lab-theme` cookie (app/lab/layout.tsx),
- * so this only has to do two things when clicked: write the cookie so the next request
- * renders correctly, and flip the class immediately so the current page responds
- * without a round trip.
+ * Writes `data-lab-theme` on <html> — the same attribute the pre-paint script in
+ * app/lab/layout.tsx sets — plus localStorage so the choice survives a reload.
  *
- * It deliberately does NOT touch document.documentElement. React owns <html>'s
- * className via the root layout, and hydration resets anything added there — that was
- * the first implementation and it failed silently.
+ * A data attribute rather than a class, and on <html> rather than on the theme div,
+ * because React owns `className` on both `<html>` (root layout) and the theme div
+ * (lab layout) and reconciles changes to them away during hydration. It does not
+ * reconcile attributes it never rendered.
  *
- * Initial state is read from the DOM in an effect rather than during render: the server
- * already decided, and reading it during render would either mismatch hydration or
- * require prop-drilling the theme through a server layout for no gain.
+ * Initial state is read from the DOM in an effect rather than during render: the
+ * attribute is set by a script that runs before React, so reading it during render
+ * would mismatch hydration.
  */
-const COOKIE = "lab-theme";
-const ONE_YEAR = 60 * 60 * 24 * 365;
-
-function themeRoot(): HTMLElement | null {
-  return document.querySelector(".theme-lab");
-}
+const KEY = "lab-theme";
 
 export default function ThemeToggle() {
   const [noon, setNoon] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setNoon(!!themeRoot()?.classList.contains("lab-noon"));
+    setNoon(document.documentElement.dataset.labTheme === "noon");
     setReady(true);
   }, []);
 
   function toggle() {
     const next = !noon;
     setNoon(next);
-    themeRoot()?.classList.toggle("lab-noon", next);
-    // Lax rather than Strict: a reader following a link to a post from elsewhere
-    // should still land in the theme they picked. SameSite is set explicitly because
-    // browsers differ on the default.
-    document.cookie = `${COOKIE}=${next ? "noon" : "dusk"}; path=/; max-age=${ONE_YEAR}; SameSite=Lax`;
+    document.documentElement.dataset.labTheme = next ? "noon" : "dusk";
+    try {
+      localStorage.setItem(KEY, next ? "noon" : "dusk");
+    } catch {
+      // Private mode: the choice applies to this page view and is not remembered.
+      // Still worth applying — a reader who cannot store a preference still gets one.
+    }
   }
 
   return (

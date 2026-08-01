@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { Archivo, DM_Mono, Source_Serif_4 } from "next/font/google";
 import LabHeader from "@/components/lab/LabHeader";
 import LabFooter from "@/components/lab/LabFooter";
@@ -51,38 +50,48 @@ export const metadata: Metadata = {
 };
 
 /**
- * The theme is rendered on the server from the `lab-theme` cookie — no flash, and no
- * inline script.
+ * Sets `data-lab-theme` on <html> before first paint, from localStorage.
  *
- * The obvious approach is the usual one: a tiny pre-paint script that reads
- * localStorage and puts a class on <html>. That does not work in this app, and fails
- * silently. app/layout.tsx renders `<html className={geist.variable}>`, so React owns
- * that attribute; hydration reconciles it back to the server-rendered value and drops
- * the class. The page renders dark, the toggle appears to do nothing on reload, and
- * nothing errors. Verified by dumping the post-hydration DOM.
+ * A **data attribute**, and one React never renders — that is the whole trick, and it
+ * took two wrong turns to find:
  *
- * Reading a cookie on the server sidesteps both problems: the correct class is in the
- * first byte of HTML, and React rendered it, so there is nothing to reconcile.
+ *   1. A *class* on <html> fails silently. app/layout.tsx renders
+ *      `<html className={geist.variable}>`, so React owns that prop and hydration
+ *      reconciles the added class away. Renders dark, toggle appears not to persist,
+ *      nothing errors. Confirmed by dumping the post-hydration DOM.
+ *   2. Rendering the class server-side from a cookie is correct but makes the whole
+ *      /lab segment dynamic — which turned /lab/about into a third edge function and
+ *      pushed the Worker past Cloudflare's 3 MiB free-plan limit. The deploy failed on
+ *      upload, not at build, so `next-on-pages` had passed locally.
  *
- * Dark is the default when the cookie is absent. prefers-color-scheme is deliberately
- * NOT consulted: a visitor arriving from the white marketing site has an OS preference
- * that says nothing about which of two designs they want here, and honouring it would
- * hand most readers the one that was not designed first.
+ * React does not reconcile attributes it never set, so this survives hydration. And
+ * because nothing here reads request state, /lab/about prerenders as static rather
+ * than costing an edge function.
+ *
+ * Dark is the default. prefers-color-scheme is deliberately NOT consulted: a visitor
+ * arriving from the white marketing site has an OS preference that says nothing about
+ * which of two designs they want here, and honouring it would hand most readers the
+ * one that was not designed first.
  */
-export default async function LabLayout({ children }: { children: React.ReactNode }) {
-  const theme = (await cookies()).get("lab-theme")?.value === "noon" ? "lab-noon" : "";
+const NO_FLASH =
+  `try{document.documentElement.dataset.labTheme=` +
+  `localStorage.getItem('lab-theme')==='noon'?'noon':'dusk'}catch(e){}`;
 
+export default function LabLayout({ children }: { children: React.ReactNode }) {
   return (
-    // flex column, not just min-h-screen: on a page shorter than the viewport the
-    // content block would end early and the root layout's white body background would
-    // show below the footer. flex-1 on the middle also stops LabFooter's top margin
-    // collapsing out of the themed box.
-    <div
-      className={`theme-lab ${theme} ${archivo.variable} ${sourceSerif.variable} ${dmMono.variable} min-h-screen flex flex-col bg-background text-foreground`}
-    >
-      <LabHeader />
-      <div className="flex-1">{children}</div>
-      <LabFooter />
-    </div>
+    <>
+      <script dangerouslySetInnerHTML={{ __html: NO_FLASH }} />
+      {/* flex column, not just min-h-screen: on a page shorter than the viewport the
+          content block would end early and the root layout's white body background
+          would show below the footer. flex-1 on the middle also stops LabFooter's top
+          margin collapsing out of the themed box. */}
+      <div
+        className={`theme-lab ${archivo.variable} ${sourceSerif.variable} ${dmMono.variable} min-h-screen flex flex-col bg-background text-foreground`}
+      >
+        <LabHeader />
+        <div className="flex-1">{children}</div>
+        <LabFooter />
+      </div>
+    </>
   );
 }

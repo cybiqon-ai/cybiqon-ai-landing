@@ -6,9 +6,7 @@ import Footer from "@/components/Footer";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import RevealObserver from "@/components/RevealObserver";
 import ThemeScope from "@/components/ThemeScope";
-import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
 const geist = Geist({
@@ -155,28 +153,31 @@ export default function RootLayout({
           }}
         />
       </head>
+      {/* TooltipProvider and the radix <Toaster /> were mounted here and are now gone.
+          Neither was used: grep finds no <Tooltip> outside components/ui, and no
+          useToast() call anywhere. They cost bundle size on every route — and every
+          React route compiled for the edge lands in the same 3 MiB Worker, so dead
+          providers here are paid for six times over. Sonner stays: components/
+          AuditForm.tsx genuinely calls toast.success/error. */}
       <body className="bg-background text-foreground font-sans antialiased">
-        <TooltipProvider>
-          {/* ThemeScope re-themes the chrome along with the page on Ledger routes, and
-              drops it entirely on /lab, which brings its own header and footer.
-              Navbar/Footer are props rather than children precisely so it can decline to
-              render them; they stay server components either way.
-              Toasters sit outside it because they portal to document.body regardless. */}
-          <ThemeScope
-            navbar={<Navbar />}
-            footer={
-              <>
-                <Footer />
-                <WhatsAppWidget />
-              </>
-            }
-          >
-            <main>{children}</main>
-          </ThemeScope>
-          <RevealObserver />
-          <Toaster />
-          <Sonner />
-        </TooltipProvider>
+        {/* ThemeScope re-themes the chrome along with the page on Ledger routes, and
+            drops it entirely on /lab, which brings its own header and footer.
+            Navbar/Footer are props rather than children precisely so it can decline to
+            render them; they stay server components either way.
+            Sonner sits outside it because it portals to document.body regardless. */}
+        <ThemeScope
+          navbar={<Navbar />}
+          footer={
+            <>
+              <Footer />
+              <WhatsAppWidget />
+            </>
+          }
+        >
+          <main>{children}</main>
+        </ThemeScope>
+        <RevealObserver />
+        <Sonner />
 
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-JBTXQ3BF5C"

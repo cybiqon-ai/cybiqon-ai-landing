@@ -141,15 +141,22 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     --radius: 4px;
   }
 
-  /* Light mode is a second class on the theme div, applied server-side from the
-     `lab-theme` cookie (app/lab/layout.tsx).
+  /* Light mode is keyed off a DATA ATTRIBUTE on <html>, set by a pre-paint script.
+     Both halves of that sentence are load-bearing and were arrived at the hard way.
 
-     It was briefly keyed off a class on <html> set by an inline pre-paint script —
-     the usual no-flash trick. That does not work here: app/layout.tsx renders
-     <html className={geist.variable}>, so React owns that attribute and hydration
-     resets it, silently dropping the class. Rendering the theme on the server avoids
-     both the flash and the mismatch, and needs no script at all. */
-  .theme-lab.lab-noon {
+     Attempt 1 — a *class* on <html>. Fails silently: app/layout.tsx renders
+     `<html className={geist.variable}>`, so React owns that prop and hydration
+     reconciles the added class away. Page renders dark, toggle appears not to
+     persist, nothing errors.
+
+     Attempt 2 — the class on the theme div, rendered server-side from a cookie.
+     Correct, but `cookies()` makes the whole /lab segment dynamic, which forced
+     /lab/about to be an edge function too. At ~440 KiB gzipped per React route that
+     pushed the Worker past Cloudflare's 3 MiB free-plan limit and broke the deploy.
+
+     A data attribute React never renders is not part of its tree, so it is not
+     reconciled — and no server input means /lab/about prerenders as static. */
+  :root[data-lab-theme="noon"] .theme-lab {
     --background: 220 20% 99%;
     --foreground: 220 25% 12%;
     --card: 0 0% 100%;
@@ -397,7 +404,7 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   max-width: 68ch;
 }
 
-.lab-noon .lab-prose {
+:root[data-lab-theme="noon"] .lab-prose {
   font-weight: 400;
 }
 
@@ -578,7 +585,7 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   --code-punct: 216 12% 58%;
 }
 
-.theme-lab.lab-noon {
+:root[data-lab-theme="noon"] .theme-lab {
   --code-comment: 218 12% 45%;
   --code-keyword: 221 83% 45%;
   --code-string: 165 80% 24%;

@@ -113,11 +113,40 @@ Three faces, loaded in the lab layout so the other 14 pages do not preload them:
 
 # Traps
 
-**The theme cannot be set by a pre-paint script.** The obvious no-flash trick — inline
-script putting a class on `<html>` — fails here and fails *silently*. `app/layout.tsx`
-renders `<html className={geist.variable}>`, so React owns that attribute and hydration
-reconciles the class away. The page renders dark, the toggle appears not to persist, and
-nothing errors. The theme is read from the `lab-theme` cookie on the server instead.
+**The theme must be a data attribute, not a class, and must not come from the server.**
+Two wrong turns, both instructive:
+
+*A class on `<html>` set by a pre-paint script* fails silently. `app/layout.tsx` renders
+`<html className={geist.variable}>`, so React owns that prop and hydration reconciles the
+class away. Renders dark, toggle appears not to persist, nothing errors.
+
+*The class rendered server-side from a cookie* is correct but makes the whole `/lab`
+segment dynamic — which turned `/lab/about` into a third edge function and **broke the
+deploy** on Worker size (below).
+
+`data-lab-theme` on `<html>` works because React does not reconcile attributes it never
+rendered, and it keeps the segment static-capable.
+
+**The Worker has a 3 MiB gzipped ceiling and /lab spends most of the remaining room.**
+Cloudflare's free plan caps the Pages Function bundle at 3 MiB gzipped, and it is enforced
+**at upload, not at build** — `npx @cloudflare/next-on-pages` reports success and the
+deploy then fails with *"Your Worker exceeded the size limit of 3 MiB"*. Adding `/lab`
+first pushed it to 3.36 MiB.
+
+Every React route compiled for the edge costs **~440 KiB gzipped**, so the budget is
+roughly six of them. Current state: **2.81 MiB, ~190 KiB of headroom** — less than half a
+route. Two things bought that back, and both must stay:
+
+* `/lab/about` prerenders as static. It has no dynamic data, so it only costs an edge
+  function if the layout forces the segment dynamic. **Keep `cookies()`, `headers()` and
+  `searchParams` out of `app/lab/layout.tsx`.**
+* `TooltipProvider` and the radix `<Toaster />` are gone from the root layout. Neither
+  was used anywhere — no `<Tooltip>` outside `components/ui`, no `useToast()` call — and
+  a dead provider in the root layout is paid for by every edge route. Sonner stays;
+  `components/AuditForm.tsx` genuinely calls it.
+
+**Before adding another edge route, measure.** Gzip every `.js` under
+`.vercel/output/static/_worker.js/` and total it.
 
 **Share cards are generated at publish time, not at request time.** `og_card.py` renders
 1200×630 PNGs with Pillow and uploads them to R2 at `lab/og/<slug>.png`. Runtime

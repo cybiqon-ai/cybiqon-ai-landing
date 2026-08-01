@@ -2,6 +2,29 @@
 
 ## 2026-08-01
 
+* **Broke the deploy, then fixed it** — adding /lab's three edge routes pushed the Pages
+  Worker to **3.36 MiB gzipped** against Cloudflare's **3 MiB** free-plan ceiling. The
+  limit is enforced **at upload, not at build**: `npx @cloudflare/next-on-pages` reported
+  success locally and the deploy failed afterwards with *"Your Worker exceeded the size
+  limit of 3 MiB"*. Assets published, the Function did not, so the previous deployment
+  kept serving and there was no outage.
+
+  This is the second time this repo has been bitten by "the local build is not the
+  deploy" — PR #33 was the first. Now measured: gzip every `.js` under
+  `.vercel/output/static/_worker.js/` and total it. Each React edge route is ~440 KiB
+  gzipped, so the site affords about six.
+
+  Two fixes, both worth keeping: `/lab/about` is now static (it has no dynamic data, and
+  the cookie-based theme was the only thing forcing the segment dynamic), and
+  `TooltipProvider` + the radix `<Toaster />` are gone from the root layout — neither was
+  used anywhere, and a dead provider there is paid for by every edge route. Now 2.81 MiB
+  with ~190 KiB of headroom, which is less than half a route: **measure before adding
+  another.**
+
+  The theme moved to a `data-lab-theme` attribute on `<html>` in the process. React does
+  not reconcile attributes it never rendered, so it survives hydration where a class did
+  not — and it needs no server input, which is what lets /lab/about prerender.
+
 * **Creation** ([lab](/content/lab.md)): `/lab`, a second blog — hand-written engineering
   notes, sharing `blog_posts` with the automated MSME blog via a new `section` column
   (migration `0004`, applied to remote D1; all 81 existing rows took the `'msme'`
@@ -37,12 +60,13 @@
   Archivo finally shipped, in exactly the scoped component `design-system.md` said it
   would have to be.
 
-* **Trap found the hard way** — the theme cannot be set by a pre-paint script. The
-  standard no-flash trick (inline script adds a class to `<html>`) **fails silently**
-  here: `app/layout.tsx` renders `<html className={geist.variable}>`, so React owns the
-  attribute and hydration reconciles the class away. The page renders dark, the toggle
-  appears not to persist, and nothing errors. Caught by dumping the post-hydration DOM
-  after a screenshot came back dark twice. Now read from a cookie on the server.
+* **Trap found the hard way** — the standard no-flash trick (inline script adds a *class*
+  to `<html>`) **fails silently** here: `app/layout.tsx` renders
+  `<html className={geist.variable}>`, so React owns that prop and hydration reconciles
+  the class away. Renders dark, the toggle appears not to persist, nothing errors. Caught
+  by dumping the post-hydration DOM after a screenshot came back dark twice. Resolved with
+  a `data-lab-theme` attribute — see the size entry above for why the cookie approach that
+  briefly replaced it had to go.
 
 * **Fix** ([blog](/content/blog.md)): `app/blog/[slug]/page.tsx` called `getDB()` outside
   the try/catch its own `generateMetadata` had, so a D1 outage threw there while every

@@ -39,15 +39,21 @@ table-wide, so an unscoped `/blog/[slug]` serves a `/lab` post in marketing chro
 
 # Lab
 
-The second blog, added 1 Aug 2026. All edge, no `generateStaticParams` — same
-constraint as `/products` below. See [Lab](/content/lab.md).
+The second blog, added 1 Aug 2026. No `generateStaticParams` — same constraint as
+`/products` below. See [Lab](/content/lab.md).
 
 | Route | Notes |
 |---|---|
 | `/lab` | server, edge, ruled index rather than a card grid, paginated |
 | `/lab/[slug]` | server, edge, `section = 'lab'` |
-| `/lab/about` | server, edge, author page + Person JSON-LD |
+| `/lab/about` | **static (prerendered)** — no edge runtime, deliberately |
 | `/lab/rss.xml` | edge, lab-only feed; `/rss.xml` stays MSME-only |
+
+⚠️ `/lab/about` is static for **size**, not style. The Worker has a 3 MiB gzipped ceiling
+on the free plan, enforced at upload rather than at build, and each React route compiled
+for the edge costs ~440 KiB. Keeping this one static is part of what fits the bundle.
+Adding `cookies()`, `headers()` or `searchParams` to `app/lab/layout.tsx` would make the
+whole segment dynamic and break the deploy.
 
 These routes render **no marketing chrome**: `components/ThemeScope.tsx` drops Navbar,
 Footer and the WhatsApp widget for `/lab*`, and `app/lab/layout.tsx` supplies its own.
@@ -120,8 +126,13 @@ than a 500, so subscribers don't drop the feed.
 
 # Layout
 
-`app/layout.tsx` wraps everything in Navbar / Footer / WhatsAppWidget /
-RevealObserver / Toaster / Sonner / TooltipProvider, and carries the GA4 snippet.
+`app/layout.tsx` wraps everything in Navbar / Footer / WhatsAppWidget / RevealObserver /
+Sonner, and carries the GA4 snippet.
+
+`TooltipProvider` and the radix `<Toaster />` were removed on 1 Aug 2026 — nothing used
+either (no `<Tooltip>` outside `components/ui`, no `useToast()` call), and every dead
+provider in the root layout is paid for by all twelve edge routes in a 3 MiB Worker.
+Sonner stays: `components/AuditForm.tsx` calls `toast.success` / `toast.error`.
 
 # Layout theming
 
