@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { parsePage } from "@/lib/blog";
-import { getLabIndex, istDate, istStamp } from "@/lib/lab";
+import { findLabTag, getLabIndex, isoDate, istDate, istStamp } from "@/lib/lab";
 import LabRow from "@/components/lab/LabRow";
 import SubscribeForm from "@/components/lab/SubscribeForm";
 
@@ -27,6 +27,8 @@ const siteUrl = "https://cybiqon.in";
 interface PageProps {
   searchParams: Promise<{
     page?: string | string[];
+    /** A tag slug — the filtered view a post's own tags link to. */
+    tag?: string | string[];
     /** Set by the redirects out of /api/subscribe — see NOTICES below. */
     subscribed?: string;
     unsubscribed?: string;
@@ -34,15 +36,34 @@ interface PageProps {
   }>;
 }
 
+/** `?tag=` arrives as a slug and may arrive twice; only the first is meaningful. */
+function parseTag(raw: string | string[] | undefined): string | undefined {
+  const value = (Array.isArray(raw) ? raw[0] : raw)?.trim();
+  return value || undefined;
+}
+
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  const page = parsePage((await searchParams).page);
+  const params = await searchParams;
+  const page = parsePage(params.page);
+  const tagSlug = parseTag(params.tag);
+  const tag = tagSlug ? await findLabTag(tagSlug) : null;
   const suffix = page > 1 ? ` — Page ${page}` : "";
 
   return {
-    title: `Lab — engineering notes${suffix}`,
+    title: tag ? `Lab — ${tag}` : `Lab — engineering notes${suffix}`,
     description:
       "Engineering notes from Cybiqon: what we are building, what broke, and what the numbers said. AI, code, infrastructure and the products behind them.",
-    alternates: { canonical: page > 1 ? `/lab?page=${page}` : "/lab" },
+    /**
+     * A tag view is a filter over the index, not a page of its own. It earns a crawl
+     * path between related posts and nothing more, so it canonicalises to /lab and is
+     * noindex,follow: three posts sliced five ways is the thin-content pattern that
+     * MIN_POSTS_PER_TAG exists to keep off /blog, and the answer here is not to index it
+     * rather than to hide the link.
+     */
+    robots: tagSlug ? { index: false, follow: true } : undefined,
+    alternates: {
+      canonical: tagSlug ? "/lab" : page > 1 ? `/lab?page=${page}` : "/lab",
+    },
     openGraph: {
       type: "website",
       title: "Cybiqon Lab — engineering notes",
@@ -70,7 +91,15 @@ export default async function LabIndex({ searchParams }: PageProps) {
       ? "unsubscribed"
       : params.subscribe;
   const notice = noticeKey ? NOTICES[noticeKey] : undefined;
-  const { posts, total, totalPages, since, last } = await getLabIndex(page);
+
+  const tagSlug = parseTag(params.tag);
+  const tag = tagSlug ? await findLabTag(tagSlug) : null;
+  // An unknown slug filters on a tag no post carries, which is the honest outcome: an
+  // empty list beats silently showing the unfiltered index under a filtered heading.
+  const { posts, total, totalPages, since, last } = await getLabIndex(
+    page,
+    tagSlug ? (tag ?? tagSlug) : undefined
+  );
 
   const blogSchema = {
     "@context": "https://schema.org",
@@ -84,9 +113,26 @@ export default async function LabIndex({ searchParams }: PageProps) {
       name: "Cybiqon AI Solutions",
       url: siteUrl,
     },
+    // The entries themselves. Built from the rows this page already loaded, so the list
+    // costs no extra query — without it the Blog node described a publication with
+    // nothing in it.
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.seo_title || post.title,
+      description: post.excerpt,
+      url: `${siteUrl}/lab/${post.slug}`,
+      datePublished: isoDate(post.created_at),
+      author: { "@type": "Person", name: "Prajjwal Pathak", url: `${siteUrl}/lab/about` },
+    })),
   };
 
-  const pageHref = (n: number) => (n <= 1 ? "/lab" : `/lab?page=${n}`);
+  const pageHref = (n: number) => {
+    const query = new URLSearchParams();
+    if (tagSlug) query.set("tag", tagSlug);
+    if (n > 1) query.set("page", String(n));
+    const qs = query.toString();
+    return qs ? `/lab?${qs}` : "/lab";
+  };
 
   return (
     <>
@@ -113,10 +159,27 @@ export default async function LabIndex({ searchParams }: PageProps) {
             </p>
           </div>
 
+          {/* A filtered view has to say so. Same reasoning as the readout below: a page
+              showing three of nine entries under the heading "Notes from the workshop"
+              is stating something untrue by omission. */}
+          {tagSlug && (
+            <p className="lab-readout text-muted-foreground mt-8 flex flex-wrap gap-x-3 gap-y-1">
+              <span>
+                tagged <span className="lab-readout-value">{tag ?? tagSlug}</span>
+              </span>
+              <span aria-hidden="true" className="text-border">
+                ·
+              </span>
+              <Link href="/lab" className="hover:text-signal transition-colors">
+                show all
+              </Link>
+            </p>
+          )}
+
           {/* The lab's own readout. Three posts is what it says when there are three
               posts: the section's entire argument is that published numbers should be
               real, and it would be a strange place to start by rounding one up. */}
-          {total > 0 && (
+          {!tagSlug && total > 0 && (
             <p className="lab-readout text-muted-foreground mt-8 flex flex-wrap gap-x-3 gap-y-1">
               <span>
                 entries <span className="lab-readout-value">{total}</span>
@@ -150,7 +213,17 @@ export default async function LabIndex({ searchParams }: PageProps) {
             // Also what a D1 outage looks like — getLabIndex degrades to empty rather
             // than throwing, matching every other read path in this app.
             <p className="font-prose text-[17px] text-muted-foreground border-t border-border pt-8">
-              Nothing published here yet.
+              {tagSlug ? (
+                <>
+                  Nothing tagged &ldquo;{tag ?? tagSlug}&rdquo;.{" "}
+                  <Link href="/lab" className="hover:text-signal transition-colors">
+                    Show all entries
+                  </Link>
+                  .
+                </>
+              ) : (
+                "Nothing published here yet."
+              )}
             </p>
           ) : (
             <>

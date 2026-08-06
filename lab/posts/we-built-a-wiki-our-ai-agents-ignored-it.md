@@ -1,5 +1,8 @@
 ---
 title: "We built our AI agents a wiki. They went straight to grep."
+# The searchable title. Only <title>, the meta description and BlogPosting.headline use
+# it — the h1, the OG card and the RSS item keep the title above.
+seo_title: "Open Knowledge Format Review: Do AI Agents Actually Read Your Docs?"
 excerpt: "27 days after adopting the Open Knowledge Format across our monorepo, I went looking for evidence it was working and found the opposite. What a preregistered study, 3,000 GitHub projects and one wrong document say about writing docs for machines."
 date: 2026-07-31
 tags:
@@ -22,6 +25,14 @@ On 3 July 2026 we adopted the [Open Knowledge Format](https://okf.md/) across ou
 Twenty-seven days later we had 31 concepts across 2,604 lines, nine index files, and a change log carrying 65 dated entries. **47 of our 127 commits touched the bundle** — 37% of all engineering activity left a trace in it.
 
 That last number is the kind of statistic that makes for a comfortable blog post. This is not going to be that post, because when I went looking for evidence the bundle was working, I found something that argued the opposite.
+
+## TL;DR
+
+- **Capable agents do not read your documentation index.** They infer a file path from the question and read it directly. A preregistered ablation on a 709-page wiki found the premise failed in the pilot, and our own agent behaved identically — `grep` and direct reads, index untouched.
+- **Token cost still fell — by about a third** (30% protocol-constrained, 34% self-routing), with answer quality holding. The saving came from more targeted access, not from skipping the index.
+- The biggest advertised saving, 58% under catalog-preload, is the one arm where **non-inferiority was not established**. Treat that number carefully.
+- **Documentation rots silently.** 28.9% of the most popular GitHub projects currently carry at least one outdated code reference; 82.3% have at some point. Nearly half our own bundle — 14 of 31 concepts — had never been revised since the day it was written.
+- **What pays for itself is provenance, not structure.** Code says what the system does; only a concept says why the choice was made. We are keeping our bundle and deleting about a third of it.
 
 ## What OKF actually is
 
@@ -63,7 +74,7 @@ Here is the uncomfortable part. This article exists because we ran a month of re
 
 I asked the agent working in our repo how it had actually navigated. The answer: `grep` and direct file reads. It did not start at the index and walk the links. It inferred where to look from the question, exactly as Cochran describes, and consulted concepts *afterwards* to confirm intent rather than beforehand to orient.
 
-We built a front door. The agent climbed in through the window, and got where it was going just as fast.
+We built a front door. The agent climbed in through the window, and got where it was going just as fast. That is the same instinct, at a harmless scale, that [put an OpenAI evaluation agent inside Hugging Face's production infrastructure](/lab/nobody-escaped-the-sandbox-had-a-door): give a model an objective and it takes the cheapest route to it, not the route you designed.
 
 This should have been less surprising than it was. The tools already voted on this question. Claude Code, Cursor, Cline and Sourcegraph's agent [dropped vector-database indexing in favour of agentic search](https://vadim.blog/claude-code-no-indexing/) — glob, grep, read — because it retrieved code better and left no index to keep in sync. An Amazon Science paper in February 2026 found keyword search via agentic tool use reached over 90% of RAG-level performance with no vector store at all. We wrote a retrieval layer for agents that had already decided they preferred to search.
 
@@ -159,7 +170,33 @@ We are keeping ours. We are also going to delete about a third of it.
 
 *Repository metrics were measured directly from our monorepo over 2026-07-03 to 2026-07-30. Vendor names, ticket identifiers and customer details are omitted; all figures are unmodified. This is one team, one repo, 27 days — first-party evidence, not a controlled study, and it should be weighted accordingly.*
 
-### Sources
+## FAQ
+
+### Do AI coding agents actually read a documentation index?
+
+Mostly not. Cochran's preregistered ablation found that a capable tool-using agent never loads the index — it infers a page's path from the question and reads it directly — which killed the study's main hypothesis in the pilot. Our own agent, asked how it had navigated a month of real feature work, said the same thing: `grep` and direct file reads, with concepts consulted afterwards to confirm intent rather than beforehand to orient.
+
+### What is the Open Knowledge Format?
+
+OKF is a vendor-neutral documentation specification Google Cloud published in June 2026. A knowledge bundle is just a directory of markdown files with YAML frontmatter, one concept per file, with exactly one required field — `type`. There is no SDK, no runtime and no compression scheme; it renders on GitHub and diffs in git. Version 0.2 added trust signals: `generated`/`verified` actor fields, a `status` lifecycle, and `stale_after` re-verification dates.
+
+### Does OKF actually reduce token cost?
+
+Yes, by roughly a third under realistic conditions — about 30% for a protocol-constrained agent and 34% for a free self-routing one, with every confidence interval excluding zero and answer quality holding. The saving comes from targeting: pages cited per answer fell from 6.10 to 4.22. The headline 58% figure, measured under forced catalog-preload, is the one arm where the quality point estimate favoured the baseline and non-inferiority was not established.
+
+### How fast does documentation go stale?
+
+Faster than anyone notices, because it fails silently. A study of more than 3,000 GitHub projects found 28.9% of the most popular ones currently contain at least one outdated code-element reference, and 82.3% had one at some point — typically outdated for years before a maintainer spotted it. In our own bundle, 14 of 31 concepts had never been revised since the day they were seeded, and the stalest sat on 87 commits of code churn.
+
+### Should you auto-generate knowledge concepts from your code?
+
+No. Anything derivable from the source will drift from the source and tell a reader nothing that reading the source would not. It is the obvious idea and it is exactly the failure mode: a confidently wrong concept is worse than no concept, because missing documentation makes a reader go and look while wrong documentation stops them looking.
+
+### Is OKF worth adopting?
+
+Yes, if you adopt it for the right reason. If you are adopting it because you believe your AI cannot navigate your repository without a map, the evidence says you will be disappointed. What survives is narrower: a third off token cost, and a record of the decisions your code cannot express — the benchmark behind a routing choice, the bug that justified a shared helper. Note also that OKF has no standards-body home; Google wrote it and controls the roadmap.
+
+## Sources
 
 - [Open Knowledge Format](https://okf.md/) — specification homepage
 - [How the Open Knowledge Format can improve data sharing](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) — Google Cloud Blog, June 2026

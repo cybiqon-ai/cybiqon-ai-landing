@@ -35,8 +35,19 @@ const subscribeSchema = z.object({
 const SAME_ANSWER = { ok: true, message: "Almost there — check your email to confirm." };
 
 export async function POST(request: Request): Promise<Response> {
+  // Parsed outside the main try so a malformed or empty body is a 400, not a 500.
+  // Only the form sends here, so this is not a user-facing case — but reporting a
+  // client error as a server error is how a monitoring alert ends up pointing at the
+  // wrong thing at the wrong hour.
+  let raw: unknown;
   try {
-    const parsed = subscribeSchema.safeParse(await request.json());
+    raw = await request.json();
+  } catch {
+    return Response.json({ error: "Expected a JSON body." }, { status: 400 });
+  }
+
+  try {
+    const parsed = subscribeSchema.safeParse(raw);
     if (!parsed.success) {
       return Response.json({ error: parsed.error.errors[0].message }, { status: 400 });
     }

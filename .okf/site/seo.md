@@ -2,8 +2,8 @@
 type: Domain
 title: SEO
 description: Structured data, sitemap, RSS and per-page metadata are all in place as of 25 Jul 2026; the blog is indexed and the remaining gap is ranking, not discovery.
-tags: [seo, metadata, json-ld, sitemap, search-console, rss]
-timestamp: 2026-07-25T17:22:45Z
+tags: [seo, metadata, json-ld, sitemap, search-console, rss, aeo, ai-crawlers]
+timestamp: 2026-08-06T00:00:00Z
 ---
 
 # Overview
@@ -86,8 +86,63 @@ reachable), 21 `/blog/tag/<slug>` archives, and a sitemap listing all 120 URLs �
 | Gap | Consequence |
 |---|---|
 | **No OG image generation for the 14 marketing pages** | they still share `/logo.png`. Narrowed 1 Aug 2026: `/lab` posts now get a real 1200×630 card each, rendered by `tools/social-media-manager/lab/og_card.py` at publish time and served from `media.cybiqon.in/lab/og/<slug>.png`. The same approach would work for the marketing pages and has not been done. |
-| `sitemap.ts` `lastModified` | uses `new Date()` for every static page — everything always claims to have changed today, a weak and noisy signal |
+| ~~`sitemap.ts` `lastModified`~~ | **Closed 6 Aug 2026.** Static pages now use a `STATIC_LAST_MODIFIED` literal that is bumped by hand when a page actually changes; `/lab` posts use `updated_at ?? created_at`. `/blog` posts already used their real dates. |
 | **No author / E-E-A-T page for `/blog`** | MSME posts still credit "Cybiqon Team" with no link. Closed for `/lab` on 1 Aug 2026: `/lab/about` is a real author page with `Person` JSON-LD, and lab posts carry a named byline linking to it. |
+| **No FAQ, TL;DR or `citation` schema on `/blog`** | Built for `/lab` on 6 Aug 2026 and deliberately not ported: the MSME posts are agent-written and an auto-generated FAQ would be invented Q&A, which is the one thing `FAQPage` must not contain. |
+
+# AI crawlers
+
+Added 6 Aug 2026. **Cloudflare AI Crawl Control is enabled on this zone**, and it does two
+separate things that are easy to confuse:
+
+1. **Managed `robots.txt`** — prepended at the edge, ahead of whatever `app/robots.ts`
+   returns. It carries `Content-Signal: search=yes,ai-train=no,use=reference` and
+   `Disallow: /` for the training crawlers. Curl the live URL, never the source file, to
+   see what a crawler gets.
+2. **A WAF rule** that blocks *verified* AI bots by IP and signature.
+
+**What is NOT the cause of a pasted link failing in ChatGPT — two hypotheses, both dead.**
+
+*Not server-side rendering.* `/lab/[slug]` ships its full body in the first response —
+118 KB of HTML, ~21.5 K visible characters, 137 ms TTFB, measured live.
+
+*Not the WAF either, and this concept claimed otherwise for a few hours on 6 Aug 2026.*
+The AI Crawl Control crawlers table settles it: **`ChatGPT-User` shows 132 allowed
+requests against 8 unsuccessful.** That is not a blocked bot. The block was inferred from
+the managed robots.txt being enabled and was never evidenced; read the crawlers table
+before repeating it.
+
+*Not robots.txt.* Per OpenAI's documentation a pasted link is fetched by `ChatGPT-User`,
+which does not consult robots.txt.
+
+⚠️ **The cause is currently unknown.** The two threads worth pulling are the 8 unsuccessful
+`ChatGPT-User` requests, and `Claude-SearchBot` at **0 allowed / 15 unsuccessful** — the
+only bot in the table with a consistent refusal pattern. Also note a spoofed user agent
+proves nothing in either direction: `curl -A ChatGPT-User` returns 200 because Cloudflare
+never believes the spoof.
+
+# The robots.txt is advisory and is being ignored
+
+The same table shows every crawler the managed block disallows fetching the site anyway:
+**Amazonbot 62, ClaudeBot 42, GPTBot 39, CCBot 4** allowed requests, all against
+`Disallow: /`. The managed file buys a reservation of rights under EU DSM Article 4 and
+**zero enforcement**.
+
+The posture that follows: **allow the bots that cite, block the bots that train — at the
+WAF, where blocking actually happens.** Leave `OAI-SearchBot`, `ChatGPT-User`,
+`PerplexityBot`, `Perplexity-User`, `Claude-User`, `Claude-SearchBot`, `DuckAssistBot`,
+`MistralAI-User`, `Applebot` unblocked; toggle Block on `GPTBot`, `ClaudeBot`, `CCBot`,
+`Amazonbot`, `Bytespider`, `Meta-ExternalAgent`, `FacebookBot`, `PetalBot`, `TikTok
+Spider`, `Timpibot`, `ProRataInc`, `Novellum`, `Anchor Browser`. Never touch `Googlebot`,
+`BingBot` or `Baidu`.
+
+`Google-CloudVertexBot` is filed as an AI Crawler but grounds Vertex/Gemini *answers*
+rather than training, so it belongs with the citers. `Google-Extended` has no toggle — it
+is a robots.txt token, not a crawler.
+
+`app/robots.ts` states the allow side explicitly so no parser has to infer it from a
+wildcard group sitting under eight denials — but the enforcement lives in the dashboard,
+not in this repo.
 
 # Nothing needs "submitting"
 
@@ -113,9 +168,16 @@ ranks 8th–20th for, where a small improvement actually converts.
 
 **GA4 only** (`G-JBTXQ3BF5C`), inline in `app/layout.tsx` via `next/script`.
 
-**Zero events fire.** Audit-form submissions and WhatsApp clicks are untracked, so
-no conversion on this site is currently measurable. No GTM, no Plausible, no
+**Zero events fire on the marketing site.** Audit-form submissions and WhatsApp clicks
+are untracked, so no *lead* conversion is currently measurable. No GTM, no Plausible, no
 Clarity, no Meta pixel.
+
+`/lab` is the exception and has been since 1 Aug 2026 — this concept said "zero events
+fire" flatly until 6 Aug, which was wrong. `lib/analytics.ts` no-ops when `gtag` is
+absent, and every call site is under `/lab`: `lab_cta_click` (`{method: call | email |
+linkedin}`), `lab_subscribe` (`{source}`) and `lab_share` (`{method, slug}`). Adopting the
+same helper on the audit form, the Launch-5 apply and the WhatsApp widget is still the
+open work.
 
 # See also
 

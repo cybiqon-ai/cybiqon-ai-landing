@@ -1,5 +1,8 @@
 ---
 title: "Are OpenAI and Anthropic crybabies? A hard look at the open-weights fight"
+# The searchable title. Only <title>, the meta description and BlogPosting.headline use
+# it — the h1, the OG card and the RSS item keep the title above.
+seo_title: "OpenAI and Anthropic vs Open-Weight Models: A Fact-by-Fact Audit"
 excerpt: "In July 2026 the two biggest US AI labs went to Washington to warn about Chinese open-weight models. Critics called it regulatory capture. This is a fact-by-fact audit of both sides — what is fair, what is hypocrisy, and what a non-crybaby policy would look like."
 date: 2026-07-28
 tags:
@@ -21,6 +24,14 @@ So: are OpenAI and Anthropic crybabies?
 **Short answer: partly yes, and they deserve different verdicts.** OpenAI's behaviour looks like a company trying to freeze a market it is losing. Anthropic's behaviour looks like a company with a real, consistent safety argument that also happens to protect its business — and which refuses to admit how convenient that is. Both of them are asking for rules that would not have existed if they were still winning.
 
 This post lays out the facts first, then the case against them, then the case for them, then where their critics are also wrong.
+
+## TL;DR
+
+- **OpenAI — mostly guilty.** One token open model, unrefreshed since August 2025 on a June 2024 cutoff; opposed SB 1047; pushes federal preemption; skipped Nvidia's open-weights letter until the politics were safe, then quietly signed.
+- **Anthropic — guilty of a narrower charge.** Its policy record is genuinely consistent — it was the first lab to endorse SB 1047, a bill that would have bound it while it was behind. The real charge is refusing to name its own conflict of interest.
+- **The timing is the problem.** Open-weight models went from 11% of Vercel AI Gateway tokens in April 2026 to 29% in June. The danger curve and the revenue curve are the same curve, and neither company has explained why.
+- **Irreversibility is real, not a talking point.** Safety alignment can be stripped from open weights by fine-tuning on as few as ten adversarial examples, and unlearning reversed with under 100. Once weights are public there is no patch.
+- **The critics are wrong too.** Nvidia demands openness in models while keeping CUDA closed, China releases weights as competitive strategy, and OpenRouter's 46% figure is a developer-router number being sold as enterprise share.
 
 ---
 
@@ -196,7 +207,35 @@ Anthropic has at least a record. OpenAI has a weather vane. And the open-weight 
 
 ---
 
-### Sources
+## FAQ
+
+### Are OpenAI and Anthropic actually trying to ban open-weight models?
+
+Neither has asked for a ban outright, and Dario Amodei's position paper opens by saying Anthropic never advocated one. What they have asked for is narrower: chip export controls, enforcement against fraudulent-account distillation, and mandatory pre-release safety testing for any sufficiently capable model. The objection worth taking seriously is that mandatory pre-release testing is a de facto ban, because an anonymous open-weight release cannot comply with it — but that is an argument about implementation, not about bad faith.
+
+### Why did OpenAI and Anthropic not sign Nvidia's open-weights letter?
+
+Nvidia's "Open Weights and American AI Leadership" letter launched on 24 July 2026 with 25 signatories including Microsoft, Meta, Mistral, IBM, Palantir, Hugging Face and the Linux Foundation. Neither OpenAI nor Anthropic was on it. OpenAI joined quietly once the letter passed 50 signatories and 11 million views; Anthropic never signed, and instead published a rebuttal setting out its own position.
+
+### Is "distillation is theft" hypocritical after the Anthropic copyright settlement?
+
+Rhetorically yes, legally no. A federal judge finalised the $1.5 billion Bartz v. Anthropic settlement on 21 July 2026 — roughly $3,000 per book across 482,000+ books pirated from Library Genesis. But that liability was for the *acquisition* copies, not for training: US trial courts have repeatedly held that training on lawfully-acquired copyrighted text is transformative fair use. And what Anthropic alleges against Chinese labs is contract fraud at scale — about 24,000 fraudulent accounts and 16 million exchanges — which is a different act under a different law.
+
+### How much market share do open-weight models actually have?
+
+Less than the loudest number suggests. Open-weight models rose from 11% of tokens on Vercel's AI Gateway in April 2026 to 29% in June, which is the more honest figure. Chinese-origin models have held at least 30% of US enterprise token volume on OpenRouter every week since 8 February 2026, peaking near 46% — but OpenRouter is a developer router that skews toward hobbyists and coding agents, and most large enterprises still contract directly with Anthropic, OpenAI, Azure or Google Cloud.
+
+### Can safety guardrails be removed from open-weight models?
+
+Yes, and this is the strongest technical point in the labs' favour. Research finds safety alignment can be stripped by fine-tuning on as few as ten adversarial examples, and that unlearning of dangerous knowledge can be reversed with under 100 examples, in minutes, on modest hardware. Once weights are published there is no patch, no revocation and no recall — which is a real asymmetry with closed models, whatever you think of who is making the argument.
+
+### What would a good-faith policy from these labs look like?
+
+Five things that are cheap and testable: apply mandatory pre-release capability testing to Claude and GPT today without waiting for legislation; separate the fraud-enforcement argument from the model-capability argument in public; ship something genuinely open; fix the defender asymmetry the [Hugging Face incident exposed](/lab/nobody-escaped-the-sandbox-had-a-door), where guardrails blocked the victim's own forensics; and publish the evidence behind the industrial-distillation and national-security claims.
+
+---
+
+## Sources
 
 - Axios, [OpenAI and Anthropic unite against China's open models](https://www.axios.com/2026/07/22/openai-anthropic-open-models-trump-china) and [Amodei says he does not support an open-weight ban](https://www.axios.com/2026/07/27/anthropic-open-weight-ban-china-dario-amodei)
 - Anthropic, [Our position on open-weights models](https://www.anthropic.com/news/position-open-weights-models)

@@ -12,6 +12,7 @@ type Post = {
   excerpt: string | null;
   image_url: string | null;
   created_at: string;
+  content: string;
 };
 
 // Same contract as app/rss.xml/route.ts: one raw `&` in an author-written title makes
@@ -26,6 +27,19 @@ function esc(s: string): string {
 }
 
 /**
+ * Wrap already-rendered HTML in CDATA for `<content:encoded>`.
+ *
+ * Escaping the body instead would double its size and hand every reader a wall of
+ * `&lt;p&gt;`. The one thing CDATA cannot contain is its own terminator, so a `]]>`
+ * anywhere in the body — a code sample discussing XML is the realistic way it gets
+ * there — is split across two sections. Without this, one such post silently truncates
+ * the entire feed at that byte.
+ */
+function cdata(html: string): string {
+  return `<![CDATA[${html.replace(/]]>/g, "]]]]><![CDATA[>")}]]>`;
+}
+
+/**
  * /lab's feed, separate from /blog's on purpose.
  *
  * The MSME feed publishes daily; this one publishes when something is written. Merging
@@ -37,8 +51,11 @@ export async function GET(): Promise<Response> {
   let posts: Post[] = [];
   try {
     const { env } = getRequestContext();
+    // `content` is selected here and deliberately not in app/rss.xml/route.ts: /lab
+    // publishes a handful of essays, /blog publishes daily and 50 MSME bodies would be
+    // a multi-megabyte response on a route with no pagination.
     const { results } = await env.DB.prepare(
-      `SELECT slug, title, excerpt, image_url, created_at
+      `SELECT slug, title, excerpt, image_url, created_at, content
        FROM blog_posts WHERE section = 'lab' AND published = 1
        ORDER BY created_at DESC LIMIT ?`
     )
@@ -67,7 +84,8 @@ export async function GET(): Promise<Response> {
       <guid isPermaLink="true">${url}</guid>
       <pubDate>${pub}</pubDate>
       <dc:creator>${esc(AUTHOR)}</dc:creator>
-      <description>${esc(p.excerpt ?? "")}</description>${enclosure}
+      <description>${esc(p.excerpt ?? "")}</description>
+      <content:encoded>${cdata(p.content ?? "")}</content:encoded>${enclosure}
     </item>`;
     })
     .join("\n");
@@ -81,7 +99,7 @@ export async function GET(): Promise<Response> {
     : new Date(0).toUTCString();
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Cybiqon Lab</title>
     <link>${siteUrl}/lab</link>

@@ -1,0 +1,32 @@
+-- Search-shaped titles and a modification date for /lab.
+--
+-- APPLIED 6 Aug 2026 — remote first, then local, both verified with a
+-- `pragma_table_info` read. Applied BEFORE the code that reads it deployed, which is the
+-- required order: the reading code selects these columns and every /lab page 404s
+-- without them. All 90 rows took NULL on both, which is the intended starting state.
+--
+-- Applied statement-by-statement over the D1 REST API rather than as a file, so that a
+-- half-application would be visible rather than inferred (see the re-run note below).
+--
+--   npx wrangler d1 execute cybiqon-blog --local  --file=migrations/0007_lab_seo.sql
+--   npx wrangler d1 execute cybiqon-blog --remote --file=migrations/0007_lab_seo.sql
+--
+-- Re-run behaviour is the same as 0004 and 0005: SQLite has no IF NOT EXISTS for ALTER
+-- TABLE ADD COLUMN, so a second run fails with `duplicate column name`. That error is
+-- the success signal for "already applied" — it aborts before touching anything. Note
+-- that the two statements below are separate: if seo_title applies and updated_at then
+-- fails, the file is half-applied, so read the error rather than assuming.
+--
+-- seo_title: /lab titles are written to be read, not to be searched. "Nobody escaped.
+-- The sandbox had a door." is the right h1 and nobody types it into Google. Splitting
+-- the two lets <title>, meta description and BlogPosting.headline carry the string a
+-- reader would actually search for while the page keeps its voice. NULL means "the two
+-- are the same", which is the honest default and what every existing row means today.
+ALTER TABLE blog_posts ADD COLUMN seo_title TEXT;
+
+-- updated_at: nullable, and NULL means "never edited since publication" rather than
+-- "unknown". Set by publish_lab.py on the DO UPDATE branch only — created_at stays out
+-- of that branch on purpose, because republishing edits a post, it does not republish
+-- it. Read as schema.org dateModified, which is why it cannot default to created_at:
+-- claiming an edit that never happened is the failure mode this column exists to avoid.
+ALTER TABLE blog_posts ADD COLUMN updated_at DATETIME;

@@ -44,6 +44,19 @@ export default function LabCTA() {
         >
           Email instead
         </a>
+        {/* The cheapest of the three asks, and the only one for a reader who liked the
+            writing but has nothing to hire anyone for. Last, because it is also the
+            least valuable outcome — the ordering here is by what it costs the reader,
+            not by what it is worth to us. */}
+        <a
+          href="https://www.linkedin.com/company/cybiqon-ai-solutions"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => track("lab_cta_click", { method: "linkedin" })}
+          className="lab-readout inline-flex items-center border border-border text-foreground px-4 py-2.5 rounded-[3px] hover:border-signal hover:text-signal transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        >
+          Follow on LinkedIn
+        </a>
       </div>
     </aside>
   );
