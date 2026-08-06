@@ -116,10 +116,12 @@ export const llmbytesPrivacy: LegalDoc = {
       items: [
         ["Select which ads to show and limit how often you see the same one"],
         ["Measure ad performance and detect invalid activity"],
-        ["Personalise ads, where you have allowed that in your Google settings"],
+        ["Personalise ads, where you have allowed that"],
       ],
       note: [
-        "You are in control of this. Android lets you reset the Advertising ID, or delete it entirely, under Settings → Privacy → Ads — with it deleted, apps receive no identifier and ads become non-personalised. Google's use of this data is governed by the ",
+        "If you are in the EEA or the UK, llmbytes asks for your consent before any ad is requested, using Google's consent form. You can change that choice at any time from ",
+        { b: "Settings → Ad Privacy" },
+        " inside the app. Everywhere else, Android lets you reset the Advertising ID, or delete it entirely, under Settings → Privacy → Ads — with it deleted, apps receive no identifier and ads become non-personalised. Google's use of this data is governed by the ",
         { link: "Google Privacy Policy", href: "https://policies.google.com/privacy" },
         " and its ",
         {
