@@ -1,6 +1,9 @@
 -- View counter for /lab posts.
 --
--- NOT YET APPLIED. Apply by hand BEFORE the code that reads it deploys:
+-- APPLIED to remote and local. The header said "NOT YET APPLIED" until 6 Aug 2026, when
+-- a `pragma_table_info` read against live D1 showed the column present — it had shipped
+-- and nobody updated this line. There is no migration runner, so this header is the only
+-- record that it ran; keeping it accurate is the whole point of it.
 --
 --   npx wrangler d1 execute cybiqon-blog --local  --file=migrations/0005_lab_views.sql
 --   npx wrangler d1 execute cybiqon-blog --remote --file=migrations/0005_lab_views.sql

@@ -2,8 +2,8 @@
 type: Domain
 title: Lab
 description: The second blog at /lab — hand-written engineering notes sharing a D1 table with the automated MSME blog, separated by a section column, its own chrome, and the only palette departure on the site.
-tags: [lab, blog, d1, content, design, edge]
-timestamp: 2026-08-01T00:00:00Z
+tags: [lab, blog, d1, content, design, edge, seo, aeo]
+timestamp: 2026-08-06T00:00:00Z
 ---
 
 # Overview
@@ -12,7 +12,10 @@ timestamp: 2026-08-01T00:00:00Z
 being built, what broke, and what the numbers said. `/blog` is the automated MSME SEO
 channel — see [Blog](blog.md). They share one D1 table and nothing else.
 
-Created 1 Aug 2026. Two posts, both migrated from `itspyguru.github.io`.
+Created 1 Aug 2026. **Three posts**: two migrated from `itspyguru.github.io` on day one,
+and `nobody-escaped-the-sandbox-had-a-door` written here and committed 6 Aug 2026 (commit
+`cc37929`, whose subject line belongs to a different change — the commit touches only that
+post).
 
 **Why it lives here rather than on the personal portfolio.** Publishing on the portfolio
 means editing a TypeScript array, running `vite build && node scripts/prerender.mjs`, and
@@ -30,6 +33,20 @@ ALTER TABLE blog_posts ADD COLUMN section  TEXT NOT NULL DEFAULT 'msme';
 ALTER TABLE blog_posts ADD COLUMN readouts TEXT;   -- JSON [{label, value}]
 CREATE INDEX idx_blog_section ON blog_posts(section, published, created_at DESC);
 ```
+
+Migration `0007_lab_seo.sql` adds the two columns the SEO/AEO pass needed (6 Aug 2026):
+
+```sql
+ALTER TABLE blog_posts ADD COLUMN seo_title  TEXT;      -- NULL = same as title
+ALTER TABLE blog_posts ADD COLUMN updated_at DATETIME;  -- NULL = never edited
+```
+
+Both are `/lab`-only in practice and both are **nullable with a meaningful NULL**.
+`seo_title` NULL means "the searchable title and the printed title are the same", which is
+what every MSME row means and what a lab post means until someone writes a second title.
+`updated_at` NULL means "never edited since publication", which is why `dateModified` is
+*omitted* from the JSON-LD rather than defaulted to `datePublished` — see
+[Discoverability](#discoverability) below.
 
 ⚠️ **Slugs are unique across the whole table, not per section.** An unscoped read does
 not merely return too many rows — it renders a lab post inside the marketing chrome at
@@ -61,7 +78,7 @@ those two are mutually exclusive here.
 
 | Route | Notes |
 |---|---|
-| `/lab` | ledger index, paginated, opens on the lab's own readout |
+| `/lab` | ledger index, paginated, opens on the lab's own readout. `?tag=<slug>` filters it |
 | `/lab/[slug]` | `WHERE slug = ? AND section = 'lab' AND published = 1` |
 | `/lab/about` | author page — Person JSON-LD, closes the E-E-A-T gap in [SEO](/site/seo.md) |
 | `/lab/rss.xml` | separate feed; `/rss.xml` stays MSME-only |
@@ -69,6 +86,14 @@ those two are mutually exclusive here.
 `/lab` is linked from the **footer only**. `components/Navbar.tsx` is already at the link
 count that fits its breakpoint without wrapping — `/process` was dropped for the same
 reason — and the footer renders on every page, so the crawl path exists regardless.
+
+**There is no `/lab/tag/[tag]` route and there should not be.** A React edge route costs
+~440 KiB against a ceiling with under 200 KiB of room, so tag filtering is a `?tag=` query
+on the index, which already reads `searchParams`. Those views are `noindex, follow` and
+canonicalise to `/lab`: three posts sliced five ways is the thin-content pattern
+`MIN_POSTS_PER_TAG` keeps off `/blog`, and the right answer is to leave the crawl path and
+decline the index, not to hide the link. `findLabTag` deliberately does **not** reuse
+`getTagIndex` — a three-post floor applied to a three-post section filters out every tag.
 
 # Authoring
 
@@ -83,6 +108,19 @@ publisher on the same slug updates the row and keeps its original `created_at`.
 
 `--draft` forces `published = 0`, which is required when a row must exist before the
 section-scoping code has deployed — until then the live site queries unscoped.
+`--no-touch` republishes without moving `updated_at`: a typo fix is not a revision, and
+spending `dateModified` on a fixed apostrophe teaches crawlers to ignore it.
+
+**The frontmatter contract and the body conventions are documented in
+`lab/posts/README.md`.** Two things there are load-bearing rather than stylistic:
+
+* `## TL;DR` early and `## FAQ` before `## Sources`. The site reads the FAQ section back
+  out of the rendered HTML and emits `FAQPage` JSON-LD from it — nothing is stored, for
+  the same reason the rail derives its figures. The publisher prints a warning when either
+  block is missing.
+* ⚠️ **Sources must be `## Sources`, not `###`.** `extractFAQ` ends the FAQ section at the
+  next `h2`; as a subsection, Sources is read as a question with twenty links for an
+  answer. This was verified by test, not by inspection.
 
 # The measurement rail
 
@@ -127,7 +165,87 @@ render, or SSR breaks). The link preview comes from the OG card generated at pub
 time; nothing at share time creates it.
 
 ⚠️ **This cost ~100 KiB of Worker headroom** — one edge route handler. See the size trap
-below: the budget is now ~90 KiB.
+below for the current figure.
+
+# Discoverability
+
+Added 6 Aug 2026, after `analysis.md` scored the sandbox post 9.5 on writing and **6.5 on
+SEO** — and after a pasted link failed to load in ChatGPT.
+
+**The rendering was never the problem.** `/lab/[slug]` is an edge server component that
+puts the whole body in the first response: 118 KB of HTML, ~21.5 K visible characters,
+137 ms TTFB, correct canonical, OG, and `BlogPosting` + `BreadcrumbList` JSON-LD.
+
+⚠️ **Why ChatGPT would not read it is still unknown, and two confident answers have
+already been wrong.** It is not SSR (above). It is not the Cloudflare WAF either — the AI
+Crawl Control crawlers table shows `ChatGPT-User` at **132 allowed / 8 unsuccessful**,
+which is not a blocked bot, and this bundle asserted the opposite for a few hours on
+6 Aug 2026. It is not robots.txt: `ChatGPT-User` does not consult it. Note also that
+`curl -A ChatGPT-User` returns 200 and proves nothing, because Cloudflare never believes
+the spoof. Full account, including the two threads still worth pulling, in
+[SEO](/site/seo.md#ai-crawlers).
+
+The work below was worth doing regardless — it is what makes a page citable once an
+engine reaches it — but **do not describe it as having fixed the ChatGPT problem.**
+
+What the code does carry:
+
+| Signal | Where |
+|---|---|
+| `FAQPage` JSON-LD | derived from the post's own `## FAQ` section by `extractFAQ` |
+| `citation` | every distinct external URL the post links to, via `extractCitations` |
+| `about` / `articleSection` | tags as `Thing` entities rather than a keyword string |
+| `alternativeHeadline` | the printed title, kept beside the searchable `seo_title` |
+| `dateModified` | from `updated_at`, **omitted when NULL** |
+| `blogPost` | `/lab`'s `Blog` node now lists its entries |
+| Related posts | `getRelatedLabPosts`, ranked by shared tags then recency |
+| `content:encoded` | `/lab/rss.xml` carries full article text; `/rss.xml` stays excerpt-only |
+| `llms.txt` | `public/llms.txt` — a **static asset**, so it costs no Worker bytes |
+| Markdown copies | `/md/lab/<slug>.md` and `/llms-full.txt`, generated at build time |
+
+# Agent-readable markdown
+
+Added 6 Aug 2026. Every lab post is also served as clean markdown at
+**`/md/lab/<slug>.md`**, with all three concatenated at **`/llms-full.txt`**. Generated by
+`scripts/build-agent-markdown.mjs`, wired into `npm run build` so they cannot drift from
+`lab/posts/` — a generated file refreshed only when someone remembers is precisely the
+stale-document failure mode [we-built-a-wiki-our-ai-agents-ignored-it] is about.
+
+Worth it because the markdown is **19% of the HTML**: 28 KB against 151 KB for the sandbox
+post, same prose, structure intact. Discovery is via `alternates.types` in
+`generateMetadata` (a `<link rel="alternate" type="text/markdown">` in the head), plus
+`llms.txt` and the sitemap.
+
+⚠️ **Three findings here were established by probe, not by reasoning. Do not undo them.**
+
+* **The paths are `/md/lab/<slug>.md`, not the nicer `/lab/<slug>.md`.** The latter matches
+  the `/lab/[slug]` edge route, which looks up a post whose slug ends in `.md` and 404s.
+* **`public/_headers` only affects static assets.** A rule matching a Pages Function route
+  is silently ignored — a `Link:` header on `/lab/*` never appeared on the response, while
+  the `/md/lab/*` `Content-Type` rules applied. Cloudflare's "Link Headers" diagnostic
+  asks for exactly the thing this file cannot do for a page route.
+* **`@cloudflare/next-on-pages` preserves `public/_headers`**, appending its immutable
+  block between `START/END AUTOGENERATED` markers. Custom rules above them survive.
+
+Also worth knowing when testing: `wrangler pages dev` serves from an asset manifest
+compiled at build time, so a file dropped into `.vercel/output/static` after boot returns
+404. Rebuild rather than debugging a phantom routing problem.
+
+**Cost: 190 Worker bytes** (one `alternates` line) and 160 KB of static assets, which the
+Worker ceiling does not count. This was Cloudflare's "Markdown Negotiation" diagnostic;
+true `Accept:` negotiation would need a route handler at ~100 KiB of a ~182 KiB budget,
+which is why it is files instead.
+
+Two judgements worth keeping:
+
+*`dateModified` is omitted rather than defaulted.* Emitting `datePublished` for a post
+that was never edited is a false claim, and this is the section whose premise is that
+published numbers are real.
+
+*`llms.txt` is not a traffic lever.* Measured studies — Ahrefs across 137 K domains —
+find ~97% of `llms.txt` files receive zero requests, and AI crawlers fetch HTML directly.
+It is here because a static file costs nothing, not because it is expected to move a
+number. Do not report it as an SEO win.
 
 # Design
 
@@ -163,10 +281,15 @@ deploy then fails with *"Your Worker exceeded the size limit of 3 MiB"*. Adding 
 first pushed it to 3.36 MiB.
 
 Every React route compiled for the edge costs **~440 KiB gzipped** and every route
-*handler* about **100 KiB**, so the budget is roughly six pages. Current state after
-adding `/api/lab/view`: **2.91 MiB, ~90 KiB of headroom.** That is not enough for
-another route of any kind. Two things bought the earlier headroom back, and both must
-stay:
+*handler* about **100 KiB**, so the budget is roughly six pages.
+
+**Current state, measured 6 Aug 2026 after the discoverability pass: 2 959 426 bytes —
+2.82 MiB, 182 KiB of headroom.** That whole pass cost about 3 KiB, because it added no
+routes: schema, extraction and related posts all landed inside existing ones, and
+`llms.txt` is a static asset. Two earlier figures in this bundle disagreed — `~90 KiB`
+here and `174 KiB` in `log.md` — because this file was never re-synced after `/api/blog`
+was retired. **182 KiB is the number; the other two are dead.** It is still not enough for
+another React route. Two things bought the headroom back, and both must stay:
 
 * `/lab/about` prerenders as static. It has no dynamic data, so it only costs an edge
   function if the layout forces the segment dynamic. **Keep `cookies()`, `headers()` and
@@ -203,4 +326,4 @@ raw, ~2 KB gzipped. Measured, and judged not worth middleware or a route-group m
 - [Blog](blog.md) — the MSME half of the same table
 - [Design system](/site/design-system.md) — why this theme may recolour and Ledger may not
 - [Routes](/site/routes.md) — the edge-runtime constraint
-- [SEO](/site/seo.md) — the author page and OG generation
+- [SEO](/site/seo.md) — the author page, OG generation, and the AI-crawler posture

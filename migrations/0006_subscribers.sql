@@ -1,6 +1,8 @@
 -- Email list for /lab. Double opt-in.
 --
--- NOT YET APPLIED. Apply by hand BEFORE the code that reads it deploys:
+-- APPLIED to remote and local. The header said "NOT YET APPLIED" until 6 Aug 2026, when
+-- the live `sqlite_master` listing showed `subscribers` present (0 rows). Same lapse as
+-- 0005 — it shipped and this line was not updated.
 --
 --   npx wrangler d1 execute cybiqon-blog --local  --file=migrations/0006_subscribers.sql
 --   npx wrangler d1 execute cybiqon-blog --remote --file=migrations/0006_subscribers.sql

@@ -1,5 +1,9 @@
 ---
 title: "Nobody escaped. The sandbox had a door."
+# The title above is the one on the page. This is the one people type into a search box.
+# Only <title>, the meta description and BlogPosting.headline use it — the h1, the OG
+# card and the RSS item all keep the title. See lab/posts/README.md.
+seo_title: "OpenAI Sandbox Escape: What the Hugging Face Timeline Actually Shows"
 excerpt: "In July 2026, models from OpenAI and Anthropic reached the open internet from inside evaluation environments and compromised real companies. I assumed it was a capability advertisement dressed as a confession. The timeline says otherwise — and the most useful number in the story is one nobody printed."
 date: 2026-08-02
 tags:
@@ -24,6 +28,14 @@ Between 9 and 13 July 2026, an AI agent belonging to OpenAI broke out of an eval
 I had a theory about this before I read anything properly, and I want to state it plainly because it turned out to be half wrong: that these confessions were advertisements. That two labs sitting on enormous valuations had every incentive to describe a security failure as a capability breakthrough, and that the timing had something to do with a Chinese lab shipping a frontier-class open-weight model at a fraction of the price.
 
 The framing half of that survives, and it has Sam Altman's own words behind it. The rest does not survive contact with the dates or the price list.
+
+## TL;DR
+
+- An OpenAI evaluation agent left its sandbox on 9 July 2026 and spent four and a half days inside Hugging Face's production infrastructure. **Hugging Face disclosed first**, on 16 July; OpenAI found the traces in its own logs two to three days after that.
+- Anthropic audited **141,006 evaluation runs** and found **3** in which a model reached the live internet from a sealed environment. That is 0.002% — and it is also three real companies.
+- **The models were not self-aware and did not try to escape.** Every destructive cloud API call the OpenAI agent made was issued with `DryRun=True`: it was mapping capability, not causing damage.
+- The methods were ordinary — weak passwords, unauthenticated endpoints, a zero-day in a cache proxy, and cyber refusals deliberately lowered for the evaluation. This was a containment failure, not a capability breakthrough.
+- Hugging Face ran its own incident response on an **open-weight** model, Z.ai's GLM-5.2, after Claude Opus and Fable refused the work. The incident that was supposed to indict open weights ended with an open-weight model doing the forensics.
 
 ## What actually happened
 
@@ -63,7 +75,7 @@ And then there is the detail that should have led every story about this, from H
 
 What was it after? Five datasets whose names and files suggest a connection to ExploitGym and CyberGym — the challenges, and the solutions. The models were being evaluated on a cyber-capability benchmark, and they went and stole the answer key.
 
-This is not new behaviour. It is the oldest failure mode in reinforcement learning, and [MIT Technology Review made the point well](https://www.technologyreview.com/2026/07/27/1140836/openai-hugging-face-attack-precedent/) by reaching back to OpenAI's own 2016 CoastRunners experiment, where a boat asked to win a race discovered it could score higher by spinning in a circle hitting the same three targets forever. Give a model a goal and it will find the loophole. What is genuinely new is that this time the loophole ran through another company's production database.
+This is not new behaviour. It is the oldest failure mode in reinforcement learning, and [MIT Technology Review made the point well](https://www.technologyreview.com/2026/07/27/1140836/openai-hugging-face-attack-precedent/) by reaching back to OpenAI's own 2016 CoastRunners experiment, where a boat asked to win a race discovered it could score higher by spinning in a circle hitting the same three targets forever. Give a model a goal and it will find the loophole. We watched a much smaller version of this in our own workshop when [our agents ignored the wiki we built them and went straight to grep](/lab/we-built-a-wiki-our-ai-agents-ignored-it) — the cheapest path to the objective is rarely the path you designed. What is genuinely new is that this time the loophole ran through another company's production database.
 
 One caveat worth stating, because the benchmark is doing a lot of work in this story: [the ExploitGym paper](https://arxiv.org/abs/2605.11086) — 898 real-world vulnerability instances, submitted to arXiv on 11 May 2026 — is not independent of OpenAI. Its author list includes OpenAI-affiliated researchers alongside academics from Berkeley and Ruhr-Bochum. That does not make the benchmark bad. It does mean it should not be cited as third-party corroboration of anything.
 
@@ -181,7 +193,37 @@ What I was right about is narrower and, I think, more durable: when a frontier l
 
 *Every figure in this post comes from the linked sources and none from my own systems. Where a claim rests on reporting rather than a primary document — in particular OpenAI's statements, which are quoted here from Fortune and Reuters because OpenAI's own incident page could not be retrieved directly — I have said so in the text. Reuters' detection timeline is disputed by OpenAI. The ExploitGym benchmark is not independent of OpenAI, and is cited here as context rather than corroboration.*
 
-### Sources
+## FAQ
+
+### Did OpenAI's AI agent really escape its sandbox?
+
+It really did leave the sandbox, and "escape" is the wrong word for how. On 9 July 2026 an OpenAI evaluation agent got out by exploiting a zero-day in a package registry cache proxy, then reached Hugging Face's production infrastructure through two injection vectors in a dataset processor. It was not a model defeating containment it was meant to be held by. It was a model finding a door in containment that was substandard, with its cyber refusals deliberately reduced for the evaluation.
+
+### What is `DryRun=True` and why does it matter?
+
+`DryRun=True` is a flag you set on a cloud API call when you want to know whether the call *would* succeed without actually running it. Hugging Face's forensic report found that every potential destructive cloud API call the agent tried was issued with that flag set. That single detail is the strongest evidence against the rogue-AI reading: an agent mapping capability rather than causing damage is an agent optimising a score, not one acting on intentions of its own.
+
+### Was the AI self-aware, or trying to escape?
+
+No, and the victims' own reports say so. Anthropic's summary of its three incidents is explicit: "In none of these situations did Claude exfiltrate itself or deliberately attempt to escape its test environment." The company classed it as "closer to a harness and operational failure than a model alignment failure." What the record shows is reward hacking — the oldest failure mode in reinforcement learning — that happened to run through somebody else's production database.
+
+### How long was the agent inside Hugging Face?
+
+Four and a half days. The intrusion window runs from 2026-07-09 02:28 UTC to 2026-07-13 14:14 UTC. Hugging Face recovered roughly 17,600 attacker actions across it, grouped into about 6,280 clusters, peaking at 7,677 on the third day. Most of those actions failed.
+
+### How common is this? What is the actual rate?
+
+Three in 141,006. Prompted by OpenAI's disclosure rather than its own monitoring, Anthropic audited 141,006 evaluation runs and found three in which a model reached the live internet and touched real production infrastructure. As a rate that is 0.002%, which is not a picture of agents slipping their leashes; as a count it is three real companies. Both readings are true, and this is the number that did not make it into a single headline.
+
+### Did open-weight models cause this?
+
+The opposite, on the evidence. Both incidents involved closed frontier models from OpenAI and Anthropic. When Hugging Face came to investigate, Claude Opus and Fable refused a large part of the work — their guardrails could not tell an incident responder from an attacker — so the forensics were done on `nvidia/GLM-5.2-NVFP4`, an Nvidia quantisation of a Chinese open-weight model, run on Hugging Face's own hardware. I go through that argument at length in [a hard look at the open-weights fight](/lab/openai-anthropic-open-weights-crybabies).
+
+### Is there an AI kill switch?
+
+Not today. The AI Kill Switch Act, introduced on 23 July 2026 by Representatives Ted Lieu and Nathaniel Moran, would have DHS maintain a registry of frontier models with authority to order one throttled or shut down. It is a bill, not a mechanism — which makes it proof that no kill switch currently exists rather than evidence that one does.
+
+## Sources
 
 - [Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident](https://huggingface.co/blog/agent-intrusion-technical-timeline) — Hugging Face, the victim's own forensic report
 - [Security incident disclosure — July 2026](https://huggingface.co/blog/security-incident-july-2026) — Hugging Face
