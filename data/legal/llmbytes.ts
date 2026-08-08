@@ -11,10 +11,27 @@ import type { LegalDoc } from "../products";
  * The one deliberate change: the old page rendered "AI &amp; tech news articles" through
  * `dangerouslySetInnerHTML`, purely because the entity had been written into a JS string.
  * Here it is a literal ampersand. Same output, no HTML injection path in legal copy.
+ *
+ * ── Amended 6 Aug 2026, for ads ──────────────────────────────────────────────
+ * The "word for word" claim above describes the July migration and no longer covers the
+ * whole document. The privacy policy has since been changed substantively:
+ *
+ *   - Added an "Advertising" section (Google AdMob, Advertising ID, the opt-out).
+ *   - Added AdMob to third-party services, called out as *sharing* rather than
+ *     processing-on-our-behalf.
+ *   - Deleted the claim "llmbytes does not show third-party ads", which the AdMob
+ *     integration in `ai-news-app/flutter_app` makes false.
+ *
+ * Keep this in step with `ai-news-app/PLAY_DATA_SAFETY.md`. Google's review reads the
+ * hosted policy against the Data safety form, and a disagreement between them is a
+ * rejection.
+ *
+ * NOTE ON `updated`: it must not predate the day this actually goes live. If this sits
+ * unmerged past 6 Aug 2026, bump it when it lands.
  */
 
 export const llmbytesPrivacy: LegalDoc = {
-  updated: "12 July 2026",
+  updated: "6 August 2026",
   blocks: [
     {
       kind: "prose",
@@ -88,9 +105,37 @@ export const llmbytesPrivacy: LegalDoc = {
     },
     {
       kind: "checklist",
+      heading: "Advertising",
+      intro: [
+        "llmbytes displays ads supplied by ",
+        { b: "Google AdMob" },
+        ", which keep the app free. To serve them, the AdMob SDK reads your device's ",
+        { b: "Advertising ID" },
+        " — a resettable identifier that is not your name and is not linked to any account, since llmbytes has no accounts. AdMob may use it to:",
+      ],
+      items: [
+        ["Select which ads to show and limit how often you see the same one"],
+        ["Measure ad performance and detect invalid activity"],
+        ["Personalise ads, where you have allowed that"],
+      ],
+      note: [
+        "If you are in the EEA or the UK, llmbytes asks for your consent before any ad is requested, using Google's consent form. You can change that choice at any time from ",
+        { b: "Settings → Ad Privacy" },
+        " inside the app. Everywhere else, Android lets you reset the Advertising ID, or delete it entirely, under Settings → Privacy → Ads — with it deleted, apps receive no identifier and ads become non-personalised. Google's use of this data is governed by the ",
+        { link: "Google Privacy Policy", href: "https://policies.google.com/privacy" },
+        " and its ",
+        {
+          link: "Advertising policies",
+          href: "https://policies.google.com/technologies/partner-sites",
+        },
+        ".",
+      ],
+    },
+    {
+      kind: "checklist",
       heading: "What we do not collect",
       intro: [
-        { b: "We do NOT sell, rent, or trade any data to third parties, and llmbytes does not show third-party ads." },
+        { b: "We do NOT sell, rent, or trade any data to third parties." },
         " The app does not collect:",
       ],
       items: [
@@ -126,6 +171,12 @@ export const llmbytesPrivacy: LegalDoc = {
           term: "Firebase (Analytics, Cloud Messaging, Firestore, Cloud Storage)",
           def: ["Delivers content, notifications and usage analytics."],
         },
+        {
+          term: "Google AdMob",
+          def: [
+            "Serves the ads that keep llmbytes free. Unlike the Firebase services above, which process data on our instruction, AdMob also uses this data for its own ad serving and measurement — so we treat it as data shared with a third party rather than data merely processed for us.",
+          ],
+        },
       ],
       note: [
         "Google’s handling of this data is governed by the ",
@@ -138,7 +189,7 @@ export const llmbytesPrivacy: LegalDoc = {
       heading: "Data retention",
       body: [
         [
-          "Push tokens are kept while notifications are enabled and removed when you disable them or uninstall the app. Analytics data is retained according to Google Firebase’s default retention settings.",
+          "Push tokens are kept while notifications are enabled and removed when you disable them or uninstall the app. Analytics data is retained according to Google Firebase’s default retention settings, and advertising data according to Google AdMob’s.",
         ],
       ],
     },
