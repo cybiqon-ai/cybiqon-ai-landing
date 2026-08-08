@@ -46,6 +46,16 @@ export interface FullBlogPost extends BlogPost {
   readouts: string | null;
   /** /lab only — incremented by the browser beacon, see app/api/lab/view. */
   views: number;
+  /**
+   * /lab only — the searchable title, when it differs from the one on the page.
+   *
+   * NULL means the two are the same, which is what every MSME post means and what a lab
+   * post means until someone writes a second title for it. Consumers read
+   * `seo_title || title`, never `seo_title` alone.
+   */
+  seo_title: string | null;
+  /** /lab only — set on republish, NULL if never edited. Read as dateModified. */
+  updated_at: string | null;
 }
 
 export interface TagInfo {

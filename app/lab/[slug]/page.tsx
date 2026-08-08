@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/lib/blog";
+import { getPostBySlug, slugifyTag } from "@/lib/blog";
 import {
+  extractCitations,
+  extractFAQ,
   extractHeadings,
+  getRelatedLabPosts,
   isoDate,
   istDate,
   istHuman,
@@ -32,6 +35,10 @@ const AUTHOR = {
 // Below this, a contents rail is furniture rather than navigation.
 const MIN_HEADINGS_FOR_TOC = 4;
 
+// How many "read next" entries to offer. Three is the most a reader will weigh; past
+// that it stops being a recommendation and starts being an index they already have.
+const RELATED_COUNT = 3;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -39,20 +46,40 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug("lab", slug);
-  if (!post) return { title: "Post not found" };
+  // The page 404s below, but a 404 that inherits `index: true` from the root layout is
+  // still an invitation. Deleted posts and D1 outages both land here.
+  if (!post) return { title: "Post not found", robots: { index: false, follow: false } };
+
+  /**
+   * Two titles, two jobs. `title` is written to be read and is the h1, the OG card and
+   * the RSS item; `seo_title` is written to be searched and goes here. "Nobody escaped.
+   * The sandbox had a door." is the right headline for a reader and a string nobody
+   * types into Google, and picking one of those to sacrifice was the wrong trade.
+   *
+   * The social title stays poetic on purpose: a share is seen by someone who already
+   * chose to look, and search-shaped titles read as content marketing in a feed.
+   */
+  const searchTitle = post.seo_title || post.title;
 
   return {
-    title: post.title,
+    title: searchTitle,
     description: post.excerpt || "",
     keywords: post.tags || undefined,
     authors: [{ name: AUTHOR.name, url: AUTHOR.url }],
-    alternates: { canonical: `/lab/${post.slug}` },
+    alternates: {
+      canonical: `/lab/${post.slug}`,
+      // The same prose as markdown, for anything that would rather not parse 134 KB of
+      // HTML to reach 21 K characters of text. Generated at build time by
+      // scripts/build-agent-markdown.mjs — read its header before changing this path.
+      types: { "text/markdown": `${siteUrl}/md/lab/${post.slug}.md` },
+    },
     openGraph: {
       type: "article",
       title: post.title,
       description: post.excerpt || "",
       url: `${siteUrl}/lab/${post.slug}`,
       publishedTime: isoDate(post.created_at),
+      modifiedTime: post.updated_at ? isoDate(post.updated_at) : undefined,
       authors: [AUTHOR.name],
       images: post.image_url ? [{ url: post.image_url, width: 1200, height: 630 }] : undefined,
     },
@@ -85,25 +112,66 @@ export default async function LabPost({ params }: PageProps) {
   const tags = splitTags(post.tags);
   const showTOC = headings.length >= MIN_HEADINGS_FOR_TOC;
 
+  const faq = extractFAQ(html);
+  const citations = extractCitations(html);
+  const related = await getRelatedLabPosts(post.slug, tags, RELATED_COUNT);
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: post.title,
+    // The searchable string is the headline; the printed one is kept beside it rather
+    // than discarded, so the two never disagree about what this page is called.
+    headline: post.seo_title || post.title,
+    alternativeHeadline: post.seo_title ? post.title : undefined,
     description: post.excerpt,
+    url: `${siteUrl}/lab/${post.slug}`,
     image: post.image_url || `${siteUrl}/lab-og.png`,
     datePublished: isoDate(post.created_at),
+    // Omitted rather than defaulted to datePublished. dateModified is a claim that the
+    // post now says something different, and a post published once has not been edited —
+    // see migrations/0007_lab_seo.sql.
+    dateModified: post.updated_at ? isoDate(post.updated_at) : undefined,
     wordCount: readouts.find((r) => r.label === "words")?.value.replace(/\D/g, ""),
     timeRequired: `PT${readingMinutes(post.content)}M`,
     keywords: post.tags || undefined,
+    // What the post is about, as entities rather than as a keyword string. Both fields
+    // are read; `about` is the subject, `mentions` is what a retrieval engine matches on.
+    about: tags.length ? tags.map((name) => ({ "@type": "Thing", name })) : undefined,
+    articleSection: tags[0],
     inLanguage: "en",
+    // The post's own reading list. /lab's argument is that claims should be checkable,
+    // and 20-odd cited documents are the strongest evidence of that on the page — until
+    // this was added they existed only as anchors in the body, invisible to anything
+    // reading the structured data.
+    citation: citations.length ? citations : undefined,
     author: { "@type": "Person", name: AUTHOR.name, url: AUTHOR.url },
     publisher: {
       "@type": "Organization",
       name: "Cybiqon AI Solutions",
       logo: { "@type": "ImageObject", url: `${siteUrl}/logo.png` },
     },
+    isPartOf: { "@type": "Blog", "@id": `${siteUrl}/lab`, name: "Cybiqon Lab" },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteUrl}/lab/${post.slug}` },
   };
+
+  /**
+   * The post's own FAQ section, read back out of the rendered body.
+   *
+   * Emitted only when the post has one — an empty FAQPage is a schema error, and a
+   * fabricated question is worse than a missing block. See lib/lab.ts:extractFAQ for why
+   * this is derived rather than stored, and lab/posts/README.md for the convention.
+   */
+  const faqSchema = faq.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faq.map((entry) => ({
+          "@type": "Question",
+          name: entry.question,
+          acceptedAnswer: { "@type": "Answer", text: entry.answer },
+        })),
+      }
+    : null;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -134,6 +202,12 @@ export default async function LabPost({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       <div className="mx-auto max-w-[1180px] px-6 md:px-10">
         <article>
@@ -194,13 +268,56 @@ export default async function LabPost({ params }: PageProps) {
                 dangerouslySetInnerHTML={{ __html: html }}
               />
 
+              {/* Tags were text until now, which made a post a dead end: the only way
+                  out was the browser's back button. They point at /lab?tag= rather than
+                  a /lab/tag/<t> route because a React edge route costs ~440 KiB against
+                  a 3 MiB Worker ceiling, and the index already reads searchParams. */}
               {tags.length > 0 && (
-                <p className="lab-readout text-muted-foreground mt-12 pt-5 border-t border-border">
-                  {tags.join(" · ")}
+                <p className="lab-readout text-muted-foreground mt-12 pt-5 border-t border-border flex flex-wrap gap-x-3 gap-y-1">
+                  {tags.map((tag, i) => (
+                    <span key={tag}>
+                      {i > 0 && (
+                        <span aria-hidden="true" className="text-border mr-3">
+                          ·
+                        </span>
+                      )}
+                      <Link
+                        href={`/lab?tag=${slugifyTag(tag)}`}
+                        className="hover:text-signal transition-colors"
+                      >
+                        {tag}
+                      </Link>
+                    </span>
+                  ))}
                 </p>
               )}
 
               <ShareRow slug={post.slug} title={post.title} />
+
+              {/* Read next, then subscribe, then hire us — cheapest ask first. Someone
+                  who has just finished 3,000 words is likeliest to read another, and a
+                  post that ends in a booking link and nothing else spends that. */}
+              {related.length > 0 && (
+                <section className="mt-12 pt-6 border-t border-border">
+                  <h2 className="lab-readout text-muted-foreground">Read next</h2>
+                  <ul className="mt-4 space-y-4">
+                    {related.map((next) => (
+                      <li key={next.id}>
+                        <Link href={`/lab/${next.slug}`} className="group block">
+                          <span className="lab-display text-[19px] text-foreground group-hover:text-signal transition-colors">
+                            {next.title}
+                          </span>
+                          {next.excerpt && (
+                            <span className="font-prose text-[15px] leading-[26px] text-muted-foreground block mt-1">
+                              {next.excerpt}
+                            </span>
+                          )}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
 
               {/* Subscribe before the hire-us CTA: a reader who just finished is far
                   likelier to give an email than to book a call, and putting the larger

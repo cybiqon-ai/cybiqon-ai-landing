@@ -28,10 +28,16 @@ across both — read [Lab](content/lab.md) before writing any query against
 
 # Reading notes
 
-`README.md` is **stale** — it still describes Vite + React from before the Next
-migration. `AUDIT.md` is an earlier SEO audit; some of its findings have since
-been fixed (sitemap, Article schema) and some are still open — the concepts here
-are current.
+`README.md` was **rewritten on 1 Aug 2026** and is now accurate — it had described
+Vite + React from before the Next migration. It covers the two traps that bite hardest:
+`npm run build` passing does not mean the site deploys, and the Worker has a 3 MiB
+ceiling enforced at upload.
 
-`features/` holds opt-in experimental components, two of which contain **invented
-social proof** (`LiveActivityTicker`, `SocialProofBar`). Check before reusing.
+`AUDIT.md` and `blog_implementation_plan.md` were **deleted** the same day. Both were
+superseded by these concepts and both still described behaviour that had since changed —
+a stale document that looks authoritative is worse than none, and `log.md` records one
+occasion where a claim from `AUDIT.md` was repeated without being verified.
+
+`features/` was **deleted** — 4 files, zero importers, two containing invented social
+proof. See [content data](content/content-data.md) for what was in it and what is
+still live.

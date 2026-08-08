@@ -3,7 +3,7 @@ type: Reference
 title: Content data
 description: A data/ directory now exists and covers products, legal copy and the Launch-5 offer — but every marketing page's content is still a const array welded into the component that renders it.
 tags: [content, data, refactor, portfolio]
-timestamp: 2026-07-26T00:00:00Z
+timestamp: 2026-08-01T00:00:00Z
 ---
 
 # Overview
@@ -58,9 +58,21 @@ that.
 
 # Honesty flags
 
-**`features/`** holds opt-in experimental components. `features/README.md` marks
-them as such, and two — `LiveActivityTicker` and `SocialProofBar` — contain
-**invented social proof**. Check before reusing anything from that directory.
+**`features/` was deleted on 1 Aug 2026** — 4 files, imported by nothing. Two of them
+(`LiveActivityTicker`, `SocialProofBar`) contained **invented social proof**, as did
+`components/HeroSocialProof.tsx`, deleted with them. Dead code that fabricates customer
+activity is one accidental import away from being live, which is why it went rather than
+staying as a documented hazard.
+
+The reasoning is preserved as a comment in `components/Hero.tsx` where someone would most
+plausibly rebuild it: the component rendered "{N} MSME owners got their free audit this
+week" beside a pulsing "Live" badge and five invented names, with N starting at 47 and
+randomly incrementing every 15 seconds. `audit_leads` held 2 rows.
+
+⚠️ **`components/HeroDashboardMockup.tsx` is still live and still shows invented figures**
+(1,247 visitors, +147%, 12 orders today, 73% repeat customers). It reads as an
+illustrative product mockup rather than a claim about Cybiqon's own results, which is why
+it was left — but it is the same class of thing and worth a deliberate decision.
 
 **`components/Testimonials.tsx`** deliberately holds **one real testimonial**
 (LeadzGalaxy / Amit Menon) after placeholders were removed, with a comment saying

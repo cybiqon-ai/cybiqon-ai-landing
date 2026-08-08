@@ -3,7 +3,7 @@ type: Domain
 title: Blog
 description: The automated MSME blog at /blog — posts are rows in Cloudflare D1, not files, written by a different repo and rendered by a live edge query. Shares its table with /lab, separated by a section column.
 tags: [blog, d1, cloudflare, content, edge, msme]
-timestamp: 2026-08-01T00:00:00Z
+timestamp: 2026-08-06T00:00:00Z
 ---
 
 # Overview
@@ -36,9 +36,17 @@ CREATE TABLE blog_posts (
   published  BOOLEAN DEFAULT 1,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   section    TEXT NOT NULL DEFAULT 'msme',  -- 'msme' | 'lab'  (migration 0004)
-  readouts   TEXT             -- /lab only, JSON [{label, value}]
+  readouts   TEXT,            -- /lab only, JSON [{label, value}]  (migration 0004)
+  views      INTEGER NOT NULL DEFAULT 0,    -- /lab only            (migration 0005)
+  seo_title  TEXT,            -- /lab only, NULL = same as title    (migration 0007)
+  updated_at DATETIME         -- /lab only, NULL = never edited     (migration 0007)
 );
 ```
+
+The last three are `/lab`-only in practice but table-wide in the schema. `views` is
+`NOT NULL DEFAULT 0` so every MSME row starts at a real zero; `seo_title` and
+`updated_at` are nullable because for those two, NULL carries meaning — see
+[Lab](lab.md#the-section-column).
 
 ⚠️ **`section` must appear in every read of this table.** Slugs are unique
 table-wide rather than per section, so an unscoped query does not just return
