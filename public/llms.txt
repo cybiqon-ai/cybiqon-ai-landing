@@ -21,6 +21,7 @@ request.
 - [Nobody escaped. The sandbox had a door.](https://cybiqon.in/lab/nobody-escaped-the-sandbox-had-a-door): what the July 2026 OpenAI/Hugging Face agent intrusion timeline actually shows, including the 3-in-141,006 rate nobody printed and why every destructive call carried DryRun=True. Markdown: https://cybiqon.in/md/lab/nobody-escaped-the-sandbox-had-a-door.md
 - [We built our AI agents a wiki. They went straight to grep.](https://cybiqon.in/lab/we-built-a-wiki-our-ai-agents-ignored-it): 27 days of Open Knowledge Format in a real monorepo, against a preregistered ablation finding that capable agents never load the index. Markdown: https://cybiqon.in/md/lab/we-built-a-wiki-our-ai-agents-ignored-it.md
 - [Are OpenAI and Anthropic crybabies?](https://cybiqon.in/lab/openai-anthropic-open-weights-crybabies): a fact-by-fact audit of the July 2026 open-weights lobbying fight, both directions. Markdown: https://cybiqon.in/md/lab/openai-anthropic-open-weights-crybabies.md
+- [Our puzzle generator lied about difficulty. Twice.](https://cybiqon.in/lab/puzzle-generator-random-walk-doesnt-work): why reversing a solved board by K random moves does not produce a K-move puzzle, and the multi-source backward BFS from the whole goal set that replaced it, measured across three generator rewrites for the Lumina sliding-block puzzle game. Markdown: https://cybiqon.in/md/lab/puzzle-generator-random-walk-doesnt-work.md
 - [Who writes this](https://cybiqon.in/lab/about): author page — Prajjwal Pathak.
 
 ## Company

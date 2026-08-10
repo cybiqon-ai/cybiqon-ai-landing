@@ -130,6 +130,8 @@ Three concrete cases from one month:
 
 **A routing decision no code expresses.** Our enrichment waterfall sends phone lookups to one vendor first and email to another. That ordering came from a benchmark. You cannot recover "we measured this and one won on phone" from an `if` statement — the code shows the branch, never the evidence.
 
+The clearest example of this we have written since is in another repo entirely: our puzzle game's [level generator carries the candidate counts that killed two earlier algorithms](/lab/puzzle-generator-random-walk-doesnt-work) in the doc comment above the function that replaced them. The surviving code is unremarkable. The 91,322 candidates it took to rule out the obvious approach are recoverable from nowhere else.
+
 **Writing it down forced precision.** This is the one I did not anticipate. The bundle earns more as a *write* target than a *read* source. Composing a change-log entry forces you to state a root cause in one paragraph, and that constraint catches sloppy thinking. Two bugs this month were only properly understood at the moment someone tried to write them down: a MongoDB write that failed because the same field appeared in both `$set` and `$setOnInsert`, and a chart that vanished on hover because a colour was emitted in a CSS syntax the rendering library's own parser could not read. In both cases the act of explaining produced the diagnosis.
 
 That third effect has nothing to do with AI. It is rubber-duck debugging with a commit hash, and it accrues to humans and agents equally.

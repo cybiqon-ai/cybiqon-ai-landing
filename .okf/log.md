@@ -1,5 +1,26 @@
 # Update Log
 
+## 2026-08-10
+
+* **Content**: fourth `/lab` post — `puzzle-generator-random-walk-doesnt-work`, on the
+  level generator in `products/lumina`. First post in the section that is not AI
+  commentary, and the first with diagrams.
+
+  **Inline SVG works, with one rule.** `publish_lab.py::render_html` does not sanitise
+  HTML, so raw SVG reaches D1 intact — but only when wrapped in a `<figure>`. Verified
+  against the real extension set (`extra, codehilite, sane_lists, smarty, toc`): a bare
+  top-level `<svg>` is parsed as an inline span, which wraps it in a `<p>` **and runs
+  emphasis parsing over its `<text>` contents**, so `*x*` inside a label becomes `<em>`.
+  Inside `<figure>` the block passes through untouched. Diagrams use `currentColor` only,
+  because `/lab` has a light theme and a hardcoded colour breaks one of the two.
+
+  `.lab-prose figcaption` was already styled and previously unused. `countWords` strips
+  `<pre>` but not `<svg>`, so diagram labels count toward word count and reading time —
+  keep them terse.
+
+  Reciprocal internal link added to `we-built-a-wiki-our-ai-agents-ignored-it`, which
+  therefore needs republishing with `--no-touch` so its `updated_at` does not move.
+
 ## 2026-08-06
 
 * **Feature**: agent-readable markdown for `/lab`. `/md/lab/<slug>.md` per post plus
