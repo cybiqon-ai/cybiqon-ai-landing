@@ -21,20 +21,42 @@ also pins the working directory, because the skill's `env_loader.py` reads `.env
 the *current* directory and `tools/social-media-manager/.env` holds the live Cloudflare
 token. **Never run these scripts from inside that repo.**
 
-### Verify before acting — it is an evidence gatherer, not an oracle
+### The skill is patched — re-apply after any update
 
-Measured against this repo on 10 Aug 2026, on a page that has every signal it asked for:
+Its first run reported five issues on this repo, **two of them factually wrong**. Those
+were real bugs, so they are fixed rather than memorised, by
+`ops/scripts/seo-skill-patch.py` — idempotent, 17 edits, re-runnable:
 
-| It reported | Reality |
-|---|---|
-| "No author attribution detected" | **False.** `meta name=author`, `article:author`, a visible byline, and JSON-LD `author` as a `Person` with a URL are all present. |
-| "No publish date detected" | **False.** `article:published_time`, a `<time>` element and JSON-LD `datePublished` are all present. |
-| "Target Keyword: `one`" | Junk — its extractor then returned *oneplus, onedrive, one piece*. Ignore its keyword output. |
-| "FAQPage is restricted to government/health sites — remove it" | Outdated *and* wrong. Google removed FAQ rich results for **everyone** on 7 May 2026, but `FAQPage` structured data is **not** deprecated and is explicitly allowed to stay. Ours is derived automatically and feeds answer engines. **Keep it.** |
-| "Meta description 245 chars, keep under 155" | Known trade-off, not a bug. Excerpts here are deliberately long because they double as the index dek; they are front-loaded so the first 155 characters carry the finding. See `lab/posts/README.md`. |
+| Was broken | Cause | Now |
+|---|---|---|
+| "No author attribution detected" | Only checked `class~=author`, `span[itemprop]`, `a[rel=author]` — never `meta name=author`, `article:author` or JSON-LD | Reports `Prajjwal Pathak` |
+| "No publish date detected" | Searched `{"name": "article:published_time"}`; OpenGraph emits `property=`, so it could never match | Reports the real date |
+| "Target Keyword: `one`" (→ *oneplus, onedrive*) | Filler words missing from `STOP_WORDS` | Reports `breadth first search` |
+| "FAQPage restricted to government/health — remove it" (×8 files) | Frozen at the Aug 2023 restriction | Correct 7 May 2026 guidance: no rich result for anyone, markup still valid, **keep it** |
 
-Two of its five findings on that run were factually wrong. Treat every finding as a lead
-to confirm against the live HTML, exactly as with any outside review.
+⚠️ **A skill reinstall reverts all of it and deletes the venv.** `ops/scripts/seo.sh`
+rebuilds the venv automatically and warns if the patch is missing, but the patch itself
+must be re-run by hand:
+
+```bash
+python3 ops/scripts/seo-skill-patch.py           # re-apply
+python3 ops/scripts/seo-skill-patch.py --check   # exit 1 if anything is unpatched
+```
+
+If `--check` reports `missing`, an upstream edit moved an anchor and **that fix is not in
+effect** — read the source before trusting the finding it covers.
+
+### Still verify before acting
+
+Two findings remain by design and are not bugs:
+
+- **"Title 86 chars"** — the layout appends `| Cybiqon AI Solutions`. `seo_title` alone is
+  63; Google truncates from the right, so the brand suffix is what gets cut. Fine.
+- **"Meta description 245 chars, keep under 155"** — deliberate. Excerpts double as the
+  index dek, and are front-loaded so the first 155 characters carry the finding. See
+  `lab/posts/README.md`.
+
+It is an evidence gatherer, not an oracle. Confirm findings against the live HTML.
 
 **Do not let it flatten the writing.** The `title`/`seo_title` split is deliberate and
 documented in `lab/posts/README.md`: the `h1` is written to be read, `seo_title` to be

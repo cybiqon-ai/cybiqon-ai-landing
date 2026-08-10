@@ -61,14 +61,29 @@
   `tools/social-media-manager` would load the live Cloudflare token into `os.environ`;
   the wrapper pins an inert working directory so that cannot happen by accident.
 
-  ⚠️ **It is an evidence gatherer, not an oracle.** On its first real run, two of five
-  findings were factually wrong (claimed no author and no publish date on a page carrying
-  `meta name=author`, `article:author`, `article:published_time`, a `<time>` element and
-  JSON-LD `Person` + `datePublished`), and its keyword extractor returned "one" →
-  *oneplus, onedrive*. Its FAQ advice is outdated in both directions: Google removed FAQ
-  rich results for **all** sites on 7 May 2026, not just non-government ones, but
-  `FAQPage` structured data is not deprecated and is allowed to stay — so ours stays. The
-  known false positives are tabulated in `CLAUDE.md` so nobody "fixes" a non-problem.
+  ⚠️ **Two of its five first-run findings were factually wrong, so they were fixed rather
+  than memorised.** `ops/scripts/seo-skill-patch.py` applies 17 idempotent edits:
+
+  * *Author* never checked `meta name=author`, `article:author` or JSON-LD — only class
+    and `rel` attributes. *Publish date* searched `{"name": "article:published_time"}`
+    when OpenGraph emits `property=`, so that selector could never match. Both now
+    resolve on this repo's pages.
+  * *Keyword extraction* returned "one" → *oneplus, onedrive*; missing filler words. Now
+    returns "breadth first search".
+  * *FAQ guidance* was frozen at the Aug 2023 restriction in **eight** places. Google
+    removed FAQ rich results for **all** sites on 7 May 2026, including government and
+    health — but `FAQPage` markup is not deprecated and may stay. The old text told us to
+    delete working markup that still feeds answer engines. Ours stays.
+
+  ⚠️ **A reinstall reverts the patch and deletes the venv.** `seo.sh` rebuilds the venv
+  and warns when unpatched; the patch is re-run by hand. `--check` exits non-zero, and
+  reports `missing` when an upstream edit has moved an anchor — which means that
+  particular fix is silently *not* in effect.
+
+  Two of the patch's own bugs were found only by testing it, not by reading it: a
+  marker-based "already applied" test silently skipped the one edit whose replacement was
+  a substring of the original, and an over-eager stop-word list turned "breadth-first
+  search" into "breadth search". Both are recorded in the script's header.
 
 * **Revision** (`puzzle-generator-random-walk-doesnt-work`): on-page SEO pass after an
   outside review. Four changes: `seo_title` drops "Reverse" (71 → 63 chars — "random
