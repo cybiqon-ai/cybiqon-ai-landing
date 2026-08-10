@@ -220,11 +220,32 @@ Decide deliberately rather than by accident. The posture already argued for in t
 concept — allow the citers, block the trainers at the WAF — is still the right one, and
 none of it exists. **Cost: zero code, dashboard only.** Highest value on this list.
 
-### F3 — no Search Console, so none of this is measurable
+### F3 — Search Console IS set up; one file is missing · CORRECTED 10 Aug 2026
 
-Unchanged from the "Nothing needs submitting" section and still the most valuable gap.
-Every item here is a hypothesis until impressions and queries are visible. It is a
-credentials task, not an engineering one.
+This finding originally read "no Search Console". **That was wrong**, and the error was
+mine for repeating the bundle instead of checking. Verified live on 10 Aug:
+
+| | |
+|---|---|
+| Domain property | `sc-domain:cybiqon.in` — exists, per `tools/social-media-manager/gsc_api.py` |
+| DNS verification | **two** `google-site-verification` TXT records on `cybiqon.in` |
+| OAuth token | `~/.gsc-mcp/oauth-token.json` — has a `refresh_token`, scoped `webmasters` + `webmasters.readonly` + `indexing` |
+| Query script | `gsc_api.py query <days> [rows]` — written, working |
+| **Missing** | **the OAuth client-secret JSON**, for client id `480180415252-…apps.googleusercontent.com` |
+
+An access token cannot be refreshed without `client_secret`, so `gsc_api.py` dies at
+`access_token()` with `FileNotFoundError`. The cached access token expired
+**10 Jul 2026** — the same day the secret went missing, which is why the two failures
+have always looked like one.
+
+**The fix is one download**, not a re-verification and not a new property: Google Cloud
+console → APIs & Services → Credentials → that OAuth client → *Download JSON* → save to
+the exact path in `gsc_api.py:SECRETS_FILE`. The `refresh_token` we already hold then
+mints access tokens again. Nothing needs re-authorising unless the refresh token itself
+was revoked, which the download will reveal immediately.
+
+Everything downstream still holds: query data is a **measurement** loss, not an indexing
+one. Discovery is the sitemap's job and the sitemap is correct.
 
 ### F4 — 8 of 15 top pages have **no** `og:image` at all
 

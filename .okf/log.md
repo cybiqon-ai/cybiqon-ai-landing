@@ -124,6 +124,25 @@
   check: the meta description, the FAQ as real `h2`/`h3` with derived `FAQPage` JSON-LD,
   and the byline linking to `/lab/about` with `Person` JSON-LD.
 
+* **Correction**: **Search Console is set up.** The 10 Aug audit's F3 claimed it was not,
+  and that was wrong — it repeated this bundle instead of checking. Verified live: a
+  `sc-domain:cybiqon.in` property exists, the domain carries **two**
+  `google-site-verification` DNS TXT records, and `~/.gsc-mcp/oauth-token.json` holds a
+  `refresh_token` scoped `webmasters` + `webmasters.readonly` + `indexing`.
+
+  The only missing piece is the **OAuth client-secret JSON** for client id
+  `480180415252-…apps.googleusercontent.com`. Without it `gsc_api.py` cannot refresh, and
+  dies at `access_token()` with `FileNotFoundError`. The cached access token expired
+  **10 Jul 2026**, the same day the secret went missing — which is why "the Indexing API
+  broke" and "no query data" have always looked like one failure. They are one failure.
+
+  Fix: download the JSON from the Google Cloud console to the path in
+  `gsc_api.py:SECRETS_FILE`. No re-verification, no new property.
+
+  ⚠️ `.okf/viz.html` is a **generated** file and is stale — it still carries the old
+  "No Search Console verification" line and a 76-post blog count. Regenerate it with
+  `.agents/skills/visualize/scripts/okf_visualize.py` rather than reading it as current.
+
 * **Audit**: AEO findings recorded in [SEO](/site/seo.md), eight items, every one checked
   against the live site. Two contradict what this bundle previously said — the missing
   managed robots.txt block, and **9 of 15 top pages emitting no `og:image` at all** where
