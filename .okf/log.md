@@ -43,6 +43,33 @@
   `Article` with Organization authorship. Both corrected. See
   [SEO](/site/seo.md) for the correction and the 10 Aug AEO audit it prompted.
 
+* **Tooling**: installed [Agentic-SEO-Skill](https://github.com/Bhanunamikaze/Agentic-SEO-Skill)
+  (MIT, 89 scripts, 16 sub-skills) as a user-global Claude skill at
+  `~/.claude/skills/seo`, wrapped by `ops/scripts/seo.sh`. Standing rule added to this
+  repo's `CLAUDE.md`: run it against the live URL after every content change.
+
+  **Reviewed before installing**, since a skill runs with full tool access on a machine
+  holding Cloudflare tokens and an upload keystore. No telemetry, no credential access,
+  no `eval`/`exec` of remote content; `subprocess` only shells out to `gh` and
+  Lighthouse; outbound hosts are Google/Bing/Yandex/GitHub APIs and schema.org; its
+  `safe_http` helper blocks private, loopback and link-local IPs.
+
+  Two operational traps, both handled by the wrapper. Ubuntu 24.04 marks the system
+  Python externally managed (PEP 668), so deps live in a uv venv — a plain
+  `python3 scripts/foo.py` fails and looks like a broken skill. And `env_loader.py` reads
+  `.env` from the **current working directory**, so running these scripts inside
+  `tools/social-media-manager` would load the live Cloudflare token into `os.environ`;
+  the wrapper pins an inert working directory so that cannot happen by accident.
+
+  ⚠️ **It is an evidence gatherer, not an oracle.** On its first real run, two of five
+  findings were factually wrong (claimed no author and no publish date on a page carrying
+  `meta name=author`, `article:author`, `article:published_time`, a `<time>` element and
+  JSON-LD `Person` + `datePublished`), and its keyword extractor returned "one" →
+  *oneplus, onedrive*. Its FAQ advice is outdated in both directions: Google removed FAQ
+  rich results for **all** sites on 7 May 2026, not just non-government ones, but
+  `FAQPage` structured data is not deprecated and is allowed to stay — so ours stays. The
+  known false positives are tabulated in `CLAUDE.md` so nobody "fixes" a non-problem.
+
 * **Revision** (`puzzle-generator-random-walk-doesnt-work`): on-page SEO pass after an
   outside review. Four changes: `seo_title` drops "Reverse" (71 → 63 chars — "random
   walk" is the searched phrase, "reverse random walk" is not); `excerpt` front-loaded so
