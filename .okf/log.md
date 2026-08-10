@@ -21,6 +21,34 @@
   Reciprocal internal link added to `we-built-a-wiki-our-ai-agents-ignored-it`, which
   therefore needs republishing with `--no-touch` so its `updated_at` does not move.
 
+* **Feature**: `llms.txt` is generated. `scripts/build-llms-txt.mjs` emits it from
+  `lab/posts/` frontmatter plus a new tracked `data/llms.config.json`, chained into
+  `npm run build`; `public/llms.txt` moves to the gitignored/derived side alongside
+  `llms-full.txt`. `parseFrontmatter` was extracted to `scripts/lib/frontmatter.mjs` so
+  both generators share one parser. **6 of ~110 URLs → 29 links, all 32 routes covered.**
+
+  **Enforcement, both layers proven to fail before being trusted.** A `pre-push` hook in
+  this repo (installed by `ops/scripts/install-hooks.sh`, since hooks are not tracked)
+  hard-blocks; the tree's **first-ever Claude Code hook** warns earlier and advisorily.
+  Advisory on purpose: it cannot know which of the tree's eleven repos a `git push` is
+  aimed at, so blocking there could fail a MeFlow push over a landing-site route. Both
+  were verified by adding a stray route and watching them fire — note that a probe named
+  `__probe` proves nothing, because Next treats `_`-prefixed directories as private
+  non-routes and the checker correctly skips them.
+
+  **The pass found the file was lying.** Its "Notes for agents" paragraph cited a
+  `Content-Signal` directive in robots.txt; the live robots.txt has no such line and no
+  training-crawler `Disallow`, confirmed as GPTBot, CCBot and a browser UA. It also
+  claimed `BlogPosting`/`FAQPage` schema while listing `/blog`, whose posts carry plain
+  `Article` with Organization authorship. Both corrected. See
+  [SEO](/site/seo.md) for the correction and the 10 Aug AEO audit it prompted.
+
+* **Audit**: AEO findings recorded in [SEO](/site/seo.md), eight items, every one checked
+  against the live site. Two contradict what this bundle previously said — the missing
+  managed robots.txt block, and **9 of 15 top pages emitting no `og:image` at all** where
+  the bundle claimed they shared `/logo.png`. Findings only; nothing fixed except the
+  false `llms.txt` claims, which could not be left shipping.
+
 ## 2026-08-06
 
 * **Feature**: agent-readable markdown for `/lab`. `/md/lab/<slug>.md` per post plus

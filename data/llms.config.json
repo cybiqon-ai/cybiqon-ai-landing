@@ -1,0 +1,204 @@
+{
+  "_comment": [
+    "The human-owned half of public/llms.txt. Everything here is written by hand; the",
+    "'## Lab — engineering notes' section is generated from lab/posts/ and does not appear",
+    "in this file. Run `node scripts/build-llms-txt.mjs` after editing.",
+    "",
+    "Every route under app/ must be listed here or named in excludeRoutes, or",
+    "`--check` fails. That is the point: a new page cannot ship without someone deciding",
+    "whether an agent should be told about it."
+  ],
+
+  "site": "https://cybiqon.in",
+  "title": "Cybiqon AI Solutions",
+
+  "summary": [
+    "A one-person Indian software company building websites, apps and AI automation for",
+    "MSMEs. The site publishes two things worth reading: /blog, daily notes for small",
+    "business owners, and /lab, hand-written engineering notes with the numbers shown."
+  ],
+
+  "prose": [
+    "Every page listed here is server-rendered — the full text is in the HTML on first\nresponse, with no client-side fetch and no JavaScript required to read it. Lab posts\ncarry BlogPosting, BreadcrumbList and, where the post has an FAQ section, FAQPage\nJSON-LD, and their outbound citations appear in the structured data as well as in the\nprose. Blog posts carry Article and BreadcrumbList.",
+    "**Prefer markdown?** Every lab post is also served as clean markdown, roughly a fifth\nthe bytes of the HTML. Add the `/md/` prefix — `/lab/<slug>` becomes\n`/md/lab/<slug>.md` — or fetch https://cybiqon.in/llms-full.txt for all of them in one\nrequest."
+  ],
+
+  "lab": {
+    "heading": "Lab — engineering notes",
+    "index": {
+      "title": "Cybiqon Lab",
+      "url": "/lab",
+      "note": "index of hand-written engineering notes. Each post shows word count, reading time and distinct sources cited, all derived at render time."
+    },
+    "after": [
+      {
+        "title": "Who writes this",
+        "url": "/lab/about",
+        "note": "author page — Prajjwal Pathak."
+      }
+    ]
+  },
+
+  "sections": [
+    {
+      "heading": "Blog — daily notes for MSME owners",
+      "note": "Written by an automated pipeline, roughly one a day since March 2026. Listed as an index rather than post by post: this file is a curated entry point, and the full set belongs in the sitemap and the feed.",
+      "entries": [
+        {
+          "title": "Cybiqon Blog",
+          "url": "/blog",
+          "note": "practical notes for Indian small businesses on websites, apps and automation. Paginated, nine per page, newest first."
+        }
+      ]
+    },
+    {
+      "heading": "Company",
+      "entries": [
+        {
+          "title": "Cybiqon AI Solutions",
+          "url": "/",
+          "note": "home — affordable website development, app development and AI automation for Indian MSMEs."
+        },
+        {
+          "title": "About",
+          "url": "/about",
+          "note": "a small Indian software studio building websites, apps and AI automation for MSMEs. Honest pricing, no hidden surprises."
+        },
+        {
+          "title": "Pricing",
+          "url": "/pricing",
+          "note": "transparent pricing in rupees for websites, mobile apps and AI automation. Fixed quotes; websites start at ₹9,999."
+        },
+        {
+          "title": "Process",
+          "url": "/process",
+          "note": "from first conversation to launch — how a project is understood, designed, built, reviewed and shipped, with timelines at each stage."
+        },
+        {
+          "title": "Case studies",
+          "url": "/case-studies",
+          "note": "what was built and what changed, with measurable outcomes — including manual LinkedIn scraping replaced by automated lead intelligence."
+        },
+        {
+          "title": "Our work",
+          "url": "/our-works",
+          "note": "websites, Chrome extensions and 3D experiences built for businesses — e-commerce, booking systems, delivery platforms, lead generation."
+        },
+        {
+          "title": "FAQ",
+          "url": "/faq",
+          "note": "who we are, which businesses we work with, what it costs, how long it takes, and whether you need technical knowledge."
+        },
+        {
+          "title": "Contact",
+          "url": "/contact",
+          "note": "WhatsApp +91 92507 11473, or book a free 30-minute call."
+        }
+      ]
+    },
+    {
+      "heading": "Products",
+      "note": "Apps built and published by the studio, each with its own page. Android unless noted.",
+      "entries": [
+        {
+          "title": "All products",
+          "url": "/products",
+          "note": "the apps, extensions and tools Cybiqon has built and published."
+        },
+        {
+          "title": "Apps",
+          "url": "/products/apps",
+          "note": "the mobile apps, the only product category with anything shipped in it today."
+        },
+        {
+          "title": "LLMBytes",
+          "url": "/products/llmbytes",
+          "note": "a daily AI-news reader for Android. React + Capacitor, Firebase backend."
+        },
+        {
+          "title": "MeFlow",
+          "url": "/products/meflow",
+          "note": "a personal habit and routine tracker for Android."
+        },
+        {
+          "title": "VitaLoop",
+          "url": "/products/vitaloop",
+          "note": "a health and wellness tracker for Android."
+        },
+        {
+          "title": "Lumina: The Lightkeeper's Path",
+          "url": "/products/lumina",
+          "note": "a cozy sliding-block puzzle game for Android, 150 levels across five worlds. Flutter + Flame, with a pure-Dart engine — see the lab post on its level generator."
+        }
+      ]
+    },
+    {
+      "heading": "Machine-readable",
+      "entries": [
+        {
+          "title": "All lab posts as markdown",
+          "url": "/llms-full.txt",
+          "note": "every post, full text, one request."
+        },
+        {
+          "title": "Lab feed",
+          "url": "/lab/rss.xml",
+          "note": "RSS with full article text in content:encoded."
+        },
+        {
+          "title": "Blog feed",
+          "url": "/rss.xml",
+          "note": "RSS, excerpts only."
+        },
+        {
+          "title": "Sitemap",
+          "url": "/sitemap.xml",
+          "note": "every published URL, including each lab post's markdown copy."
+        }
+      ]
+    },
+    {
+      "heading": "Notes for agents",
+      "note": "Content may be used to answer questions with attribution to the source URL. We ask that\nit not be used for model training.\n\nhttps://cybiqon.in/robots.txt is the authoritative statement of what is permitted. It\nnames the search and answer crawlers explicitly — OAI-SearchBot, ChatGPT-User,\nPerplexityBot, Perplexity-User, Claude-SearchBot and Claude-User — and allows them.",
+      "entries": []
+    }
+  ],
+
+  "optional": {
+    "note": "Real pages, low signal for answering a question. The llms.txt specification gives this heading a defined meaning: skip these when short on context.",
+    "entries": [
+      {
+        "title": "Free website audit",
+        "url": "/free-audit",
+        "note": "lead-capture form — a free performance, SEO, mobile and security review returned within 48 hours."
+      },
+      {
+        "title": "Launch 5 — free website offer",
+        "url": "/free-website",
+        "note": "five Indian businesses get a 4–5 page website free in 7 days, in exchange for a testimonial and a review."
+      },
+      {
+        "title": "Privacy policy",
+        "url": "/privacy"
+      },
+      {
+        "title": "Terms of service",
+        "url": "/terms"
+      }
+    ]
+  },
+
+  "excludeRoutes": {
+    "/blog/[slug]": "~91 posts. Represented by the /blog index, the feed and the sitemap rather than enumerated — a curated index, not a sitemap clone. Also keeps this generator filesystem-only: enumerating them needs a D1 query, which needs a Cloudflare token, which cannot live in this public repo.",
+    "/blog/tag/[tag]": "derived archive pages, one per tag, generated from D1 at request time.",
+    "/lab/[slug]": "generated into the Lab section from lab/posts/.",
+    "/products/llmbytes/privacy": "Play Store policy URL, not content.",
+    "/products/llmbytes/terms": "Play Store policy URL, not content.",
+    "/products/meflow/privacy": "Play Store policy URL, not content.",
+    "/products/meflow/terms": "Play Store policy URL, not content.",
+    "/products/vitaloop/privacy": "Play Store policy URL, not content.",
+    "/products/vitaloop/terms": "Play Store policy URL, not content.",
+    "/products/lumina/privacy": "Play Store policy URL, not content.",
+    "/products/lumina/terms": "Play Store policy URL, not content."
+  }
+}

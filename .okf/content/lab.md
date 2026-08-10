@@ -254,7 +254,37 @@ published numbers are real.
 *`llms.txt` is not a traffic lever.* Measured studies — Ahrefs across 137 K domains —
 find ~97% of `llms.txt` files receive zero requests, and AI crawlers fetch HTML directly.
 It is here because a static file costs nothing, not because it is expected to move a
-number. Do not report it as an SEO win.
+number. Do not report it as an SEO win. External research on 10 Aug 2026 only hardened
+this: as of 2026 the format is a community convention with no standards body, no major
+model provider has publicly committed to reading it, and Google has said outright that it
+does not support it and does not plan to. Cloudflare's own "control AI crawls" guidance
+is about robots.txt and AI Crawl Control and does not mention llms.txt at all.
+
+*`llms.txt` is generated, as of 10 Aug 2026.* `scripts/build-llms-txt.mjs` emits it from
+`lab/posts/` frontmatter plus `data/llms.config.json`, chained into `npm run build` after
+`build-agent-markdown.mjs`, and `public/llms.txt` is now gitignored like its siblings.
+**Edit `data/llms.config.json`, never the output.**
+
+The change was forced by evidence rather than tidiness: the hand-written file listed
+**6 of ~110 published URLs**, the fourth lab post had to be appended by hand four days
+after publication, `/blog` had never been represented, and — found during the same pass —
+its "Notes for agents" paragraph cited a `Content-Signal` directive that
+[the live robots.txt does not contain](/site/seo.md). A file nobody regenerates is a file
+that quietly starts lying. The generated version covers 29 links and all 32 routes.
+
+`--check` mode is the enforcement half, run by a `pre-push` hook in this repo (installed
+by `ops/scripts/install-hooks.sh`) and, advisorily, by the tree's first Claude Code hook.
+Its load-bearing check is **route coverage**: every route under `app/` must be listed in
+the config or named in `excludeRoutes` *with a reason*, so a new page cannot ship without
+someone deciding whether an agent should be told about it.
+
+⚠️ **`/blog` is listed as an index, not post by post — do not "improve" this.** Three
+reasons, all still true: the spec wants a curated entry point rather than a sitemap
+clone; ~91 agent-written MSME posts would drown the four hand-written lab posts that are
+the actual signal; and enumerating them needs a D1 query, which needs a Cloudflare token,
+which cannot live in this **public** repo. It also keeps the push-time gate sufficient —
+the nightly cron publishes blog posts with no git push at all, so per-post blog content
+here would go stale with nothing to catch it.
 
 # Design
 

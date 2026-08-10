@@ -24,6 +24,8 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync } from "nod
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { readPosts } from "./lib/frontmatter.mjs";
+
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const POSTS_DIR = join(root, "lab", "posts");
 const MD_DIR = join(root, "public", "md", "lab");
@@ -31,42 +33,6 @@ const FULL_TXT = join(root, "public", "llms-full.txt");
 
 const SITE = "https://cybiqon.in";
 const AUTHOR = "Prajjwal Pathak";
-
-/**
- * Enough YAML for this frontmatter and no more.
- *
- * The fields are `key: value` scalars plus two list shapes (`- item` for tags, and
- * `- label:`/`  value:` pairs for readouts). Pulling in a YAML parser to read five keys
- * would be the larger mistake. Anything unrecognised is skipped rather than guessed at —
- * this only needs title, seo_title, excerpt, date and tags.
- */
-function parseFrontmatter(raw) {
-  const match = /^---\s*\n([\s\S]*?)\n---\s*\n/.exec(raw);
-  if (!match) throw new Error("no frontmatter");
-
-  const meta = { tags: [] };
-  let listKey = null;
-
-  for (const line of match[1].split("\n")) {
-    if (!line.trim() || line.trim().startsWith("#")) continue;
-
-    const item = /^\s*-\s+(.*)$/.exec(line);
-    if (item) {
-      if (listKey === "tags" && !item[1].includes(":")) meta.tags.push(strip(item[1]));
-      continue;
-    }
-
-    const kv = /^([a-z_]+):\s*(.*)$/.exec(line);
-    if (!kv) continue;
-    const [, key, value] = kv;
-    listKey = value.trim() === "" ? key : null;
-    if (value.trim() !== "") meta[key] = strip(value);
-  }
-
-  return { meta, body: raw.slice(match[0].length) };
-}
-
-const strip = (s) => s.trim().replace(/^["']|["']$/g, "");
 
 /**
  * One post as markdown an agent can use directly.
@@ -98,16 +64,12 @@ function renderPost(slug, meta, body) {
   return `${lines.join("\n")}\n\n${body.trim()}\n`;
 }
 
-const posts = readdirSync(POSTS_DIR)
-  .filter((f) => f.endsWith(".md") && f !== "README.md")
-  .map((file) => {
-    const slug = file.replace(/\.md$/, "");
-    const { meta, body } = parseFrontmatter(readFileSync(join(POSTS_DIR, file), "utf8"));
-    if (!meta.title) throw new Error(`${file}: frontmatter has no title`);
-    return { slug, meta, body, markdown: renderPost(slug, meta, body) };
-  })
-  // Newest first, matching /lab and the feed.
-  .sort((a, b) => String(b.meta.date ?? "").localeCompare(String(a.meta.date ?? "")));
+// Filtering, draft handling and ordering live in lib/frontmatter.mjs so build-llms-txt.mjs
+// sees exactly the same set of posts this does.
+const posts = readPosts(readdirSync, readFileSync, join, POSTS_DIR).map((p) => ({
+  ...p,
+  markdown: renderPost(p.slug, p.meta, p.body),
+}));
 
 if (posts.length === 0) throw new Error("no posts found — refusing to write empty output");
 

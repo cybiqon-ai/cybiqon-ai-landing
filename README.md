@@ -10,8 +10,14 @@ Pages.** Content lives in Cloudflare D1; images in R2, served from `media.cybiqo
 
 ```sh
 npm install
+bash ../../ops/scripts/install-hooks.sh   # once per clone — installs the pre-push gate
 npm run dev            # http://localhost:3000
 ```
+
+The hook runs `npm run check:llms` before every push and blocks if `llms.txt` would be
+wrong — most often because a new page under `app/` is not listed in
+`data/llms.config.json`. Git hooks are not tracked, so a fresh clone has no gate until
+you run that installer.
 
 `npm run dev` is fine for layout and styling work, but it does **not** exercise the
 Cloudflare runtime. Anything touching D1, R2 or an edge route needs a real build:

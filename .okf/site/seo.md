@@ -3,7 +3,7 @@ type: Domain
 title: SEO
 description: Structured data, sitemap, RSS and per-page metadata are all in place as of 25 Jul 2026; the blog is indexed and the remaining gap is ranking, not discovery.
 tags: [seo, metadata, json-ld, sitemap, search-console, rss, aeo, ai-crawlers]
-timestamp: 2026-08-06T00:00:00Z
+timestamp: 2026-08-10T00:00:00Z
 ---
 
 # Overview
@@ -85,7 +85,7 @@ reachable), 21 `/blog/tag/<slug>` archives, and a sitemap listing all 120 URLs �
 
 | Gap | Consequence |
 |---|---|
-| **No OG image generation for the 14 marketing pages** | they still share `/logo.png`. Narrowed 1 Aug 2026: `/lab` posts now get a real 1200×630 card each, rendered by `tools/social-media-manager/lab/og_card.py` at publish time and served from `media.cybiqon.in/lab/og/<slug>.png`. The same approach would work for the marketing pages and has not been done. |
+| **No OG image generation for the 14 marketing pages** | ⚠️ worse than this row said — measured 10 Aug 2026, **9 of them emit no `og:image` tag at all**, they do not fall back to `/logo.png`. See F4 in the audit below. Narrowed 1 Aug 2026: `/lab` posts now get a real 1200×630 card each, rendered by `tools/social-media-manager/lab/og_card.py` at publish time and served from `media.cybiqon.in/lab/og/<slug>.png`. The same approach would work for the marketing pages and has not been done. |
 | ~~`sitemap.ts` `lastModified`~~ | **Closed 6 Aug 2026.** Static pages now use a `STATIC_LAST_MODIFIED` literal that is bumped by hand when a page actually changes; `/lab` posts use `updated_at ?? created_at`. `/blog` posts already used their real dates. |
 | **No author / E-E-A-T page for `/blog`** | MSME posts still credit "Cybiqon Team" with no link. Closed for `/lab` on 1 Aug 2026: `/lab/about` is a real author page with `Person` JSON-LD, and lab posts carry a named byline linking to it. |
 | **No FAQ, TL;DR or `citation` schema on `/blog`** | Built for `/lab` on 6 Aug 2026 and deliberately not ported: the MSME posts are agent-written and an auto-generated FAQ would be invented Q&A, which is the one thing `FAQPage` must not contain. |
@@ -122,6 +122,20 @@ proves nothing in either direction: `curl -A ChatGPT-User` returns 200 because C
 never believes the spoof.
 
 # The robots.txt is advisory and is being ignored
+
+> ⚠️ **Correction, 10 Aug 2026 — the managed block described below is NOT on the live
+> site.** `curl https://cybiqon.in/robots.txt` returns *only* what `app/robots.ts` emits:
+> the `*` group and the six-agent allow group. There is **no `Content-Signal` line and no
+> `Disallow: /` for any training crawler**, checked as GPTBot, CCBot and a browser UA —
+> the response is identical for all three. Either managed robots.txt was never enabled on
+> this zone or it has since been turned off.
+>
+> This matters beyond bookkeeping: `public/llms.txt` cited that Content-Signal directive
+> until 10 Aug, so the site was pointing agents at a machine-readable term that does not
+> exist. That text is now corrected in `data/llms.config.json`.
+>
+> The rest of this section is retained because the *posture* it argues for is still right
+> and still unimplemented. Read it as the plan, not as the current state.
 
 The same table shows every crawler the managed block disallows fetching the site anyway:
 **Amazonbot 62, ClaudeBot 42, GPTBot 39, CCBot 4** allowed requests, all against
@@ -178,6 +192,89 @@ absent, and every call site is under `/lab`: `lab_cta_click` (`{method: call | e
 linkedin}`), `lab_subscribe` (`{source}`) and `lab_share` (`{method, slug}`). Adopting the
 same helper on the audit form, the Launch-5 apply and the WhatsApp widget is still the
 open work.
+
+# AEO audit — 10 Aug 2026
+
+Run alongside the `llms.txt` automation pass. **Every finding below was checked against
+the live site**, not read out of this bundle — and two of them contradict what this
+bundle previously said, which is the main argument for doing it that way.
+
+Ranked by value per unit of effort. Nothing here was fixed except F1, which had to be.
+
+### F1 — `llms.txt` was citing a directive that does not exist · FIXED
+
+It read *"It may not be used for model training — see the Content-Signal directive in
+https://cybiqon.in/robots.txt."* There is no such directive (see the correction above).
+It also claimed *"Article pages carry BlogPosting … FAQPage JSON-LD"* while listing
+`/blog`, whose posts carry `Article` with **no** `BlogPosting`, `FAQPage` or `citation` —
+verified on a live post. Both corrected in `data/llms.config.json`. **Cost: zero.**
+
+### F2 — the training-crawler posture is entirely unimplemented
+
+`app/robots.ts` allows six citing agents and says nothing about training crawlers,
+because the managed block that was supposed to say it is absent. So GPTBot, ClaudeBot,
+CCBot, Amazonbot, Bytespider and Meta-ExternalAgent are, right now, **allowed by the
+site's own robots.txt** via the `*` group.
+
+Decide deliberately rather than by accident. The posture already argued for in this
+concept — allow the citers, block the trainers at the WAF — is still the right one, and
+none of it exists. **Cost: zero code, dashboard only.** Highest value on this list.
+
+### F3 — no Search Console, so none of this is measurable
+
+Unchanged from the "Nothing needs submitting" section and still the most valuable gap.
+Every item here is a hypothesis until impressions and queries are visible. It is a
+credentials task, not an engineering one.
+
+### F4 — 8 of 15 top pages have **no** `og:image` at all
+
+This concept previously said the marketing pages "share `/logo.png`". Measured 10 Aug,
+they do not:
+
+| Has an `og:image` | None at all |
+|---|---|
+| `/`, `/free-audit`, `/privacy`, `/terms`, `/blog`, `/lab` | `/about`, `/pricing`, `/process`, `/case-studies`, `/our-works`, `/faq`, `/contact`, `/free-website`, `/products` |
+
+`/pricing` — the page most likely to be shared into a WhatsApp group by a prospective
+client — renders with no image anywhere. `/lab` posts get a real 1200×630 card from
+`tools/social-media-manager/lab/og_card.py`; the same generator would cover these.
+**Cost: static assets, zero Worker bytes.** Best effort-to-visibility ratio here.
+
+### F5 — `/blog` is ~96% of the content and carries the weakest signals
+
+91-odd posts, `Article` + `BreadcrumbList`, authorship as `Organization` "Cybiqon AI
+Solutions" with no author page, and no `text/markdown` alternate. `/lab` has `Person`
+authorship, a real author page, `citation`, `about`, and markdown copies.
+
+**Do not "fix" this by porting `FAQPage` to `/blog`.** The existing omission is correct
+and deliberate: the MSME posts are agent-written, and an auto-generated FAQ would be
+invented Q&A, which is the one thing that schema must not contain. Authorship and E-E-A-T
+are a separate question and are worth fixing.
+
+### F6 — freshness is a hand-bumped literal
+
+`STATIC_LAST_MODIFIED` currently stamps **40 of 165 sitemap URLs** with `2026-08-06`. It
+is bumped by hand, which was the right call when it replaced a build timestamp, but it
+degrades silently: the day someone forgets, those 40 pages start ageing. Published 2026
+analyses put ~83% of AI citations on pages updated within twelve months. Worth a
+recurring check rather than a code change.
+
+### F7 — the 182 KiB Worker headroom rules out several obvious fixes
+
+Recorded here because it silently kills recommendations before they are made. Every
+React route costs ~440 KiB gzipped and every route handler ~100 KiB, against ~182 KiB
+remaining. A `/blog` author page is a new route and does not fit today. Static assets and
+JSON-LD inside existing routes are free; anything with its own URL is not.
+
+### F8 — the Cloudflare AI Diagnostics score is not a target
+
+5 of 21. Sixteen of the remaining items describe an API catalog, an auth flow, OAuth, a
+2A/MCP server card and a commerce checkout — none of which this site has, because it is a
+brochure site with two blogs. Recorded so the score is never chased for its own sake.
+
+**What is deliberately absent from this list:** anything claiming `llms.txt` will improve
+citations. It will not; see the note in [Lab](/content/lab.md). It is maintained because
+it is now free to maintain.
 
 # See also
 
