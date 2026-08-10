@@ -43,6 +43,29 @@
   `Article` with Organization authorship. Both corrected. See
   [SEO](/site/seo.md) for the correction and the 10 Aug AEO audit it prompted.
 
+* **Revision** (`puzzle-generator-random-walk-doesnt-work`): on-page SEO pass after an
+  outside review. Four changes: `seo_title` drops "Reverse" (71 → 63 chars — "random
+  walk" is the searched phrase, "reverse random walk" is not); `excerpt` front-loaded so
+  the first 155 characters, which is all Google shows, state the finding instead of
+  spending the whole budget on candidate counts; four narrative H2s gained the query
+  terms they were missing; and the article now links to `/products/lumina`, which it
+  never did despite being entirely about that product.
+
+  **The H2s were the real gap and the review misdiagnosed it.** It flagged the H1 and
+  recommended swapping it for the `seo_title`. Declined — that would undo the deliberate
+  `title`/`seo_title` split documented in `lab/posts/README.md`, break the pattern all
+  four posts follow, and cost the section its voice. Measured instead: **not one of the
+  fourteen H2s contained a query term.** Headings are a ranking signal the split does not
+  cover, so fixing them addresses the same concern without the cost. Body term coverage
+  was already fine (`solvable` ×12, `breadth-first` ×10, `bfs` ×7).
+
+  Also declined: a "What you'll learn" box (`## TL;DR` already does this and is the
+  section convention — both would be redundant), and an invented author bio.
+
+  Three of the review's recommendations were **already implemented** and it did not
+  check: the meta description, the FAQ as real `h2`/`h3` with derived `FAQPage` JSON-LD,
+  and the byline linking to `/lab/about` with `Person` JSON-LD.
+
 * **Audit**: AEO findings recorded in [SEO](/site/seo.md), eight items, every one checked
   against the live site. Two contradict what this bundle previously said — the missing
   managed robots.txt block, and **9 of 15 top pages emitting no `og:image` at all** where

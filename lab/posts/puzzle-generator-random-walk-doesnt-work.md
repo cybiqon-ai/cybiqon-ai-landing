@@ -2,8 +2,11 @@
 title: "Our puzzle generator lied about difficulty. Twice."
 # The searchable title. Only <title>, the meta description and BlogPosting.headline use
 # it — the h1, the OG card and the RSS item keep the title above.
-seo_title: "Procedural Puzzle Level Generation: Why Reverse Random Walks Don't Work"
-excerpt: "The algorithm in our own design document produced 14 usable levels from 91,322 candidates. The rewrite produced 14 from 16,249. This is the one that works: a multi-source breadth-first sweep from every winning arrangement at once, and a solver whose optimal count is the three-star threshold."
+seo_title: "Procedural Puzzle Level Generation: Why Random Walks Don't Work"
+# Front-loaded deliberately. Google truncates the description around 155 characters, and
+# the previous opening spent all of them on candidate counts without naming the thing the
+# article is about. The first sentence now states the finding.
+excerpt: "Reversing a solved puzzle by K random moves does not give a K-move puzzle. Our first generator produced 14 usable levels from 91,322 candidates; the second, 14 from 16,249. This is the multi-source BFS that finally measured difficulty correctly."
 date: 2026-08-10
 tags:
   - Games
@@ -22,7 +25,7 @@ readouts:
   - label: rewrites
     value: "2"
 ---
-Lumina ships 150 hand-verified sliding-block puzzles across five worlds, plus a pool of 174 dailies deep enough to run 5.8 months before it repeats. Every one is re-solved from disk by a separate program before it is allowed into the app, and every one has a star threshold that is provably reachable rather than plausibly reachable.
+[Lumina](/products/lumina) ships 150 hand-verified sliding-block puzzles across five worlds, plus a pool of 174 dailies deep enough to run 5.8 months before it repeats. Every one is re-solved from disk by a separate program before it is allowed into the app, and every one has a star threshold that is provably reachable rather than plausibly reachable.
 
 Getting there took writing the level generator three times.
 
@@ -38,7 +41,7 @@ Both bugs lived in a step that looks like it obviously works.
 - **The solver has to be BFS, not A\*.** Its optimal count is the three-star threshold, and an inadmissible heuristic returns a plausible one. A level whose "optimal" is one move too high can never be three-starred — invisible in review, and unreportable by the people it affects.
 - **The expensive part is throwing candidates away.** One quality filter set two notches too tight rejected **508 of 845** good boards; the near-duplicate filter rejected **1,089 in World 1 alone**. Generating boards is cheap. Deciding which ones are puzzles is the product.
 
-## The game, in one paragraph
+## The game: a sliding-block puzzle, in one paragraph
 
 Lumina is a sliding-block puzzle in the [Rush Hour](https://en.wikipedia.org/wiki/Rush_Hour_(puzzle)) family. Rectangular blocks sit on a 4×4 to 6×6 grid, and a block's shape determines its axis, so a wide domino slides horizontally and a tall one vertically and you can tell which at a glance. Exactly one block is the Light Key; get it to the lantern on the boundary and the level is won. There is no timer, no move limit and no fail state of any kind.
 
@@ -64,7 +67,7 @@ int starsFor({required int moves, required int optimal}) {
 
 That line is why everything downstream is so paranoid. The generator's output feeds a scoring rule, star totals feed world unlock gates at 40, 110, 170 and 230 of a possible 450, and the gates *are* the progression. A generator that is wrong about difficulty is a game that is wrong about progress.
 
-## Why the design document's algorithm doesn't work
+## Why the reverse random walk doesn't work
 
 The specified approach was the intuitive one: build a solved board, walk it backwards K random moves, ship the result as a K-move puzzle. It has an appealing symmetry — you get the solution for free, since you just made it — and it is what almost everyone reaches for first.
 
@@ -119,7 +122,7 @@ The measurement, recorded in the generator's own header where the autopsy belong
 
 Fifty-two percent did not merely fail to be hard. They walked all the way back to a win. The generator's most common output was a puzzle that was already solved.
 
-## Attempt two, and the mistake that is easy to miss
+## Attempt two: single-source BFS, and the mistake that is easy to miss
 
 The obvious correction: stop walking, start searching. Breadth-first search outward from the solved position, harvest the states sitting at whatever depth you want, and depth becomes a real measurement rather than a hopeful one.
 
@@ -172,7 +175,7 @@ The numbers, again from the code:
 
 Ninety-seven percent wrong. And note what did *not* happen: no candidate was unsolvable, nothing threw, and every level produced was a perfectly playable puzzle — just an easier one than the label said. Ship that and the difficulty curve flattens somewhere around the middle of World 1, which is precisely the complaint playtesting produced.
 
-## Harvest by true distance
+## The fix: multi-source BFS, harvesting by true distance
 
 The version that ships measures distance against the whole goal *set*. Four phases.
 
