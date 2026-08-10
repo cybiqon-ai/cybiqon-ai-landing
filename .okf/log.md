@@ -85,6 +85,22 @@
   a substring of the original, and an over-eager stop-word list turned "breadth-first
   search" into "breadth search". Both are recorded in the script's header.
 
+  **Sent upstream** as two PRs against `Bhanunamikaze/Agentic-SEO-Skill`, since the
+  detector bugs affect every site using standard OpenGraph, not just this one:
+
+  * [#35](https://github.com/Bhanunamikaze/Agentic-SEO-Skill/pull/35) — author and
+    publish-date detection, with a regression test whose four failing cases fail against
+    the current extractor.
+  * [#36](https://github.com/Bhanunamikaze/Agentic-SEO-Skill/pull/36) — the FAQ guidance
+    refresh across eight files.
+
+  The stop-word change was deliberately **not** sent: "one" as a stop word is a judgement
+  call rather than a bug, and it would have muddied two clean fixes. It stays local.
+
+  ⚠️ **When either PR merges, trim `seo-skill-patch.py`.** Its `--check` will start
+  reporting `missing` for the merged anchors — which is the correct signal, not a
+  failure. If both merge, only the stop-word edit should remain.
+
 * **Revision** (`puzzle-generator-random-walk-doesnt-work`): on-page SEO pass after an
   outside review. Four changes: `seo_title` drops "Reverse" (71 → 63 chars — "random
   walk" is the searched phrase, "reverse random walk" is not); `excerpt` front-loaded so
