@@ -40,13 +40,26 @@ export function parseFrontmatter(raw) {
 }
 
 /**
- * Every publishable post in lab/posts/, newest first.
+ * Every post that is actually live, newest first.
  *
- * `draft: true` is honoured here rather than at each call site: a draft is not on the
- * site, so it must not appear in the markdown copies or in llms.txt. The publisher
- * (`publish_lab.py`) reads the same field.
+ * Two exclusions, and the second one was a leak.
+ *
+ * `draft: true` — a draft is not on the site, so it must not appear in the markdown
+ * copies or in llms.txt. The publisher (`publish_lab.py`) reads the same field.
+ *
+ * **A future `date` means the post has not been published yet.** These generators read
+ * the filesystem, but a post only reaches `/lab/<slug>` when `publish_lab.py` writes it
+ * to D1 — and a post written today for Friday sits in git for days before that happens.
+ * Cloudflare rebuilds on *any* push, so without this filter the next unrelated push
+ * serves the full text of an embargoed article at `/md/lab/<slug>.md` and in
+ * `llms-full.txt`, while `llms.txt` advertises a `/lab/<slug>` that still 404s.
+ *
+ * That is not hypothetical: it happened on 11 Aug 2026 to a post dated the 12th.
+ *
+ * Dates are ISO `YYYY-MM-DD`, so a string compare is correct and needs no parsing. A
+ * post dated today is included — publication day is not the future.
  */
-export function readPosts(readdirSync, readFileSync, join, postsDir) {
+export function readPosts(readdirSync, readFileSync, join, postsDir, today = new Date().toISOString().slice(0, 10)) {
   return readdirSync(postsDir)
     .filter((f) => f.endsWith(".md") && f !== "README.md")
     .map((file) => {
@@ -56,6 +69,15 @@ export function readPosts(readdirSync, readFileSync, join, postsDir) {
       return { slug, meta, body };
     })
     .filter((p) => String(p.meta.draft ?? "").toLowerCase() !== "true")
+    .filter((p) => {
+      const date = String(p.meta.date ?? "").slice(0, 10);
+      if (!date) return true; // undated posts are legacy; leave them alone
+      const scheduled = date > today;
+      if (scheduled) {
+        console.log(`  skip  ${p.slug} — dated ${date}, not published yet`);
+      }
+      return !scheduled;
+    })
     // Newest first, matching /lab and the feed.
     .sort((a, b) => String(b.meta.date ?? "").localeCompare(String(a.meta.date ?? "")));
 }

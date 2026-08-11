@@ -179,6 +179,8 @@ Klonick's objection is the one I find persuasive: accepting the rogue-AI frame p
 
 Misconfigured containment is the ordinary version of this, and it does not require a frontier lab. Building an evaluation harness for our own agent, we produced the same class of mistake at hobbyist scale: [two test cases running concurrently unpatched each other's fakes](/lab/six-of-our-agents-tools-had-never-run), and one of them called a live supplier API from inside what every log insisted was a sandbox. Same shape, four orders of magnitude less blast radius, and nothing in the run reported a problem.
 
+That last clause is the part that generalises. A system does not have to go rogue to be wrong; it only has to be wrong quietly. [Two of the three level generators we wrote for a puzzle game produced perfectly playable levels at the wrong difficulty](/lab/puzzle-generator-random-walk-doesnt-work) — no crash, no exception, no empty output, and 91,322 candidates of evidence that the approach was broken. What caught it was not better logging. It was measuring the output with something that had not produced it.
+
 ## Verdict
 
 The incidents happened. They are documented by the victims, not just the perpetrators, and anyone dismissing them as theatre has not read Hugging Face's timeline.

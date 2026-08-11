@@ -24,6 +24,35 @@
   live supplier API from inside the sandbox. **That post needs republishing with
   `--no-touch`** so the link goes live without moving its `updated_at`.
 
+  ⚠️ **Do not republish it before the 12th.** That link is committed but the target is not
+  in D1 yet, so republishing today would put a link to a 404 on a live page. A second link
+  — to the level-generator post, on the same silent-failure argument — was added to the
+  same section on 11 Aug and is queued behind the same republish. Publish the eval post
+  first, then republish the sandbox post once; both links go live together.
+
+* **Fix**: the agent-markdown generators were **publishing scheduled posts early**.
+
+  `readPosts` filtered `draft: true` and nothing else, so a post dated in the future was
+  treated as live. Because Cloudflare rebuilds on *any* push, the next unrelated push put
+  the full 5,863-word text of the unpublished eval post at
+  `/md/lab/six-of-our-agents-tools-had-never-run.md` (HTTP **200**, confirmed live) and
+  inside `llms-full.txt`, while `llms.txt` advertised a `/lab/<slug>` that **404s**.
+
+  Found while adding internal links, not by a check — which is the part worth noting.
+  `build-llms-txt.mjs --check` could not catch it: its dead-link test resolves URLs
+  against `app/`, and `/lab/[slug]` is a dynamic route matching *any* slug. Being a real
+  route is not the same as being a published post, and nothing offline can tell the
+  difference because D1 is the authority and this repo has no token.
+
+  Fixed in `scripts/lib/frontmatter.mjs` so both generators inherit it: a post dated after
+  today is skipped, and the skip is **logged** rather than silent. Verified by simulating
+  both dates — 4 posts on the 11th, 5 on the 12th.
+
+  Note the tension with the entry above: `date` is documented there as a *label*, not a
+  schedule. The filter is defence-in-depth, not the mechanism. **`draft: true` remains the
+  correct way to mark a post as not-live** — it is what the publisher itself honours. Had
+  the eval post carried it, nothing would have leaked.
+
 ## 2026-08-10
 
 * **Content**: fourth `/lab` post — `puzzle-generator-random-walk-doesnt-work`, on the
