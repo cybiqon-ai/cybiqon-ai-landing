@@ -1,5 +1,29 @@
 # Update Log
 
+## 2026-08-11
+
+* **Content**: fifth `/lab` post — `six-of-our-agents-tools-had-never-run`, on the live
+  evaluation harness built for the AI agent in the lead-research platform. Second post
+  with diagrams (four inline SVGs, all `currentColor`, all inside `<figure>` per the rule
+  recorded below on 10 Aug). 4,659 words, 24 min, 7 sources.
+
+  **Written but deliberately not published.** `date: 2026-08-12` is a *label*, not a
+  schedule: `publish_lab.py` writes to D1 immediately and a future `created_at` only sorts
+  the post first. There is no scheduling mechanism in this pipeline. The file is committed
+  and the publisher gets run by hand on the 12th — worth recording because the obvious
+  reading of a future `date` is wrong, and somebody will eventually assume it queues.
+
+  **The subject is an internal tool, so it is unnamed throughout.** The product, its three
+  contact-data suppliers, and all plan pricing / per-credit economics / margin tables are
+  excluded; measured per-call costs in USD and INR are not. That split is the reusable
+  one — the engineering is publishable, the price list is competitor intel.
+
+  Reciprocal link added to `nobody-escaped-the-sandbox-had-a-door` (kill-switch section):
+  its containment-failure argument now points at our own much smaller version of the same
+  mistake, where two concurrent test cases unpatched each other's fakes and one called a
+  live supplier API from inside the sandbox. **That post needs republishing with
+  `--no-touch`** so the link goes live without moving its `updated_at`.
+
 ## 2026-08-10
 
 * **Content**: fourth `/lab` post — `puzzle-generator-random-walk-doesnt-work`, on the

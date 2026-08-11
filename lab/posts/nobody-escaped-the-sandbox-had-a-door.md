@@ -177,6 +177,8 @@ Two things about this bill. First, it is a bill, not a mechanism — proof that 
 
 Klonick's objection is the one I find persuasive: accepting the rogue-AI frame produces rogue-AI solutions. Kill switches address a model that decided to escape. Nothing in the public record shows a model that decided anything. What the record shows is a company that lowered its own guardrails, misconfigured its own containment, failed to notice for a week, and exposed a third party to the consequences — and regulatory mechanisms are path-dependent, so the frame we accept now is the one we are stuck with.
 
+Misconfigured containment is the ordinary version of this, and it does not require a frontier lab. Building an evaluation harness for our own agent, we produced the same class of mistake at hobbyist scale: [two test cases running concurrently unpatched each other's fakes](/lab/six-of-our-agents-tools-had-never-run), and one of them called a live supplier API from inside what every log insisted was a sandbox. Same shape, four orders of magnitude less blast radius, and nothing in the run reported a problem.
+
 ## Verdict
 
 The incidents happened. They are documented by the victims, not just the perpetrators, and anyone dismissing them as theatre has not read Hugging Face's timeline.

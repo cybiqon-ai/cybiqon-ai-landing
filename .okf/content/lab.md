@@ -3,7 +3,7 @@ type: Domain
 title: Lab
 description: The second blog at /lab — hand-written engineering notes sharing a D1 table with the automated MSME blog, separated by a section column, its own chrome, and the only palette departure on the site.
 tags: [lab, blog, d1, content, design, edge, seo, aeo]
-timestamp: 2026-08-10T00:00:00Z
+timestamp: 2026-08-11T00:00:00Z
 ---
 
 # Overview
@@ -12,10 +12,11 @@ timestamp: 2026-08-10T00:00:00Z
 being built, what broke, and what the numbers said. `/blog` is the automated MSME SEO
 channel — see [Blog](blog.md). They share one D1 table and nothing else.
 
-Created 1 Aug 2026. **Four posts**: two migrated from `itspyguru.github.io` on day one;
+Created 1 Aug 2026. **Five posts**: two migrated from `itspyguru.github.io` on day one;
 `nobody-escaped-the-sandbox-had-a-door` written here and committed 6 Aug 2026 (commit
 `cc37929`, whose subject line belongs to a different change — the commit touches only that
-post); and `puzzle-generator-random-walk-doesnt-work` on 10 Aug 2026.
+post); `puzzle-generator-random-walk-doesnt-work` on 10 Aug 2026; and
+`six-of-our-agents-tools-had-never-run` on 11 Aug 2026, dated forward to the 12th.
 
 The fourth post is the first that is **not** AI commentary — it documents the level
 generator in `products/lumina` (its own bundle) — and the first to use **inline SVG** in a
