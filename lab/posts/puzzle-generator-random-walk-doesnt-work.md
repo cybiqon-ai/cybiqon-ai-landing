@@ -270,6 +270,14 @@ Seeding the queue with every goal at distance zero makes `depth` the distance to
 
 Under-band rejections fell from **15,811 to 15**. Candidate efficiency went from 14 levels out of 16,249 to **21 out of 1,087**, and the 6×6 `planning` bucket went from **62 seconds to 4.3 seconds**.
 
+If you would rather read code than prose, all three approaches are in
+[a small standalone repository](https://github.com/cybiqon-ai/procedural-puzzle-generation)
+with a benchmark that re-solves every candidate and prints what each strategy actually
+produced. It is a clean-room rewrite in Python on a simpler board, so the percentages are
+its own rather than Lumina's — but the failure modes reproduce exactly, including one I
+had not appreciated until it was isolated: on that model, single-source BFS returns an
+*already solved* board more than half the time.
+
 **Phase B3** samples round-robin across the depth bands rather than taking the pool in discovery order, and the reason is a bug worth stating:
 
 > Shallow depths are found first and are far more populous, so a plain first-N-states pool comes out entirely at minOptimal — the first run of this code produced six "8 to 12 move" levels that were all exactly 8.

@@ -1,5 +1,17 @@
 # Update Log
 
+## 2026-08-12
+
+* **Content**: the level-generator article now links to
+  [github.com/cybiqon-ai/procedural-puzzle-generation](https://github.com/cybiqon-ai/procedural-puzzle-generation),
+  a clean-room Python demo of its three strategies. Republished `--no-touch`.
+
+  The demo surfaced something the article did not: on a simpler board model,
+  single-source BFS returns an **already solved** board more than half the time, not
+  merely an under-band one. Nine moves of rearranging blockers while the key sits on the
+  exit arrives at a different win. That is a sharper statement of the many-goals problem
+  than the article makes, and it only became visible once the approach was isolated.
+
 ## 2026-08-11
 
 * **Content**: fifth `/lab` post — `six-of-our-agents-tools-had-never-run`, on the live
