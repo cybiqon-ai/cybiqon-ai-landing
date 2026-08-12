@@ -24,6 +24,13 @@
   live supplier API from inside the sandbox. **That post needs republishing with
   `--no-touch`** so the link goes live without moving its `updated_at`.
 
+  **Published 12 Aug**, and the sandbox post republished with `--no-touch` straight after,
+  so both queued links went live against resolving targets. Its `dateModified` correctly
+  stayed at 6 Aug (the discoverability pass) rather than jumping to today — adding a
+  contextual link is not a revision, and claiming it was would be a false freshness signal.
+  A third internal link was added to the eval post itself, to the level-generator article:
+  both argue that plausible output is the expensive kind of wrong, from opposite ends.
+
   ⚠️ **Do not republish it before the 12th.** That link is committed but the target is not
   in D1 yet, so republishing today would put a link to a 404 on a live page. A second link
   — to the level-generator post, on the same silent-failure argument — was added to the
