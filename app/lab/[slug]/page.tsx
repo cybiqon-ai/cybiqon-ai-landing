@@ -85,6 +85,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
+      // site/creator are repeated from the root layout on purpose. Next replaces the
+      // whole `twitter` object rather than merging it, so declaring one here without
+      // these silently drops the handles and every shared lab post loses its attribution.
+      site: "@CybiqonAI",
+      creator: "@CybiqonAI",
       title: post.title,
       description: post.excerpt || "",
       images: post.image_url ? [post.image_url] : undefined,

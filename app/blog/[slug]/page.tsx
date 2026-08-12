@@ -41,6 +41,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
+      // Repeated from the root layout — Next replaces this object rather than merging,
+      // so omitting these drops the handles from every one of the ~91 blog posts.
+      site: "@CybiqonAI",
+      creator: "@CybiqonAI",
       title: post.title,
       description: post.excerpt || "",
       images: post.image_url ? [post.image_url] : undefined,

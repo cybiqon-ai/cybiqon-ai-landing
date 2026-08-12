@@ -74,6 +74,9 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     },
     twitter: {
       card: "summary_large_image",
+      // Repeated from the root layout — Next replaces this object rather than merging.
+      site: "@CybiqonAI",
+      creator: "@CybiqonAI",
       title: "Cybiqon Lab — engineering notes",
       description: "What we are building, what broke, and what the numbers said.",
       images: [`${siteUrl}/lab-og.png`],

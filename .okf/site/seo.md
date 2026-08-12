@@ -3,7 +3,7 @@ type: Domain
 title: SEO
 description: Structured data, sitemap, RSS and per-page metadata are all in place as of 25 Jul 2026; the blog is indexed and the remaining gap is ranking, not discovery.
 tags: [seo, metadata, json-ld, sitemap, search-console, rss, aeo, ai-crawlers]
-timestamp: 2026-08-10T00:00:00Z
+timestamp: 2026-08-12T00:00:00Z
 ---
 
 # Overview
@@ -192,6 +192,21 @@ absent, and every call site is under `/lab`: `lab_cta_click` (`{method: call | e
 linkedin}`), `lab_subscribe` (`{source}`) and `lab_share` (`{method, slug}`). Adopting the
 same helper on the audit form, the Launch-5 apply and the WhatsApp widget is still the
 open work.
+
+### F9 — every article page dropped its Twitter handles · FIXED 12 Aug 2026
+
+Found by the SEO skill on the eval post, then confirmed across the site. `app/layout.tsx`
+sets `twitter.site` and `twitter.creator` to `@CybiqonAI`, but **Next replaces a metadata
+object rather than merging it**. Every route that declared its own `twitter` block to set
+a per-page title and image therefore silently dropped both handles.
+
+Affected `/lab/[slug]`, `/lab`, and `/blog/[slug]` — so **all ~91 blog posts and all five
+lab posts**, i.e. every page anyone would actually share. The marketing pages were fine
+because they never override the block. Cards rendered correctly; they just credited
+nobody, which is invisible unless you diff the tags against a page that works.
+
+Fixed by repeating `site`/`creator` in all three blocks, each with a comment saying why
+the duplication is deliberate. **Zero Worker bytes** — metadata, not a route.
 
 # AEO audit — 10 Aug 2026
 
