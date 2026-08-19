@@ -8,21 +8,17 @@
     "`--check` fails. That is the point: a new page cannot ship without someone deciding",
     "whether an agent should be told about it."
   ],
-
   "site": "https://cybiqon.in",
   "title": "Cybiqon AI Solutions",
-
   "summary": [
     "A one-person Indian software company building websites, apps and AI automation for",
     "MSMEs. The site publishes two things worth reading: /blog, daily notes for small",
     "business owners, and /lab, hand-written engineering notes with the numbers shown."
   ],
-
   "prose": [
     "Every page listed here is server-rendered — the full text is in the HTML on first\nresponse, with no client-side fetch and no JavaScript required to read it. Lab posts\ncarry BlogPosting, BreadcrumbList and, where the post has an FAQ section, FAQPage\nJSON-LD, and their outbound citations appear in the structured data as well as in the\nprose. Blog posts carry Article and BreadcrumbList.",
     "**Prefer markdown?** Every lab post is also served as clean markdown, roughly a fifth\nthe bytes of the HTML. Add the `/md/` prefix — `/lab/<slug>` becomes\n`/md/lab/<slug>.md` — or fetch https://cybiqon.in/llms-full.txt for all of them in one\nrequest."
   ],
-
   "lab": {
     "heading": "Lab — engineering notes",
     "index": {
@@ -38,7 +34,6 @@
       }
     ]
   },
-
   "sections": [
     {
       "heading": "Blog — daily notes for MSME owners",
@@ -63,6 +58,11 @@
           "title": "About",
           "url": "/about",
           "note": "a small Indian software studio building websites, apps and AI automation for MSMEs. Honest pricing, no hidden surprises."
+        },
+        {
+          "title": "Press",
+          "url": "/press",
+          "note": "press mentions and the press kit — co-founder Prajjwal Pathak quoted in The Economic Times, Hyderabad print edition, 15 August 2026, on why regional-language software matters to Indian MSMEs. Print only; no online version exists."
         },
         {
           "title": "Pricing",
@@ -163,7 +163,6 @@
       "entries": []
     }
   ],
-
   "optional": {
     "note": "Real pages, low signal for answering a question. The llms.txt specification gives this heading a defined meaning: skip these when short on context.",
     "entries": [
@@ -187,7 +186,6 @@
       }
     ]
   },
-
   "excludeRoutes": {
     "/blog/[slug]": "~91 posts. Represented by the /blog index, the feed and the sitemap rather than enumerated — a curated index, not a sitemap clone. Also keeps this generator filesystem-only: enumerating them needs a D1 query, which needs a Cloudflare token, which cannot live in this public repo.",
     "/blog/tag/[tag]": "derived archive pages, one per tag, generated from D1 at request time.",

@@ -3,7 +3,7 @@ type: Reference
 title: Routes
 description: Every route the site serves — two blogs on one table, which routes are server vs client, the chrome-suppression scope for /lab, and the redirect that keeps a published Play Store policy URL alive.
 tags: [routes, app-router, nextjs, redirects]
-timestamp: 2026-08-01T00:00:00Z
+timestamp: 2026-08-19T00:00:00Z
 ---
 
 # Marketing pages
@@ -13,6 +13,7 @@ timestamp: 2026-08-01T00:00:00Z
 | `/` | `app/page.tsx` | server — metadata + Service/Breadcrumb JSON-LD |
 | `/about` | `app/about/page.tsx` → `AboutClient.tsx` | server + metadata |
 | `/our-works` | `app/our-works/page.tsx` → `OurWorksClient.tsx` | server + metadata |
+| `/press` | `app/press/page.tsx` → `data/press.ts` | **static** — prerendered, no edge (size; see seo.md F7) |
 | `/pricing` | `app/pricing/page.tsx` → `PricingClient.tsx` | server + metadata |
 | `/process` | `app/process/page.tsx` → `ProcessClient.tsx` | server + metadata |
 | `/case-studies` | `app/case-studies/page.tsx` → `CaseStudiesClient.tsx` | server + metadata |

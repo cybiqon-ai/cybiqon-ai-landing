@@ -26,6 +26,7 @@ const Footer = () => {
               <Link href="/case-studies" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Case Studies</Link>
               <Link href="/products" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Our Products</Link>
               <Link href="/blog" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link>
+              <Link href="/press" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Press</Link>
               {/* /lab is footer-only by necessity: Navbar.tsx is already at the count
                   that fits its breakpoint without wrapping (see the comment there —
                   /process was dropped for the same reason). The footer renders on

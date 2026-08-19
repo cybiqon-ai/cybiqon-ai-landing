@@ -691,3 +691,31 @@
 
   Served from `public/`, like `favicon.ico`; verified that other files in that directory
   reach the deployed static output and answer at the site root in production.
+
+* **2026-08-19 — /press, and an og-card generator that speaks the marketing palette.**
+  The Economic Times (Hyderabad print, 15 Aug, page 4) quoted the co-founder on
+  vernacular AI for MSMEs. `/press` is the durable, linkable proof.
+
+  Built as a press *kit*, not a mentions list: with one clipping a list looks thin, a kit
+  is complete. Hero is the quote at display size — a logo wall with one logo is the
+  canonical sad pattern, and `data/press.ts` has **no `logo` field** so nobody can build
+  one later. Same instinct as `SLOTS_TAKEN = 0`: the types refuse rather than a comment
+  asking nicely. `verification` is required, and its union forbids `url` on a print
+  mention, so "print — and here's a link" cannot be half-typed into existence.
+
+  **Static, and measured rather than assumed.** Worker went 2,972,674 → 2,973,028 bytes
+  gzipped: **+354 bytes**, with `/press` emitted as `press.html` and no worker chunk.
+  Headroom is now ~169 KiB of 3 MiB — note that is 13 KiB tighter than seo.md F7's 6 Aug
+  figure, and only 354 bytes of that is this change. **The other ~13 KiB drifted in
+  unnoticed between 6 and 19 Aug**, which is the more useful finding: nothing measures
+  this per-change, so the ceiling is approached blind.
+
+  Print-only mentions *can* carry structured data — schema.org has `printEdition` and
+  `printPage` for exactly this — so the page emits `Quotation` + `NewsArticle` with no
+  invented `url` or `image`. Footer-only link; `Navbar.tsx` is at its breakpoint limit.
+
+  `og_card.py` (in social-media-manager) gained a `Theme` dataclass so the card could use
+  the Warm Trust palette instead of the dark Lab one — a Lab-styled card would read as a
+  different company at share size. `LAB` stays the default and **regenerated output is
+  byte-identical**, verified by hash before the change shipped. That unblocks the nine
+  marketing pages seo.md F4 lists as having no `og:image`.
