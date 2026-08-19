@@ -26,8 +26,10 @@ const siteUrl = "https://cybiqon.in";
 export const metadata: Metadata = {
   // Brand omitted — the layout template appends "| Cybiqon AI Solutions".
   title: "Press",
+  // Kept under 155 so Google does not truncate it. The long version lived here until
+  // the 19 Aug SEO pass measured it at 187.
   description:
-    "Cybiqon AI Solutions in the press. Co-founder Prajjwal Pathak quoted in The Economic Times on why regional-language software matters to Indian MSMEs. Print only; no online version exists.",
+    "Cybiqon AI Solutions in the press. Co-founder Prajjwal Pathak, quoted in The Economic Times on regional-language software for Indian MSMEs.",
   alternates: { canonical: "/press" },
   openGraph: {
     type: "website",
@@ -144,7 +146,7 @@ export default function PressPage() {
               <span className="mx-2 text-border">·</span>
               {v.edition} print edition
               <span className="mx-2 text-border">·</span>
-              {formatDate(v.publishedOn)}
+              <time dateTime={v.publishedOn}>{formatDate(v.publishedOn)}</time>
               <span className="mx-2 text-border">·</span>
               {v.page}
             </>
