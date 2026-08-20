@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Newspaper } from "lucide-react";
 
 import { MENTIONS, PRESS_KIT } from "@/data/press";
 
 // No `runtime = "edge"`, no D1, no searchParams/cookies/headers: this prerenders as
 // static. That is a size decision, not a style one — every React route compiled for the
 // edge costs ~440 KiB gzipped in the Worker, and `.okf/site/seo.md` F7 measured only
-// ~182 KiB of headroom against Cloudflare's 3 MiB ceiling, which is enforced at upload
+// ~169 KiB of headroom against Cloudflare's 3 MiB ceiling, which is enforced at upload
 // rather than at build. A dynamic /press would deploy fine locally and fail on push.
 
 const siteUrl = "https://cybiqon.in";
@@ -16,12 +17,20 @@ const siteUrl = "https://cybiqon.in";
  *
  * Built as a press *kit*, not a mentions list. With one clipping a list looks thin,
  * while a kit is complete: it answers who to contact and what he can speak to, which is
- * what a journalist arrives wanting. The hero is the quote at display size rather than
- * a logo wall — a logo wall with one logo is the canonical sad pattern, and `data/press.ts`
- * has no `logo` field precisely so nobody builds one later.
+ * what a journalist arrives wanting. `data/press.ts` has no `logo` field precisely so
+ * nobody builds a one-logo wall here later.
  *
- * The clipping caption naming the absence of an online version is the most valuable
- * sentence here: it converts a missing URL from a weakness into a checkable statement.
+ * **Rebuilt 20 Aug 2026.** The first version set the full 66-word quote at
+ * `text-2xl md:text-4xl` — nine lines of display type at desktop, nineteen on a phone —
+ * hid the h1 with `sr-only`, and used a container (`max-w-4xl`) that appears nowhere
+ * else on the site. It also started at `py-16`, which put the first line under the 73px
+ * fixed navbar on mobile. This version follows the marketing conventions in
+ * `.okf/site/design-system.md` instead of inventing its own: pill eyebrow, the house
+ * h1 string, `max-w-5xl` container, `bg-muted/30` section tint.
+ *
+ * The type scale now has a middle. The article's own headline carries it — previously it
+ * existed only inside the JSON-LD, which meant the most legible line available to this
+ * page was invisible on it.
  */
 export const metadata: Metadata = {
   // Brand omitted — the layout template appends "| Cybiqon AI Solutions".
@@ -61,8 +70,8 @@ export const metadata: Metadata = {
   },
 };
 
-const READOUT =
-  "text-[11px] font-semibold uppercase tracking-[0.14em] text-primary tabular-nums";
+/** The house container. 69 uses across the marketing pages. */
+const CONTAINER = "mx-auto max-w-5xl px-6 md:px-10 lg:px-16";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-IN", {
@@ -76,6 +85,16 @@ function formatDate(iso: string): string {
 export default function PressPage() {
   const mention = MENTIONS[0];
   const v = mention.verification;
+
+  // Built as an array rather than inline JSX: the previous version interleaved text
+  // nodes with <span> separators, and JSX strips the newline whitespace between them,
+  // so it rendered "Press·The Economic Times" with no space characters at all.
+  const provenance = [
+    mention.publication,
+    ...(v.medium === "print"
+      ? [`${v.edition} print edition`, formatDate(v.publishedOn), v.page]
+      : [formatDate(v.publishedOn)]),
+  ];
 
   const breadcrumb = {
     "@context": "https://schema.org",
@@ -132,80 +151,147 @@ export default function PressPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(quotation) }}
       />
 
-      <section className="container mx-auto px-4 py-16 md:py-24 max-w-4xl">
-        <h1 className="sr-only">Press</h1>
-
-        {/* One datum styled as an instrument reading, rather than one item stranded in
-            an empty grid. */}
-        <p className={READOUT}>
-          Press
-          <span className="mx-2 text-border">·</span>
-          {mention.publication}
-          {v.medium === "print" && (
-            <>
-              <span className="mx-2 text-border">·</span>
-              {v.edition} print edition
-              <span className="mx-2 text-border">·</span>
-              <time dateTime={v.publishedOn}>{formatDate(v.publishedOn)}</time>
-              <span className="mx-2 text-border">·</span>
-              {v.page}
-            </>
-          )}
-        </p>
-
-        <blockquote className="mt-8">
-          <p className="text-2xl md:text-4xl font-bold leading-[1.18] tracking-tight text-foreground">
-            &ldquo;{mention.quote}&rdquo;
+      {/* pt-24 md:pt-28 is the site-wide clearance for the 73px fixed navbar. */}
+      <section className="pt-24 pb-8 md:pt-28 md:pb-10">
+        <div className={CONTAINER}>
+          <p className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/15 rounded-full text-[11px] font-medium text-primary mb-4">
+            <Newspaper className="w-3 h-3" />
+            In the press
           </p>
-          <cite className="mt-6 block not-italic text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">
-              {mention.attribution.name}
-            </span>
-            , {mention.attribution.role} &mdash; quoted by {mention.journalist} in{" "}
-            {mention.publication}, {formatDate(v.publishedOn)}
-          </cite>
-        </blockquote>
-
-        <p className="mt-10 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
-          {mention.context}
-        </p>
-
-        <figure className="mt-12">
-          {/* Plain <img>, not next/image: next.config.mjs installs a passthrough custom
-              loader, so next/image buys no optimisation here and would add a client
-              runtime chunk to a page whose whole point is being static and cheap. The
-              rest of the site (Navbar, Footer) uses <img> for the same reason.
-              width/height are the intrinsic pixels, so the space is reserved and the
-              clipping cannot shift the page as it loads. */}
-          {v.medium === "print" && (
-            <>
-              <img
-                src={v.clippingUrl}
-                alt={v.clippingAlt}
-                width={v.clippingWidth}
-                height={v.clippingHeight}
-                loading="lazy"
-                decoding="async"
-                className="w-full max-w-2xl mx-auto rounded-lg border border-border shadow-sm"
-              />
-              <figcaption className="mt-4 text-center text-xs text-muted-foreground max-w-2xl mx-auto">
-                Photographed from the print edition. There is no online version of this
-                piece. {mention.publication}, {v.edition} &mdash; {mention.journalist},{" "}
-                {formatDate(v.publishedOn)}, {v.page}. Reproduced in part for reference;
-                copyright remains with {mention.publisher}.
-              </figcaption>
-            </>
-          )}
-        </figure>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.15] tracking-tight mb-3">
+            Cybiqon in the <span className="text-primary">press</span>
+          </h1>
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg">
+            One mention so far. It is in print only, so the clipping is the record — the
+            full page is here too, for anyone who wants to check it.
+          </p>
+        </div>
       </section>
 
-      <section className="border-t border-border bg-muted/40">
-        <div className="container mx-auto px-4 py-16 max-w-4xl">
-          <h2 className={READOUT}>For journalists</h2>
+      <section className="py-12 md:py-14 bg-muted/30">
+        {/* One left edge for everything in this section, images included. The previous
+            version mixed flush-left text with a centred figure 96px to its right. */}
+        <div className={CONTAINER}>
+          <div className="max-w-3xl">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
+              {provenance.map((part, i) => (
+                <span key={part}>
+                  {i > 0 && <span className="mx-2 text-border">·</span>}
+                  {i === 1 && v.medium === "print" ? (
+                    <time dateTime={v.publishedOn}>{part}</time>
+                  ) : (
+                    part
+                  )}
+                </span>
+              ))}
+            </p>
 
-          <dl className="mt-8 divide-y divide-border">
-            <div className="grid gap-2 py-5 md:grid-cols-[200px_1fr]">
-              <dt className="text-sm font-semibold text-foreground">Who to contact</dt>
+            {/* The journalist's headline, not ours — labelled as such. This is also the
+                page's only intermediate type size; without it the scale jumps 11px to
+                display with nothing between. */}
+            <h2 className="mt-4 text-xl md:text-2xl font-extrabold tracking-tight">
+              {mention.headline}
+            </h2>
+            <p className="mt-1.5 text-xs text-muted-foreground">
+              {mention.subject} &mdash; reported by {mention.journalist}
+            </p>
+
+            <figure className="mt-8">
+              {/* Display size is reserved for the one sentence that survives being
+                  lifted out. data/press.ts asserts it is a verbatim substring. */}
+              <blockquote className="border-l-2 border-primary pl-4 md:pl-5">
+                <p className="text-xl md:text-2xl font-semibold leading-snug tracking-tight text-foreground">
+                  &ldquo;{mention.pullQuote}&rdquo;
+                </p>
+              </blockquote>
+
+              <p className="mt-5 text-base text-muted-foreground leading-relaxed">
+                The full quote, as printed: &ldquo;{mention.quote}&rdquo;
+              </p>
+
+              <figcaption className="mt-5">
+                <p className="font-bold text-sm text-foreground">
+                  {mention.attribution.name}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {mention.attribution.role}
+                </p>
+              </figcaption>
+            </figure>
+
+            <p className="mt-8 text-sm md:text-base text-muted-foreground leading-relaxed">
+              {mention.context}
+            </p>
+          </div>
+
+          {v.medium === "print" && (
+            <div className="max-w-3xl mt-10 space-y-10">
+              {/* Plain <img>, not next/image: next.config.mjs installs a passthrough
+                  custom loader, so next/image buys no optimisation here and would add a
+                  client runtime chunk to a page whose whole point is being static and
+                  cheap. width/height are intrinsic, so the space is reserved and neither
+                  image can shift the page as it loads.
+
+                  bg-white on the frame is deliberate: the newsprint is pure white and so
+                  is the page, so without an explicit surface the clipping dissolves into
+                  the background with only a hairline border holding it. */}
+              <figure>
+                <img
+                  src={v.clippingUrl}
+                  alt={v.clippingAlt}
+                  width={v.clippingWidth}
+                  height={v.clippingHeight}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full max-w-[420px] rounded-xl border border-border bg-white"
+                />
+                <figcaption className="mt-3 max-w-[420px] text-xs text-muted-foreground leading-relaxed">
+                  The passage as printed. There is no online version of this piece, so
+                  this is the only copy there is.
+                </figcaption>
+              </figure>
+
+              {/* Wide, because it has to be. Its body copy is ~0.0074 of displayed
+                  width — unreadable at any width a layout can offer — so this is
+                  provenance, not reading matter, and the caption says so rather than
+                  pretending otherwise. */}
+              <figure>
+                <img
+                  src={v.fullPageUrl}
+                  alt={v.fullPageAlt}
+                  width={v.fullPageWidth}
+                  height={v.fullPageHeight}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-xl border border-border bg-white"
+                />
+                <figcaption className="mt-3 text-xs text-muted-foreground leading-relaxed">
+                  {/* Composed in JS, not interpolated mid-sentence: JSX dropped the
+                      space after this expression and shipped "page 4as it ran". */}
+                  {`The upper portion of ${v.page.toLowerCase()} as it ran`} &mdash; an
+                  Independence Day Special. The body text is not meant to be readable at
+                  this size; it is here to show where the quote sat. Copyright remains
+                  with {mention.publisher}.
+                </figcaption>
+              </figure>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="py-12 md:py-14">
+        <div className={CONTAINER}>
+          <h2 className="text-xl md:text-2xl font-extrabold tracking-tight mb-2">
+            For journalists
+          </h2>
+          <p className="text-xs text-muted-foreground mb-6">
+            Everything here is checkable. Nothing on this page is anything a reader
+            cannot verify.
+          </p>
+
+          <dl className="max-w-3xl divide-y divide-border border-t border-border">
+            <div className="grid gap-1 py-5 md:grid-cols-[140px_1fr] md:gap-x-6">
+              <dt className="text-sm font-semibold text-foreground">Contact</dt>
               <dd className="text-sm text-muted-foreground">
                 {PRESS_KIT.founder} &mdash; {PRESS_KIT.founderRole}
                 <br />
@@ -218,17 +304,20 @@ export default function PressPage() {
               </dd>
             </div>
 
-            <div className="grid gap-2 py-5 md:grid-cols-[200px_1fr]">
+            <div className="grid gap-1 py-5 md:grid-cols-[140px_1fr] md:gap-x-6">
               <dt className="text-sm font-semibold text-foreground">Short bio</dt>
-              <dd className="text-sm text-muted-foreground leading-relaxed">
+              <dd className="text-sm text-muted-foreground leading-relaxed max-w-prose">
                 {PRESS_KIT.founderBio}
               </dd>
             </div>
 
-            <div className="grid gap-2 py-5 md:grid-cols-[200px_1fr]">
+            <div className="grid gap-1 py-5 md:grid-cols-[140px_1fr] md:gap-x-6">
               <dt className="text-sm font-semibold text-foreground">Can speak to</dt>
-              <dd className="text-sm text-muted-foreground">
-                <ul className="space-y-1.5">
+              {/* Real markers. Tailwind preflight strips list-style, so the previous
+                  unmarked, unpunctuated version read as a paragraph that had lost its
+                  line breaks — and on mobile as one undifferentiated grey block. */}
+              <dd>
+                <ul className="list-disc pl-5 marker:text-primary space-y-2 text-sm text-muted-foreground leading-relaxed max-w-prose">
                   {PRESS_KIT.speaksTo.map((topic) => (
                     <li key={topic}>{topic}</li>
                   ))}
@@ -236,20 +325,40 @@ export default function PressPage() {
               </dd>
             </div>
 
-            <div className="grid gap-2 py-5 md:grid-cols-[200px_1fr]">
-              <dt className="text-sm font-semibold text-foreground">More</dt>
+            <div className="grid gap-1 py-5 md:grid-cols-[140px_1fr] md:gap-x-6">
+              <dt className="text-sm font-semibold text-foreground">Assets</dt>
               <dd className="text-sm text-muted-foreground">
-                <Link href={PRESS_KIT.authorPage} className="text-primary hover:underline">
-                  Who writes the Lab
-                </Link>
-                <span className="mx-2 text-border">·</span>
-                <Link href="/about" className="text-primary hover:underline">
-                  About Cybiqon
-                </Link>
-                <span className="mx-2 text-border">·</span>
-                <a href="/logo.png" className="text-primary hover:underline">
-                  Logo
-                </a>
+                <ul className="space-y-1.5">
+                  <li>
+                    <a
+                      href="/logo.png"
+                      download
+                      className="text-primary hover:underline"
+                    >
+                      Logo
+                    </a>{" "}
+                    &mdash; PNG, 1200&times;630
+                  </li>
+                  <li>
+                    <a
+                      href={v.medium === "print" ? v.clippingUrl : "/press"}
+                      download
+                      className="text-primary hover:underline"
+                    >
+                      Clipping
+                    </a>{" "}
+                    &mdash; JPEG. Credit {mention.publication}, {mention.journalist}.
+                  </li>
+                  <li>
+                    <Link
+                      href={PRESS_KIT.authorPage}
+                      className="text-primary hover:underline"
+                    >
+                      Author page
+                    </Link>{" "}
+                    &mdash; background and what this is held to
+                  </li>
+                </ul>
               </dd>
             </div>
           </dl>

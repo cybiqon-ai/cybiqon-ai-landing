@@ -719,3 +719,45 @@
   different company at share size. `LAB` stays the default and **regenerated output is
   byte-identical**, verified by hash before the change shipped. That unblocks the nine
   marketing pages seo.md F4 lists as having no `og:image`.
+
+* **2026-08-20 — /press rebuilt, because the first version was designed against nothing.**
+  The founder's verdict was "very bad in ui, the heading is too big". The heading was the
+  visible symptom; the cause was that the page invented its own conventions instead of
+  using the ones in `design-system.md`.
+
+  What was actually wrong: the full 66-word quote set at `text-2xl md:text-4xl` — **nine
+  lines of display type at desktop, nineteen on a phone** — with `leading-[1.18]`,
+  headline leading applied to a paragraph, so it rendered as a grey slab. The `h1` was
+  `sr-only`, so the page had **no visible title and nothing at all between 11px and
+  36px**. Three different left edges in one column (the figure centred, the paragraph
+  above it flush left, 96px apart). `max-w-4xl`, used nowhere else on the site.
+  `bg-muted/40`, which over white is a **1.2% luminance step** — invisible, so the
+  two-part structure collapsed.
+
+  And two real bugs: `py-16` put the first line **under the 73px fixed navbar on
+  mobile** (every other page uses `pt-24 md:pt-28`), and an empty `<figure>` rendered
+  unconditionally because the `medium === "print"` guard sat inside it.
+
+  Now: pill eyebrow, the house `h1` string, `max-w-5xl` container, `bg-muted/30`, one
+  left edge. Display size is spent on the **one sentence that survives being lifted
+  out** — "It is not a lack of interest; it is a lack of relevance." — with the full
+  quote under it at body size. `data/press.ts` asserts at module load that `pullQuote`
+  is a verbatim substring of `quote`, so a drifting display line fails the build; a
+  substring relation is not expressible in the type system, which is why it is a check
+  and not a comment.
+
+  **The article's own headline is now on the page.** It previously existed only inside
+  the JSON-LD — the most legible line available to the page was invisible on it, and it
+  is exactly the intermediate size the scale was missing.
+
+  Both images now show, sized to what they can actually do. The crop is capped at
+  **420px** because its newsprint is ~0.035 of displayed width — at the old 672px the
+  newspaper's body copy rendered at 23px, **larger than this site's own prose**. The full
+  page runs full width because its body copy is ~0.0074 of width and is unreadable at any
+  size a layout can give it; it is provenance, and the caption says so rather than
+  pretending. The crop was also re-cut — the old one **sheared the top line mid-glyph**.
+
+  One more JSX whitespace bug found and fixed on the way: an interpolation adjacent to
+  text shipped "page 4as it ran". The caption phrase is now composed in JS.
+
+  Worker moved +34 bytes. Layout-only, as expected.
