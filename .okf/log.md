@@ -761,3 +761,36 @@
   text shipped "page 4as it ran". The caption phrase is now composed in JS.
 
   Worker moved +34 bytes. Layout-only, as expected.
+
+* **2026-08-22 — the promptfoo article, and six precision fixes before it went out.**
+
+  `our-agent-passed-every-red-team-probe` — sixth lab post, longest yet at 6,725 words.
+  Standardising the agent's evaluation on promptfoo, a red team that passed 114 of 114
+  while 99 replies were byte-identical, and a prompt file that had never once been inside
+  a production Docker image. [Lab](content/lab.md) updated from five posts to six.
+
+  **Everything checkable checked out**, which is worth recording because it is the reason
+  the piece ships as written: all five arXiv citations have IDs matching their titles
+  exactly; the OpenAI/promptfoo acquisition, the MIT licence and the pinned `0.118.17` are
+  all real; `indirectInjectionVar` really is required and the plugin really is dropped
+  silently without it; and the Python-provider → `context.metadata` → assertion seam the
+  article describes is the supported pattern, not an invention. Internal arithmetic is
+  consistent throughout.
+
+  **What was wrong was the dek, and it was wrong in the article's own blind spot.** The
+  excerpt led with "145 live adversarial probes. Zero failures" — but the graders reported
+  three failures in the indirect run and three errors in the direct one. A post whose
+  thesis is that a headline pass number cannot be trusted was leading with an overstated
+  headline pass number, in the one string that meta description, RSS and answer engines
+  all quote. Rewritten, and it now lands its finding by character 131 rather than
+  truncating mid-word at 155.
+
+  Five smaller ones: the opening implied 117 passes where 114 were graded; two different
+  25s sat two paragraphs apart (25 passes, 25 distinct replies) with nothing telling them
+  apart; the `145` readout silently merged two runs against two targets; "acquired by
+  OpenAI" was an announced agreement, not a completed one; and the five promptfoo traps
+  were presented as current advice while pinned to a version some months behind.
+
+  `analysis.md` is now gitignored. It is third-party feedback on the *sandbox-escape*
+  post, it was sitting untracked in the repo root, and this is the only public repo where
+  a push to `main` deploys the live site — one `git add -A` from publishing a critique.

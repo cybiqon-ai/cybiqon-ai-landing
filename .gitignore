@@ -56,3 +56,8 @@ dist-ssr
 # be appended by hand four days after publication, and /blog was never listed at all.
 # Edit data/llms.config.json, not this output.
 /public/llms.txt
+
+# Third-party editorial feedback on lab posts, kept on disk and out of the repo.
+# This repo is public and a push to main deploys the live site, so an internal
+# critique must never be one `git add -A` away from publication.
+/analysis.md
