@@ -83,6 +83,7 @@ export interface Product {
 
 import { llmbytesPrivacy, llmbytesTerms } from "./legal/llmbytes";
 import { luminaPrivacy, luminaTerms } from "./legal/lumina";
+import { orbitonePrivacy, orbitoneTerms } from "./legal/orbitone";
 import { meflowPrivacy, meflowTerms } from "./legal/meflow";
 import { vitaloopPrivacy, vitaloopTerms } from "./legal/vitaloop";
 
@@ -273,6 +274,54 @@ export const PRODUCTS: Product[] = [
     ],
     privacy: luminaPrivacy,
     terms: luminaTerms,
+  },
+  {
+    slug: "orbitone",
+    category: "app",
+    name: "Orbitone",
+    tagline: "Eight arcade games, one thumb",
+    summary:
+      "A dot travels round a loop and a tap reverses it \u2014 and then, a hundred levels in, the game changes, and keeps changing seven more times. Eight different verbs across 500 levels, every one of them generated from its number and then played thousands of times by a bot before it ships.",
+    packageId: "com.cybiqon.orbitone",
+    status: "building",
+    playUrl: null,
+    platform: "Android",
+    why:
+      "Endless runners get harder; they do not get different. Orbitone's answer is to change the verb rather than the speed \u2014 eight games sharing one thumb, one shape language and one melody, so that reaching level 300 means having learned six things rather than having got faster at one.",
+    features: [
+      {
+        title: "Eight verbs, not eight skins",
+        description:
+          "Orbit, Ascent, Corridor, Lattice, Lane, Radial, Drag and Rhythm. Each has its own rule, its own input and its own way to lose.",
+      },
+      {
+        title: "Every level is played before it ships",
+        description:
+          "No hand-placed levels and no difficulty guesswork. Each of the 500 is generated from its number, then played thousands of times by bots built on a human model \u2014 reaction delay, an unsteady thumb, dropped inputs \u2014 and re-tuned until it sits where the curve says it should.",
+      },
+      {
+        title: "Twelve shapes, and five ways to bend them",
+        description:
+          "The loop becomes an ellipse, a star, a gear, a wave, a rose. Then it turns while you are on it, breathes, drifts, and finally morphs into something else underneath you.",
+      },
+      {
+        title: "It notices when you are stuck",
+        description:
+          "Die enough times on one level and the game quietly offers a shorter version of it. Take it or leave it \u2014 an eased clear cannot earn three stars.",
+      },
+      {
+        title: "One thumb, portrait, no buttons",
+        description:
+          "Nothing needs two hands and nothing needs a fast one. Every verb asks when, not how fast.",
+      },
+      {
+        title: "Plays offline",
+        description:
+          "No account, no sign-in, nothing to sync. Every level is generated on the device, and nothing you do is uploaded anywhere.",
+      },
+    ],
+    privacy: orbitonePrivacy,
+    terms: orbitoneTerms,
   },
 ];
 

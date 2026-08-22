@@ -129,6 +129,11 @@
           "title": "Lumina: The Lightkeeper's Path",
           "url": "/products/lumina",
           "note": "a cozy sliding-block puzzle game for Android, 150 levels across five worlds. Flutter + Flame, with a pure-Dart engine — see the lab post on its level generator."
+        },
+        {
+          "title": "Orbitone",
+          "url": "/products/orbitone",
+          "note": "a one-thumb arcade game for Android: eight different play-verbs across 500 levels, each level generated from its number and measured by headless bots before it ships. Flutter + Flame, pure-Dart engine."
         }
       ]
     },
@@ -197,6 +202,8 @@
     "/products/vitaloop/privacy": "Play Store policy URL, not content.",
     "/products/vitaloop/terms": "Play Store policy URL, not content.",
     "/products/lumina/privacy": "Play Store policy URL, not content.",
-    "/products/lumina/terms": "Play Store policy URL, not content."
+    "/products/lumina/terms": "Play Store policy URL, not content.",
+    "/products/orbitone/privacy": "Play Store policy URL, not content.",
+    "/products/orbitone/terms": "Play Store policy URL, not content."
   }
 }
