@@ -134,6 +134,11 @@
           "title": "Orbitone",
           "url": "/products/orbitone",
           "note": "a one-thumb arcade game for Android: eight different play-verbs across 500 levels, each level generated from its number and measured by headless bots before it ships. Flutter + Flame, pure-Dart engine."
+        },
+        {
+          "title": "Curvved",
+          "url": "/products/curvved",
+          "note": "a zen hex puzzle for Android: rotate pieces on a hexagonal lattice until a figure closes, then the lattice dissolves and leaves the drawing behind. Seventy figures, no timer and no score. Flutter with a Flutter-free pure-Dart engine \u2014 solver, tracer and difficulty gates all run headless."
         }
       ]
     },
@@ -204,6 +209,8 @@
     "/products/lumina/privacy": "Play Store policy URL, not content.",
     "/products/lumina/terms": "Play Store policy URL, not content.",
     "/products/orbitone/privacy": "Play Store policy URL, not content.",
-    "/products/orbitone/terms": "Play Store policy URL, not content."
+    "/products/orbitone/terms": "Play Store policy URL, not content.",
+    "/products/curvved/privacy": "Play Store policy URL, not content.",
+    "/products/curvved/terms": "Play Store policy URL, not content."
   }
 }

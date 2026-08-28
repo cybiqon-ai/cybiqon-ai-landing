@@ -84,6 +84,7 @@ export interface Product {
 import { llmbytesPrivacy, llmbytesTerms } from "./legal/llmbytes";
 import { luminaPrivacy, luminaTerms } from "./legal/lumina";
 import { orbitonePrivacy, orbitoneTerms } from "./legal/orbitone";
+import { curvvedPrivacy, curvvedTerms } from "./legal/curvved";
 import { meflowPrivacy, meflowTerms } from "./legal/meflow";
 import { vitaloopPrivacy, vitaloopTerms } from "./legal/vitaloop";
 
@@ -322,6 +323,59 @@ export const PRODUCTS: Product[] = [
     ],
     privacy: orbitonePrivacy,
     terms: orbitoneTerms,
+  },
+  {
+    slug: "curvved",
+    category: "app",
+    name: "Curvved",
+    tagline: "The answer is a picture",
+    summary:
+      "A picture broken into pieces and scattered across a lattice of hexagons. Tap a piece and it turns; when the last loose end finds its neighbour, light runs through the figure and the lattice fades away, leaving the drawing behind. Seventy figures, no timer, no score and no way to lose.",
+    packageId: "com.cybiqon.curvved",
+    status: "building",
+    playUrl: null,
+    platform: "Android",
+    why:
+      "Rotate-the-tiles puzzles already exist and already market themselves as relaxing \u2014 that is a shipped product with the store keywords taken. The one thing they do not do is end on something worth looking at: their circuits light up, but nothing becomes anything. Curvved spends its whole budget on the last three seconds, where the lattice dissolves and what is left is the drawing rather than the solved grid.",
+    features: [
+      {
+        title: "The lattice dissolves and leaves the drawing",
+        description:
+          "The board you solve is an approximation of a curve. When you finish it, the approximation fades out and the actual drawing fades in \u2014 so the last frame is line art, not a completed puzzle.",
+      },
+      {
+        title: "Seventy figures across six packs",
+        description:
+          "A wren, a fern, a koi with a gill and a lateral line, a crescent moon, a teacup, a guitar. Each pack has its own palette, drifting in hue as you move through it.",
+      },
+      {
+        title: "Every level is proven before it ships",
+        description:
+          "The game\u2019s own solver verifies that each figure has exactly one arrangement with no loose ends, so finishing it really does mean you drew the picture rather than found a picture.",
+      },
+      {
+        title: "No timer, no score, no way to lose",
+        description:
+          "Nothing counts down, nothing turns red, and there is no streak to break. Put it down mid-figure and every half-made figure is kept \u2014 not just the most recent one.",
+      },
+      {
+        title: "You can hear yourself getting closer",
+        description:
+          "Four layers of a slow ambient bed fade up as the figure fills in, and every connection is a note climbing a pentatonic scale. That is the only progress indicator in the game.",
+      },
+      {
+        title: "A gallery that keeps what you made",
+        description:
+          "Finished figures stay finished and can be reopened full-screen or exported as an image. A reveal that plays once and vanishes earns no ownership.",
+      },
+      {
+        title: "No ads, and no account",
+        description:
+          "Not fewer ads \u2014 none. Plays entirely offline, with nothing to sign in to and nothing uploaded anywhere.",
+      },
+    ],
+    privacy: curvvedPrivacy,
+    terms: curvvedTerms,
   },
 ];
 
