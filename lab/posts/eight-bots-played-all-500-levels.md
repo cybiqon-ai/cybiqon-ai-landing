@@ -54,14 +54,14 @@ This is what it took to build that instrument, the eight separate ways it turned
 
 ## Ten pygame games and one line of code
 
-The game did not start as a design. It started as a directory of 33 [pygame](https://www.pygame.org/docs/) prototypes written over several years and abandoned, and the observation that five of them were the same game.
+The game did not start as a design. It started as a directory of twenty-nine small games — mostly [pygame](https://www.pygame.org/docs/), written over several years and abandoned — and the observation that five of them were the same game.
 
-Arc Dash, Hex Dash, Rotate Dash, Qircle Rush and Connected all put a marker on a closed path and give you one button. In four of them the button does the same thing, and it is the same line of code: `dtheta *= -1` appears verbatim in `Arc Dash/main.py`, `Connected/main.py`, `Rotate Dash/main.py` and `Hex Dash/main.py`. Everything else that distinguishes those games — a hexagon instead of a circle, a cross instead of a ring, hazards that orbit instead of hazards that cross — is a parameter someone hard-coded rather than a mechanic someone designed.
+Arc Dash, Hex Dash, Rotate Dash, Qircle Rush and Connected all put a marker on a closed path and give you one button. In four of them the button does the same thing, and in three it is the same line of source: `dtheta *= -1` appears verbatim in `Arc Dash/main.py`, `Connected/main.py` and `Rotate Dash/main.py`. Hex Dash flips the same sign one line down from the same mouse-button handler and calls it `di`. Everything else that distinguishes those games — a hexagon instead of a circle, a cross instead of a ring, hazards that orbit instead of hazards that cross — is a parameter someone hard-coded rather than a mechanic someone designed.
 
 That is the whole premise. Once the path is data, a new level costs a curve and a spawn table rather than new code.
 
 <figure>
-<svg viewBox="0 0 680 236" role="img" aria-label="Five pygame prototype names — Connected, Hex Dash, Rotate Dash, Arc Dash and Qircle Rush — listed in a column on the left, with an arrow pointing right into a single box containing the unified model: a Track defined as a closed curve sampled by distance travelled, a Traveler holding a position and a direction, an Input where a tap flips the direction, and Target and Hazard bodies riding or crossing that track. A note to the right records that the direction flip appears verbatim as the same line of source in four of the five originals." style="width:100%;height:auto">
+<svg viewBox="0 0 680 236" role="img" aria-label="Five pygame prototype names — Connected, Hex Dash, Rotate Dash, Arc Dash and Qircle Rush — listed in a column on the left, with an arrow pointing right into a single box containing the unified model: a Track defined as a closed curve sampled by distance travelled, a Traveler holding a position and a direction, an Input where a tap flips the direction, and Target and Hazard bodies riding or crossing that track. A note to the right records that the direction flip appears as the identical line of source in three of the five originals, with a fourth spelling the same sign flip under a different variable name." style="width:100%;height:auto">
   <g fill="currentColor" font-family="ui-monospace, monospace" font-size="11.5" font-weight="bold">
     <text x="10" y="22">five prototypes</text>
     <text x="252" y="22">one model</text>
@@ -98,7 +98,7 @@ That is the whole premise. Once the path is data, a new level costs a curve and 
     <line x1="336" y1="116" x2="336" y2="200"/>
   </g>
   <g fill="currentColor" font-family="ui-monospace, monospace" font-size="10.5" opacity="0.8">
-    <text x="344" y="204">dtheta *= -1 — the same line, in four of the five</text>
+    <text x="344" y="204">dtheta *= -1 — the identical line in three of the five</text>
   </g>
   <g fill="currentColor" font-family="ui-monospace, monospace" font-size="10.5" opacity="0.75">
     <text x="522" y="56">everything</text>
@@ -200,7 +200,7 @@ The determinism test hashes a whole trajectory — position, score, combo and ou
 
 ## The bots are bad on purpose
 
-A perfect bot clears everything and therefore measures nothing. Each of the eight plays through an explicit human model: reaction latency, jitter on aim, a miss rate, a bounded attention span of three hazards, and perception error that scales with distance. Three named profiles — expert, median, novice — and the tuning target is median, at 0.45 s reaction and a 12% miss rate. Quarter-second reaction was tried and rejected: that is a reflex, not a perceive-decide-act loop.
+A perfect bot clears everything and therefore measures nothing. Each of the eight plays through an explicit human model: reaction latency, jitter on aim, a miss rate, a bounded attention span of three hazards, and perception error that scales with distance. Three named profiles — expert, median, novice — and levels are tuned against the median, at 0.45 s reaction and a 12% miss rate. The expert's quarter-second exists in the model but is deliberately not the target: a quarter of a second is a reflex, not a perceive-decide-act loop.
 
 This is the point where the approach diverges hardest from the one we used on the previous game, and the divergence is not a preference. Our puzzle game verifies its levels with a breadth-first solver, and [two of the three generators we wrote for it produced perfectly playable levels at the wrong difficulty without ever failing](/lab/puzzle-generator-random-walk-doesnt-work). A solver **proves**. It returns the true optimal move count, which is why that number can be used directly as the three-star threshold — get it wrong by one and the player can never earn the third star, and there is no error to grep for.
 
