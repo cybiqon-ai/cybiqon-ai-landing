@@ -236,8 +236,8 @@ export const PRODUCTS: Product[] = [
     summary:
       "Slide crystal blocks aside so a glowing Light Key can reach its lantern, and relight a fading world one puzzle at a time. 150 hand-verified levels across five worlds, a new puzzle every day, and no timers, lives or fail states \u2014 you cannot lose, only not have finished yet.",
     packageId: "com.cybiqon.lumina",
-    status: "building",
-    playUrl: null,
+    status: "live",
+    playUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.lumina",
     platform: "Android",
     why:
       "Most puzzle games on Play are built to interrupt you \u2014 energy meters, countdowns, an ad between every level. Lumina is the opposite argument: every level is solvable at your own pace, every one is proven solvable by the solver that generated it, and the reward for playing is watching a world light back up.",
@@ -284,8 +284,8 @@ export const PRODUCTS: Product[] = [
     summary:
       "A dot travels round a loop and a tap reverses it \u2014 and then, a hundred levels in, the game changes, and keeps changing seven more times. Eight different verbs across 500 levels, every one of them generated from its number and then played thousands of times by a bot before it ships.",
     packageId: "com.cybiqon.orbitone",
-    status: "building",
-    playUrl: null,
+    status: "live",
+    playUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.orbitone",
     platform: "Android",
     why:
       "Endless runners get harder; they do not get different. Orbitone's answer is to change the verb rather than the speed \u2014 eight games sharing one thumb, one shape language and one melody, so that reaching level 300 means having learned six things rather than having got faster at one.",

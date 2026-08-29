@@ -794,3 +794,25 @@
   `analysis.md` is now gitignored. It is third-party feedback on the *sandbox-escape*
   post, it was sitting untracked in the repo root, and this is the only public repo where
   a push to `main` deploys the live site — one `git add -A` from publishing a critique.
+
+* **2026-08-29 — the Orbitone write-up, and a product page that disagreed with the Play Store.**
+  Seventh lab post, `eight-bots-played-all-500-levels`, on `products/orbitone`'s
+  difficulty pipeline: 500 procedurally dealt levels, eight headless bots playing every
+  one under a human noise model, and the discovery that every number the pipeline ever
+  produced was measured at a 720-pixel width no phone has. It is the longest post in the
+  lab and the second about a game, deliberately framed against the fourth — a *solver*
+  proves a puzzle solvable; a *player model* can only estimate whether an arcade level is
+  fair.
+
+  Scoped on the way in: the post covers engineering failures only. Orbitone's two open
+  commercial items are live and unremediated, and this is the only public repo, so they
+  stay out of an indexed page rather than being written around.
+
+  Found while wiring the internal links: `data/products.ts` had Lumina as
+  `status: "building"` with `playUrl: null` while its listing has been live since 3 Aug —
+  so `/products/lumina` was telling visitors a shipped game was in development, and
+  offering no way to install it. Corrected, and every other product's status re-checked
+  against its live Play listing: LLMBytes, MeFlow, Lumina and Orbitone all resolve 200,
+  VitaLoop and Curvved correctly 404. **A `status` field nothing verifies is a claim, not
+  a state** — the same shape as the stale counts this bundle keeps finding in its own
+  concepts.
