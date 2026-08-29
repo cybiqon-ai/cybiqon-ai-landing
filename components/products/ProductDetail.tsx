@@ -127,18 +127,22 @@ export default function ProductDetail({ slug }: { slug: string }) {
           </dl>
 
           <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[13px]">
-            <Link
-              href={`/products/${app.slug}/privacy`}
-              className="text-ochre underline decoration-ochre/30 underline-offset-4 transition-colors hover:decoration-ochre"
-            >
-              Privacy policy
-            </Link>
-            <Link
-              href={`/products/${app.slug}/terms`}
-              className="text-ochre underline decoration-ochre/30 underline-offset-4 transition-colors hover:decoration-ochre"
-            >
-              Terms of service
-            </Link>
+            {app.privacy && (
+              <Link
+                href={`/products/${app.slug}/privacy`}
+                className="text-ochre underline decoration-ochre/30 underline-offset-4 transition-colors hover:decoration-ochre"
+              >
+                Privacy policy
+              </Link>
+            )}
+            {app.terms && (
+              <Link
+                href={`/products/${app.slug}/terms`}
+                className="text-ochre underline decoration-ochre/30 underline-offset-4 transition-colors hover:decoration-ochre"
+              >
+                Terms of service
+              </Link>
+            )}
             <a
               href="mailto:support@cybiqon.in"
               className="text-ochre underline decoration-ochre/30 underline-offset-4 transition-colors hover:decoration-ochre"

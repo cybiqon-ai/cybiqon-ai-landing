@@ -51,11 +51,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...activeCategories().map((c) => ({
       url: `${siteUrl}/products/${c.slug}`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.6,
     })),
-    // Driven by data/products.ts — adding a product adds its three URLs automatically.
+    // Driven by data/products.ts — adding a product adds its URLs automatically. The
+    // legal pair is conditional: an unlisted product has no published policy, so it has
+    // no such route, and a sitemap naming a route that does not exist is a crawl error
+    // we authored rather than one we inherited.
     ...PRODUCTS.flatMap((p) => [
       { url: `${siteUrl}/products/${p.slug}`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.6 },
-      { url: `${siteUrl}/products/${p.slug}/privacy`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "yearly" as const, priority: 0.3 },
-      { url: `${siteUrl}/products/${p.slug}/terms`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "yearly" as const, priority: 0.3 },
+      ...(p.privacy ? [{ url: `${siteUrl}/products/${p.slug}/privacy`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "yearly" as const, priority: 0.3 }] : []),
+      ...(p.terms ? [{ url: `${siteUrl}/products/${p.slug}/terms`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "yearly" as const, priority: 0.3 }] : []),
     ]),
   ];
 

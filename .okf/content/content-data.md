@@ -15,7 +15,8 @@ page is still a `const` array declared inside the component that renders it.**
 
 | File | Feeds |
 |---|---|
-| `data/products.ts` | `/products`, category pages, all three product pages — types, `CATEGORIES`, `PRODUCTS`, `getProduct`, `productsIn`, `activeCategories` |
+| `data/products.ts` | `/products`, the three category pages and all seven product pages — types, `CATEGORIES`, `PRODUCTS`, `getProduct`, `productsIn`, `activeCategories` |
+| `data/clients.ts` | the client-work section of `/products` — `ClientProject`, `CLIENT_PROJECTS`. Separate from products on purpose: an engagement has a client and a delivery state where a product has a package id and a policy, and `unnamed` carries *why* a client is not named so the page can say so rather than quietly omit it |
 | `data/legal/{llmbytes,meflow,vitaloop}.ts` | privacy and terms, as a `Block` discriminated union (prose / checklist / deflist / table / contact) rather than MDX or raw HTML |
 | `data/launch5.ts` | `/free-website` — the trade, fit lists, sequence, FAQs, slot counts |
 

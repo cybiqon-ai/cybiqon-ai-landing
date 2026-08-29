@@ -3,7 +3,7 @@ type: Reference
 title: Routes
 description: Every route the site serves — two blogs on one table, which routes are server vs client, the chrome-suppression scope for /lab, and the redirect that keeps a published Play Store policy URL alive.
 tags: [routes, app-router, nextjs, redirects]
-timestamp: 2026-08-19T00:00:00Z
+timestamp: 2026-08-29T00:00:00Z
 ---
 
 # Marketing pages
@@ -66,17 +66,31 @@ Shipped 26 Jul 2026, replacing the two hand-written llmbytes legal pages that we
 the entire former contents of `app/apps/`.
 
 ```
-/products                     index, grouped by category
-/products/apps                category page
-/products/<slug>              llmbytes · meflow · vitaloop · lumina
+/products                     index: apps · games · extensions · client work
+/products/apps                category page — llmbytes · meflow · vitaloop
+/products/games               category page — lumina · orbitone · curvved
+/products/extensions          category page — mapwit
+/products/<slug>              flat, one per product
 /products/<slug>/privacy      ← llmbytes' and lumina's are live Play policy URLs
-/products/<slug>/terms
+/products/<slug>/terms        ← only where the product has a listing
 ```
 
 Everything is driven by `data/products.ts`; the routes are thin shims that look up a
-slug and render `components/products/ProductDetail.tsx` or `LegalPage.tsx`. Adding the
-Chrome extension is one data entry plus its shims, and `/products/extensions` appears
-automatically — category pages only render for categories that have something in them.
+slug and render `components/products/ProductDetail.tsx` or `LegalPage.tsx`. Category
+pages only render for categories that have something in them, so a category with no
+products 404s rather than becoming a thin page.
+
+**Legal routes are conditional as of 29 Aug 2026.** `Product.privacy` and `.terms` are
+optional, because MapWit has no store listing and therefore nowhere to publish a policy —
+and inventing legally-material copy to satisfy a required field is worse than omitting
+it. `ProductDetail` hides the links and `app/sitemap.ts` skips the URLs when they are
+absent; a sitemap naming a route that does not exist is a crawl error we authored.
+
+**Client work is a section on `/products`, not a route.** `data/clients.ts` holds the
+engagements and `components/products/ClientIndex.tsx` renders them as ruled rows that
+carry their own summary, because there is no detail page behind them and there should
+not be — a page per engagement, built from what we are allowed to say, is exactly the
+thin page category pages already refuse to be. The nav and footer link `#client-work`.
 
 **Category pages are views; product URLs stay flat.** A category never owns an item's
 URL, so recategorising something later cannot break its links. That matters because one

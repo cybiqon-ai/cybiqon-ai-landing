@@ -25,6 +25,7 @@ const Footer = () => {
               <Link href="/pricing" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Pricing</Link>
               <Link href="/case-studies" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Case Studies</Link>
               <Link href="/products" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Our Products</Link>
+              <Link href="/products#client-work" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Client Work</Link>
               <Link href="/blog" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link>
               <Link href="/press" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Press</Link>
               {/* /lab is footer-only by necessity: Navbar.tsx is already at the count

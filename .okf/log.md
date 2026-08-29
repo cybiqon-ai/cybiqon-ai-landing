@@ -816,3 +816,37 @@
   VitaLoop and Curvved correctly 404. **A `status` field nothing verifies is a claim, not
   a state** — the same shape as the stale counts this bundle keeps finding in its own
   concepts.
+
+* **2026-08-29 — /products splits into apps, games and extensions, and gains client work.**
+  Three sections instead of one. Games were filed under `app` until three of them
+  existed, at which point the category described nothing — a CKD tracker and a one-thumb
+  arcade game share a store and nothing else — so `Category` gains `"game"` and Lumina,
+  Orbitone and Curvved move to it. `/products/games` and `/products/extensions` are new
+  category pages; both existed as data and neither had a route, because a category page
+  only renders once something is in it.
+
+  **MapWit is the first product with no legal documents**, and that forced a schema
+  change rather than a workaround. It has no store listing, so there is nowhere to
+  publish a privacy policy, and writing legally-material copy to satisfy a required
+  field is worse than leaving it out. `Product.privacy` and `.terms` are optional now;
+  `ProductDetail` hides the links and `sitemap.ts` skips the URLs. The sitemap half is
+  the load-bearing one — it emitted `/privacy` and `/terms` for every product
+  unconditionally, so shipping MapWit without this would have published two 404s to
+  Google under our own signature.
+
+  **Client work is a section, not a route tree.** `data/clients.ts` is deliberately not
+  `products.ts`: an engagement has a client and a delivery state where a product has a
+  package id and a policy. `ClientIndex` rows carry their own summary and deliverables
+  because there is no page behind them and there should not be — one page per engagement,
+  written from what we are allowed to say, is the thin page `CategoryPage` already
+  refuses to render.
+
+  `ClientProject.unnamed` is the field worth keeping. One engagement is live and the
+  client is not ours to name, and the honest way to show that is to say so on the page
+  rather than to describe the work and quietly omit who it was for.
+
+  **The navbar was eight links and had no room for a ninth.** "Our Works", "Products"
+  and the client ledger are three answers to one question, so they share one "Work"
+  slot. The dropdown panel is rendered always and hidden with CSS rather than mounted on
+  open: the slot used to be a plain anchor, and putting three links behind React state
+  would have taken them out of the served HTML and off the crawl path for nothing.

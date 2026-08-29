@@ -32,7 +32,7 @@ export interface LegalDoc {
 
 export type ProductStatus = "live" | "testing" | "building";
 
-export type Category = "app" | "extension" | "tool";
+export type Category = "app" | "game" | "extension" | "tool";
 
 /**
  * Category pages live at /products/<category slug>, but PRODUCT pages stay flat at
@@ -46,6 +46,16 @@ export const CATEGORIES: { key: Category; slug: string; label: string; blurb: st
     slug: "apps",
     label: "Android apps",
     blurb: "Published on Google Play, or on the way there.",
+  },
+  // Games were filed under "app" until three of them existed, at which point the category
+  // stopped describing anything: a CKD tracker and a one-thumb arcade game share a store
+  // and nothing else. They are split because a reader scanning for one is never scanning
+  // for the other — not because the build differs.
+  {
+    key: "game",
+    slug: "games",
+    label: "Android games",
+    blurb: "Built engine-first, and every level measured before it ships.",
   },
   {
     key: "extension",
@@ -77,8 +87,14 @@ export interface Product {
   features: { title: string; description: string }[];
   /** Why it exists. The part a template would leave out. */
   why: string;
-  privacy: LegalDoc;
-  terms: LegalDoc;
+  /**
+   * Absent until there is a listing to attach one to. A store requires a published
+   * policy and an unlisted product has nowhere to publish it, so the routes, the
+   * on-page links and the sitemap entries are all conditional on these existing —
+   * inventing legally-material copy to fill a type is worse than leaving it out.
+   */
+  privacy?: LegalDoc;
+  terms?: LegalDoc;
 }
 
 import { llmbytesPrivacy, llmbytesTerms } from "./legal/llmbytes";
@@ -230,7 +246,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "lumina",
-    category: "app",
+    category: "game",
     name: "Lumina: The Lightkeeper's Path",
     tagline: "A cosy sliding-block puzzle",
     summary:
@@ -278,7 +294,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "orbitone",
-    category: "app",
+    category: "game",
     name: "Orbitone",
     tagline: "Eight arcade games, one thumb",
     summary:
@@ -326,7 +342,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "curvved",
-    category: "app",
+    category: "game",
     name: "Curvved",
     tagline: "The answer is a picture",
     summary:
@@ -376,6 +392,52 @@ export const PRODUCTS: Product[] = [
     ],
     privacy: curvvedPrivacy,
     terms: curvvedTerms,
+  },
+  {
+    slug: "mapwit",
+    category: "extension",
+    name: "MapWit",
+    tagline: "Google Maps leads, scored in the browser",
+    summary:
+      "A Chrome side panel that reads Google Maps results as you scroll, finds each business\u2019s contact email, grades the website it has or notices it has none, scores the lead and exports the lot to a spreadsheet. It runs entirely in the browser \u2014 no server, no account, and nothing leaves the machine.",
+    packageId: "mapwit",
+    status: "building",
+    playUrl: null,
+    platform: "Chrome, Manifest V3",
+    why:
+      "A bought lead list is rows somebody else has already sold twice. The businesses actually worth calling are the ones already visible on Maps with no website or a bad one, and the only way to know which those are is to look at each one. MapWit does the looking \u2014 it reads the listings you are scrolling past anyway, checks whether a site exists and whether it is any good, and puts the ones worth a call at the top.",
+    features: [
+      {
+        title: "It reads what you scroll",
+        description:
+          "Leads fill the side panel live as you scroll a Maps search, and Scrape more auto-scrolls the feed for you, up to 500 listings.",
+      },
+      {
+        title: "Enrichment, not just names",
+        description:
+          "For every lead with a site it harvests contact emails, grades the site and detects social presence \u2014 the columns that decide whether a business is worth a call, rather than the ones that were easy to collect.",
+      },
+      {
+        title: "No website only",
+        description:
+          "The one filter a web studio actually needs. Narrow five hundred listings to the businesses with nothing to lose, or use an industry template to narrow to the ones you already know how to serve.",
+      },
+      {
+        title: "Duplicates merge themselves",
+        description:
+          "Listings sharing a Google place ID or a phone number are merged on sight, with the first non-empty value winning, so a second pass over the same area adds rows instead of repeating them.",
+      },
+      {
+        title: "Exports to XLSX",
+        description:
+          "Every enrichment column comes with it, so the file opens in whatever you already use to work a list rather than in this extension.",
+      },
+      {
+        title: "No backend, and it remembers",
+        description:
+          "There is no server and no sign-in. Leads persist in the browser\u2019s own storage between sessions, so closing the tab does not cost you the morning\u2019s work.",
+      },
+    ],
   },
 ];
 

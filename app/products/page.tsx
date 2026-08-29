@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ProductIndex from "@/components/products/ProductIndex";
+import ClientIndex from "@/components/products/ClientIndex";
 import { PRODUCTS, activeCategories, productsIn } from "@/data/products";
+import { CLIENT_PROJECTS } from "@/data/clients";
 
 const siteUrl = "https://cybiqon.in";
 
 export const metadata: Metadata = {
   title: "Products We've Built and Shipped",
   description:
-    "The apps, extensions and tools Cybiqon has built and published — including LLMBytes, MeFlow and VitaLoop on Android.",
-  keywords: "Cybiqon products, Android apps, Chrome extensions, LLMBytes, MeFlow, VitaLoop",
+    "The apps, games, Chrome extensions and client work Cybiqon has built and published — LLMBytes, MeFlow and VitaLoop on Android, Lumina and Orbitone on Google Play, and MapWit in the browser.",
+  keywords:
+    "Cybiqon products, Android apps, Android games, Chrome extensions, LLMBytes, MeFlow, VitaLoop, Lumina, Orbitone, MapWit",
   alternates: { canonical: "/products" },
   openGraph: {
     title: "Products We've Built and Shipped | Cybiqon AI Solutions",
     description:
-      "Apps, extensions and tools built and shipped by a one-person studio in India.",
+      "Apps, games, Chrome extensions and client work built and shipped by a studio in India.",
     url: `${siteUrl}/products`,
     type: "website",
   },
@@ -72,8 +75,9 @@ export default function ProductsPage() {
               </h1>
             </div>
             <p className="text-[15px] leading-relaxed text-muted-foreground md:pb-1">
-              We build for clients, and we build for ourselves. These are the ones with our
-              own name on them — same standard, no client to blame.
+              We build for ourselves and we build for clients. The ones with our own name on
+              them come first — same standard, no client to blame — and the client work is at
+              the end.
             </p>
           </div>
         </div>
@@ -102,6 +106,18 @@ export default function ProductsPage() {
               </div>
             );
           })}
+
+          <div id="client-work" className="scroll-mt-28">
+            <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                Client work
+              </h2>
+              <span className="text-[13px] text-muted-foreground">
+                Built for someone else, on their terms
+              </span>
+            </div>
+            <ClientIndex projects={CLIENT_PROJECTS} />
+          </div>
 
           <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground">
             Want something like these built for your business?{" "}

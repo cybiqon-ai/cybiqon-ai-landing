@@ -98,17 +98,27 @@
     },
     {
       "heading": "Products",
-      "note": "Apps built and published by the studio, each with its own page. Android unless noted.",
+      "note": "Apps, games and browser extensions built and published by the studio, each with its own page. Android unless noted. Client work is a section on /products.",
       "entries": [
         {
           "title": "All products",
           "url": "/products",
-          "note": "the apps, extensions and tools Cybiqon has built and published."
+          "note": "the apps, games, Chrome extensions and client work Cybiqon has built and published."
         },
         {
-          "title": "Apps",
+          "title": "Android apps",
           "url": "/products/apps",
-          "note": "the mobile apps, the only product category with anything shipped in it today."
+          "note": "LLMBytes, MeFlow and VitaLoop — the non-game Android apps."
+        },
+        {
+          "title": "Android games",
+          "url": "/products/games",
+          "note": "Lumina and Orbitone on Google Play, and Curvved in development — built engine-first, with every level measured by a bot before it ships."
+        },
+        {
+          "title": "Chrome extensions",
+          "url": "/products/extensions",
+          "note": "browser tools. MapWit is the only one so far and is still in development."
         },
         {
           "title": "LLMBytes",
@@ -138,7 +148,12 @@
         {
           "title": "Curvved",
           "url": "/products/curvved",
-          "note": "a zen hex puzzle for Android: rotate pieces on a hexagonal lattice until a figure closes, then the lattice dissolves and leaves the drawing behind. Seventy figures, no timer and no score. Flutter with a Flutter-free pure-Dart engine \u2014 solver, tracer and difficulty gates all run headless."
+          "note": "a zen hex puzzle for Android: rotate pieces on a hexagonal lattice until a figure closes, then the lattice dissolves and leaves the drawing behind. Seventy figures, no timer and no score. Flutter with a Flutter-free pure-Dart engine — solver, tracer and difficulty gates all run headless."
+        },
+        {
+          "title": "MapWit",
+          "url": "/products/mapwit",
+          "note": "a Chrome side panel that scrapes, enriches and scores Google Maps business listings entirely in the browser. In development, not yet on the Chrome Web Store."
         }
       ]
     },
