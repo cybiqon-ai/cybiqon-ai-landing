@@ -12,7 +12,6 @@ timestamp: 2026-08-29T00:00:00Z
 |---|---|---|
 | `/` | `app/page.tsx` | server — metadata + Service/Breadcrumb JSON-LD |
 | `/about` | `app/about/page.tsx` → `AboutClient.tsx` | server + metadata |
-| `/our-works` | `app/our-works/page.tsx` → `OurWorksClient.tsx` | server + metadata |
 | `/press` | `app/press/page.tsx` → `data/press.ts` | **static** — prerendered, no edge (size; see seo.md F7) |
 | `/pricing` | `app/pricing/page.tsx` → `PricingClient.tsx` | server + metadata |
 | `/process` | `app/process/page.tsx` → `ProcessClient.tsx` | server + metadata |
@@ -103,6 +102,21 @@ Next 16 emits a Node ISR fallback for a dynamic segment **even with
 function and **fails the build**. `runtime = "edge"` would suppress it but is mutually
 exclusive with `generateStaticParams`. Concrete per-product route files are the way out.
 This cost a failed Cloudflare build on PR #33 — do not "simplify" it back.
+
+## `/our-works` was removed, 29 Aug 2026
+
+It showed five sample builds — Airflow, CoffeeHub, TorqueX, FreshCart,
+LeadzGalaxy — presented as a portfolio. None was client work, and by August the
+Chrome extension among them no longer existed, so the page was claiming a
+portfolio the company did not have. It was deleted rather than corrected: real
+products and real engagements now live on `/products`.
+
+It redirects 308 to `/products`. It had been live since launch and carried the
+highest `priority` of any static URL in the sitemap (0.85), so deleting it
+outright would have stranded whatever ranking it held and 404'd every inbound
+link. `data/works.ts`, sequenced in `content-data.md` as the fix for this page,
+is cancelled by the same decision — the page's real deficiency was never that its
+data lived inline.
 
 ## The /apps redirects
 

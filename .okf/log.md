@@ -850,3 +850,29 @@
   slot. The dropdown panel is rendered always and hidden with CSS rather than mounted on
   open: the slot used to be a plain anchor, and putting three links behind React state
   would have taken them out of the served HTML and off the crawl path for nothing.
+
+* **2026-08-29 (later) — /our-works is gone, and the fix queued for it is cancelled.**
+  The page showed five sample builds — Airflow, CoffeeHub, TorqueX, FreshCart,
+  LeadzGalaxy — under the heading of a portfolio. None was client work, and by August the
+  Chrome extension among them had been deleted, so the page was asserting a portfolio the
+  company did not have. Removed rather than corrected, because `/products` now carries
+  real products and `data/clients.ts` carries real engagements.
+
+  **It redirects 308 rather than 404ing**, and that is the part worth getting right: it
+  had been live since launch and held `priority: 0.85`, the highest of any static URL in
+  the sitemap. Deleting it outright would have stranded whatever ranking it had and
+  broken every inbound link, including the one in `/case-studies` — which now points at
+  `/products` instead.
+
+  **`data/works.ts` is cancelled.** `content-data.md` had it queued behind the Launch-5
+  clients, reasoning that extracting five unnamed demo projects into a data file only
+  relocates the problem, since the page's real deficiency was having no real clients to
+  show. That reasoning was right and its actual conclusion was to delete the page, which
+  took a month and the arrival of real work to see.
+
+  **The nav dropdown added this morning is reverted.** "Work" existed to hold three
+  views of one question; with `/our-works` gone it would have held `/products` and an
+  anchor into `/products`, which is a dropdown wrapping a single destination. It is a
+  flat "Products" link again, still eight slots. `isActive` now matches prefixes, so a
+  product page keeps the nav item lit — the flat version never did that, and with three
+  category pages and seven product pages under `/products` it now matters.

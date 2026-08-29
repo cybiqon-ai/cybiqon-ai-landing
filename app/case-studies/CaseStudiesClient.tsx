@@ -125,8 +125,8 @@ const CaseStudies = () => {
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg">
               In-depth stories — the challenge, what we built, and the measurable results.
               Prefer to just browse everything?{" "}
-              <a href="/our-works" className="text-primary font-medium underline underline-offset-4 hover:text-primary/80">
-                See all our work
+              <a href="/products" className="text-primary font-medium underline underline-offset-4 hover:text-primary/80">
+                See what we&apos;ve built
               </a>
               .
             </p>

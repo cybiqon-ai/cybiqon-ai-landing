@@ -3,7 +3,7 @@ type: Reference
 title: Content data
 description: A data/ directory now exists and covers products, legal copy and the Launch-5 offer — but every marketing page's content is still a const array welded into the component that renders it.
 tags: [content, data, refactor, portfolio]
-timestamp: 2026-08-01T00:00:00Z
+timestamp: 2026-08-29T00:00:00Z
 ---
 
 # Overview
@@ -27,8 +27,6 @@ there is purged silently in production while looking fine in dev.
 
 | Content | Location |
 |---|---|
-| `portfolioItems` (5) | `app/our-works/page.tsx:32` |
-| `categories` | `app/our-works/page.tsx:110` |
 | `services` (price tiers) | `app/pricing/page.tsx:57` |
 | `faqs` | `app/pricing/page.tsx:151` |
 | `productSchema` | `app/pricing/page.tsx:42` |
@@ -48,14 +46,12 @@ Content and presentation are welded together, so:
 
 # What's next
 
-```
-data/works.ts    → app/our-works + /case-studies   (after Launch-5 clients exist)
-```
-
-Deliberately sequenced **after** the free-website clients exist. Extracting five unnamed
-demo projects into a data file just relocates the problem — the page's real deficiency is
-that it has no real clients to show, and the Launch-5 programme is the thing that fixes
-that.
+**`data/works.ts` is cancelled.** It was sequenced after the Launch-5 clients existed,
+on the reasoning that extracting five unnamed demo projects into a data file just
+relocates the problem — the page's real deficiency was that it had no real clients to
+show. That reasoning held, and the conclusion it actually implied was to delete the page:
+`/our-works` was removed on 29 Aug 2026 and redirects to `/products`, which carries real
+products and, in `data/clients.ts`, real engagements. See [Routes](/site/routes.md).
 
 # Honesty flags
 

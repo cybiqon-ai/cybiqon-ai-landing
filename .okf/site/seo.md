@@ -3,7 +3,7 @@ type: Domain
 title: SEO
 description: Structured data, sitemap, RSS and per-page metadata are all in place as of 25 Jul 2026; the blog is indexed and the remaining gap is ranking, not discovery.
 tags: [seo, metadata, json-ld, sitemap, search-console, rss, aeo, ai-crawlers]
-timestamp: 2026-08-12T00:00:00Z
+timestamp: 2026-08-29T00:00:00Z
 ---
 
 # Overview
@@ -50,6 +50,10 @@ Until 25 Jul, seven pages were `"use client"` and exported no `metadata` at all:
 ```
 /pricing   /our-works   /case-studies   /contact   /about   /process   /faq
 ```
+
+(`/our-works` was removed on 29 Aug 2026 and redirects to `/products`. It is kept
+in this list because the list is a record of what was broken then, not a route
+table.)
 
 **All seven shipped the identical `<title>` as the homepage** — "Affordable Web
 Development & AI Automation for Indian MSMEs | Cybiqon AI Solutions" — with no
@@ -269,7 +273,7 @@ they do not:
 
 | Has an `og:image` | None at all |
 |---|---|
-| `/`, `/free-audit`, `/privacy`, `/terms`, `/blog`, `/lab` | `/about`, `/pricing`, `/process`, `/case-studies`, `/our-works`, `/faq`, `/contact`, `/free-website`, `/products` |
+| `/`, `/free-audit`, `/privacy`, `/terms`, `/blog`, `/lab` | `/about`, `/pricing`, `/process`, `/case-studies`, `/faq`, `/contact`, `/free-website`, `/products` |
 
 `/pricing` — the page most likely to be shared into a WhatsApp group by a prospective
 client — renders with no image anywhere. `/lab` posts get a real 1200×630 card from
