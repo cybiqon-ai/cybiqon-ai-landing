@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anek_Latin, Geist } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,40 +10,31 @@ import ThemeScope from "@/components/ThemeScope";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import "./globals.css";
 
-const geist = Geist({
+
+// The marketing typefaces, taken from the Stitch comp this page is built to —
+// projects/7623040016974616845, "Cybiqon AI Homepage Redesign".
+//
+// Plus Jakarta Sans carries the headings, Inter the body. Two families with clearly
+// different jobs rather than one family doing both, which is what the comp specifies
+// and what the type scale in globals.css is measured against.
+//
+// The Tailwind key for the display face is `jakarta`, NOT `heading` — Navbar.tsx and
+// Footer.tsx both apply a `font-heading` class that has never resolved to anything, and
+// defining that name would silently restyle the wordmark on every page.
+//
+// Font files are static assets, so this costs zero Worker bytes against the 3 MiB cap.
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-geist",
+  weight: ["600", "700", "800"],
+  variable: "--font-jakarta",
   display: "swap",
 });
 
-// The marketing typeface: Anek Latin, by Ek Type in Mumbai.
-//
-// One family for the whole marketing site. It carries two axes — wght 100-800 and
-// wdth 75-125 — and the width axis is the hierarchy device: condensed at poster
-// scale for the price, normal width for reading. That is why there is no second
-// display face here; see the type scale in app/globals.css.
-//
-// Chosen for this brief rather than reached for. Anek is a pan-Indian family
-// covering nine Indian scripts, so the day this site ships Hindi — which the copy
-// already promises customers — Anek Devanagari is the sibling, not a fresh
-// pairing exercise. It replaces Archivo, which was here because it was already in
-// the repo for /lab.
-//
-// axes without weight, deliberately: passing both throws at build time. Weight
-// comes from font-variation-settings in the .t-* rules.
-//
-// The Tailwind key is `anek`, NOT `heading` — Navbar.tsx and Footer.tsx both apply
-// a `font-heading` class that has never resolved to anything, and defining that
-// name would silently restyle the wordmark on every page.
-//
-// Font files are static assets, so this costs zero Worker bytes against the 3 MiB cap.
-const anek = Anek_Latin({
+const inter = Inter({
   subsets: ["latin"],
-  axes: ["wdth"],
-  variable: "--font-anek",
+  variable: "--font-inter",
   display: "swap",
-});
-const siteUrl = "https://cybiqon.in";
+});const siteUrl = "https://cybiqon.in";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -168,7 +159,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${geist.variable} ${anek.variable}`}>
+    <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
       <head>
         <meta httpEquiv="content-language" content="en-IN" />
         <script

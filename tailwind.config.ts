@@ -44,6 +44,20 @@ export default {
           raised: "hsl(var(--ink-raised))",
           foreground: "hsl(var(--ink-foreground))",
         },
+        // The comp's surface ladder. Sections alternate down these; this is where
+        // the page gets its depth. See app/globals.css.
+        surface: {
+          DEFAULT: "hsl(var(--surface))",
+          lowest: "hsl(var(--surface-lowest))",
+          low: "hsl(var(--surface-low))",
+          container: "hsl(var(--surface-container))",
+          high: "hsl(var(--surface-high))",
+          dim: "hsl(var(--surface-dim))",
+        },
+        "accent-soft": "hsl(var(--accent-soft))",
+        "accent-softer": "hsl(var(--accent-softer))",
+        "primary-container": "hsl(var(--primary-container))",
+        "tertiary-deep": "hsl(var(--tertiary-deep))",
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -95,7 +109,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['var(--font-geist)', 'sans-serif'],
+        sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
 
         // /lab only — the vars are set in app/lab/layout.tsx and exist nowhere else,
         // so these degrade to their fallback stacks if used off /lab.
@@ -107,8 +121,8 @@ export default {
         // `mono` is also left alone deliberately — app/process/ProcessClient.tsx uses
         // font-mono, and redefining the key would change a page this work has no
         // business touching. Hence `readout`, which is what it is for anyway.
-        display: ['var(--font-anek)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        anek: ['var(--font-anek)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-jakarta)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        jakarta: ['var(--font-jakarta)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         prose: ['var(--font-source-serif)', 'Georgia', 'serif'],
         readout: ['var(--font-dm-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },

@@ -10,65 +10,68 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 @layer base {
   :root {
     /* Base Colors */
-    --background: 0 0% 100%;
-    --foreground: 231 43% 17%;  /* #1A2140 — on-palette, not a tinted black */ /* Deep navy for text */
+    --background: 240 100% 99%;   /* #f9f9ff — surface */
+    --foreground: 218 46% 12%;    /* #111c2d — on-surface */ /* Deep navy for text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 231 43% 17%;
+    --card: 0 0% 100%;            /* #ffffff — surface-container-lowest */
+    --card-foreground: 218 46% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 231 43% 17%;
+    --popover-foreground: 218 46% 12%;
 
-    /* ── Palette, 6 Sep 2026 ────────────────────────────────────────────────
-       Deep indigo and marigold. Chosen against the brief rather than picked:
-       indigo reads as trust for a money decision and is India's own historic
-       dye; marigold is the auspicious yellow of Indian commercial signage.
-       Both already appear in the one piece of third-party material this site
-       shows — the Economic Times clipping's headline blue and its tricolour
-       swoosh — so the palette agrees with the newspaper it sits beside.
+    /* ── Palette — from the Stitch comp, 6 Sep 2026 ─────────────────────────
+     projects/7623040016974616845 "Cybiqon AI Homepage Redesign". These are the
+     comp's own Material-3 tokens, not an interpretation of a screenshot. The
+     alternating surface ladder below is where the page gets its depth; two
+     earlier attempts at this redesign were flat white-on-white and were
+     rejected for exactly that.
 
-       The previous palette was Tailwind blue-600 / emerald-500 / amber-500 used
-       as small accents on white, which is why the page had no colour rhythm at
-       all. The hues matter less than the change in usage: these are meant for
-       full-bleed FIELDS, not for tinting 15px text. */
+     Anything named --surface-* is a GROUND for a section. Sections alternate
+     surface / surface-container-lowest / surface-container-low down the page. */
 
-    /* Primary: indigo, for interactive elements on white */
-    --primary: 231 61% 43%;        /* #2B3CB0 */
+    /* Primary: deep navy. Dark section grounds, headings, primary buttons. */
+    --primary: 205 100% 15%;          /* #00304f */
     --primary-foreground: 0 0% 100%;
+    --primary-container: 205 88% 24%; /* #074770 */
 
-    /* Ink: the deep field colour. Full-bleed sections sit on this. */
-    --ink: 231 57% 17%;            /* #131C46 */
-    --ink-raised: 231 55% 25%;     /* #1D2A63 — surfaces lifted off --ink */
-    --ink-foreground: 228 40% 96%;
+    /* Accent: vermilion. Eyebrows, the primary CTA, the "most popular" ribbon.
+       The comp calls this secondary-container; it is the one hot colour. */
+    --accent: 19 98% 55%;             /* #fd651e */
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 19 100% 86%;       /* #ffb599 */
+    --accent-softer: 19 100% 92%;     /* #ffdbce */
 
-    /* Secondary: Growth Green (Emerald 500) — semantic "yes/included" only */
-    --secondary: 160 84% 39%;
-    --secondary-foreground: 0 0% 100%;
+    /* Tertiary: green. Positive answers, WhatsApp, "included" ticks. */
+    --secondary: 161 62% 48%;         /* #2fc88e */
+    --secondary-foreground: 162 100% 10%;
+    --tertiary-deep: 162 100% 10%;    /* #003522 */
 
-    /* Accent: marigold. The single high-energy colour on the site.
-       Reserved for the primary CTA and the price. If it appears anywhere else,
-       it has stopped meaning "this is the thing to do next". */
-    --accent: 38 91% 55%;          /* #F5A524 */
-    --accent-foreground: 231 57% 17%;
+    /* Surface ladder — the section grounds, lightest to deepest. */
+    --surface-lowest: 0 0% 100%;      /* #ffffff */
+    --surface: 240 100% 99%;          /* #f9f9ff */
+    --surface-low: 228 100% 97%;      /* #f0f3ff */
+    --surface-container: 224 100% 95%;/* #e7eeff */
+    --surface-high: 223 100% 93%;     /* #dee8ff */
+    --surface-dim: 220 55% 88%;       /* #cfdaf2 */
 
     /* Success: Emerald 600 */
     --success: 160 84% 35%;
     --success-foreground: 0 0% 100%;
 
     /* Muted colors — warm neutral surface (calmer than cool slate) */
-    --muted: 228 30% 97%;            /* #F5F6FB — cool pale field, not cream */
-    --muted-foreground: 227 16% 43%; /* #5C6580 */
+    --muted: 228 100% 97%;        /* #f0f3ff — surface-container-low */
+    --muted-foreground: 206 9% 28%;  /* #41474e — on-surface-variant */
 
     /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders and inputs */
-    --border: 228 28% 89%;
-    --input: 228 28% 89%;
-    --ring: 231 61% 43%;
+    --border: 213 13% 79%;        /* #c1c7cf — outline-variant */
+    --input: 213 13% 79%;
+    --ring: 205 100% 15%;
 
-    --radius: 0.5rem; /* buttons and controls. Fields are square, media is 4px. */
+    --radius: 0.75rem; /* comp: xl. lg 0.5rem, base 0.25rem, full for pills. */
 
     /* Promoted out of .theme-ledger on 6 Sep 2026. The heavier section rule is now
        part of the marketing language too, so the token has to resolve outside the
@@ -275,70 +278,70 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     @apply inline-flex items-center justify-center rounded-lg bg-primary/10 text-primary;
   }
 
-  /* ── Type scale ─────────────────────────────────────────────────────────
-     Anek Latin (Ek Type, Mumbai), one family, loaded in app/layout.tsx with
-     axes:["wdth"] and no weight key — passing both throws at build.
+  /* ── Type scale — from the Stitch comp ──────────────────────────────────
+     Plus Jakarta Sans for headings, Inter for body. Sizes, line-heights,
+     tracking and weights are the comp's own values, not approximations.
 
-     Hierarchy comes from the WIDTH axis, not from a second typeface. The page
-     this replaces ran 266 text spans in the 13-16px band against a handful of
-     larger sizes: a ~2x range across a whole page, which is why it read as a
-     collection of texts. This scale runs 13px -> 132px.
+     display-hero 56/64 -0.03em 800   |  body-lg 18/28 400
+     headline-lg  32/40 -0.02em 700   |  body-md 16/24 400
+     headline-md  24/32 -0.015em 600  |  body-sm 14/20 400
+     headline-sm  20/28 -0.01em 600   |  label-lg 15/20 600
+                                      |  label-md 13/18 600 .02em
+                                      |  label-sm 11/16 700 .05em          */
 
-     Every rule sets font-variation-settings rather than font-weight, because the
-     wdth axis has to be named alongside wght or it snaps back to 100. */
-
-  .t-display,
-  .t-h1,
-  .t-h2,
-  .t-h3 {
-    font-family: var(--font-anek), ui-sans-serif, system-ui, sans-serif;
-    text-wrap: balance;
-  }
-
-  /* The price. The one place this page raises its voice. */
   .t-display {
-    font-size: clamp(4rem, 12vw, 8.25rem);
-    font-variation-settings: "wght" 800, "wdth" 78;
-    line-height: 0.86;
-    letter-spacing: -0.03em;
-    font-variant-numeric: tabular-nums;
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-size: 36px; line-height: 44px; letter-spacing: -0.02em; font-weight: 800;
+  }
+  @media (min-width: 1024px) {
+    .t-display { font-size: 56px; line-height: 64px; letter-spacing: -0.03em; }
   }
 
   .t-h1 {
-    font-size: clamp(2.375rem, 6vw, 4.25rem);
-    font-variation-settings: "wght" 700, "wdth" 86;
-    line-height: 1.04;
-    letter-spacing: -0.022em;
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-size: 28px; line-height: 36px; letter-spacing: -0.02em; font-weight: 700;
+  }
+  @media (min-width: 1024px) {
+    .t-h1 { font-size: 40px; line-height: 48px; letter-spacing: -0.025em; }
   }
 
   .t-h2 {
-    font-size: clamp(1.75rem, 4vw, 2.375rem);
-    font-variation-settings: "wght" 700, "wdth" 92;
-    line-height: 1.1;
-    letter-spacing: -0.018em;
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-size: 26px; line-height: 34px; letter-spacing: -0.02em; font-weight: 700;
+  }
+  @media (min-width: 1024px) {
+    .t-h2 { font-size: 32px; line-height: 40px; }
   }
 
   .t-h3 {
-    font-size: 1.3125rem;
-    font-variation-settings: "wght" 600, "wdth" 100;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-size: 20px; line-height: 28px; letter-spacing: -0.01em; font-weight: 600;
   }
 
-  /* Reading text. 68ch measure applied where it is prose rather than a cell. */
-  .t-body {
-    font-size: 1.0625rem;
-    line-height: 1.6;
+  .t-body-lg { font-size: 18px; line-height: 28px; font-weight: 400; }
+  .t-body    { font-size: 16px; line-height: 24px; font-weight: 400; }
+  .t-body-sm { font-size: 14px; line-height: 20px; font-weight: 400; }
+
+  .t-label    { font-size: 15px; line-height: 20px; letter-spacing: 0.01em; font-weight: 600; }
+  .t-label-sm { font-size: 13px; line-height: 18px; letter-spacing: 0.02em; font-weight: 600; }
+
+  /* The section eyebrow. Uppercase here is the comp's own device and it earns
+     its place: it is the only uppercase on the page and it marks section
+     starts on a long scrolling document. */
+  .t-eyebrow {
+    font-size: 11px; line-height: 16px; letter-spacing: 0.05em; font-weight: 700;
+    text-transform: uppercase;
   }
+
   .t-measure { max-width: 68ch; }
 
   /* Kept as an alias so /free-website, /products and the 13 unmigrated pages do
-     not lose their headings mid-migration. Remove when they are all on .t-h*. */
+     not lose their headings mid-migration. Remove when they are all on .t-*. */
   .display {
-    font-family: var(--font-anek), ui-sans-serif, system-ui, sans-serif;
-    font-variation-settings: "wght" 700, "wdth" 92;
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.05;
+    line-height: 1.15;
     text-wrap: balance;
   }
 

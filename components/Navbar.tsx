@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -40,14 +41,17 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border shadow-sm">
-        <div className="container mx-auto px-4 py-4">
+      {/* One fixed header holding the announcement strip and the nav row, as the comp
+          has it. The strip cannot live outside this: the nav is `fixed`, so anything
+          rendered above it in normal flow ends up underneath it. */}
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/90 shadow-sm backdrop-blur-lg">
+        <AnnouncementBar />
+        <div className="container mx-auto px-4 py-3.5">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
               <img src="/logo.png" alt="Cybiqon AI Logo" className="w-8 h-8 object-contain" loading="eager" />
               <span
-                className="font-anek text-[1.35rem] text-primary"
-                style={{ fontVariationSettings: '"wght" 700, "wdth" 88' }}
+                className="font-jakarta text-[1.3rem] font-bold tracking-tight text-primary"
               >
                 Cybiqon AI
               </span>
