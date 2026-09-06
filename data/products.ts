@@ -82,6 +82,15 @@ export interface Product {
   status: ProductStatus;
   /** Null until the listing is public. */
   playUrl: string | null;
+  /**
+   * 128x128 WebP in public/img/, or null where no icon has been drawn.
+   *
+   * Added 6 Sep 2026. Until then this catalogue of seven products carried no visual
+   * representation of any of them anywhere on the site — the homepage could only ever
+   * describe them in prose. These are the real launcher icons, copied out of each
+   * product's own repo and downsized; nothing here is generated art.
+   */
+  icon?: string | null;
   platform: string;
   /** Short, concrete, no marketing verbs. 4–8 items. */
   features: { title: string; description: string }[];
@@ -107,6 +116,7 @@ import { vitaloopPrivacy, vitaloopTerms } from "./legal/vitaloop";
 export const PRODUCTS: Product[] = [
   {
     slug: "llmbytes",
+    icon: "/img/icon-llmbytes.webp",
     category: "app",
     name: "LLMBytes",
     tagline: "AI news, written fresh every day",
@@ -153,6 +163,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "meflow",
+    icon: "/img/icon-meflow.webp",
     category: "app",
     name: "MeFlow",
     tagline: "Money, habits and notes in one place",
@@ -200,6 +211,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "vitaloop",
+    icon: "/img/icon-vitaloop.webp",
     category: "app",
     name: "VitaLoop",
     tagline: "Kidney health, built for Indian food",
@@ -246,6 +258,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "lumina",
+    icon: "/img/icon-lumina.webp",
     category: "game",
     name: "Lumina: The Lightkeeper's Path",
     tagline: "A cosy sliding-block puzzle",
@@ -294,6 +307,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "orbitone",
+    icon: "/img/icon-orbitone.webp",
     category: "game",
     name: "Orbitone",
     tagline: "Eight arcade games, one thumb",
@@ -342,6 +356,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "curvved",
+    icon: "/img/icon-curvved.webp",
     category: "game",
     name: "Curvved",
     tagline: "The answer is a picture",
@@ -395,6 +410,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "mapwit",
+    icon: "/img/icon-mapwit.webp",
     category: "extension",
     name: "MapWit",
     tagline: "Google Maps leads, scored in the browser",

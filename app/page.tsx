@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
+import ProblemsWeSolve from "@/components/ProblemsWeSolve";
+import HowItWorks from "@/components/HowItWorks";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import Proof from "@/components/Proof";
+import Testimonials from "@/components/Testimonials";
+import Contact from "@/components/Contact";
 import Services from "@/components/Services";
 
 export const metadata: Metadata = {
@@ -78,6 +84,12 @@ export default function IndexPage() {
       <div id="solutions">
         <Services />
       </div>
+      <ProblemsWeSolve />
+      <HowItWorks />
+      <WhyChooseUs />
+      <Proof />
+      <Testimonials />
+      <Contact />
     </div>
   );
 }
