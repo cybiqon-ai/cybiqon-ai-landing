@@ -3,7 +3,7 @@ type: Architecture
 title: Design system
 description: A stock shadcn site, one scoped structural theme, one scoped full-palette theme, and the marketing pages now on the structural language too — plus the record of why the first may not recolour and the second may.
 tags: [design, tailwind, shadcn, theming, css-variables]
-timestamp: 2026-09-06T00:00:00Z
+timestamp: 2026-09-06T12:00:00Z
 ---
 
 # Overview
@@ -121,69 +121,130 @@ above. `mono` was deliberately left alone because `app/process/ProcessClient.tsx
 
 # The homepage — 6 Sep 2026
 
-The Ledger language was brought to `/` on the `redesign/homepage-ledger` branch. It is the
-first marketing page to use it and the template for the other 13.
+`/` was rebuilt twice on `redesign/homepage-ledger`. **The first attempt is the useful
+part of this record.**
 
-**Archivo now loads in the root layout.** It was deferred on the condition that it land in
-a *scoped* component so 14 pages would not preload a font they never use; `/lab` has its
-own layout now, so the condition is met differently — the marketing pages need the face in
-the root layout or they have none at all. `axes: ["wdth"]`, **no** `weight` key. The
-Tailwind key is `display`; see the `font-heading` trap above, which is still live.
+## What failed, and why it is worth keeping
 
-**`--rule-strong` moved from `.theme-ledger` to `:root`.** `border-rule-strong` used to
-resolve to nothing outside `/products` and `/free-website` and fell back to `currentColor`.
+The first version extended the Ledger language to the homepage: hairline rules, ruled rows,
+squared corners, uppercase labels, index numbers. It was rejected on sight — *"no hierarchy,
+nothing, just looks a collection of texts."*
 
-**Ten sections became seven.** `TrustBar`, `Stats` and `IndustryShowcase` are deleted,
-`WhyChooseUs` absorbed the first two, and `Proof` replaces the third. Three sections were
-asserting the same guarantees: "you own the code" appeared on the page four times.
-`HeroDashboardMockup` and `AnimatedBackground` are deleted — see
-[content data](/content/content-data.md), the flagged invented figures were theirs.
+That was measurably true. The rendered page carried **266 text spans in the 13–16px band**
+(120 × `text-[15px]`, 58 × `text-sm`, 48 × `text-base`, 40 × `text-[13px]`) against a
+handful of larger sizes: a **~2× type range across a whole page**.
 
-**Structure only, again.** No hue changed. `icon-chip` went 24 → 0 on the rendered page,
-`rounded-full` 30 → 11 with the remainder in the chrome, and the rendered homepage went
-145,980 → 122,822 bytes.
+Two distinct mistakes:
+
+1. **Ledger is an *index* language.** It was designed for `/products`, where the content is
+   a catalogue and a ruled row is the honest form for it. A marketing homepage is not a
+   catalogue, and applying the same form to all seven sections made every section
+   interchangeable.
+2. **Every existing visual element was deleted and nothing replaced them.** The dashboard
+   mockup, the icon chips, the coloured cards and the stat band all went — correctly, in
+   the case of the fabricated ones — but the page was left with no visual texture at all.
+
+Measured against the `frontend-design` skill afterwards, that page hit **four of the five
+clichés it names**: broadsheet hairline rules at zero radius; a tracked-out uppercase
+eyebrow above every heading; `→` appended to every link; and `01/02/03` markers on content
+that was not a sequence. It read as generated, which is the opposite of the intent.
+
+## What the rebuild is
+
+**Type — Anek Latin, one family.** Ek Type, Mumbai. Variable on two axes, `wght` 100–800 and
+`wdth` 75–125, and **the width axis is the hierarchy device**: `wdth` 78 at poster scale for
+the price, 86–92 for headings, 100 for reading. That is why there is no second display face.
+Chosen for the brief rather than reached for — Anek covers nine Indian scripts, so the day
+this site ships the Hindi its own copy promises customers, Anek Devanagari is the sibling
+rather than a fresh pairing exercise.
+
+Loaded in `app/layout.tsx` with `axes: ["wdth"]` and **no `weight` key** — passing both
+throws at build. The scale lives in `app/globals.css` as `.t-display` / `.t-h1` / `.t-h2` /
+`.t-h3` / `.t-body`, each setting `font-variation-settings` rather than `font-weight`,
+because `wdth` has to be named alongside `wght` or it snaps back to 100.
+
+**13px → 132px, a ~10× range.** On the finished page: 66 `.t-body`, 40 `.t-h3`, 16 `.t-h2`,
+2 `.t-h1`, 2 `.t-display`.
+
+Archivo is off the marketing pages. `/lab` keeps its own Archivo and renders no shared
+chrome, so there is no seam.
+
+**Colour — and this reverses the rule below.** Deep indigo `--ink` `#131C46` with marigold
+`--accent` `#F5A524`, replacing Tailwind blue-600 and amber-500. `--primary` is now
+`#2B3CB0`.
+
+The earlier entry said *structure carries the distinctiveness, colour carries the brand*.
+That was the right diagnosis of the **Ledger v1** failure and the wrong general rule. The
+homepage's problem was not too much colour, it was that colour only ever appeared as a tint
+on 15px text, so the page had no rhythm. What changed is **usage**: colour is now a
+full-bleed field, and the sections alternate white → ink → white → pale → white → ink →
+marigold.
+
+The hue choice is defended on the brief, not on taste: indigo reads as trust for a money
+decision and is India's own historic dye, marigold is the yellow of Indian commercial
+signage, and both already appear in the one piece of third-party material the page carries —
+the Economic Times clipping's headline blue and its tricolour swoosh.
+
+**The seam rule below still holds and is why the chrome moved in the same pass.** The
+Navbar and Footer were already written against the semantic tokens, so they followed the
+palette for free; only the wordmark needed touching.
+
+**Layout.** Seven sections, seven different archetypes. The boldness is spent in one place —
+the price, at `.t-display`. Numbers appear only on the process, which is the only content
+that is genuinely a sequence.
+
+**Imagery, for the first time.** `public/img/`, 12 WebP files, 220 KB, hand-sized because
+`next.config.mjs` installs a passthrough loader and Next's optimisation is off. The ET
+clipping at 420px (the width `data/press.ts` documents), the Snackly storefront comp, and
+seven real launcher icons. `data/products.ts` gained an optional `icon` field — it described
+seven products and could not show any of them. See
+[content data](/content/content-data.md) for what may and may not be shown.
+
+`components/ledger/` is **deleted**. It encoded the failed language and would pull the next
+person back into it.
 
 ## The motion budget, measured
 
-The Worker holds **only the 12 edge routes**. Every marketing page is prerendered to static
-HTML and costs it nothing — `HeroDashboardMockup`, `WhyChooseUs` and `TrustBar` appeared
-**zero** times in `blog.func.js`.
+The Worker holds **only the 12 edge routes**. Every marketing page is prerendered static and
+costs it nothing — homepage components appear **zero** times in `blog.func.js`.
 
-**The root layout is a 5× multiplier.** `Navbar`, `Footer`, `WhatsAppWidget`, `ThemeScope`
-and `RevealObserver` are compiled into all five ~433 KiB functions, and `sonner` — a client
-library sitting there — appears **121 times** inside `blog.func.js`. Client library code
-does land in the server bundle. So a library in a page body is free and the same library in
-shared chrome is paid five times.
+**The root layout is a 5× multiplier.** `Navbar`, `Footer`, `WhatsAppWidget`, `ThemeScope`,
+`RevealObserver` and `TrackedEvents` are compiled into all five ~433 KiB functions, and
+`sonner` — a client library sitting there — appears **121 times** inside `blog.func.js`.
+Client library code does land in the server bundle. A library in a page body is free; the
+same library in shared chrome is paid five times.
 
 **framer-motion was added under that rule and then removed.** The ceiling was never the
-objection. Two things were. In the hero it server-rendered the `h1` as `opacity:0`, leaving
-the LCP element waiting on hydration — the wrong trade for this audience. And below the
-fold, `.reveal` plus the one shared `RevealObserver` already does staggered entrances at
-zero client JS, so no set piece was left that needed a library. **If you reach for it
-again, the rule above is what makes it affordable and the LCP trap is what makes the hero
-the wrong place for it.**
+objection. In the hero it server-rendered the `h1` at `opacity:0`, leaving the LCP element
+waiting on hydration — the wrong trade on the networks this page sells into. Below the fold,
+`.reveal` plus the one shared `RevealObserver` already does staggered entrances at zero
+client JS. **If you reach for it again, the 5× rule is what makes it affordable and the LCP
+trap is what makes the hero the wrong place for it.**
 
-`.enter` exists because `animate-fade-in` cannot be delayed: the Tailwind animation
-declares no `fill-mode`, so a delayed element paints visible and then snaps to opacity 0.
+`.enter` exists because `animate-fade-in` cannot be delayed: the Tailwind animation declares
+no `fill-mode`, so a delayed element paints visible and then snaps to opacity 0.
 
-**Phosphor** (`@phosphor-icons/react`) is the marketing icon set — import per-icon or from
-`dist/ssr`, never the barrel. lucide stays in the shared chrome and on `/blog` and `/lab`,
-deliberately, so a second icon library never enters the 5× zone.
+**Phosphor** (`@phosphor-icons/react`) is the marketing icon set — per-icon or `dist/ssr`,
+never the barrel. lucide stays in the chrome and on `/blog` and `/lab` so a second icon
+library never enters the 5× zone.
 
 **`prefers-reduced-motion` now covers the marketing pages.** It previously matched only
-`.lab-prose` and `.lab-row`. `.reveal` has to be forced to its *visible* state rather than
+`.lab-prose` and `.lab-row`. `.reveal` must be forced to its *visible* state rather than
 merely losing its transition — `RevealObserver` adds `.visible` on intersection, so killing
 the transition alone strands anything above the fold at opacity 0.
 
 # Not done yet
 
-The other 13 marketing pages still use the original look. Migrating them is page-by-page
-work, and `/` is now the reference. Do not leave the site half-migrated across a merge:
-a seam behind shared chrome is what sank the first Ledger attempt.
+The other 13 marketing pages still use the original look, and `/` is now the reference.
+They inherited the new palette through the tokens but not the type scale or the layout
+language. Do not leave the site half-migrated across a merge.
 
 `hooks/useScrollReveal.ts` should go with that migration. Its 25 call sites are the only
 reason `/about`, `/pricing`, `/process`, `/contact`, `/faq` and `/case-studies` are
-`"use client"`; replacing it with the `.reveal` class makes all six server components.
+`"use client"`; replacing it with `.reveal` makes all six server components.
+
+`.display` is kept as an alias so the unmigrated pages do not lose their headings mid-way.
+Remove it when they are all on `.t-*`.
 
 # See also
 

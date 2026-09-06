@@ -917,3 +917,36 @@
 
   Not done: the other 13 marketing pages, and `hooks/useScrollReveal.ts` with them.
 
+* **2026-09-06 (later) — the homepage redesign was rejected and rebuilt.**
+
+  The morning's version shipped the Ledger language across all seven sections and was
+  rejected on sight: *"no hierarchy, nothing, just looks a collection of texts."* Correct,
+  and measurable — **266 text spans in the 13–16px band** against a handful of larger sizes,
+  a ~2× type range across a whole page.
+
+  **The mistake is the part worth keeping.** Ledger is an *index* language, built for
+  `/products` where a catalogue of ruled rows is the honest form. Applied to a marketing
+  homepage it made all seven sections interchangeable — and every existing visual element
+  had been deleted with nothing put back, so the page had no texture at all. Measured
+  against the `frontend-design` skill afterwards, it hit **four of the five clichés that
+  skill names**. The research that produced it was thorough on content honesty and Worker
+  bytes and had done no visual design work at all.
+
+  Rebuilt on **Anek Latin** (Ek Type, Mumbai) — one family, hierarchy from its width axis,
+  13px → 132px — and a **deep indigo and marigold** palette used as full-bleed fields rather
+  than as tints on small text. This **reverses** the "structure carries the distinctiveness,
+  colour carries the brand" rule recorded on 1 Aug: that was the right diagnosis of Ledger
+  v1 and the wrong general rule. See [design system](/site/design-system.md), which now
+  carries both the failure and the rebuild.
+
+  **The site got imagery for the first time.** The Economic Times clipping — a national
+  paper naming the founder, and the strongest asset the company has — had been on the
+  homepage as eight words of link text reading "Read the clipping". It is a picture now.
+  Beside it, the Snackly storefront comp, the only visual evidence of client web work, with
+  a caption saying the design is ours and the food photography is Imagen placeholder. Plus
+  seven real launcher icons. See [content data](/content/content-data.md) for the list of
+  what must never be shown.
+
+  `components/ledger/` is deleted. `font-heading` — a named trap in the design concept for a
+  month — is finally gone from the wordmark.
+

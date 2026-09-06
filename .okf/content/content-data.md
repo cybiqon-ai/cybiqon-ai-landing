@@ -3,7 +3,7 @@ type: Reference
 title: Content data
 description: A data/ directory now exists and covers products, legal copy and the Launch-5 offer — but every marketing page's content is still a const array welded into the component that renders it.
 tags: [content, data, refactor, portfolio]
-timestamp: 2026-09-06T00:00:00Z
+timestamp: 2026-09-06T12:00:00Z
 ---
 
 # Overview
@@ -98,6 +98,31 @@ was just torn out. The file carries the same warning at the constant.
 **`components/Hero.tsx`** has three free-audit prompts hidden behind `{false && …}`
 rather than deleted, each with an inline reason. Hidden, not gone — the founder asked for
 them out of the homepage, not out of the codebase.
+
+# Imagery — new, 6 Sep 2026
+
+`public/img/` exists: **12 WebP files, 220 KB**, the first product imagery this site has
+ever carried. `data/products.ts` gained an optional `icon` field; it described seven
+products and had no way to show any of them.
+
+Hand-sized before they enter the repo — `next.config.mjs` installs a passthrough loader, so
+Next's optimisation is off and whatever ships is what loads.
+
+**What may be shown**, because it depicts something that exists: the ET clipping (at 420px,
+the width `data/press.ts` documents), the Snackly storefront comp, and the seven real
+launcher icons copied from each product's own repo.
+
+⚠️ **What may not, and will be reached for next.** All 44 Kataria site images are Imagen —
+`clients-work/kataria-international/PLACEHOLDER-IMAGERY.md` says so in its first line.
+Snackly's `web/public/media/*` product photography is Imagen placeholder, with real shots
+still owed to the client. Every `tools/social-media-manager/images/*` card with a person in
+it is Imagen, and those people are not customers or staff. `components/Proof.tsx` names all
+three in its header.
+
+The Snackly comp is the edge case and is handled rather than avoided: the layout, type and
+build are genuinely ours, but the food photograph inside it is placeholder art, so the
+caption on the page says exactly that. Cheaper than a visitor assuming it is a real product
+shot.
 
 # Assets
 
