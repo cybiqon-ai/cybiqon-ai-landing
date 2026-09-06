@@ -267,6 +267,17 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     text-wrap: balance;
   }
 
+  /* Staggered entrance for above-the-fold content.
+     `animate-fade-in` alone cannot be delayed: the Tailwind animation declares no
+     fill-mode, so an element with animation-delay paints fully visible, then snaps to
+     opacity 0 when the animation starts. `both` holds the from-state through the delay.
+
+     The LCP element (the h1) deliberately does NOT use this — it paints immediately.
+     Disabled wholesale under prefers-reduced-motion at the foot of this file. */
+  .enter {
+    animation: fade-in 0.6s ease-out both;
+  }
+
   /* Ledger structural language, brought to the marketing pages from /products and
      /free-website. Structure carries the distinctiveness; colour carries the brand —
      none of these rules touch a hue. See .okf/site/design-system.md. */
@@ -760,6 +771,7 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     transition: none !important;
   }
 
+  .enter,
   .animate-float,
   .animate-float-slow,
   .animate-fade-in,
