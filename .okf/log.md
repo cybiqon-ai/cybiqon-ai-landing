@@ -997,3 +997,24 @@
   shows the running storefront rather than the design comp, which also retired the
   placeholder-photography caveat. `snacklyfoods.com` is parked and redirects to `/lander`.
 
+* **2026-09-07 — /about and /products join the redesign.**
+
+  **`/products` came off Ledger**, which is the first time that theme has been removed from
+  anything. `ThemeScope` gained `LEDGER_EXCEPTIONS` so the index and three category pages
+  use the marketing card language while the seven detail pages and twelve legal pages keep
+  Ledger, which still suits long-form documents. Exact matches only — `/products/lumina` is
+  untouched, `/products/games` is not.
+
+  The reason is the seam this bundle has warned about since August, arriving from the other
+  side: Ledger was right for a catalogue index when the site around it was quiet, and the
+  chrome is now cards and colour. It also fixed something plainer — **a page whose entire
+  job is to show what has been built was showing no imagery at all**, while seven real
+  launcher icons sat in `public/img/` being used by the homepage.
+
+  **`/about` became a server component.** It was `"use client"` only for `useScrollReveal`
+  and a `window.open`; both are gone. Five of that hook's six consumers remain. The founder
+  photographs are now pre-cropped to a matched square rather than squeezed with
+  `objectPosition` — the sources are a studio portrait and a dusk phone snapshot at
+  different ratios, and matched framing stops the pair looking accidental without pretending
+  it is one shoot.
+

@@ -3,7 +3,7 @@ type: Architecture
 title: Design system
 description: A stock shadcn site, one scoped structural theme, one scoped full-palette theme, and the marketing pages now on the structural language too — plus the record of why the first may not recolour and the second may.
 tags: [design, tailwind, shadcn, theming, css-variables]
-timestamp: 2026-09-06T21:00:00Z
+timestamp: 2026-09-07T00:00:00Z
 ---
 
 # Overview
@@ -216,16 +216,36 @@ stays in `/blog`, `/lab` and parts of the chrome so a second icon library never 
 on intersection, so killing the transition alone strands anything above the fold at
 opacity 0.
 
+# Migrated so far
+
+`/` · `/about` · `/products` · `/products/{apps,games,extensions}`.
+
+**Ledger is now scoped away from part of its own tree.** `components/ThemeScope.tsx` gained
+`LEDGER_EXCEPTIONS`: `/products` and its three category pages come off Ledger, while the
+seven product detail pages and twelve legal pages stay on it. Exact matches only, so
+`/products/lumina` is unaffected while `/products/games` is.
+
+That is the first time Ledger has been removed from anything, and the reason is worth
+keeping: it was the right form for a catalogue index when the rest of the site was quiet,
+but the chrome around it is now cards, colour and depth, so squared hairline rules read as
+a different site rather than a deliberate section — the same seam this document warns
+about, arriving from the other direction. The long-form detail and legal pages keep it
+because it still reads well there.
+
+`/products` also stopped being a page about products that showed no products. Seven real
+launcher icons had been sitting in `public/img/` unused by it.
+
 # Not done yet
 
-The other 13 marketing pages still use the original look. They inherit the new palette
+The other 10 marketing pages still use the original look. They inherit the new palette
 through the tokens but not the type scale or the card language, so `/pricing` and `/about`
 currently read as part-way between. `/` is the reference; the comp is the source. Do not
 leave the site half-migrated across a merge.
 
-`hooks/useScrollReveal.ts` should go with that migration. Its 25 call sites are the only
-reason `/about`, `/pricing`, `/process`, `/contact`, `/faq` and `/case-studies` are
-`"use client"`; replacing it with `.reveal` makes all six server components.
+`hooks/useScrollReveal.ts` should go with that migration. `/about` was the first of its six
+consumers to drop it and became a server component in the process; `/pricing`, `/process`,
+`/contact`, `/faq` and `/case-studies` still hold it, and each is `"use client"` for no
+other reason.
 
 `.display` is kept as an alias so the unmigrated pages do not lose their headings mid-way.
 Remove it when they are all on `.t-*`.
