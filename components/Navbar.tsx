@@ -48,12 +48,18 @@ const Navbar = () => {
         <AnnouncementBar />
         <div className="container mx-auto px-4 py-3.5">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-              <img src="/logo.png" alt="Cybiqon AI Logo" className="w-8 h-8 object-contain" loading="eager" />
-              <span
-                className="font-jakarta text-[1.3rem] font-bold tracking-tight text-primary"
-              >
-                Cybiqon AI
+            {/* Two-line lockup, as the comp has it: the name, and under it what the
+                company actually sells. A visitor arriving from a search result should not
+                have to read the h1 to find out. */}
+            <Link href="/" className="flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-80">
+              <img src="/logo.png" alt="Cybiqon AI Logo" className="h-8 w-8 object-contain" loading="eager" />
+              <span className="flex flex-col leading-none">
+                <span className="font-jakarta text-[1.15rem] font-bold tracking-tight text-primary">
+                  Cybiqon AI
+                </span>
+                <span className="mt-0.5 hidden text-[11px] font-medium text-muted-foreground sm:block">
+                  Web &amp; WhatsApp AI for Indian MSMEs
+                </span>
               </span>
             </Link>
 
@@ -63,14 +69,39 @@ const Navbar = () => {
                   <Link
                     key={link.path}
                     href={link.path}
-                    className={`text-sm font-medium transition-colors hover:text-primary ${
-                      isActive(link.path) ? 'text-primary' : 'text-muted-foreground'
+                    className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-primary ${
+                      isActive(link.path) ? "text-primary" : "text-muted-foreground"
                     }`}
                   >
                     {link.label}
+                    {/* The price badge from the comp. It sits on Pricing rather than a
+                        "Services" link this nav does not have. */}
+                    {link.path === "/pricing" && (
+                      <span className="rounded-full bg-accent-softer px-1.5 py-0.5 text-[11px] font-bold text-[hsl(var(--accent))]">
+                        ₹9,999+
+                      </span>
+                    )}
                   </Link>
                 ))}
               </div>
+              {/* Live WhatsApp number with a ping, as the comp has it. It is the channel
+                  this audience actually uses, and it was previously only reachable from
+                  the floating widget. */}
+              <a
+                href="https://wa.me/919250711473"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="whatsapp_click"
+                data-track-label="navbar"
+                aria-label="WhatsApp +91 92507 11473"
+                className="hidden items-center gap-2 rounded-lg px-2.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-primary xl:inline-flex"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+                </span>
+                +91 92507 11473
+              </a>
               <Button onClick={handleBookCall} variant="accent" data-track="book_call" data-track-label="navbar">
                 Book a free call
               </Button>
