@@ -3,7 +3,7 @@ type: Architecture
 title: Design system
 description: A stock shadcn site, one scoped structural theme, one scoped full-palette theme, and the marketing pages now on the structural language too — plus the record of why the first may not recolour and the second may.
 tags: [design, tailwind, shadcn, theming, css-variables]
-timestamp: 2026-09-06T18:00:00Z
+timestamp: 2026-09-06T21:00:00Z
 ---
 
 # Overview
@@ -166,8 +166,13 @@ white-on-white and were rejected for exactly that. `bg-surface`, `bg-surface-low
 / `.t-h3` / `.t-body*` / `.t-label*` / `.t-eyebrow` in `app/globals.css`, all carrying the
 comp's exact sizes, line-heights, tracking and weights.
 
-Section order: announcement strip → hero (WhatsApp mockup) → credentials → agency
-comparison → service cards → four-step process → why-us → evidence → navy CTA → footer.
+Section order: announcement strip → hero (agent card) → credentials → agency comparison →
+service cards → four-step process → why-us → evidence → navy CTA → footer.
+
+**The hero card is an AI agent working a task, not the comp's WhatsApp chat.** Changed
+6 Sep 2026 with the positioning: the company sells custom software and AI agents, and a
+chat mockup framed it as a WhatsApp-bot shop. Both versions carry a caption saying they are
+illustrations — a mockup on a homepage reads as a real customer otherwise.
 
 **The uppercase eyebrow is back, deliberately.** v1 used it above every heading and it was
 a tell. Here it is the comp's own device, it marks section starts on a long sales page, and

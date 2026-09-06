@@ -3,7 +3,7 @@ type: Reference
 title: Content data
 description: A data/ directory now exists and covers products, legal copy and the Launch-5 offer — but every marketing page's content is still a const array welded into the component that renders it.
 tags: [content, data, refactor, portfolio]
-timestamp: 2026-09-06T18:00:00Z
+timestamp: 2026-09-06T21:00:00Z
 ---
 
 # Overview
@@ -84,6 +84,13 @@ attached to a retail shop anyone could name. `components/Proof.tsx` replaces it 
 `CLIENT_PROJECTS.length`) rather than hard-coding them, so they cannot drift into being
 false. The `Testimonials` heading was "What Our Clients Say" over one quote, and rendered
 five gold stars against a rating nobody left; both are gone.
+
+**Snackly went live on 6 Sep 2026.** `snacklyfoods.in` returns a real storefront, so
+`data/clients.ts` moved from `status: "building"` / `url: null` to `live` with the URL, and
+the homepage shows a screenshot of the running site rather than the Stitch design comp.
+That also retired a caveat: the comp carried Imagen placeholder food photography and needed
+a caption saying so, and the live site has the client's own packaging. **`snacklyfoods.com`
+is a parked domain** that redirects to `/lander` — only the `.in` resolves.
 
 **`components/Testimonials.tsx`** deliberately holds **one real testimonial**
 (LeadzGalaxy / Amit Menon) after placeholders were removed, with a comment saying

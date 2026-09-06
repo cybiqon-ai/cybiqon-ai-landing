@@ -974,3 +974,26 @@
 
   Lesson worth more than the palette: **check the design tool before designing.**
 
+* **2026-09-06 (fourth pass) — the homepage repositions, and Snackly goes live.**
+
+  Founder review of the comp-built page. Six changes: `Free Website` out of the header
+  (seven slots now, still in the footer and sitemap), Chrome extensions repriced to
+  **₹6,999** in all three places that state it including the Product JSON-LD, and the
+  positioning moved from *"web and WhatsApp AI"* to **custom software and AI agents**.
+
+  The company writes code for one business rather than configuring themes, and the old
+  framing sold it as a cheap website shop with a chatbot attached. The ₹9,999 website is
+  now the entry point rather than the headline. Service names, page title, description,
+  keywords and the Service JSON-LD moved together, so the structured data does not describe
+  a different company from the page.
+
+  The hero's WhatsApp chat card is replaced by an agent working an order. See
+  [design system](/site/design-system.md).
+
+  **The D-U-N-S number is displayed** beside the DPIIT recognition — worth showing precisely
+  because a buyer can verify it.
+
+  **Snackly is live at `snacklyfoods.in`.** `data/clients.ts` updated, and the homepage now
+  shows the running storefront rather than the design comp, which also retired the
+  placeholder-photography caveat. `snacklyfoods.com` is parked and redirects to `/lander`.
+
