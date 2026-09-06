@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import IndustryShowcase from "@/components/IndustryShowcase";
+import Proof from "@/components/Proof";
 import Services from "@/components/Services";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
@@ -89,7 +89,7 @@ export default function IndexPage() {
       <HowItWorks />
 
       <WhyChooseUs />
-      <IndustryShowcase />
+      <Proof />
       <Testimonials />
       <Contact />
     </div>
