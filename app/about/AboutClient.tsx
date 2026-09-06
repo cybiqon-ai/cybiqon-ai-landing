@@ -178,7 +178,7 @@ const About = () => {
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Certificate weight="fill" aria-hidden className="h-4 w-4 text-primary" />
-                Registered LLP, incorporated 5 March 2026 · D-U-N-S 772066074
+                Registered LLP ACV-9817, incorporated 5 March 2026 · D-U-N-S 772066074
               </span>
             </p>
           </div>

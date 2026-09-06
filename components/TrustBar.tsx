@@ -15,7 +15,14 @@ import { Buildings, Certificate, Code, Newspaper } from "@phosphor-icons/react/d
  *
  *   - DIPP256002 is the DPIIT recognition number, verifiable on the Startup India portal.
  *     Certificate dated 17 Apr 2026, valid to 4 Mar 2036, in ops/Downloads.
+ *   - ACV-9817 is the LLPIN, verifiable on the MCA portal. Incorporated 5 Mar 2026.
  *   - 772066074 is the D-U-N-S number, verifiable through D&B.
+ *
+ * The incorporation certificate also carries the LLP's PAN and TAN. Those are deliberately
+ * NOT here and should not be added: they are tax identifiers rather than registry ones, a
+ * PAN is used for identity verification in India, and this is the org's only public repo
+ * where a push deploys the live site. Nothing a customer needs to check about this company
+ * requires either of them.
  *   - The Economic Times mention links to /press, which shows the scanned page.
  *
  * That is why the numbers are printed rather than a badge reading "verified": a badge
@@ -31,8 +38,8 @@ const CREDENTIALS = [
   },
   {
     icon: Buildings,
-    value: "D-U-N-S",
-    label: "772066074 · Registered LLP",
+    value: "Registered LLP",
+    label: "ACV-9817 · D-U-N-S 772066074",
     href: null,
   },
   {

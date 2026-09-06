@@ -130,14 +130,23 @@ reference number someone can look up:
 | Claim | Backed by |
 |---|---|
 | Startup India, DPIIT | **DIPP256002**, checkable on the Startup India portal |
+| Registered LLP | **LLPIN ACV-9817**, checkable on the MCA portal. Incorporated 5 Mar 2026 |
 | D-U-N-S | **772066074**, checkable through D&B |
 | The Economic Times | links to `/press`, which shows the scanned page |
 | Snackly | links to the live site at `snacklyfoods.in` |
 | Testimonial | links to `/case-studies` |
 | 100% code ownership | a promise, and positioned last so it does not read as a lookup |
 
-⚠️ The **LLP incorporation** is the one claim still resting on our word: the certificate is
-a scan with no extractable text, so no LLPIN is printed.
+Every claim in that row now carries a reference. The LLPIN closed the last gap on
+7 Sep 2026 — its certificate is a scan, so the number was supplied by hand rather than
+extracted.
+
+⚠️ **The incorporation certificate also carries the LLP's PAN and TAN. Neither is on the
+site and neither should be added.** They are tax identifiers rather than registry ones, a
+PAN is used for identity verification in India, and this is the org's only public repo
+where a push deploys production. Nothing a customer needs to verify about this company
+requires either. The LLPIN, DIPP number and D-U-N-S are all public registry identifiers
+and do the job.
 
 # Still missing
 
