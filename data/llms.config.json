@@ -92,6 +92,52 @@
       ]
     },
     {
+      "heading": "Services — what we build, and what it costs",
+      "note": "One page per service, each with scope, deliverables, price and FAQs. These carry the specific terms the homepage deliberately stopped chasing: the homepage argues the positioning, these answer 'do you do X and what does X cost'.",
+      "entries": [
+        {
+          "title": "Services",
+          "url": "/services",
+          "note": "the hub — seven things we build, every price stated. Custom software development for Indian businesses."
+        },
+        {
+          "title": "Custom websites",
+          "url": "/services/custom-websites",
+          "note": "hand-coded, mobile-first websites from ₹9,999, live in 2–3 weeks. Full code ownership."
+        },
+        {
+          "title": "AI agents & automation",
+          "url": "/services/ai-agents",
+          "note": "agents built on a business's own data and rules — order intake, quoting, lead qualification. Covers AI automation and business automation."
+        },
+        {
+          "title": "WhatsApp automation",
+          "url": "/services/whatsapp-automation",
+          "note": "official WhatsApp Business platform, Hindi/Hinglish/English, lead capture into a sheet you already read."
+        },
+        {
+          "title": "Android apps",
+          "url": "/services/android-apps",
+          "note": "Play Store–ready builds from ₹29,999. Six of our own are published, so the release process is not theoretical."
+        },
+        {
+          "title": "Admin panels & internal tools",
+          "url": "/services/admin-panels",
+          "note": "dealer portals, order desks, inventory — the software a business runs on once a spreadsheet stops coping."
+        },
+        {
+          "title": "Chrome extensions",
+          "url": "/services/chrome-extensions",
+          "note": "browser tools from ₹6,999 — portal auto-fill, on-page data extraction."
+        },
+        {
+          "title": "Web scraping & data",
+          "url": "/services/web-scraping",
+          "note": "JustDial and IndiaMART extraction, competitor price tracking, re-runnable pipelines from ₹11,999."
+        }
+      ]
+    },
+    {
       "heading": "Products",
       "note": "Apps, games and browser extensions built and published by the studio, each with its own page. Android unless noted. Client work is a section on /products.",
       "entries": [

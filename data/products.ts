@@ -263,7 +263,7 @@ export const PRODUCTS: Product[] = [
     name: "Lumina: The Lightkeeper's Path",
     tagline: "A cosy sliding-block puzzle",
     summary:
-      "Slide crystal blocks aside so a glowing Light Key can reach its lantern, and relight a fading world one puzzle at a time. 150 hand-verified levels across five worlds, a new puzzle every day, and no timers, lives or fail states \u2014 you cannot lose, only not have finished yet.",
+      "Slide crystal blocks aside so a glowing Light Key can reach its lantern, and relight a fading world one puzzle at a time. 300 hand-verified levels across ten worlds, a new puzzle every day, and no timers, lives or fail states \u2014 you cannot lose, only not have finished yet.",
     packageId: "com.cybiqon.lumina",
     status: "live",
     playUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.lumina",
@@ -272,14 +272,14 @@ export const PRODUCTS: Product[] = [
       "Most puzzle games on Play are built to interrupt you \u2014 energy meters, countdowns, an ad between every level. Lumina is the opposite argument: every level is solvable at your own pace, every one is proven solvable by the solver that generated it, and the reward for playing is watching a world light back up.",
     features: [
       {
-        title: "150 levels, every one verified",
+        title: "300 levels, every one verified",
         description:
           "Each level is generated and then re-solved by a breadth-first solver, so the three-star target is the true shortest solution \u2014 never a guess that cannot be met.",
       },
       {
-        title: "Five worlds, five ideas",
+        title: "Ten worlds, ten ideas",
         description:
-          "Crystal, sand that crumbles once moved, ice that cannot stop short, rime frozen until the Key thaws it, and mirrors that bend the Key's light to the lantern.",
+          "Crystal, sand that crumbles once moved, ice that cannot stop short, rime frozen until the Key thaws it, and mirrors that bend the Key's light to the lantern \u2014 each world introducing one more.",
       },
       {
         title: "A new puzzle every day",

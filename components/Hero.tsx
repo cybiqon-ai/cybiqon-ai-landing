@@ -46,8 +46,21 @@ const Hero = () => (
 
         <p className="t-body-lg mt-5 max-w-[54ch] text-muted-foreground">
           Agents that do real work, admin panels, storefronts and automation — written for
-          your business rather than assembled from a template. Websites start at ₹9,999,
-          and you own every line of the code.
+          your business rather than assembled from a template, and you own every line of
+          the code.
+        </p>
+
+        {/* Prices in the hero rather than four sections down. The entry price is what
+            makes a small business willing to have the conversation at all, and burying it
+            below the comparison made the page read as "enquire for pricing". */}
+        <p className="t-label mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-primary">
+          <span>
+            Websites from <span className="font-bold text-accent">₹9,999</span>
+          </span>
+          <span aria-hidden className="text-border">·</span>
+          <span>
+            AI automation from <span className="font-bold text-accent">₹19,999</span>
+          </span>
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -63,10 +76,10 @@ const Hero = () => (
             Book a free 30-min call
           </a>
           <Link
-            href="/pricing"
+            href="/services"
             className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-border bg-white px-6 text-[15px] font-medium text-primary transition-colors hover:bg-surface-low focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
-            See ₹9,999 packages
+            See what we build
             <ArrowRight weight="bold" aria-hidden className="h-4 w-4" />
           </Link>
         </div>

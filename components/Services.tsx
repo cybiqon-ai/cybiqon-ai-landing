@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Check, Receipt } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Check, Receipt } from "@phosphor-icons/react/dist/ssr";
 import SectionHeading from "@/components/SectionHeading";
-import { SERVICES, TIDYCAL } from "@/data/homepage";
+import { SERVICES } from "@/data/homepage";
 
 /**
  * The comp's service cards, with a ribbon on the one people actually come for.
@@ -43,7 +43,9 @@ const Services = () => (
               </span>
             )}
 
-            <h3 className="t-h3 text-primary">{service.title}</h3>
+            <Link href={service.href} className="t-h3 text-primary hover:underline">
+              {service.title}
+            </Link>
             <p className="t-body-sm mt-2 text-muted-foreground">{service.description}</p>
 
             <div className="mt-5 rounded-xl bg-surface-low px-4 py-3.5">
@@ -67,20 +69,17 @@ const Services = () => (
               ))}
             </ul>
 
-            <a
-              href={TIDYCAL}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-track="book_call"
-              data-track-label={`service_${service.title.split(" ")[0].toLowerCase()}`}
-              className={`mt-6 inline-flex h-11 items-center justify-center rounded-lg px-5 text-[15px] font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+            <Link
+              href={service.href}
+              className={`mt-6 inline-flex h-11 items-center justify-center gap-1.5 rounded-lg px-5 text-[15px] font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
                 service.popular
                   ? "bg-accent text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)] focus-visible:ring-accent"
                   : "bg-surface-high text-primary hover:bg-surface-container focus-visible:ring-ring"
               }`}
             >
-              {service.popular ? `Get started at ${service.price}` : "Talk it through"}
-            </a>
+              {service.popular ? `More on ${service.price} websites` : "What this involves"}
+              <ArrowRight weight="bold" aria-hidden className="h-3.5 w-3.5" />
+            </Link>
           </div>
         ))}
       </div>
@@ -89,10 +88,17 @@ const Services = () => (
         Hosting and domain are separate, roughly ₹4,000–6,000 a year paid straight to the
         provider.{" "}
         <Link
+          href="/services"
+          className="font-semibold text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
+        >
+          See all seven services
+        </Link>{" "}
+        or{" "}
+        <Link
           href="/pricing"
           className="font-semibold text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
         >
-          See what each package includes
+          what each package includes
         </Link>
       </p>
     </div>

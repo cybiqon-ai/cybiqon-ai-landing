@@ -67,9 +67,16 @@ const AgentDemo = () => (
           </span>
         </div>
 
+        {/* The steps arrive in order — see .agent-step in globals.css for why it is
+            kept this small. Index-based delays rather than a JS timeline: no client
+            component, no hydration, and it still works if the bundle never loads. */}
         <ol className="divide-y divide-border/60 bg-surface-lowest">
-          {STEPS.map((step) => (
-            <li key={step.label} className="flex items-start gap-3 px-4 py-3.5">
+          {STEPS.map((step, i) => (
+            <li
+              key={step.label}
+              className="agent-step flex items-start gap-3 px-4 py-3.5"
+              style={{ animationDelay: `${360 + i * 260}ms` }}
+            >
               <span
                 className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
                   step.state === "done"
@@ -93,7 +100,8 @@ const AgentDemo = () => (
                 <CheckCircle
                   weight="fill"
                   aria-hidden
-                  className="mt-1 h-4 w-4 shrink-0 text-secondary"
+                  className="agent-check mt-1 h-4 w-4 shrink-0 text-secondary"
+                  style={{ animationDelay: `${700 + i * 260}ms` }}
                 />
               ) : (
                 <span className="t-label-sm mt-1 shrink-0 text-[hsl(var(--accent))]">now</span>

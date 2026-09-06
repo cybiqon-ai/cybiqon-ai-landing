@@ -28,6 +28,7 @@ const Navbar = () => {
   const navLinks = [
     { label: "Home", path: "/" },
     { label: "About", path: "/about" },
+    { label: "Services", path: "/services" },
     { label: "Products", path: "/products" },
     { label: "Pricing", path: "/pricing" },
     { label: "Blog", path: "/blog" },
@@ -77,8 +78,7 @@ const Navbar = () => {
                     }`}
                   >
                     {link.label}
-                    {/* The price badge from the comp. It sits on Pricing rather than a
-                        "Services" link this nav does not have. */}
+                    {/* The price badge from the comp, on Pricing. */}
                     {link.path === "/pricing" && (
                       <span className="rounded-full bg-accent-softer px-1.5 py-0.5 text-[11px] font-bold text-[hsl(var(--accent))]">
                         ₹9,999+

@@ -362,6 +362,36 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     animation: spin 2.4s linear infinite;
   }
 
+  /* ── The agent card's sequence ──────────────────────────────────────────
+     The hero card is the signature visual, so its steps arrive in order rather
+     than all at once — it should read as an agent working through a task, not
+     as a static list that happens to have ticks on it.
+
+     Deliberately small: a 12px lift and a fade, once, on load. No looping, no
+     parallax, no morphing. The row is fully legible the whole time; the only
+     thing animating is how it arrives.
+
+     `both` holds the from-state through the delay, exactly as .enter does —
+     without it a delayed row paints, disappears, then fades back in. */
+  .agent-step {
+    animation: agent-step-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes agent-step-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* The tick lands after its row has settled. */
+  .agent-check {
+    animation: agent-check-in 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes agent-check-in {
+    from { opacity: 0; transform: scale(0.6); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
   /* Accent text — now a single solid hue, not a rainbow gradient. */
   .gradient-text {
     @apply text-primary;
@@ -832,6 +862,8 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   }
 
   .enter,
+  .agent-step,
+  .agent-check,
   .animate-spin-slow,
   .animate-float,
   .animate-float-slow,

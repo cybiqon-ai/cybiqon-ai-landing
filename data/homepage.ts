@@ -56,11 +56,14 @@ export type Service = {
   popular?: boolean;
   /** Sits under the price. */
   note?: string;
+  /** The service page this card links into. Internal linking is the point of those pages. */
+  href: string;
 };
 
 export const SERVICES: Service[] = [
   {
     title: "Custom websites",
+    href: "/services/custom-websites",
     description:
       "Hand-written, not a theme with your logo dropped in. Mobile-first, fast on a mid-range phone, and indexed by Google. Delivered in 2–3 weeks.",
     price: "₹9,999",
@@ -70,6 +73,7 @@ export const SERVICES: Service[] = [
   },
   {
     title: "Apps and internal software",
+    href: "/services/android-apps",
     description:
       "Admin panels, dealer portals, inventory and field tools — plus Android builds ready for the Play Store, with support after launch.",
     price: "₹29,999",
@@ -78,6 +82,7 @@ export const SERVICES: Service[] = [
   },
   {
     title: "AI agents and automation",
+    href: "/services/ai-agents",
     description:
       "Agents that read an order, check stock, update your sheet and draft the reply. Built on your own data and your own rules, not a generic chatbot.",
     price: "₹19,999",
@@ -86,6 +91,7 @@ export const SERVICES: Service[] = [
   },
   {
     title: "Chrome extensions",
+    href: "/services/chrome-extensions",
     description:
       "Browser tools for a sales team — auto-fill GST portals, build quotes faster, pull data off a page as you work.",
     price: "₹6,999",
@@ -94,6 +100,7 @@ export const SERVICES: Service[] = [
   },
   {
     title: "Bulk scraping",
+    href: "/services/web-scraping",
     description:
       "Competitor prices, supplier catalogues and leads out of JustDial and IndiaMART, delivered as Excel you can use the same day.",
     price: "₹11,999",
@@ -188,4 +195,78 @@ export const DIFFERENTIATORS: Differentiator[] = [
     description:
       "Free revisions while we build. If we cannot deliver what we promised, you get your money back — that is the whole guarantee, in one sentence.",
   },
+];
+
+
+export type CaseStudy = {
+  name: string;
+  what: string;
+  img: string;
+  alt: string;
+  href: string;
+  external?: boolean;
+  status: string;
+};
+
+/**
+ * The case grid.
+ *
+ * Four, because four have a real picture. MeFlow and VitaLoop are shipped and are on
+ * /products, but neither has a usable screenshot — MeFlow's only capture contains the
+ * founder's actual personal finance data and VitaLoop has none at all — and four boxes
+ * where two hold an icon is a grid with two holes in it.
+ *
+ * The three app images are Play Store feature graphics, which are landscape by design and
+ * are the artwork each product ships with. Snackly is a capture of the live site.
+ */
+export const CASES: CaseStudy[] = [
+  {
+    name: "Snackly Foods",
+    what: "D2C storefront and a custom admin panel",
+    img: "/img/case-snackly.webp",
+    alt: "The Snackly storefront at snacklyfoods.in, showing the product range and promotional bar.",
+    href: "https://snacklyfoods.in",
+    external: true,
+    status: "Live",
+  },
+  {
+    name: "LLMBytes",
+    what: "AI news, written fresh every day",
+    img: "/img/case-llmbytes.webp",
+    alt: "The LLMBytes Play Store feature graphic.",
+    href: "/products/llmbytes",
+    status: "On Google Play",
+  },
+  {
+    name: "Lumina",
+    what: "A cosy sliding-block puzzle",
+    img: "/img/case-lumina.webp",
+    alt: "The Lumina Play Store feature graphic — a lantern in a forest.",
+    href: "/products/lumina",
+    status: "On Google Play",
+  },
+  {
+    name: "Orbitone",
+    what: "Eight arcade games, one thumb",
+    img: "/img/case-orbitone.webp",
+    alt: "The Orbitone Play Store feature graphic.",
+    href: "/products/orbitone",
+    status: "On Google Play",
+  },
+];
+
+/**
+ * Who the work is for.
+ *
+ * Self-identification, not a claim: this is who we build for, not a list of clients we
+ * have. Ordered roughly by how much of the work has actually looked like this.
+ */
+export const AUDIENCES = [
+  "Manufacturers",
+  "Distributors and dealers",
+  "Retailers",
+  "D2C brands",
+  "Service businesses",
+  "Agencies",
+  "Clinics and local businesses",
 ];

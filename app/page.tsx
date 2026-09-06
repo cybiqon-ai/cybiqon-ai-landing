@@ -5,6 +5,8 @@ import ProblemsWeSolve from "@/components/ProblemsWeSolve";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import WhyChooseUs from "@/components/WhyChooseUs";
+import CaseGrid from "@/components/CaseGrid";
+import WhoFor from "@/components/WhoFor";
 import Proof from "@/components/Proof";
 import Contact from "@/components/Contact";
 
@@ -88,6 +90,8 @@ export default function IndexPage() {
       <Services />
       <HowItWorks />
       <WhyChooseUs />
+      <CaseGrid />
+      <WhoFor />
       <Proof />
       <Contact />
     </div>

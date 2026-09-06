@@ -19,7 +19,7 @@ const siteUrl = "https://cybiqon.in";
  * not a change to /pricing, and wiring it to the build would recreate the same problem
  * with extra steps.
  */
-const STATIC_LAST_MODIFIED = new Date("2026-09-06T00:00:00Z");
+const STATIC_LAST_MODIFIED = new Date("2026-09-07T00:00:00Z");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
@@ -28,6 +28,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // "yearly" is honest: this changes when there is new press, not on a schedule.
     { url: `${siteUrl}/press`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.5 },
     { url: `${siteUrl}/pricing`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.9 },
+    // The service pages carry the commercial search terms the homepage stopped
+    // chasing when it was rewritten around positioning. Highest priority after
+    // the homepage and pricing, because they are the pages meant to rank.
+    { url: `${siteUrl}/services`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteUrl}/services/custom-websites`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/services/ai-agents`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/services/whatsapp-automation`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/services/android-apps`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/services/admin-panels`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/services/chrome-extensions`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/services/web-scraping`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/process`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/case-studies`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/rss.xml`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "daily", priority: 0.5 },
