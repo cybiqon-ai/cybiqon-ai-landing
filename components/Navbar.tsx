@@ -15,17 +15,21 @@ const Navbar = () => {
     window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
   };
 
-  // Eight slots is the hard limit — nine wrap at the lg breakpoint. "Products" holds the
-  // slot "Our Works" had: that page showed five sample builds that were never client
-  // work, and it was removed on 29 Aug 2026 in favour of real products and real
-  // engagements. Client work is a section of /products rather than a link of its own,
-  // so it costs no slot. /process is still reachable from the footer as "How It Works".
+  // Eight slots is the hard limit — nine wrap at the lg breakpoint. Six are used, so
+  // there is room; the ones that are gone were removed on purpose rather than for space.
+  //
+  // "Products" holds the slot "Our Works" had: that page showed five sample builds that
+  // were never client work, and it was removed on 29 Aug 2026 in favour of real products
+  // and real engagements. Client work is a section of /products rather than a link of its
+  // own, so it costs no slot. /process is still reachable from the footer as "How It
+  // Works". "Free Website" and "Case Studies" came out on 6 Sep 2026 — /case-studies
+  // carries one study, LeadzGalaxy, and a top-level nav slot promised more than one.
+  // Both pages still exist and are still linked from the footer and the sitemap.
   const navLinks = [
     { label: "Home", path: "/" },
     { label: "About", path: "/about" },
     { label: "Products", path: "/products" },
     { label: "Pricing", path: "/pricing" },
-    { label: "Case Studies", path: "/case-studies" },
     { label: "Blog", path: "/blog" },
     { label: "Contact", path: "/contact" }
   ];
