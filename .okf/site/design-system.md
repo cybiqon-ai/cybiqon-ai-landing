@@ -1,9 +1,9 @@
 ---
 type: Architecture
 title: Design system
-description: A stock shadcn site, one scoped structural theme, and one scoped full-palette theme — plus the record of why the first may not recolour and the second may.
+description: A stock shadcn site, one scoped structural theme, one scoped full-palette theme, and the marketing pages now on the structural language too — plus the record of why the first may not recolour and the second may.
 tags: [design, tailwind, shadcn, theming, css-variables]
-timestamp: 2026-08-01T00:00:00Z
+timestamp: 2026-09-06T00:00:00Z
 ---
 
 # Overview
@@ -119,20 +119,71 @@ React reconciles the class away during hydration. Recorded in [Lab](/content/lab
 above. `mono` was deliberately left alone because `app/process/ProcessClient.tsx` uses
 `font-mono` and redefining the key would change a page unrelated to this work.
 
+# The homepage — 6 Sep 2026
+
+The Ledger language was brought to `/` on the `redesign/homepage-ledger` branch. It is the
+first marketing page to use it and the template for the other 13.
+
+**Archivo now loads in the root layout.** It was deferred on the condition that it land in
+a *scoped* component so 14 pages would not preload a font they never use; `/lab` has its
+own layout now, so the condition is met differently — the marketing pages need the face in
+the root layout or they have none at all. `axes: ["wdth"]`, **no** `weight` key. The
+Tailwind key is `display`; see the `font-heading` trap above, which is still live.
+
+**`--rule-strong` moved from `.theme-ledger` to `:root`.** `border-rule-strong` used to
+resolve to nothing outside `/products` and `/free-website` and fell back to `currentColor`.
+
+**Ten sections became seven.** `TrustBar`, `Stats` and `IndustryShowcase` are deleted,
+`WhyChooseUs` absorbed the first two, and `Proof` replaces the third. Three sections were
+asserting the same guarantees: "you own the code" appeared on the page four times.
+`HeroDashboardMockup` and `AnimatedBackground` are deleted — see
+[content data](/content/content-data.md), the flagged invented figures were theirs.
+
+**Structure only, again.** No hue changed. `icon-chip` went 24 → 0 on the rendered page,
+`rounded-full` 30 → 11 with the remainder in the chrome, and the rendered homepage went
+145,980 → 122,822 bytes.
+
+## The motion budget, measured
+
+The Worker holds **only the 12 edge routes**. Every marketing page is prerendered to static
+HTML and costs it nothing — `HeroDashboardMockup`, `WhyChooseUs` and `TrustBar` appeared
+**zero** times in `blog.func.js`.
+
+**The root layout is a 5× multiplier.** `Navbar`, `Footer`, `WhatsAppWidget`, `ThemeScope`
+and `RevealObserver` are compiled into all five ~433 KiB functions, and `sonner` — a client
+library sitting there — appears **121 times** inside `blog.func.js`. Client library code
+does land in the server bundle. So a library in a page body is free and the same library in
+shared chrome is paid five times.
+
+**framer-motion was added under that rule and then removed.** The ceiling was never the
+objection. Two things were. In the hero it server-rendered the `h1` as `opacity:0`, leaving
+the LCP element waiting on hydration — the wrong trade for this audience. And below the
+fold, `.reveal` plus the one shared `RevealObserver` already does staggered entrances at
+zero client JS, so no set piece was left that needed a library. **If you reach for it
+again, the rule above is what makes it affordable and the LCP trap is what makes the hero
+the wrong place for it.**
+
+`.enter` exists because `animate-fade-in` cannot be delayed: the Tailwind animation
+declares no `fill-mode`, so a delayed element paints visible and then snaps to opacity 0.
+
+**Phosphor** (`@phosphor-icons/react`) is the marketing icon set — import per-icon or from
+`dist/ssr`, never the barrel. lucide stays in the shared chrome and on `/blog` and `/lab`,
+deliberately, so a second icon library never enters the 5× zone.
+
+**`prefers-reduced-motion` now covers the marketing pages.** It previously matched only
+`.lab-prose` and `.lab-row`. `.reveal` has to be forced to its *visible* state rather than
+merely losing its transition — `RevealObserver` adds `.visible` on intersection, so killing
+the transition alone strands anything above the fold at opacity 0.
+
 # Not done yet
 
-**Archivo** was planned as the display face and deferred until the layout stopped moving,
-on the condition that it land in a **scoped** component rather than the root layout —
-otherwise all 14 pages preload a font they never use. It shipped on 1 Aug 2026 in `/lab`,
-which is that scoped component. Loaded via `next/font/google` with `axes: ["wdth"]` and
-**no** `weight` key; passing both throws at build time.
+The other 13 marketing pages still use the original look. Migrating them is page-by-page
+work, and `/` is now the reference. Do not leave the site half-migrated across a merge:
+a seam behind shared chrome is what sank the first Ledger attempt.
 
-The **marketing** pages still have no display face. That part is genuinely not done, and
-the original caution still applies to them: changing the typeface while the layout is
-moving makes it impossible to tell which change broke the rhythm.
-
-The other 14 pages still use the original look. Migrating them is page-by-page work that
-has not started.
+`hooks/useScrollReveal.ts` should go with that migration. Its 25 call sites are the only
+reason `/about`, `/pricing`, `/process`, `/contact`, `/faq` and `/case-studies` are
+`"use client"`; replacing it with the `.reveal` class makes all six server components.
 
 # See also
 

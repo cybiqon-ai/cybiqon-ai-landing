@@ -3,7 +3,7 @@ type: Reference
 title: Content data
 description: A data/ directory now exists and covers products, legal copy and the Launch-5 offer — but every marketing page's content is still a const array welded into the component that renders it.
 tags: [content, data, refactor, portfolio]
-timestamp: 2026-08-29T00:00:00Z
+timestamp: 2026-09-06T00:00:00Z
 ---
 
 # Overview
@@ -19,6 +19,7 @@ page is still a `const` array declared inside the component that renders it.**
 | `data/clients.ts` | the client-work section of `/products` — `ClientProject`, `CLIENT_PROJECTS`. Separate from products on purpose: an engagement has a client and a delivery state where a product has a package id and a policy, and `unnamed` carries *why* a client is not named so the page can say so rather than quietly omit it |
 | `data/legal/{llmbytes,meflow,vitaloop}.ts` | privacy and terms, as a `Block` discriminated union (prose / checklist / deflist / table / contact) rather than MDX or raw HTML |
 | `data/launch5.ts` | `/free-website` — the trade, fit lists, sequence, FAQs, slot counts |
+| `data/homepage.ts` | `/` — `PROBLEMS`, `SERVICES` (all five with prices), `STEPS`, `DIFFERENTIATORS`. Added 6 Sep 2026 with the homepage redesign. |
 
 `data/**` **must** stay in the Tailwind content globs (it is) or any class name stored
 there is purged silently in production while looking fine in dev.
@@ -32,8 +33,8 @@ there is purged silently in production while looking fine in dev.
 | `productSchema` | `app/pricing/page.tsx:42` |
 | `featuredCaseStudy` | `app/case-studies/page.tsx:35` |
 | `faqCategories` | `app/faq/page.tsx:17` |
-| `howItWorksSteps` | `app/page.tsx:22` |
-| service/stat/industry lists | `components/{Services,Stats,WhyChooseUs,ProblemsWeSolve,IndustryShowcase,HeroSocialProof}.tsx` |
+| ~~`howItWorksSteps`~~ | **Extracted 6 Sep 2026** → `data/homepage.ts` |
+| ~~service/problem/differentiator lists~~ | **Extracted 6 Sep 2026** → `data/homepage.ts`. `Stats`, `TrustBar` and `IndustryShowcase` no longer exist. |
 
 # What it costs
 
@@ -66,10 +67,23 @@ plausibly rebuild it: the component rendered "{N} MSME owners got their free aud
 week" beside a pulsing "Live" badge and five invented names, with N starting at 47 and
 randomly incrementing every 15 seconds. `audit_leads` held 2 rows.
 
-⚠️ **`components/HeroDashboardMockup.tsx` is still live and still shows invented figures**
-(1,247 visitors, +147%, 12 orders today, 73% repeat customers). It reads as an
-illustrative product mockup rather than a claim about Cybiqon's own results, which is why
-it was left — but it is the same class of thing and worth a deliberate decision.
+✅ **`components/HeroDashboardMockup.tsx` was deleted on 6 Sep 2026.** It showed 1,247
+visitors, +147%, 12 orders today and 73% repeat customers — none of them real. The
+deliberate decision this file asked for was taken: the distinction between "an illustrative
+product mockup" and "a claim about our own results" is thinner than it needs to be on the
+homepage of a company selling trust to small business owners.
+
+What replaces it is `components/HeroSpecLedger.tsx`, whose every line is checkable against
+`/pricing`. `AnimatedBackground.tsx` went at the same time. Both were deleted rather than
+left unimported, for the reason `features/` was deleted.
+
+`components/IndustryShowcase.tsx` went too — it rotated six industry names on a 2s
+`setInterval` asserting things like "Retail Shops — 3x more inquiries", which was not
+attached to a retail shop anyone could name. `components/Proof.tsx` replaces it and
+**derives its counts** (`PRODUCTS.filter(status === "live").length`,
+`CLIENT_PROJECTS.length`) rather than hard-coding them, so they cannot drift into being
+false. The `Testimonials` heading was "What Our Clients Say" over one quote, and rendered
+five gold stars against a rating nobody left; both are gone.
 
 **`components/Testimonials.tsx`** deliberately holds **one real testimonial**
 (LeadzGalaxy / Amit Menon) after placeholders were removed, with a comment saying

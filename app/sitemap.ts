@@ -19,7 +19,7 @@ const siteUrl = "https://cybiqon.in";
  * not a change to /pricing, and wiring it to the build would recreate the same problem
  * with extra steps.
  */
-const STATIC_LAST_MODIFIED = new Date("2026-08-19T00:00:00Z");
+const STATIC_LAST_MODIFIED = new Date("2026-09-06T00:00:00Z");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [

@@ -876,3 +876,44 @@
   flat "Products" link again, still eight slots. `isActive` now matches prefixes, so a
   product page keeps the nav item lit — the flat version never did that, and with three
   category pages and seven product pages under `/products` it now matters.
+
+* **2026-09-06 — the homepage redesign, on `redesign/homepage-ledger`.**
+
+  Triggered by `review.md`, an external audit dropped into the repo. Its three headline
+  recommendations were checked against the live HTML and the bundle and **all three were
+  wrong**, which is worth recording because the same audit will be run again by someone
+  else. It reported "no meta description, no Organization JSON-LD" — the live page carries
+  a description, a canonical, an `og:image` and four JSON-LD blocks, and its §5.1 then
+  recommends markup that already ships. It proposed repainting to `#005B96`/`#F49D1A`,
+  which is the recolour [design system](/site/design-system.md) already records as shipped
+  and rejected. And it proposed "Trusted by 100+ MSMEs" and a client-logo wall against a
+  real position of one testimonial, zero paying clients and `SLOTS_TAKEN = 0` — the 9,000+
+  figure in it is lifted from competitor RS999. What it got right: the page did read as
+  templated, and `prefers-reduced-motion` genuinely did not cover the marketing side.
+
+  **Structure, not colour — the same conclusion as before.** No hue changed. Ten sections
+  became seven, `icon-chip` went 24 → 0 on the rendered page, and the homepage went 145,980
+  → 122,822 bytes. Archivo finally loads for the marketing pages. Details in
+  [design system](/site/design-system.md).
+
+  **Two fabricated surfaces are gone**, both flagged in
+  [content data](/content/content-data.md) and now closed: `HeroDashboardMockup` (1,247
+  visitors, +147%, 12 orders, 73% repeat) and `IndustryShowcase` ("Retail Shops — 3x more
+  inquiries"). `Proof` replaces the second and **derives** its counts from
+  `data/products.ts` and `data/clients.ts` so they cannot go stale into a lie.
+
+  **The Worker budget was measured rather than assumed**, and the result is the most
+  reusable thing here: only the 12 edge routes count, every marketing page is prerendered
+  static and costs nothing, and the **root layout is a 5× multiplier** — `sonner` appears
+  121 times inside `blog.func.js`. framer-motion was installed under that rule, then
+  removed: it SSR'd the `h1` at `opacity:0` and left the LCP element waiting on hydration,
+  and `.reveal` already did the rest at zero client JS. Phosphor stayed, marketing-side
+  only.
+
+  **Two long-standing gaps closed on the way past.** Nine pages now emit a real 1200×630
+  OG card — eight had none because Next does not deep-merge `openGraph`, and the ninth
+  declared a 500×500 logo as 1200×630. And GA4 fires events for the first time. Both in
+  [SEO](/site/seo.md).
+
+  Not done: the other 13 marketing pages, and `hooks/useScrollReveal.ts` with them.
+
