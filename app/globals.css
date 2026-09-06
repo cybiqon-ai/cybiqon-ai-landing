@@ -11,44 +11,64 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   :root {
     /* Base Colors */
     --background: 0 0% 100%;
-    --foreground: 215 25% 27%; /* Deep navy for text */
+    --foreground: 231 43% 17%;  /* #1A2140 — on-palette, not a tinted black */ /* Deep navy for text */
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 231 43% 17%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 231 43% 17%;
 
-    /* Primary: Trust Blue (Indigo 600 #2563EB) */
-    --primary: 221 83% 53%;
+    /* ── Palette, 6 Sep 2026 ────────────────────────────────────────────────
+       Deep indigo and marigold. Chosen against the brief rather than picked:
+       indigo reads as trust for a money decision and is India's own historic
+       dye; marigold is the auspicious yellow of Indian commercial signage.
+       Both already appear in the one piece of third-party material this site
+       shows — the Economic Times clipping's headline blue and its tricolour
+       swoosh — so the palette agrees with the newspaper it sits beside.
+
+       The previous palette was Tailwind blue-600 / emerald-500 / amber-500 used
+       as small accents on white, which is why the page had no colour rhythm at
+       all. The hues matter less than the change in usage: these are meant for
+       full-bleed FIELDS, not for tinting 15px text. */
+
+    /* Primary: indigo, for interactive elements on white */
+    --primary: 231 61% 43%;        /* #2B3CB0 */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Growth Green (Emerald 500 #10B981) */
+    /* Ink: the deep field colour. Full-bleed sections sit on this. */
+    --ink: 231 57% 17%;            /* #131C46 */
+    --ink-raised: 231 55% 25%;     /* #1D2A63 — surfaces lifted off --ink */
+    --ink-foreground: 228 40% 96%;
+
+    /* Secondary: Growth Green (Emerald 500) — semantic "yes/included" only */
     --secondary: 160 84% 39%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Accent: Energy Orange (Amber 500 #F59E0B) */
-    --accent: 38 92% 50%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent: marigold. The single high-energy colour on the site.
+       Reserved for the primary CTA and the price. If it appears anywhere else,
+       it has stopped meaning "this is the thing to do next". */
+    --accent: 38 91% 55%;          /* #F5A524 */
+    --accent-foreground: 231 57% 17%;
 
     /* Success: Emerald 600 */
     --success: 160 84% 35%;
     --success-foreground: 0 0% 100%;
 
     /* Muted colors — warm neutral surface (calmer than cool slate) */
-    --muted: 40 22% 97%; /* warm near-white section surface */
-    --muted-foreground: 215 16% 47%; /* Slate 500 text */
+    --muted: 228 30% 97%;            /* #F5F6FB — cool pale field, not cream */
+    --muted-foreground: 227 16% 43%; /* #5C6580 */
 
     /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders and inputs */
-    --border: 214 32% 91%; /* Slate 200 */
-    --input: 214 32% 91%;
-    --ring: 221 83% 53%; /* Primary blue */
+    --border: 228 28% 89%;
+    --input: 228 28% 89%;
+    --ring: 231 61% 43%;
 
-    --radius: 0.75rem; /* softer, more premium corners */
+    --radius: 0.5rem; /* buttons and controls. Fields are square, media is 4px. */
 
     /* Promoted out of .theme-ledger on 6 Sep 2026. The heavier section rule is now
        part of the marketing language too, so the token has to resolve outside the
@@ -255,14 +275,69 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     @apply inline-flex items-center justify-center rounded-lg bg-primary/10 text-primary;
   }
 
-  /* Display heading — Archivo, confident and optically tightened.
-     Archivo is loaded in app/layout.tsx with axes:["wdth"] and no weight key, so
-     weight is supplied here through font-variation-settings rather than font-weight.
-     Falls back to the sans stack if the variable font fails to load. */
+  /* ── Type scale ─────────────────────────────────────────────────────────
+     Anek Latin (Ek Type, Mumbai), one family, loaded in app/layout.tsx with
+     axes:["wdth"] and no weight key — passing both throws at build.
+
+     Hierarchy comes from the WIDTH axis, not from a second typeface. The page
+     this replaces ran 266 text spans in the 13-16px band against a handful of
+     larger sizes: a ~2x range across a whole page, which is why it read as a
+     collection of texts. This scale runs 13px -> 132px.
+
+     Every rule sets font-variation-settings rather than font-weight, because the
+     wdth axis has to be named alongside wght or it snaps back to 100. */
+
+  .t-display,
+  .t-h1,
+  .t-h2,
+  .t-h3 {
+    font-family: var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+    text-wrap: balance;
+  }
+
+  /* The price. The one place this page raises its voice. */
+  .t-display {
+    font-size: clamp(4rem, 12vw, 8.25rem);
+    font-variation-settings: "wght" 800, "wdth" 78;
+    line-height: 0.86;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .t-h1 {
+    font-size: clamp(2.375rem, 6vw, 4.25rem);
+    font-variation-settings: "wght" 700, "wdth" 86;
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+  }
+
+  .t-h2 {
+    font-size: clamp(1.75rem, 4vw, 2.375rem);
+    font-variation-settings: "wght" 700, "wdth" 92;
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+  }
+
+  .t-h3 {
+    font-size: 1.3125rem;
+    font-variation-settings: "wght" 600, "wdth" 100;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  /* Reading text. 68ch measure applied where it is prose rather than a cell. */
+  .t-body {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  .t-measure { max-width: 68ch; }
+
+  /* Kept as an alias so /free-website, /products and the 13 unmigrated pages do
+     not lose their headings mid-migration. Remove when they are all on .t-h*. */
   .display {
-    font-family: var(--font-archivo), var(--font-geist), sans-serif;
-    font-variation-settings: "wght" 700, "wdth" 96;
-    letter-spacing: -0.025em;
+    font-family: var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+    font-variation-settings: "wght" 700, "wdth" 92;
+    letter-spacing: -0.02em;
     line-height: 1.05;
     text-wrap: balance;
   }
@@ -276,30 +351,6 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
      Disabled wholesale under prefers-reduced-motion at the foot of this file. */
   .enter {
     animation: fade-in 0.6s ease-out both;
-  }
-
-  /* Ledger structural language, brought to the marketing pages from /products and
-     /free-website. Structure carries the distinctiveness; colour carries the brand —
-     none of these rules touch a hue. See .okf/site/design-system.md. */
-
-  /* Small uppercase label. The counterpart to .lab-readout on /lab. */
-  .ledger-label {
-    @apply text-[11px] font-medium uppercase text-muted-foreground;
-    letter-spacing: 0.14em;
-  }
-
-  /* A hairline-ruled row. Replaces the card grid as the default list form. */
-  .ledger-row {
-    @apply flex items-baseline gap-4 border-t border-border py-4;
-  }
-  .ledger-row:last-child {
-    @apply border-b;
-  }
-
-  /* Index numbers and any figure that should align in a column. */
-  .ledger-num {
-    @apply tabular-nums text-muted-foreground;
-    font-variant-numeric: tabular-nums;
   }
 
   /* Accent text — now a single solid hue, not a rainbow gradient. */

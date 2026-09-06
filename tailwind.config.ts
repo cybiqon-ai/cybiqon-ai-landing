@@ -37,6 +37,13 @@ export default {
         // colour that means "this is a measurement", and it should not leak into
         // the marketing pages as a fourth brand hue.
         signal: "hsl(var(--signal))",
+        // The deep field colour for full-bleed marketing sections. Defined at
+        // :root (unlike --ochre/--signal), so bg-ink works on every page.
+        ink: {
+          DEFAULT: "hsl(var(--ink))",
+          raised: "hsl(var(--ink-raised))",
+          foreground: "hsl(var(--ink-foreground))",
+        },
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -100,7 +107,8 @@ export default {
         // `mono` is also left alone deliberately — app/process/ProcessClient.tsx uses
         // font-mono, and redefining the key would change a page this work has no
         // business touching. Hence `readout`, which is what it is for anyway.
-        display: ['var(--font-archivo)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-anek)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        anek: ['var(--font-anek)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         prose: ['var(--font-source-serif)', 'Georgia', 'serif'],
         readout: ['var(--font-dm-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },

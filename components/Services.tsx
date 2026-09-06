@@ -1,71 +1,67 @@
 import Link from "next/link";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import SectionHeading from "@/components/ledger/SectionHeading";
 import { SERVICES } from "@/data/homepage";
 
 /**
- * Ruled rows with the price on every one.
+ * The ink field — the first hard change of ground on the page.
  *
- * Previously a five-card grid where only the first card carried a figure and the other
- * four said nothing about cost, cycling through warm-card / glass-card / success-card /
- * card-surface — four class names that resolve to the identical style in globals.css, so
- * the variety was notional.
+ * The website is not one of five equal cards. It is what most visitors came for and the
+ * only service with a two-week promise attached, so it gets a block of its own at roughly
+ * twice the weight, and the other four sit under it as a quieter rank. Equal cards would
+ * flatten a real difference in what this business actually sells.
  *
- * All five prices are one-time and verified against app/pricing/PricingClient.tsx.
- * Publishing them here rather than behind a click is the whole argument: the agencies
- * this page competes with put a quote form in the way.
+ * Prices in marigold: the accent means "this is the number", and it appears nowhere else
+ * in this section.
  */
+const [lead, ...rest] = SERVICES;
+
 const Services = () => (
-  <section className="border-y border-border bg-muted/40 py-16 md:py-24">
-    <div className="mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16">
-      <div className="max-w-4xl">
-        <SectionHeading
-          label="What we build"
-          title="Five things, priced up front"
-          lede="One-time prices, not retainers. Hosting and domain are separate and paid directly to the provider — roughly ₹4,000–6,000 a year."
-        />
+  <section className="bg-ink py-20 text-ink-foreground lg:py-28">
+    <div className="mx-auto max-w-[82rem] px-6 md:px-10 lg:px-16">
+      <h2 className="t-h2 max-w-[20ch] text-white">
+        Five things we build, every price on the page.
+      </h2>
+
+      {/* Lead service */}
+      <div className="mt-14 grid gap-8 border-b border-white/12 pb-12 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+        <div>
+          <h3 className="t-h2 text-white">{lead.title}</h3>
+          <p className="t-body mt-4 max-w-[52ch] text-white/62">{lead.description}</p>
+        </div>
+        <p
+          className="font-anek text-[3.5rem] leading-none text-accent lg:text-[4.5rem]"
+          style={{ fontVariationSettings: '"wght" 800, "wdth" 82', fontVariantNumeric: "tabular-nums" }}
+        >
+          {lead.price}
+        </p>
       </div>
 
-      <ol className="mt-12 border-t border-rule-strong/25">
-        {SERVICES.map((service, i) => (
-          <li
-            key={service.title}
-            className="reveal grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 gap-y-1.5 border-b border-border py-6 md:grid-cols-[3.5rem_16rem_1fr_auto] md:py-7"
-            style={{ transitionDelay: `${i * 0.06}s` }}
-          >
-            <span className="ledger-num text-[13px] font-semibold tracking-[0.1em]">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-
-            <h3 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
-              {service.title}
-            </h3>
-
-            <p className="col-start-2 text-[15px] leading-relaxed text-muted-foreground md:col-start-3">
-              {service.description}
-            </p>
-
-            <p className="col-start-2 text-[15px] font-semibold tabular-nums text-foreground md:col-start-4 md:justify-self-end md:pl-8">
-              <span className="ledger-label mr-2 md:hidden">From</span>
-              {service.price}
-            </p>
-          </li>
+      {/* The other four, quieter */}
+      <div className="mt-12 grid gap-x-16 gap-y-11 sm:grid-cols-2">
+        {rest.map((service) => (
+          <div key={service.title}>
+            <div className="flex items-baseline justify-between gap-6">
+              <h3 className="t-h3 text-white">{service.title}</h3>
+              <p
+                className="font-anek text-[1.6rem] leading-none text-accent"
+                style={{ fontVariationSettings: '"wght" 700, "wdth" 88', fontVariantNumeric: "tabular-nums" }}
+              >
+                {service.price}
+              </p>
+            </div>
+            <p className="t-body mt-3 text-white/58">{service.description}</p>
+          </div>
         ))}
-      </ol>
+      </div>
 
-      <p className="mt-8 text-[15px] text-muted-foreground">
-        Something else in mind?{" "}
+      <p className="t-body mt-14 text-white/62">
+        Every price is one-time, not a retainer.{" "}
         <Link
           href="/pricing"
-          className="group inline-flex items-center gap-1.5 font-medium text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground"
+          className="font-medium text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white"
         >
-          See what's included at each price
-          <ArrowRight
-            weight="bold"
-            aria-hidden
-            className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
-          />
+          See what each one includes
         </Link>
+        .
       </p>
     </div>
   </section>

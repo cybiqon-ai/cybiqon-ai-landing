@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Geist } from "next/font/google";
+import { Anek_Latin, Geist } from "next/font/google";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -16,26 +16,33 @@ const geist = Geist({
   display: "swap",
 });
 
-// The marketing display face. Deferred since 1 Aug 2026 on the condition that it land
-// in a scoped component rather than the root layout — that condition was about /lab,
-// which now has its own layout. Marketing needs it here or the 14 pages have no display
-// face at all, which is what design-system.md lists under "Not done yet".
+// The marketing typeface: Anek Latin, by Ek Type in Mumbai.
 //
-// axes without weight, deliberately: passing both throws at build time. Weight comes
-// from font-variation-settings in the .display rule.
+// One family for the whole marketing site. It carries two axes — wght 100-800 and
+// wdth 75-125 — and the width axis is the hierarchy device: condensed at poster
+// scale for the price, normal width for reading. That is why there is no second
+// display face here; see the type scale in app/globals.css.
 //
-// The Tailwind key is `display`, NOT `heading` — Navbar.tsx and Footer.tsx both apply a
-// `font-heading` class that has never resolved to anything, and defining that name would
-// silently restyle the wordmark on every page.
+// Chosen for this brief rather than reached for. Anek is a pan-Indian family
+// covering nine Indian scripts, so the day this site ships Hindi — which the copy
+// already promises customers — Anek Devanagari is the sibling, not a fresh
+// pairing exercise. It replaces Archivo, which was here because it was already in
+// the repo for /lab.
+//
+// axes without weight, deliberately: passing both throws at build time. Weight
+// comes from font-variation-settings in the .t-* rules.
+//
+// The Tailwind key is `anek`, NOT `heading` — Navbar.tsx and Footer.tsx both apply
+// a `font-heading` class that has never resolved to anything, and defining that
+// name would silently restyle the wordmark on every page.
 //
 // Font files are static assets, so this costs zero Worker bytes against the 3 MiB cap.
-const archivo = Archivo({
+const anek = Anek_Latin({
   subsets: ["latin"],
   axes: ["wdth"],
-  variable: "--font-archivo",
+  variable: "--font-anek",
   display: "swap",
 });
-
 const siteUrl = "https://cybiqon.in";
 
 export const metadata: Metadata = {
@@ -161,7 +168,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${geist.variable} ${archivo.variable}`}>
+    <html lang="en" className={`${geist.variable} ${anek.variable}`}>
       <head>
         <meta httpEquiv="content-language" content="en-IN" />
         <script

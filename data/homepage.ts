@@ -11,6 +11,9 @@
  * grep-finds when they restyle.
  */
 
+/** The booking link. Repeated in Hero, Contact and Navbar, so it lives once. */
+export const TIDYCAL = "https://tidycal.com/itspyguru/cybiqon-30-minute-meeting";
+
 export type Problem = {
   pain: string;
   solution: string;

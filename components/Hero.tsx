@@ -1,114 +1,65 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
-import HeroSpecLedger from "./HeroSpecLedger";
+import { TIDYCAL } from "@/data/homepage";
 
 /**
- * A server component, and deliberately animation-light.
+ * The hero, and the one place this page raises its voice.
  *
- * The h1 here is the LCP element. An earlier draft of this redesign used framer-motion
- * for the entrance, which server-renders the initial state — the h1 shipped in the static
- * HTML as `style="opacity:0;transform:translateY(18px)"` and stayed invisible until
- * hydration. On the mobile networks this page actually sells into, that is the LCP
- * element gated behind a JS bundle. The entrance is CSS instead: it runs immediately,
- * survives a failed or slow hydration, and costs no client JS at all.
+ * The boldness is spent on the price, deliberately and only here. Publishing the number is
+ * this company's actual strategic position — the agencies it competes with put a quote form
+ * in the way, and "what will this cost me" is the first thing an MSME owner wants to know
+ * and the last thing they are usually told.
  *
- * framer-motion is still used on this page — below the fold, where an element that starts
- * at opacity 0 is off-screen anyway and nothing is waiting on it. See the budget rule in
- * components/ledger/Stagger.tsx.
- *
- * The h1 carries no entrance class at all, so it paints on first frame. Everything
- * around it uses `.enter`, which is disabled under prefers-reduced-motion.
+ * A server component with no entrance animation on the h1: it is the LCP element and it
+ * paints on the first frame. An earlier version of this redesign animated it with
+ * framer-motion, which server-rendered it at opacity:0 and left the headline waiting on
+ * hydration — the wrong trade on the mobile networks this page sells into.
  */
-
-const TIDYCAL = "https://tidycal.com/itspyguru/cybiqon-30-minute-meeting";
-
-
 const Hero = () => (
-  <section className="relative overflow-hidden border-b border-border pb-16 pt-28 lg:pb-24 lg:pt-36">
-    <div className="mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16">
-      <div className="grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-        {/* Left column — the argument */}
+  <section className="relative overflow-hidden bg-background pb-20 pt-32 lg:pb-28 lg:pt-40">
+    <div className="mx-auto max-w-[82rem] px-6 md:px-10 lg:px-16">
+      <h1 className="t-h1 max-w-[24ch] text-foreground">
+        A website for your business, live in two to three weeks.
+      </h1>
+
+      <p className="t-body enter mt-7 max-w-[52ch] text-muted-foreground">
+        Built for Indian MSMEs by two people you can actually reach. You own the
+        code, the files and the credentials — walk away with all of it whenever you like.
+      </p>
+
+      {/* The price and the actions are pushed to opposite ends of the measure and share a
+          baseline. Stacked on the left they leave half the page empty and the number reads
+          as a caption; spanning the full width makes it a price tag with the call to
+          action at the other end of it. */}
+      <div className="enter mt-16 flex flex-col gap-10 border-t border-border pt-10 lg:mt-24 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
         <div>
-          <p className="ledger-label enter">
-            Websites &amp; AI automation for Indian MSMEs
+          <p className="t-body text-muted-foreground">Websites from</p>
+          <p className="t-display mt-2 text-foreground">
+            ₹9,999
           </p>
+        </div>
 
-          <h1
-            className="display mt-5 text-[2.5rem] leading-[1.04] text-foreground sm:text-5xl lg:text-[3.5rem] xl:text-[4rem]"
-          >
-            Your business online in 2–3 weeks.
-          </h1>
-
-          <p
-            className="enter mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-[17px]"
-            style={{ animationDelay: "120ms" }}
-          >
-            Websites and WhatsApp automation built for Indian MSMEs — fast, affordable,
-            and you own 100% of the code.
-          </p>
-
-
-          <div
-            className="enter mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
-            style={{ animationDelay: "180ms" }}
-          >
-            {/* A real anchor rather than an onClick window.open: it keeps this component
-                on the server, it is middle-clickable and keyboard-reachable, and a
-                crawler can see where it goes. */}
+        <div className="flex flex-col gap-4 lg:items-end lg:pb-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
               href={TIDYCAL}
               target="_blank"
               rel="noopener noreferrer"
               data-track="book_call"
               data-track-label="hero"
-              className="group inline-flex h-11 items-center justify-center gap-2 bg-accent px-7 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex h-12 items-center justify-center rounded-md bg-accent px-7 text-[15px] font-semibold text-accent-foreground transition-colors hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               Book a free call
-              <ArrowRight
-                weight="bold"
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
-              />
             </a>
             <Link
               href="/pricing"
-              className="inline-flex h-11 items-center justify-center border border-border px-7 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex h-12 items-center justify-center rounded-md border border-border px-7 text-[15px] font-medium text-foreground transition-colors hover:border-foreground/30 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
-              See prices
+              See all prices
             </Link>
           </div>
-
-          {/* Free-audit secondary CTA — hidden, not deleted.
-              The hero leads with one action instead of two, so the free audit doesn't
-              compete with the primary CTA. /free-audit itself still exists and is still
-              linked from the footer and the sitemap; only this hero prompt is hidden.
-              Restore by removing the wrapping block below. */}
-          {false && (
-            <div className="mt-5 text-sm text-muted-foreground">
-              Not ready to talk? Get a{" "}
-              <Link href="/free-audit" className="font-semibold text-primary underline underline-offset-4">
-                free website audit
-              </Link>{" "}
-              — no strings attached.
-            </div>
-          )}
-        </div>
-
-        {/* Right column — what it costs.
-            HeroSocialProof.tsx used to render below this and was DELETED on 1 Aug 2026,
-            along with features/LiveActivityTicker and features/SocialProofBar. Keeping the
-            reason where someone would rebuild it: it showed "{N} MSME owners got their
-            free audit this week" beside a pulsing "Live" badge and five invented names
-            (Ramesh S., Priya K., Vijay M., Anjali J., Suresh K.). The number came from
-            useLiveCount(47) — it started at 47 and randomly incremented every 15 seconds.
-            The real audit_leads table held 2 rows. That is a fabricated claim on the
-            homepage of a company selling trust to small businesses. It should not come
-            back without real numbers behind it.
-
-            HeroDashboardMockup, which rendered here until 6 Sep 2026, was the same class
-            of thing: 1,247 visitors, +147%, 12 orders, 73% repeat — none of them real.
-            It is replaced by figures that are all checkable against /pricing. */}
-        <div className="enter lg:pt-2" style={{ animationDelay: "240ms" }}>
-          <HeroSpecLedger />
+          <p className="max-w-[42ch] text-[15px] text-muted-foreground lg:text-right">
+            One-time. Hosting is about ₹4,000–6,000 a year, paid straight to the provider.
+          </p>
         </div>
       </div>
     </div>
