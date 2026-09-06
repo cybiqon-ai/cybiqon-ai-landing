@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import RevealObserver from "@/components/RevealObserver";
+import TrackedEvents from "@/components/TrackedEvents";
 import ThemeScope from "@/components/ThemeScope";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import "./globals.css";
@@ -197,6 +198,7 @@ export default function RootLayout({
           <main>{children}</main>
         </ThemeScope>
         <RevealObserver />
+        <TrackedEvents />
         <Sonner />
 
         <Script

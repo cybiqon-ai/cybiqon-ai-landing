@@ -59,6 +59,8 @@ const Hero = () => (
               href={TIDYCAL}
               target="_blank"
               rel="noopener noreferrer"
+              data-track="book_call"
+              data-track-label="hero"
               className="group inline-flex h-11 items-center justify-center gap-2 bg-accent px-7 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               Book a free call

@@ -62,7 +62,7 @@ const Navbar = () => {
                   </Link>
                 ))}
               </div>
-              <Button onClick={handleBookCall} variant="accent">
+              <Button onClick={handleBookCall} variant="accent" data-track="book_call" data-track-label="navbar">
                 Book a free call
               </Button>
             </div>
@@ -100,6 +100,8 @@ const Navbar = () => {
                   onClick={() => { handleBookCall(); setMobileMenuOpen(false); }}
                   variant="accent"
                   className="w-full"
+                  data-track="book_call"
+                  data-track-label="navbar_mobile"
                 >
                   Book a free call
                 </Button>
