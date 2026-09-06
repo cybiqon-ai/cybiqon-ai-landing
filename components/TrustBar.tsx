@@ -11,8 +11,10 @@ import { Buildings, Certificate, Code, Newspaper } from "@phosphor-icons/react/d
  * certification is not a style decision.
  *
  * What is here instead is everything that survives a check. The DPIIT recognition and the
- * LLP incorporation are real documents in ops/Downloads; the Economic Times mention is
- * data/press.ts with a scan of the page; code ownership is the standing offer terms.
+ * LLP incorporation are real documents in ops/Downloads, and the D-U-N-S number is
+ * verifiable by anyone who wants to look it up — which is the point of showing it rather
+ * than a badge that says "verified". The Economic Times mention is data/press.ts with a
+ * scan of the page; code ownership is the standing offer terms.
  */
 const CREDENTIALS = [
   {
@@ -23,8 +25,8 @@ const CREDENTIALS = [
   },
   {
     icon: Buildings,
-    value: "Registered LLP",
-    label: "Incorporated with the MCA",
+    value: "D-U-N-S",
+    label: "772066074 · Registered LLP",
     href: null,
   },
   {

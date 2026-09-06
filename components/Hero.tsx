@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ArrowRight, CalendarBlank, Lock, Lightning, Translate } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, CalendarBlank, Code, Lock, Lightning } from "@phosphor-icons/react/dist/ssr";
 import { TIDYCAL } from "@/data/homepage";
-import WhatsAppDemo from "./WhatsAppDemo";
+import AgentDemo from "./AgentDemo";
 
 /**
  * Built to the Stitch comp — projects/7623040016974616845, "Cybiqon AI Homepage Redesign".
@@ -15,9 +15,9 @@ import WhatsAppDemo from "./WhatsAppDemo";
  * where the section gets its depth. They are pointer-events-none and purely decorative.
  */
 const MICRO = [
-  { icon: Lightning, text: "Live in 2–3 weeks" },
+  { icon: Code, text: "Written for you, not assembled from a template" },
+  { icon: Lightning, text: "Websites live in 2–3 weeks" },
   { icon: Lock, text: "100% code and domain ownership" },
-  { icon: Translate, text: "Hindi and English WhatsApp support" },
 ];
 
 const Hero = () => (
@@ -36,17 +36,18 @@ const Hero = () => (
       <div>
         <p className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5">
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-          <span className="t-label-sm text-primary">Websites and WhatsApp AI for Indian MSMEs</span>
+          <span className="t-label-sm text-primary">Custom software and AI for Indian businesses</span>
         </p>
 
         <h1 className="t-display mt-5 text-primary">
-          Get online and automate in{" "}
-          <span className="whitespace-nowrap text-accent">2–3 weeks</span>
+          Custom software and{" "}
+          <span className="text-accent">AI agents</span> for Indian businesses
         </h1>
 
-        <p className="t-body-lg mt-5 max-w-[52ch] text-muted-foreground">
-          Fast, affordable mobile-first websites and a 24/7 WhatsApp assistant, built for
-          Indian small businesses. No hidden fees, and you own 100% of the code.
+        <p className="t-body-lg mt-5 max-w-[54ch] text-muted-foreground">
+          Agents that do real work, admin panels, storefronts and automation — written for
+          your business rather than assembled from a template. Websites start at ₹9,999,
+          and you own every line of the code.
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -80,7 +81,7 @@ const Hero = () => (
         </ul>
       </div>
 
-      <WhatsAppDemo />
+      <AgentDemo />
     </div>
   </section>
 );

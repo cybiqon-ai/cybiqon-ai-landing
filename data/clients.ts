@@ -56,9 +56,9 @@ export const CLIENT_PROJECTS: ClientProject[] = [
     name: "Snackly",
     tagline: "D2C dry fruits store, with its own admin panel",
     summary:
-      "An Indian direct-to-consumer dry fruits, nuts and seeds store — storefront and a custom admin panel, built to run entirely inside Cloudflare's free tier so the business carries no hosting bill. Designed against the client's own nine-section requirements document.",
-    status: "building",
-    url: null,
+      "An Indian direct-to-consumer dry fruits, nuts and seeds store — storefront and a custom admin panel, built to run entirely inside Cloudflare's free tier so the business carries no hosting bill. Live at snacklyfoods.in, designed against the client's own nine-section requirements document.",
+    status: "live",
+    url: "https://snacklyfoods.in",
     work: [
       "Storefront — Next.js static export served by Cloudflare Workers, 39 pages",
       "Custom admin panel covering all nine sections the client asked for, behind Cloudflare Access",

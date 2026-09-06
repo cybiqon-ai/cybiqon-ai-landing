@@ -48,7 +48,7 @@ const Pricing = () => {
     offers: [
       { '@type': 'Offer', name: 'Business Website Development', price: '9999', priceCurrency: 'INR', description: 'Professional, mobile-friendly business websites built to convert visitors into leads', availability: 'https://schema.org/InStock' },
       { '@type': 'Offer', name: 'Android App Development', price: '29999', priceCurrency: 'INR', description: 'Custom Android apps tailored to your business needs', availability: 'https://schema.org/InStock' },
-      { '@type': 'Offer', name: 'Chrome Extension Development', price: '14999', priceCurrency: 'INR', description: 'Custom Chrome extensions for automation, productivity, and data extraction', availability: 'https://schema.org/InStock' },
+      { '@type': 'Offer', name: 'Chrome Extension Development', price: '6999', priceCurrency: 'INR', description: 'Custom Chrome extensions for automation, productivity, and data extraction', availability: 'https://schema.org/InStock' },
       { '@type': 'Offer', name: 'AI Automation & Workflow Setup', price: '19999', priceCurrency: 'INR', description: 'Automate repetitive business tasks using AI and smart workflows', availability: 'https://schema.org/InStock' },
       { '@type': 'Offer', name: 'Web Scraping & Data Extraction', price: '11999', priceCurrency: 'INR', description: 'Custom web scraping scripts to collect leads, prices, listings, or reports', availability: 'https://schema.org/InStock' },
     ],
@@ -106,7 +106,7 @@ const Pricing = () => {
       badge: null,
       badgeColor: "",
       originalPrice: "₹40,000+",
-      salePrice: "₹14,999",
+      salePrice: "₹6,999",
       savings: null,
       description: "Custom Chrome extensions for automation, productivity, data extraction, or internal use.",
       features: ["Browser-based automation", "Data extraction tools", "Productivity enhancers", "Custom internal tools"],

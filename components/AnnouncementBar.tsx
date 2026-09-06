@@ -14,7 +14,7 @@ const AnnouncementBar = () => (
       <span className="inline-flex h-2 w-2 shrink-0 animate-pulse rounded-full bg-accent" />
       <p className="t-label-sm">
         <span className="hidden sm:inline">
-          Websites from ₹9,999 with a 24/7 WhatsApp bot · you own 100% of the code ·{" "}
+          Custom-coded websites from ₹9,999 · AI agents and automation · you own the code ·{" "}
         </span>
         <a
           href="tel:+919250711473"

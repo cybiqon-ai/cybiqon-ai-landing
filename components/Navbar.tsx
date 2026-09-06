@@ -25,7 +25,6 @@ const Navbar = () => {
     { label: "About", path: "/about" },
     { label: "Products", path: "/products" },
     { label: "Pricing", path: "/pricing" },
-    { label: "Free Website", path: "/free-website" },
     { label: "Case Studies", path: "/case-studies" },
     { label: "Blog", path: "/blog" },
     { label: "Contact", path: "/contact" }
@@ -58,7 +57,7 @@ const Navbar = () => {
                   Cybiqon AI
                 </span>
                 <span className="mt-0.5 hidden text-[11px] font-medium text-muted-foreground sm:block">
-                  Web &amp; WhatsApp AI for Indian MSMEs
+                  Custom software &amp; AI for Indian business
                 </span>
               </span>
             </Link>

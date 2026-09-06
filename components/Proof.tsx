@@ -53,20 +53,32 @@ const Proof = () => (
         <div className="flex flex-col gap-5">
           {/* Client web work */}
           <div className="rounded-2xl border border-border/60 bg-surface-lowest p-5 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)]">
-            <h3 className="t-h3 text-primary">A storefront we designed and built</h3>
+            <h3 className="t-h3 text-primary">A storefront we built, live today</h3>
             <p className="t-body-sm mt-2 text-muted-foreground">
               {snackly ? snackly.summary : ""}
             </p>
-            <img
-              src="/img/snackly-home.webp"
-              width={900}
-              height={647}
-              alt="The Snackly storefront home page built by Cybiqon — navigation, hero band and the trust row beneath it."
-              className="mt-4 w-full rounded-lg border border-border/60"
-            />
+            <a href="https://snacklyfoods.in" target="_blank" rel="noopener noreferrer" className="group mt-4 block">
+              <img
+                src="/img/snackly-home.webp"
+                width={900}
+                height={537}
+                alt="The Snackly storefront at snacklyfoods.in — promotional bar, navigation, and the hero band showing the client's own product packaging."
+                className="w-full rounded-lg border border-border/60 transition-shadow group-hover:shadow-[0_10px_30px_-12px_rgba(0,48,79,0.35)]"
+              />
+            </a>
             <p className="t-body-sm mt-3 text-muted-foreground">
-              Design and build are ours; the product photography is placeholder art standing
-              in until the client&rsquo;s own shots arrive.
+              Next.js on Cloudflare Workers, a Hono API over D1 and R2, a custom admin panel
+              behind Cloudflare Access, and 179 tests that run against a real database.{" "}
+              <a
+                href="https://snacklyfoods.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="client_site_click"
+                data-track-label="snackly"
+                className="font-semibold text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
+              >
+                snacklyfoods.in
+              </a>
             </p>
           </div>
 

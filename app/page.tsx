@@ -9,11 +9,11 @@ import Proof from "@/components/Proof";
 import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
-  title: "Affordable Website Development & AI Automation for Indian MSMEs | Cybiqon",
+  title: "Custom Software, AI Agents & Websites for Indian Businesses | Cybiqon",
   description:
-    "Get a professional website starting at ₹9,999 and AI automation built for Indian MSMEs. Fast delivery, transparent pricing, zero tech headaches. Book your free consultation today.",
+    "Custom AI agents, internal software and hand-coded websites for Indian businesses — written for you, not assembled from a template. Websites from ₹9,999, and you own every line of the code.",
   keywords:
-    "MSME website design India, affordable website development India, android app development India, AI automation for small business, website for small business India, digital transformation MSMEs, bulk data scraping India, chrome extension development, WhatsApp automation MSME, business website cost India, web development agency India",
+    "custom AI agents India, AI automation for small business, custom software development India, custom coded website India, MSME website design India, android app development India, admin panel development, bulk data scraping India, chrome extension development, business website cost India, software agency India",
   alternates: { canonical: "/" },
 };
 
@@ -32,26 +32,27 @@ export default function IndexPage() {
     "@graph": [
       {
         "@type": "Service",
-        name: "Website Development",
-        description: "Mobile-first, SEO-optimized websites for Indian MSMEs starting at ₹9,999.",
+        name: "Custom Website Development",
+        description: "Hand-coded, mobile-first, SEO-ready websites for Indian businesses — written for the client rather than configured from a theme. From ₹9,999.",
         provider: { "@type": "Organization", name: "Cybiqon AI Solutions" },
         areaServed: { "@type": "Country", name: "India" },
         offers: { "@type": "Offer", price: "9999", priceCurrency: "INR" },
       },
       {
         "@type": "Service",
-        name: "Android App Development",
-        description: "Custom Android apps for Indian MSMEs — inventory management, customer ordering, and field staff tracking.",
+        name: "Custom Software and App Development",
+        description: "Admin panels, dealer portals, inventory and field tools for Indian businesses, plus Play Store-ready Android builds.",
         provider: { "@type": "Organization", name: "Cybiqon AI Solutions" },
         areaServed: { "@type": "Country", name: "India" },
         offers: { "@type": "Offer", price: "29999", priceCurrency: "INR" },
       },
       {
         "@type": "Service",
-        name: "AI Automation",
-        description: "WhatsApp bots, customer support automation, and workflow AI for small businesses.",
+        name: "Custom AI Agents and Automation",
+        description: "AI agents built on a business's own data and rules — reading orders, checking stock, updating records and drafting replies.",
         provider: { "@type": "Organization", name: "Cybiqon AI Solutions" },
         areaServed: { "@type": "Country", name: "India" },
+        offers: { "@type": "Offer", price: "19999", priceCurrency: "INR" },
       },
       {
         "@type": "Service",
@@ -66,6 +67,7 @@ export default function IndexPage() {
         description: "Custom browser tools for sales teams — GST automation, data extraction, and productivity tools.",
         provider: { "@type": "Organization", name: "Cybiqon AI Solutions" },
         areaServed: { "@type": "Country", name: "India" },
+        offers: { "@type": "Offer", price: "6999", priceCurrency: "INR" },
       },
     ],
   };

@@ -18,8 +18,8 @@ const Services = () => (
         <SectionHeading
           align="left"
           eyebrow="Clear unit pricing"
-          title="Services priced for Indian MSMEs"
-          lede="One-time prices, no recurring percentage cuts. Pick what the business needs now."
+          title="What we build, priced up front"
+          lede="Everything here is written for one business rather than configured from a theme. One-time prices, no recurring percentage cuts."
         />
         <p className="t-label-sm inline-flex shrink-0 items-center gap-2 rounded-full border border-border/70 bg-surface-low px-3.5 py-2 text-muted-foreground">
           <Receipt weight="fill" aria-hidden className="h-4 w-4 text-primary" />

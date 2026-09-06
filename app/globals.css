@@ -356,6 +356,12 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     animation: fade-in 0.6s ease-out both;
   }
 
+  /* The one working indicator on the page, in the hero's agent card. Slow enough to
+     read as "in progress" rather than "loading". Stilled under reduced motion. */
+  .animate-spin-slow {
+    animation: spin 2.4s linear infinite;
+  }
+
   /* Accent text — now a single solid hue, not a rainbow gradient. */
   .gradient-text {
     @apply text-primary;
@@ -826,6 +832,7 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   }
 
   .enter,
+  .animate-spin-slow,
   .animate-float,
   .animate-float-slow,
   .animate-fade-in,

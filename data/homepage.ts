@@ -60,26 +60,26 @@ export type Service = {
 
 export const SERVICES: Service[] = [
   {
-    title: "Website development",
+    title: "Custom websites",
     description:
-      "Mobile-first sites built for Indian shoppers — responsive, WhatsApp-connected, and indexed by Google. Delivered in 2–3 weeks.",
+      "Hand-written, not a theme with your logo dropped in. Mobile-first, fast on a mid-range phone, and indexed by Google. Delivered in 2–3 weeks.",
     price: "₹9,999",
     includes: ["Custom design, not a template", "Contact forms and WhatsApp click-to-chat", "Basic SEO and Google Analytics setup", "One year of fast hosting included", "100% source code handed over"],
     popular: true,
     note: "Live in 2-3 weeks",
   },
   {
-    title: "Android app development",
+    title: "Apps and internal software",
     description:
-      "Inventory, customer ordering, field-staff tracking. Play Store–ready builds with post-launch support.",
+      "Admin panels, dealer portals, inventory and field tools — plus Android builds ready for the Play Store, with support after launch.",
     price: "₹29,999",
     includes: ["Clean, intuitive interface", "Scalable backend", "Play Store-ready build", "Post-launch support"],
     note: "Booking, inventory or field tools",
   },
   {
-    title: "AI automation",
+    title: "AI agents and automation",
     description:
-      "WhatsApp bots, customer support and follow-ups that run without you. Lead capture into a sheet you already read.",
+      "Agents that read an order, check stock, update your sheet and draft the reply. Built on your own data and your own rules, not a generic chatbot.",
     price: "₹19,999",
     includes: ["WhatsApp bot in Hindi and English", "Lead capture into a sheet you already read", "Follow-ups and reminders", "Tool and email integrations"],
     note: "Replies day and night",
@@ -88,7 +88,7 @@ export const SERVICES: Service[] = [
     title: "Chrome extensions",
     description:
       "Browser tools for a sales team — auto-fill GST portals, build quotes faster, pull data off a page as you work.",
-    price: "₹14,999",
+    price: "₹6,999",
     includes: ["Auto-fill GST and vendor portals", "Faster quote building", "On-page data extraction", "Packaged for your team"],
     note: "Built for a sales team",
   },
