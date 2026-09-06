@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import { notFound } from "next/navigation";
 import ProductIndex from "./ProductIndex";
 import { CATEGORIES, productsIn } from "@/data/products";
@@ -35,29 +35,25 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <section className="pt-28 pb-10 md:pt-32 md:pb-14">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+      <section className="bg-surface pb-12 pt-32 lg:pb-16 lg:pt-40">
+        <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <Link
             href="/products"
-            className="mb-8 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-foreground"
+            className="t-label-sm mb-7 inline-flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-primary"
           >
-            <ArrowLeft strokeWidth={1.5} className="h-3.5 w-3.5" />
+            <ArrowLeft weight="bold" aria-hidden className="h-3.5 w-3.5" />
             All products
           </Link>
 
-          <div className="grid gap-6 md:grid-cols-[1fr_18rem] md:items-end">
-            <h1 className="max-w-xl text-3xl font-semibold leading-[1.1] tracking-tight text-foreground md:text-4xl">
-              {cat.label}
-            </h1>
-            <p className="text-[15px] leading-relaxed text-muted-foreground md:pb-1">
-              {cat.blurb}
-            </p>
+          <div className="grid gap-6 lg:grid-cols-[1fr_22rem] lg:items-end">
+            <h1 className="t-h1 max-w-[18ch] text-primary">{cat.label}</h1>
+            <p className="t-body text-muted-foreground lg:pb-1">{cat.blurb}</p>
           </div>
         </div>
       </section>
 
-      <section className="pb-20 md:pb-28">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+      <section className="bg-surface-lowest pb-20 pt-14 lg:pb-28">
+        <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <ProductIndex products={items} />
         </div>
       </section>

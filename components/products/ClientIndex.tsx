@@ -1,72 +1,74 @@
+import { ArrowUpRight, Check } from "@phosphor-icons/react/dist/ssr";
 import { STATUS_LABEL } from "@/data/products";
 import type { ClientProject } from "@/data/clients";
 
 /**
- * The client ledger — the same ruled rows as ProductIndex, but the row is the whole
- * entry rather than a link to one.
+ * The client ledger — cards now, matching the rest of the site, but still not links.
  *
- * A product row is a link because there is a product page behind it. Client work has no
- * page behind it and should not get one: a detail page per engagement, built out of what
- * we are allowed to say, is exactly the thin page the category pages already refuse to
- * be. So the row carries the summary and the deliverables itself, and nothing here
- * pretends to be clickable.
+ * A product card links because there is a product page behind it. Client work has no page
+ * behind it and should not get one: a detail page per engagement, written out of what we
+ * are allowed to say, is exactly the thin page the category pages already refuse to be.
+ * The card carries its own summary and deliverables, and only links out where the client's
+ * site is actually live and ours to point at.
  */
 export default function ClientIndex({ projects }: { projects: ClientProject[] }) {
   return (
-    <ol className="border-t border-rule-strong/25">
-      {projects.map((project, i) => (
+    <ul className="grid gap-5 lg:grid-cols-2">
+      {projects.map((project) => (
         <li
           key={project.slug}
-          className="grid grid-cols-[2.5rem_1fr] gap-x-4 gap-y-3 border-b border-border py-6 md:grid-cols-[3.5rem_1fr] md:py-7"
+          className="flex flex-col rounded-2xl border border-border/60 bg-surface-lowest p-6 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)]"
         >
-          <span className="text-[13px] font-semibold tabular-nums tracking-[0.1em] text-muted-foreground">
-            {String(i + 1).padStart(2, "0")}
-          </span>
-
-          <div>
-            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-              <h3 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
-                {project.name}
-              </h3>
-              <span
-                className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${
-                  project.status === "live" ? "text-primary" : "text-muted-foreground"
-                }`}
-              >
-                {project.status === "live" ? "Live" : STATUS_LABEL[project.status]}
-              </span>
-            </div>
-
-            <p className="mt-0.5 text-[15px] leading-relaxed text-muted-foreground">
-              {project.tagline}
-            </p>
-
-            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-foreground">
-              {project.summary}
-            </p>
-
-            <ul className="mt-3 max-w-2xl space-y-1.5">
-              {project.work.map((item) => (
-                <li
-                  key={item}
-                  className="grid grid-cols-[0.75rem_1fr] gap-x-2 text-[14px] leading-relaxed text-muted-foreground"
-                >
-                  <span aria-hidden="true" className="text-rule-strong">
-                    &mdash;
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            {project.unnamed && (
-              <p className="mt-3 max-w-2xl border-l-2 border-ochre/40 pl-3 text-[13px] leading-relaxed text-muted-foreground">
-                {project.unnamed}
-              </p>
-            )}
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+            <h3 className="t-h3 text-primary">{project.name}</h3>
+            <span
+              className={`t-label-sm rounded-full px-2.5 py-1 ${
+                project.status === "live"
+                  ? "bg-secondary/15 text-tertiary-deep"
+                  : "bg-surface-high text-primary"
+              }`}
+            >
+              {project.status === "live" ? "Live" : STATUS_LABEL[project.status]}
+            </span>
           </div>
+
+          <p className="t-body-sm mt-1 text-muted-foreground">{project.tagline}</p>
+          <p className="t-body mt-4 text-foreground">{project.summary}</p>
+
+          <ul className="mt-4 flex-1 space-y-2">
+            {project.work.map((item) => (
+              <li key={item} className="flex gap-2.5">
+                <Check
+                  weight="bold"
+                  aria-hidden
+                  className="mt-1 h-3.5 w-3.5 shrink-0 text-secondary"
+                />
+                <span className="t-body-sm text-muted-foreground">{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          {project.unnamed && (
+            <p className="t-body-sm mt-4 rounded-lg bg-surface-low px-4 py-3 text-muted-foreground">
+              {project.unnamed}
+            </p>
+          )}
+
+          {project.url && (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="client_site_click"
+              data-track-label={project.slug}
+              className="t-label mt-5 inline-flex items-center gap-1.5 self-start text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
+            >
+              {project.url.replace(/^https?:\/\//, "")}
+              <ArrowUpRight weight="bold" aria-hidden className="h-3.5 w-3.5" />
+            </a>
+          )}
         </li>
       ))}
-    </ol>
+    </ul>
   );
 }

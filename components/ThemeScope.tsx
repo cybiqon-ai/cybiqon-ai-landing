@@ -49,6 +49,25 @@ import { usePathname } from "next/navigation";
 const LEDGER_ROUTES = ["/free-website", "/products"];
 const BARE_ROUTES = ["/lab"];
 
+/**
+ * Routes under a Ledger prefix that are NOT Ledger.
+ *
+ * `/products` and its three category pages were migrated to the marketing card language on
+ * 6 Sep 2026, because Ledger's squared, hairline, ruled-row treatment had become a seam
+ * behind the redesigned chrome — and because a page whose whole job is to show what has
+ * been built was showing no imagery at all.
+ *
+ * The seven product detail pages and twelve legal pages stay on Ledger: they are long-form
+ * documents where it still reads well. Exact matches only, so `/products/lumina` is
+ * unaffected while `/products/games` is.
+ */
+const LEDGER_EXCEPTIONS = [
+  "/products",
+  "/products/apps",
+  "/products/games",
+  "/products/extensions",
+];
+
 function matches(pathname: string, routes: string[]): boolean {
   return routes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
 }
@@ -69,7 +88,8 @@ export default function ThemeScope({
   // edges on short pages.
   if (matches(pathname, BARE_ROUTES)) return <>{children}</>;
 
-  const isLedger = matches(pathname, LEDGER_ROUTES);
+  const isLedger =
+    matches(pathname, LEDGER_ROUTES) && !LEDGER_EXCEPTIONS.includes(pathname);
 
   return (
     <div className={isLedger ? "theme-ledger bg-background text-foreground" : undefined}>

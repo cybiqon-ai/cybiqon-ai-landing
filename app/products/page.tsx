@@ -58,7 +58,6 @@ const collectionSchema = {
 
 export default function ProductsPage() {
   const categories = activeCategories();
-  let counter = 1;
 
   return (
     <div className="min-h-[60vh]">
@@ -71,18 +70,16 @@ export default function ProductsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
 
-      <section className="pt-28 pb-10 md:pt-32 md:pb-14">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
-          <div className="grid gap-6 md:grid-cols-[1fr_18rem] md:items-end">
+      <section className="bg-surface pb-12 pt-32 lg:pb-16 lg:pt-40">
+        <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-6 lg:grid-cols-[1fr_22rem] lg:items-end">
             <div>
-              <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-                Products
-              </p>
-              <h1 className="max-w-xl text-3xl font-semibold leading-[1.1] tracking-tight text-foreground md:text-4xl">
-                What we&apos;ve built and shipped.
+              <p className="t-eyebrow text-accent">Products</p>
+              <h1 className="t-h1 mt-2.5 max-w-[18ch] text-primary">
+                What we&apos;ve built and shipped
               </h1>
             </div>
-            <p className="text-[15px] leading-relaxed text-muted-foreground md:pb-1">
+            <p className="t-body text-muted-foreground lg:pb-1">
               We build for ourselves and we build for clients. The ones with our own name on
               them come first — same standard, no client to blame — and the client work is at
               the end.
@@ -91,47 +88,41 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className="pb-20 md:pb-28">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16 space-y-14">
+      <section className="bg-surface-lowest pb-20 pt-14 lg:pb-28">
+        <div className="mx-auto max-w-[1240px] space-y-14 px-4 sm:px-6 lg:px-8">
           {categories.map((cat) => {
             const items = productsIn(cat.key);
-            const start = counter;
-            counter += items.length;
             return (
               <div key={cat.key}>
                 <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                  <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                    {cat.label}
-                  </h2>
+                  <h2 className="t-h3 text-primary">{cat.label}</h2>
                   <Link
                     href={`/products/${cat.slug}`}
-                    className="text-[13px] text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
+                    className="t-body-sm font-semibold text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
                   >
                     All {cat.label.toLowerCase()}
                   </Link>
                 </div>
-                <ProductIndex products={items} startAt={start} />
+                <ProductIndex products={items} />
               </div>
             );
           })}
 
           <div id="client-work" className="scroll-mt-28">
             <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-              <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                Client work
-              </h2>
-              <span className="text-[13px] text-muted-foreground">
+              <h2 className="t-h3 text-primary">Client work</h2>
+              <span className="t-body-sm text-muted-foreground">
                 Built for someone else, on their terms
               </span>
             </div>
             <ClientIndex projects={CLIENT_PROJECTS} />
           </div>
 
-          <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+          <p className="t-body max-w-xl text-muted-foreground">
             Want something like these built for your business?{" "}
             <Link
               href="/contact"
-              className="text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
+              className="font-semibold text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
             >
               Tell us what you need
             </Link>

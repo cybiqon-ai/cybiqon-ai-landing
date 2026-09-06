@@ -1,57 +1,74 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight, GooglePlayLogo } from "@phosphor-icons/react/dist/ssr";
 import { STATUS_LABEL, type Product } from "@/data/products";
 
 /**
- * The Index — ruled rows, not a card grid.
+ * The product grid.
  *
- * Numbering is justified here because this genuinely is a catalogue; the number is the
- * position in a list a reader is scanning, not decoration. Shared by /products and every
- * category page so a product looks identical wherever it appears.
+ * This was ruled rows in the Ledger language — numbered, hairline-separated, and carrying
+ * no imagery at all, on a page whose entire job is to show what has been built. Seven real
+ * launcher icons were sitting in the repo unused. Cards now, matching the homepage.
+ *
+ * The `startAt` numbering is gone with the rows. A catalogue of seven is not a sequence,
+ * and the number was the only thing distinguishing one entry from the next.
  */
-export default function ProductIndex({
-  products,
-  startAt = 1,
-}: {
-  products: Product[];
-  startAt?: number;
-}) {
+const STATUS_STYLE: Record<string, string> = {
+  live: "bg-secondary/15 text-tertiary-deep",
+  testing: "bg-accent-softer text-[hsl(var(--accent))]",
+  building: "bg-surface-high text-primary",
+};
+
+export default function ProductIndex({ products }: { products: Product[] }) {
   return (
-    <ol className="border-t border-rule-strong/25">
-      {products.map((product, i) => (
+    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {products.map((product) => (
         <li key={product.slug}>
           <Link
             href={`/products/${product.slug}`}
-            className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 gap-y-1 border-b border-border py-6 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-muted focus-visible:bg-muted focus-visible:outline-none md:grid-cols-[3.5rem_14rem_1fr_auto] md:py-7"
+            className="group flex h-full flex-col rounded-2xl border border-border/60 bg-surface-lowest p-6 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)] transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-[0_10px_28px_-12px_rgba(0,48,79,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
-            <span className="text-[13px] font-semibold tabular-nums tracking-[0.1em] text-muted-foreground transition-colors group-hover:text-primary">
-              {String(startAt + i).padStart(2, "0")}
-            </span>
-
-            <span className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
-              {product.name}
-            </span>
-
-            <span className="col-start-2 row-start-2 text-[15px] leading-relaxed text-muted-foreground md:col-start-3 md:row-start-1">
-              {product.tagline}
-            </span>
-
-            <span className="col-start-3 row-start-1 flex items-center gap-4 justify-self-end md:col-start-4">
+            <div className="flex items-start justify-between gap-4">
+              {product.icon ? (
+                <img
+                  src={product.icon}
+                  width={128}
+                  height={128}
+                  alt=""
+                  className="h-12 w-12 shrink-0 rounded-xl border border-border/60"
+                />
+              ) : (
+                <span className="h-12 w-12 shrink-0 rounded-xl border border-border/60 bg-surface-high" />
+              )}
               <span
-                className={`hidden text-[11px] font-semibold uppercase tracking-[0.14em] sm:inline ${
-                  product.status === "live" ? "text-primary" : "text-muted-foreground"
+                className={`t-label-sm shrink-0 rounded-full px-2.5 py-1 ${
+                  STATUS_STYLE[product.status] ?? STATUS_STYLE.building
                 }`}
               >
                 {STATUS_LABEL[product.status]}
               </span>
-              <ArrowRight
-                strokeWidth={1.5}
-                className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-hover:text-foreground"
+            </div>
+
+            <h3 className="t-h3 mt-4 text-primary">{product.name}</h3>
+            <p className="t-body-sm mt-1.5 flex-1 text-muted-foreground">{product.tagline}</p>
+
+            <span className="t-label-sm mt-5 inline-flex items-center gap-1.5 text-primary">
+              {product.playUrl ? (
+                <>
+                  <GooglePlayLogo weight="fill" aria-hidden className="h-3.5 w-3.5" />
+                  On Google Play
+                </>
+              ) : (
+                "Read more"
+              )}
+              <ArrowUpRight
+                weight="bold"
+                aria-hidden
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               />
             </span>
           </Link>
         </li>
       ))}
-    </ol>
+    </ul>
   );
 }
