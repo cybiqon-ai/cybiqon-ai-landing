@@ -950,3 +950,27 @@
   `components/ledger/` is deleted. `font-heading` — a named trap in the design concept for a
   month — is finally gone from the wordmark.
 
+* **2026-09-06 (third pass) — the homepage was already designed, in Stitch.**
+
+  Two rebuilds were rejected — the Ledger one as *"a collection of texts"*, the Anek one as
+  *"around 5% good"* — before anyone thought to look in the design tool. **Two Stitch
+  projects were created at 07:18 and 07:45 that morning**, minutes before the task was
+  handed over, and `review.md` was written at 07:51. `projects/7623040016974616845` holds a
+  complete desktop comp, 3246 × 12570, with source HTML. Two design languages were invented
+  while the intended one sat in an account the tooling could already reach. The repo had
+  been using Stitch this way for client work since August.
+
+  `/` is now built to that comp: Plus Jakarta Sans and Inter, navy `#00304f`, vermilion
+  `#fd651e`, and the Material-3 surface ladder that gives the page its depth. Tokens were
+  read out of the comp's HTML rather than eyeballed. See
+  [design system](/site/design-system.md), which keeps both failures and the reasoning.
+
+  **The comp is a design reference and not a content one**, and that distinction is now
+  written down in [content data](/content/content-data.md). It carries "trusted by 100+
+  businesses across 18 cities", an ISO 9001 badge, per-industry percentages, a five-star
+  rating and a generated founder headshot — the same project contains that headshot under
+  the title *"…trustworthy business consultant avatar"*. The DPIIT recognition and the LLP
+  incorporation replaced them, both being real certificates in `ops/Downloads/`.
+
+  Lesson worth more than the palette: **check the design tool before designing.**
+

@@ -3,7 +3,7 @@ type: Reference
 title: Content data
 description: A data/ directory now exists and covers products, legal copy and the Launch-5 offer — but every marketing page's content is still a const array welded into the component that renders it.
 tags: [content, data, refactor, portfolio]
-timestamp: 2026-09-06T12:00:00Z
+timestamp: 2026-09-06T18:00:00Z
 ---
 
 # Overview
@@ -98,6 +98,26 @@ was just torn out. The file carries the same warning at the constant.
 **`components/Hero.tsx`** has three free-audit prompts hidden behind `{false && …}`
 rather than deleted, each with an inline reason. Hidden, not gone — the founder asked for
 them out of the homepage, not out of the codebase.
+
+# The homepage comp is a design reference, not a content one
+
+`/` is built to a Stitch comp (`projects/7623040016974616845`, see
+[design system](/site/design-system.md)). **The comp carries a full set of invented proof.**
+Anyone rebuilding a section from it will find these in the source and must not ship them:
+
+| The comp says | Ship | Why |
+|---|---|---|
+| "Trusted by 100+ Indian businesses across 18 cities" | nothing | 0 paying website clients |
+| "100+ Projects Delivered on Time" · "3.2× Avg Inbound Growth" | **Startup India (DPIIT)** · **Registered LLP** | Both certificates are real files in `ops/Downloads/` |
+| "ISO 9001 Process Quality" | **The Economic Times, Aug 2026** | No ISO certificate exists anywhere in the tree. This one is not a style question — it is a certification claim |
+| Industry band: +310% · 40+ leads/mo · 60% Auto · <15s reply | the evidence block | None of it is attached to a client |
+| Testimonial: 5 stars, "Verified Client Partner", "Pune & Mumbai", "3.2x Qualified Inquiries", headshot | the real quote, attribution only | Nobody left a rating. The headshot is the generated image in the same Stitch project, titled "…trustworthy business consultant avatar" |
+| "Limited Monthly Onboarding Slots" | "Free, and there is nothing to sign" | Scarcity marketing against `SLOTS_TAKEN = 0` |
+| ₹4,999/mo bot · ₹24,999 web app · ₹14,999 lead gen | `/pricing`'s one-time figures | The comp's set would contradict the Product JSON-LD `/pricing` emits |
+| © 2025 | © 2026 | — |
+
+The hero's WhatsApp mockup is built **as a product demonstration** and carries a caption
+saying so. A chat bubble on a homepage reads as a real customer otherwise.
 
 # Imagery — new, 6 Sep 2026
 
