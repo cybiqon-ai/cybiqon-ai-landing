@@ -10,17 +10,23 @@ import { Buildings, Certificate, Code, Newspaper } from "@phosphor-icons/react/d
  * SLOTS_TAKEN at a real zero, and there is no ISO certificate anywhere. Falsely claiming a
  * certification is not a style decision.
  *
- * What is here instead is everything that survives a check. The DPIIT recognition and the
- * LLP incorporation are real documents in ops/Downloads, and the D-U-N-S number is
- * verifiable by anyone who wants to look it up — which is the point of showing it rather
- * than a badge that says "verified". The Economic Times mention is data/press.ts with a
- * scan of the page; code ownership is the standing offer terms.
+ * What is here instead is everything that survives a check, and the first three carry the
+ * reference a visitor needs to check it themselves:
+ *
+ *   - DIPP256002 is the DPIIT recognition number, verifiable on the Startup India portal.
+ *     Certificate dated 17 Apr 2026, valid to 4 Mar 2036, in ops/Downloads.
+ *   - 772066074 is the D-U-N-S number, verifiable through D&B.
+ *   - The Economic Times mention links to /press, which shows the scanned page.
+ *
+ * That is why the numbers are printed rather than a badge reading "verified": a badge
+ * asserts, a reference lets someone check. Code ownership is a promise rather than a
+ * lookup, which is why it sits last.
  */
 const CREDENTIALS = [
   {
     icon: Certificate,
     value: "Startup India",
-    label: "DPIIT recognised",
+    label: "DPIIT recognised · DIPP256002",
     href: null,
   },
   {

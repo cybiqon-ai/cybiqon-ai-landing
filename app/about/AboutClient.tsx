@@ -174,11 +174,11 @@ const About = () => {
             <p className="t-body-sm mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
                 <Certificate weight="fill" aria-hidden className="h-4 w-4 text-primary" />
-                Startup India, DPIIT recognised
+                Startup India · DPIIT recognised, DIPP256002
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Certificate weight="fill" aria-hidden className="h-4 w-4 text-primary" />
-                Registered LLP · D-U-N-S 772066074
+                Registered LLP, incorporated 5 March 2026 · D-U-N-S 772066074
               </span>
             </p>
           </div>
