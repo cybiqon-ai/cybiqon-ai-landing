@@ -45,7 +45,12 @@ const Navbar = () => {
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
               <img src="/logo.png" alt="Cybiqon AI Logo" className="w-8 h-8 object-contain" loading="eager" />
-              <span className="text-xl font-bold font-heading gradient-text">Cybiqon AI</span>
+              <span
+                className="font-anek text-[1.35rem] text-primary"
+                style={{ fontVariationSettings: '"wght" 700, "wdth" 88' }}
+              >
+                Cybiqon AI
+              </span>
             </Link>
 
             <div className="hidden lg:flex items-center gap-8">
