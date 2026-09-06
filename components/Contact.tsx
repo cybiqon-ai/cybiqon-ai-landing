@@ -1,117 +1,112 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { Calendar, Mail, Phone, ArrowRight, FileSearch } from "lucide-react";
 import Link from "next/link";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import SectionHeading from "@/components/ledger/SectionHeading";
 
-const Contact = () => {
-  const handleBookCall = () => {
-    window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
-  };
+/**
+ * The closing CTA.
+ *
+ * A server component now — it was "use client" only for a window.open on the book-a-call
+ * button, which is a real anchor here as it is in the hero.
+ *
+ * Three contact tiles become three ruled rows. The tiles were circular icon chips that
+ * scaled on hover, which is a lot of apparatus around an email address and a phone number.
+ */
 
-  return (
-    <section id="contact" className="py-8 md:py-18 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/50 to-transparent" />
+const TIDYCAL = "https://tidycal.com/itspyguru/cybiqon-30-minute-meeting";
 
-      <div className="container mx-auto px-4 relative">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-8 animate-fade-in">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
-              Ready to <span className="text-primary">Grow</span> Your Business?
-            </h2>
-            <p className="text-sm md:text-base text-muted-foreground mb-6">
-              Let&apos;s discuss how we can help you grow online
-            </p>
-          </div>
+const CHANNELS = [
+  {
+    label: "Email",
+    value: "support@cybiqon.in",
+    href: "mailto:support@cybiqon.in",
+    external: false,
+  },
+  {
+    label: "WhatsApp or call",
+    value: "+91 92507 11473",
+    href: "https://wa.me/919250711473",
+    external: true,
+  },
+  {
+    label: "Everything else",
+    value: "Contact page",
+    href: "/contact",
+    external: false,
+  },
+];
 
-          <div className="glass-card p-6 md:p-8">
-            <div className="text-center mb-6">
-              <Button
-                onClick={handleBookCall}
-                size="lg"
-                variant="accent"
-                className="text-sm px-8"
-              >
-                <Calendar className="mr-2 w-5 h-5" />
-                Book a free call
-              </Button>
-              <p className="text-xs text-muted-foreground mt-3">
-                Get instant answers, exact quote, and timeline — no commitment required
-              </p>
-              <p className="text-xs font-medium text-primary mt-1.5">
-                We respond within 24 hours — guaranteed
-              </p>
-            </div>
+const Contact = () => (
+  <section id="contact" className="py-16 md:py-24">
+    <div className="mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16">
+      <div className="max-w-3xl">
+        <SectionHeading
+          label="Next step"
+          title="Book a free call"
+          lede="Thirty minutes, no commitment. You leave with an exact quote and a timeline — or with the honest answer that we are not the right fit."
+        />
 
-            <div className="flex items-center gap-3 my-6">
-              <div className="flex-1 border-t border-border"></div>
-              <span className="text-xs text-muted-foreground">or reach out directly</span>
-              <div className="flex-1 border-t border-border"></div>
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-3">
-              <a
-                href="mailto:support@cybiqon.in"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
-              >
-                <div className="icon-chip rounded-full w-10 h-10 group-hover:scale-110 transition-transform">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-sm mb-0.5">Email Us</p>
-                  <p className="text-xs text-muted-foreground">support@cybiqon.in</p>
-                </div>
-              </a>
-
-              <a
-                href="https://wa.me/919250711473"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
-              >
-                <div className="icon-chip rounded-full w-10 h-10 group-hover:scale-110 transition-transform">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-sm mb-0.5">WhatsApp / Call</p>
-                  <p className="text-xs text-muted-foreground">+91 92507 11473</p>
-                </div>
-              </a>
-
-              {/* Free Website Audit tile — hidden with the other free-audit prompts. */}
-              {false && (
-              <Link
-                href="/free-audit"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
-              >
-                <div className="icon-chip rounded-full w-10 h-10 group-hover:scale-110 transition-transform">
-                  <FileSearch className="w-5 h-5" />
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-sm mb-0.5">Free Website Audit</p>
-                  <p className="text-xs text-muted-foreground">Get a detailed review</p>
-                </div>
-              </Link>
-              )}
-
-              <Link
-                href="/contact"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
-              >
-                <div className="icon-chip rounded-full w-10 h-10 group-hover:scale-110 transition-transform">
-                  <ArrowRight className="w-5 h-5" />
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-sm mb-0.5">More Options</p>
-                  <p className="text-xs text-muted-foreground">Visit Contact Page</p>
-                </div>
-              </Link>
-            </div>
-          </div>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a
+            href={TIDYCAL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex h-11 items-center justify-center gap-2 bg-accent px-7 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            Book a free call
+            <ArrowRight
+              weight="bold"
+              aria-hidden
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
+            />
+          </a>
+          <p className="text-[15px] text-muted-foreground">
+            Or reach us directly — we answer within 24 hours.
+          </p>
         </div>
+
+        {/* Free-website-audit tile — hidden with the other free-audit prompts, not
+            deleted. /free-audit still exists and is linked from the footer and sitemap. */}
+
+        {/* A list rather than a <dl>: an anchor is not a valid direct child of <dl>,
+            and the label/value pairing is presentational here rather than a real
+            term/definition relationship. */}
+        <ul className="mt-10 border-t border-rule-strong/25">
+          {CHANNELS.map((channel) => {
+            const inner = (
+              <>
+                <span className="ledger-label">{channel.label}</span>
+                <span className="text-[15px] font-medium text-foreground transition-colors group-hover:text-primary md:text-base">
+                  {channel.value}
+                </span>
+              </>
+            );
+
+            const className =
+              "group flex flex-col gap-1 border-b border-border py-4 md:flex-row md:items-baseline md:justify-between";
+
+            return (
+              <li key={channel.label}>
+                {channel.external ? (
+                  <a
+                    href={channel.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={className}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <Link href={channel.href} className={className}>
+                    {inner}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Contact;
