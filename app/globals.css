@@ -50,6 +50,13 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 
     --radius: 0.75rem; /* softer, more premium corners */
 
+    /* Promoted out of .theme-ledger on 6 Sep 2026. The heavier section rule is now
+       part of the marketing language too, so the token has to resolve outside the
+       Ledger scope — `border-rule-strong` previously fell back to currentColor on
+       any page that was not /products or /free-website. Same value as there:
+       = --foreground. .theme-ledger still redeclares it, harmlessly. */
+    --rule-strong: 215 25% 27%;
+
     /* Gradients (kept for legacy refs; used sparingly now) */
     --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(160 84% 39%)); /* Blue to Green */
     --gradient-warm: linear-gradient(135deg, hsl(38 92% 50%), hsl(25 95% 53%)); /* Orange gradient */
@@ -248,12 +255,40 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     @apply inline-flex items-center justify-center rounded-lg bg-primary/10 text-primary;
   }
 
-  /* Display heading — confident, optically tightened. */
+  /* Display heading — Archivo, confident and optically tightened.
+     Archivo is loaded in app/layout.tsx with axes:["wdth"] and no weight key, so
+     weight is supplied here through font-variation-settings rather than font-weight.
+     Falls back to the sans stack if the variable font fails to load. */
   .display {
-    font-weight: 800;
+    font-family: var(--font-archivo), var(--font-geist), sans-serif;
+    font-variation-settings: "wght" 700, "wdth" 96;
     letter-spacing: -0.025em;
     line-height: 1.05;
     text-wrap: balance;
+  }
+
+  /* Ledger structural language, brought to the marketing pages from /products and
+     /free-website. Structure carries the distinctiveness; colour carries the brand —
+     none of these rules touch a hue. See .okf/site/design-system.md. */
+
+  /* Small uppercase label. The counterpart to .lab-readout on /lab. */
+  .ledger-label {
+    @apply text-[11px] font-medium uppercase text-muted-foreground;
+    letter-spacing: 0.14em;
+  }
+
+  /* A hairline-ruled row. Replaces the card grid as the default list form. */
+  .ledger-row {
+    @apply flex items-baseline gap-4 border-t border-border py-4;
+  }
+  .ledger-row:last-child {
+    @apply border-b;
+  }
+
+  /* Index numbers and any figure that should align in a column. */
+  .ledger-num {
+    @apply tabular-nums text-muted-foreground;
+    font-variant-numeric: tabular-nums;
   }
 
   /* Accent text — now a single solid hue, not a rainbow gradient. */
@@ -709,5 +744,41 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   .lab-row,
   .lab-row * {
     transition: none !important;
+  }
+
+  /* The marketing side was never covered here — only /lab was. The scroll-reveal
+     system, the floating hero orbs and the card hover lifts all ran regardless of
+     the user's stated preference. WCAG 2.3.3.
+
+     .reveal must land at its visible state rather than simply losing its transition:
+     RevealObserver adds .visible on intersection, so killing the transition alone
+     would leave anything above the fold at opacity 0 permanently. */
+  .reveal,
+  .reveal.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .animate-float,
+  .animate-float-slow,
+  .animate-fade-in,
+  .animate-scale-in,
+  .animate-glow-pulse {
+    animation: none !important;
+  }
+
+  .card-surface,
+  .glass-card,
+  .warm-card,
+  .success-card {
+    transition: none !important;
+  }
+
+  .card-surface:hover,
+  .glass-card:hover,
+  .warm-card:hover,
+  .success-card:hover {
+    transform: none !important;
   }
 }

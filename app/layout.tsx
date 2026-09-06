@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Archivo, Geist } from "next/font/google";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -12,6 +12,26 @@ import "./globals.css";
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-geist",
+  display: "swap",
+});
+
+// The marketing display face. Deferred since 1 Aug 2026 on the condition that it land
+// in a scoped component rather than the root layout — that condition was about /lab,
+// which now has its own layout. Marketing needs it here or the 14 pages have no display
+// face at all, which is what design-system.md lists under "Not done yet".
+//
+// axes without weight, deliberately: passing both throws at build time. Weight comes
+// from font-variation-settings in the .display rule.
+//
+// The Tailwind key is `display`, NOT `heading` — Navbar.tsx and Footer.tsx both apply a
+// `font-heading` class that has never resolved to anything, and defining that name would
+// silently restyle the wordmark on every page.
+//
+// Font files are static assets, so this costs zero Worker bytes against the 3 MiB cap.
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -137,7 +157,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en" className={`${geist.variable} ${archivo.variable}`}>
       <head>
         <meta httpEquiv="content-language" content="en-IN" />
         <script
