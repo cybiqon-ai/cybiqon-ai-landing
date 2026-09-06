@@ -1,4 +1,4 @@
-import { ArrowRight, Check } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import HeroSpecLedger from "./HeroSpecLedger";
 
@@ -22,11 +22,6 @@ import HeroSpecLedger from "./HeroSpecLedger";
 
 const TIDYCAL = "https://tidycal.com/itspyguru/cybiqon-30-minute-meeting";
 
-const GUARANTEES = [
-  "Live in 2–3 weeks",
-  "You own the code",
-  "Founder-led, based in India",
-];
 
 const Hero = () => (
   <section className="relative overflow-hidden border-b border-border pb-16 pt-28 lg:pb-24 lg:pt-36">
@@ -52,21 +47,10 @@ const Hero = () => (
             and you own 100% of the code.
           </p>
 
-          <ul
-            className="enter mt-7 flex flex-wrap gap-x-6 gap-y-2.5"
-            style={{ animationDelay: "180ms" }}
-          >
-            {GUARANTEES.map((text) => (
-              <li key={text} className="flex items-center gap-2 text-[15px] text-foreground">
-                <Check weight="bold" className="h-4 w-4 shrink-0 text-secondary" />
-                {text}
-              </li>
-            ))}
-          </ul>
 
           <div
             className="enter mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
-            style={{ animationDelay: "240ms" }}
+            style={{ animationDelay: "180ms" }}
           >
             {/* A real anchor rather than an onClick window.open: it keeps this component
                 on the server, it is middle-clickable and keyboard-reachable, and a
@@ -121,7 +105,7 @@ const Hero = () => (
             HeroDashboardMockup, which rendered here until 6 Sep 2026, was the same class
             of thing: 1,247 visitors, +147%, 12 orders, 73% repeat — none of them real.
             It is replaced by figures that are all checkable against /pricing. */}
-        <div className="enter lg:pt-2" style={{ animationDelay: "300ms" }}>
+        <div className="enter lg:pt-2" style={{ animationDelay: "240ms" }}>
           <HeroSpecLedger />
         </div>
       </div>

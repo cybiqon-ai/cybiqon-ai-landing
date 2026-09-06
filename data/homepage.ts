@@ -105,3 +105,61 @@ export const STEPS: Step[] = [
     description: "Updates, fixes and advice. Maintenance from ₹2,999/month if you want it.",
   },
 ];
+
+export type Differentiator = {
+  /** The short form. A real figure where there is one, a word where there isn't. */
+  value: string;
+  title: string;
+  description: string;
+};
+
+/**
+ * These six replace three sections that said the same things to each other.
+ *
+ * Before this, "you own the code" appeared in the hero, in TrustBar, in WhyChooseUs and
+ * again in the Stats band — four times on one page. "24-hour response" appeared twice.
+ * Meanwhile TrustBar's "Founded by MSMEs, for MSMEs" and WhyChooseUs's "AI-Powered
+ * Automation" were, respectively, unfalsifiable and a restatement of a service already
+ * listed above with a price on it.
+ *
+ * Every claim below is a promise the company can keep on its own, which is the only kind
+ * available while the client count is what it is. None of them is a count of customers.
+ */
+export const DIFFERENTIATORS: Differentiator[] = [
+  {
+    value: "Two",
+    title: "You get the founders",
+    description:
+      "You work with Muskan and Prajjwal directly — not an intern, not an account manager. The people on the call are the people building it.",
+  },
+  {
+    value: "100%",
+    title: "You own everything",
+    description:
+      "Code, files, credentials, domain. No vendor lock-in and nothing held hostage. You can walk away and take the whole thing with you.",
+  },
+  {
+    value: "₹0",
+    title: "Hidden fees",
+    description:
+      "Every price is published on this page and on /pricing. One-time, not a retainer. Hosting and domain are paid directly to the provider, so we never mark them up.",
+  },
+  {
+    value: "24 hr",
+    title: "Answered on WhatsApp",
+    description:
+      "Reach us where you already are. Quick questions, status updates, feedback — answered within a day, in Hindi or English.",
+  },
+  {
+    value: "2–3 wk",
+    title: "Built to be found",
+    description:
+      "Fast, mobile-first and SEO-ready, because most of your customers will arrive from a phone and a Google search. Analytics set up before handover.",
+  },
+  {
+    value: "Full",
+    title: "Refund if we miss",
+    description:
+      "Free revisions while we build. If we cannot deliver what we promised, you get your money back — that is the whole guarantee, in one sentence.",
+  },
+];

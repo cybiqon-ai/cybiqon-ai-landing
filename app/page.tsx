@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
-import TrustBar from "@/components/TrustBar";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import IndustryShowcase from "@/components/IndustryShowcase";
 import Services from "@/components/Services";
-import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import ProblemsWeSolve from "@/components/ProblemsWeSolve";
@@ -83,7 +81,6 @@ export default function IndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       <Hero />
-      <TrustBar />
       <ProblemsWeSolve />
       <div id="solutions">
         <Services />
@@ -93,7 +90,6 @@ export default function IndexPage() {
 
       <WhyChooseUs />
       <IndustryShowcase />
-      <Stats />
       <Testimonials />
       <Contact />
     </div>
