@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Calendar, Lightbulb, Code2, Headphones } from "lucide-react";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import WhyChooseUs from "@/components/WhyChooseUs";
@@ -9,6 +8,7 @@ import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import ProblemsWeSolve from "@/components/ProblemsWeSolve";
+import HowItWorks from "@/components/HowItWorks";
 
 export const metadata: Metadata = {
   title: "Affordable Website Development & AI Automation for Indian MSMEs | Cybiqon",
@@ -19,12 +19,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const howItWorksSteps = [
-  { icon: Calendar, title: "Book a Free Call", description: "Tell us about your business and goals in a quick 30-minute chat." },
-  { icon: Lightbulb, title: "We Plan & Build", description: "We design and develop your solution — you review at every stage." },
-  { icon: Code2, title: "Review & Launch", description: "Test everything on a staging site, then go live when you're happy." },
-  { icon: Headphones, title: "Ongoing Support", description: "We stick around to help you grow — updates, fixes, and advice." },
-];
 
 export default function IndexPage() {
   const breadcrumbSchema = {
@@ -95,33 +89,7 @@ export default function IndexPage() {
         <Services />
       </div>
 
-      {/* How It Works */}
-      <section className="py-8 md:py-18 relative bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10 animate-fade-in">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
-              How It <span className="text-primary">Works</span>
-            </h2>
-            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-              From first call to launch — simple, transparent, and stress-free
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[90rem] mx-auto">
-            {howItWorksSteps.map((step, index) => (
-              <div key={index} className="text-center animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="icon-chip w-12 h-12 rounded-xl mx-auto mb-3 relative">
-                  <step.icon className="w-6 h-6" />
-                  <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-primary text-primary-foreground text-[11px] font-bold flex items-center justify-center">
-                    {index + 1}
-                  </span>
-                </div>
-                <h3 className="text-sm font-bold mb-1.5">{step.title}</h3>
-                <p className="text-muted-foreground text-xs">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HowItWorks />
 
       <WhyChooseUs />
       <IndustryShowcase />

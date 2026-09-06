@@ -1,74 +1,64 @@
-import { X, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Check, X } from "@phosphor-icons/react/dist/ssr";
+import SectionHeading from "@/components/ledger/SectionHeading";
+import { PROBLEMS } from "@/data/homepage";
 
-const problems = [
-  {
-    pain: "Losing customers to competitors with websites",
-    solution: "Get found on Google in 2-3 weeks",
-  },
-  {
-    pain: "3+ hours daily answering WhatsApp messages",
-    solution: "AI handles customer queries 24/7",
-  },
-  {
-    pain: "Paying \u20B950,000+ for a basic website",
-    solution: "Professional site starting at \u20B99,999",
-  },
-  {
-    pain: "No idea if your marketing is working",
-    solution: "Real-time dashboard with actual numbers",
-  },
-];
-
-const ProblemsWeSolve = () => {
-  return (
-    <section className="py-8 md:py-16 relative">
-      <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10 reveal">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
-              Real Problems We <span className="text-primary">Solve</span>
-            </h2>
-            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-              Sound familiar? We built Cybiqon to fix exactly these headaches.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {problems.map((item, index) => (
-              <div
-                key={index}
-                className={`grid md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center reveal`}
-                style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
-              >
-                {/* Pain — recessed, muted surface; the X carries the meaning */}
-                <div className="flex items-center gap-2.5 p-3.5 rounded-lg bg-muted/60 border border-border">
-                  <X className="w-4 h-4 text-red-500 flex-shrink-0" />
-                  <p className="text-xs md:text-sm font-medium text-foreground/70">
-                    {item.pain}
-                  </p>
-                </div>
-
-                {/* Arrow */}
-                <div className="hidden md:flex items-center justify-center">
-                  <div className="w-8 h-[2px] bg-border relative">
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent border-l-[6px] border-l-primary" />
-                  </div>
-                </div>
-
-                {/* Solution — elevated white card; the check carries the meaning */}
-                <div className="flex items-center gap-2.5 p-3.5 rounded-lg bg-card border border-border shadow-sm">
-                  <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
-                  <p className="text-xs md:text-sm font-medium text-foreground">
-                    {item.solution}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+/**
+ * Pain on the left, what we do about it on the right, on a rule.
+ *
+ * The previous version rendered each pair as two rounded cards either side of a
+ * hand-drawn CSS arrow. The rule does the same job — it is the same visual grammar as
+ * /products, and it drops eight bordered boxes and four arrow constructions from the page.
+ */
+const ProblemsWeSolve = () => (
+  <section className="py-16 md:py-24">
+    <div className="mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16">
+      <div className="max-w-4xl">
+        <SectionHeading
+          label="Why people call us"
+          title="Four problems, over and over"
+          lede="Sound familiar? These are the ones that come up on almost every first call."
+        />
       </div>
-    </section>
-  );
-};
+
+      <ul className="mt-12 max-w-5xl border-t border-rule-strong/25">
+        {PROBLEMS.map((item, i) => (
+          <li
+            key={item.pain}
+            className="reveal grid grid-cols-1 items-baseline gap-x-8 gap-y-2 border-b border-border py-6 md:grid-cols-[3rem_1fr_1.5rem_1fr]"
+            style={{ transitionDelay: `${i * 0.06}s` }}
+          >
+            <span className="ledger-num hidden text-[13px] font-semibold tracking-[0.1em] md:block">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+
+            <p className="flex items-baseline gap-2.5 text-[15px] leading-relaxed text-muted-foreground md:text-base">
+              <X
+                weight="bold"
+                aria-hidden
+                className="relative top-[3px] h-3.5 w-3.5 shrink-0 text-destructive"
+              />
+              {item.pain}
+            </p>
+
+            <ArrowRight
+              weight="bold"
+              aria-hidden
+              className="hidden h-4 w-4 shrink-0 self-center text-border md:block"
+            />
+
+            <p className="flex items-baseline gap-2.5 text-[15px] font-medium leading-relaxed text-foreground md:text-base">
+              <Check
+                weight="bold"
+                aria-hidden
+                className="relative top-[3px] h-3.5 w-3.5 shrink-0 text-secondary"
+              />
+              {item.solution}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+);
 
 export default ProblemsWeSolve;
