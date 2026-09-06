@@ -13,6 +13,14 @@ export const metadata: Metadata = {
       "Ask anything about our process, pricing or timeline. No jargon, no sales pitch. Reach us on WhatsApp at +91 92507 11473 or book a free 30-minute call.",
     url: "https://cybiqon.in/contact",
     type: "website",
+    images: [
+      {
+        url: "/og/contact.png",
+        width: 1200,
+        height: 630,
+        alt: "Talk to the people who build it — Cybiqon AI Solutions",
+      },
+    ],
   },
 };
 

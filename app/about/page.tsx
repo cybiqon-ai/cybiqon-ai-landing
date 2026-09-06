@@ -13,6 +13,14 @@ export const metadata: Metadata = {
       "Cybiqon is a small Indian software studio building websites, apps and AI automation for MSMEs. Honest pricing, clear communication, no hidden surprises.",
     url: "https://cybiqon.in/about",
     type: "website",
+    images: [
+      {
+        url: "/og/about.png",
+        width: 1200,
+        height: 630,
+        alt: "Two founders, both on the call — Cybiqon AI Solutions",
+      },
+    ],
   },
 };
 

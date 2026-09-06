@@ -63,12 +63,15 @@ export const metadata: Metadata = {
     siteName: "Cybiqon AI Solutions",
     locale: "en_IN",
     url: siteUrl,
+    // /logo.png is 500x500 and was declared here as 1200x630, so every platform reading
+    // this metadata got a wrong aspect-ratio hint and a square image in a 1.91:1 slot.
+    // The site default is now a real card at the size it claims. See .okf/site/seo.md F4.
     images: [
       {
-        url: "/logo.png",
+        url: "/og/home.png",
         width: 1200,
         height: 630,
-        alt: "Cybiqon AI Solutions - Web Development & AI Solutions",
+        alt: "Your business online in 2–3 weeks — Cybiqon AI Solutions",
       },
     ],
   },

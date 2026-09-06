@@ -29,6 +29,14 @@ export const metadata: Metadata = {
       "I need portfolio work. You need to be findable. A complete website in 7 days, traded for a testimonial and a review.",
     url: "https://cybiqon.in/free-website",
     type: "website",
+    images: [
+      {
+        url: "/og/free-website.png",
+        width: 1200,
+        height: 630,
+        alt: "A complete website, free, in seven days — Cybiqon AI Solutions",
+      },
+    ],
   },
 };
 

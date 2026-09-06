@@ -20,6 +20,14 @@ export const metadata: Metadata = {
       "Apps, games, Chrome extensions and client work built and shipped by a studio in India.",
     url: `${siteUrl}/products`,
     type: "website",
+    images: [
+      {
+        url: "/og/products.png",
+        width: 1200,
+        height: 630,
+        alt: "Everything we have shipped — Cybiqon AI Solutions",
+      },
+    ],
   },
 };
 
