@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
+import TrustBar from "@/components/TrustBar";
+import ProblemsWeSolve from "@/components/ProblemsWeSolve";
+import Services from "@/components/Services";
+import HowItWorks from "@/components/HowItWorks";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import Proof from "@/components/Proof";
+import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
   title: "Affordable Website Development & AI Automation for Indian MSMEs | Cybiqon",
@@ -74,6 +81,13 @@ export default function IndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       <Hero />
+      <TrustBar />
+      <ProblemsWeSolve />
+      <Services />
+      <HowItWorks />
+      <WhyChooseUs />
+      <Proof />
+      <Contact />
     </div>
   );
 }

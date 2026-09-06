@@ -1,33 +1,53 @@
+import { CheckCircle, XCircle } from "@phosphor-icons/react/dist/ssr";
+import SectionHeading from "@/components/SectionHeading";
 import { PROBLEMS } from "@/data/homepage";
 
 /**
- * Worry on the left, answer on the right, separated by space rather than by a rule.
+ * The comp's two-column comparison: what agencies do on the left, what we do on the right.
  *
- * No numbers here: four problems are a set, not a sequence, and numbering a set is one of
- * the tells that made the previous version of this page read as generated. No icons
- * either — a tick and a cross beside every line was decoration on top of a contrast the
- * typography already makes.
- *
- * The worry is set at h3 and dark; the answer is body weight. That inversion is deliberate:
- * the visitor is scanning for their own problem, so the problem is the thing that has to
- * catch the eye.
+ * The left column sits on a tinted surface with a muted treatment and the right on white
+ * cards with a shadow, so the eye lands on the answer rather than the complaint. That
+ * asymmetry is the point of the section and is the comp's own composition.
  */
 const ProblemsWeSolve = () => (
-  <section className="bg-background py-20 lg:py-28">
-    <div className="mx-auto max-w-[82rem] px-6 md:px-10 lg:px-16">
-      <h2 className="t-h2 max-w-[18ch] text-foreground">
-        Four things we hear on almost every first call.
-      </h2>
+  <section className="bg-surface py-16 lg:py-24">
+    <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Honest comparison"
+        title="Say goodbye to Indian agency headaches"
+        lede="Most agencies treat a small business as a low-priority ticket with a recurring bill attached. Here is how we work instead."
+      />
 
-      {/* Two columns of stacked pairs, not two columns nested inside two columns — that
-          produced four narrow measures and nothing could be scanned. */}
-      <div className="mt-14 grid gap-x-20 gap-y-12 lg:mt-20 lg:grid-cols-2 lg:gap-y-14">
-        {PROBLEMS.map((item, i) => (
-          <div key={item.pain} className="reveal" style={{ transitionDelay: `${i * 0.05}s` }}>
-            <h3 className="t-h3 max-w-[26ch] text-foreground">{item.pain}</h3>
-            <p className="t-body mt-2.5 max-w-[46ch] text-muted-foreground">{item.solution}</p>
-          </div>
-        ))}
+      <div className="mt-12 grid gap-4 lg:mt-16 lg:grid-cols-2 lg:gap-6">
+        <div className="space-y-4">
+          <p className="t-label flex items-center gap-2 text-muted-foreground">
+            <XCircle weight="fill" aria-hidden className="h-4 w-4 text-destructive" />
+            The typical agency
+          </p>
+          {PROBLEMS.map((item) => (
+            <div
+              key={item.pain}
+              className="rounded-xl border border-border/60 bg-surface-container px-5 py-4"
+            >
+              <p className="t-body text-muted-foreground">{item.pain}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="space-y-4">
+          <p className="t-label flex items-center gap-2 text-primary">
+            <CheckCircle weight="fill" aria-hidden className="h-4 w-4 text-secondary" />
+            The Cybiqon way
+          </p>
+          {PROBLEMS.map((item) => (
+            <div
+              key={item.solution}
+              className="rounded-xl border border-border/50 bg-surface-lowest px-5 py-4 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.15)]"
+            >
+              <p className="t-body text-foreground">{item.solution}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>

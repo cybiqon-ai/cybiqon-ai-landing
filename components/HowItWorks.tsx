@@ -1,37 +1,58 @@
+import { Clock, RocketLaunch } from "@phosphor-icons/react/dist/ssr";
+import SectionHeading from "@/components/SectionHeading";
 import { STEPS } from "@/data/homepage";
 
 /**
- * The only numbered section on the page, because this is the only content that is
- * genuinely a sequence. Everywhere else the markers were decoration.
+ * The comp's four numbered process cards, each with a timing chip.
  *
- * A horizontal track on desktop with the numbers sitting on a rule, so the four steps read
- * as a progression rather than as four more cards. On mobile it stacks and the rule becomes
- * the left edge of each step.
+ * Numbering earns its place here — this is the only genuinely sequential content on the
+ * page. An earlier version of this redesign numbered the problems, the services and the
+ * guarantees too, none of which are sequences.
+ *
+ * The timings add up to the 2-3 weeks the hero promises. If that promise changes, these
+ * change with it.
  */
 const HowItWorks = () => (
-  <section className="bg-muted py-20 lg:py-28">
-    <div className="mx-auto max-w-[82rem] px-6 md:px-10 lg:px-16">
-      <h2 className="t-h2 max-w-[20ch] text-foreground">
-        From the first call to going live.
-      </h2>
+  <section className="bg-surface py-16 lg:py-24">
+    <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Frictionless process"
+        title="From the first call to a live website, in four steps"
+        lede="No jargon and no endless review cycles. A short sprint run by the people writing the code."
+      />
 
-      <ol className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-4 lg:gap-8">
-        {STEPS.map((step, i) => (
-          <li
-            key={step.title}
-            className="reveal border-l-2 border-primary/25 pl-5 lg:border-l-0 lg:border-t-2 lg:pl-0 lg:pt-6"
-            style={{ transitionDelay: `${i * 0.07}s` }}
-          >
-            <span
-              className="font-anek block text-[2rem] leading-none text-primary"
-              style={{ fontVariationSettings: '"wght" 700, "wdth" 82', fontVariantNumeric: "tabular-nums" }}
+      <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+        {STEPS.map((step, i) => {
+          const last = i === STEPS.length - 1;
+          return (
+            <li
+              key={step.title}
+              className="flex flex-col rounded-2xl border border-border/60 bg-surface-lowest p-6 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)]"
             >
-              {i + 1}
-            </span>
-            <h3 className="t-h3 mt-3 text-foreground">{step.title}</h3>
-            <p className="t-body mt-2 text-muted-foreground">{step.description}</p>
-          </li>
-        ))}
+              <span
+                className={`t-label-sm flex h-9 w-9 items-center justify-center rounded-full tabular-nums ${
+                  last ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
+                }`}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="t-h3 mt-4 text-primary">{step.title}</h3>
+              <p className="t-body-sm mt-2 flex-1 text-muted-foreground">{step.description}</p>
+              <p
+                className={`t-label-sm mt-5 inline-flex items-center gap-1.5 ${
+                  last ? "text-secondary-foreground" : "text-accent"
+                }`}
+              >
+                {last ? (
+                  <RocketLaunch weight="fill" aria-hidden className="h-3.5 w-3.5" />
+                ) : (
+                  <Clock weight="fill" aria-hidden className="h-3.5 w-3.5" />
+                )}
+                {step.when}
+              </p>
+            </li>
+          );
+        })}
       </ol>
     </div>
   </section>

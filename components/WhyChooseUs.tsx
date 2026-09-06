@@ -1,30 +1,61 @@
-import { DIFFERENTIATORS } from "@/data/homepage";
+import { Globe, Key, TrendUp, UsersThree } from "@phosphor-icons/react/dist/ssr";
+import SectionHeading from "@/components/SectionHeading";
 
 /**
- * One section where there were three. TrustBar, WhyChooseUs and Stats each asserted a set
- * of guarantees and overlapped badly — "you own the code" was on this page four times.
+ * The comp's four-card "why us", with tinted icon tiles.
  *
- * The figure leads at display weight and the claim follows, because these are the answers
- * to "what am I actually getting", and the number is the answer. None of them is a count of
- * customers: while the client count is what it is, promises the company can keep on its own
- * are the only honest kind available.
+ * These are promises the company can keep on its own, which is the only honest kind
+ * available while the client count is what it is. None of them is a count of customers.
  */
-const WhyChooseUs = () => (
-  <section className="bg-background pb-20 lg:pb-28">
-    <div className="mx-auto max-w-[82rem] px-6 md:px-10 lg:px-16">
-      <h2 className="t-h2 max-w-[20ch] text-foreground">What you are actually buying.</h2>
+const REASONS = [
+  {
+    icon: UsersThree,
+    title: "Direct founder access",
+    body: "No middle managers and no junior account handlers. Decisions happen on a WhatsApp message or a call with the people building it.",
+  },
+  {
+    icon: Key,
+    title: "Zero vendor lock-in",
+    body: "Full code and IP. Repository, server keys and DNS records are transferred to you on handover — you can leave whenever you like.",
+  },
+  {
+    icon: TrendUp,
+    title: "Built to convert",
+    body: "Not decoration. Thumb-friendly WhatsApp buttons, fast loading on a mid-range phone, and analytics set up before you go live.",
+  },
+  {
+    icon: Globe,
+    title: "Hindi and English",
+    body: "The bot answers in the language a customer writes in, including Hinglish, so nobody is filtered out by the interface.",
+  },
+];
 
-      <div className="mt-14 grid gap-x-16 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
-        {DIFFERENTIATORS.map((item, i) => (
-          <div key={item.title} className="reveal" style={{ transitionDelay: `${i * 0.05}s` }}>
-            <p
-              className="font-anek text-[2.75rem] leading-none text-primary"
-              style={{ fontVariationSettings: '"wght" 800, "wdth" 80', fontVariantNumeric: "tabular-nums" }}
-            >
-              {item.value}
-            </p>
-            <h3 className="t-h3 mt-4 text-foreground">{item.title}</h3>
-            <p className="t-body mt-2 max-w-[42ch] text-muted-foreground">{item.description}</p>
+const WhyChooseUs = () => (
+  <section className="bg-surface-low py-16 lg:py-24">
+    <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <SectionHeading
+          align="left"
+          eyebrow="Why Cybiqon AI"
+          title="Built by engineers, for Indian MSMEs"
+        />
+        <p className="t-body-lg text-muted-foreground">
+          We cut the agency layers. You talk straight to the people who write the code, and
+          they respect your timeline and your budget.
+        </p>
+      </div>
+
+      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+        {REASONS.map((reason) => (
+          <div
+            key={reason.title}
+            className="rounded-2xl border border-border/60 bg-surface-lowest p-6 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)]"
+          >
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface-high text-primary">
+              <reason.icon weight="fill" aria-hidden className="h-5 w-5" />
+            </span>
+            <h3 className="t-h3 mt-4 text-primary">{reason.title}</h3>
+            <p className="t-body-sm mt-2 text-muted-foreground">{reason.body}</p>
           </div>
         ))}
       </div>

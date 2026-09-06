@@ -50,6 +50,12 @@ export type Service = {
   description: string;
   /** One-time, from. Verified against app/pricing/PricingClient.tsx. */
   price: string;
+  /** What the price buys, for the card checklists. */
+  includes: string[];
+  /** The one service that gets the ribbon. */
+  popular?: boolean;
+  /** Sits under the price. */
+  note?: string;
 };
 
 export const SERVICES: Service[] = [
@@ -58,54 +64,71 @@ export const SERVICES: Service[] = [
     description:
       "Mobile-first sites built for Indian shoppers — responsive, WhatsApp-connected, and indexed by Google. Delivered in 2–3 weeks.",
     price: "₹9,999",
+    includes: ["Custom design, not a template", "Contact forms and WhatsApp click-to-chat", "Basic SEO and Google Analytics setup", "One year of fast hosting included", "100% source code handed over"],
+    popular: true,
+    note: "Live in 2-3 weeks",
   },
   {
     title: "Android app development",
     description:
       "Inventory, customer ordering, field-staff tracking. Play Store–ready builds with post-launch support.",
     price: "₹29,999",
+    includes: ["Clean, intuitive interface", "Scalable backend", "Play Store-ready build", "Post-launch support"],
+    note: "Booking, inventory or field tools",
   },
   {
     title: "AI automation",
     description:
       "WhatsApp bots, customer support and follow-ups that run without you. Lead capture into a sheet you already read.",
     price: "₹19,999",
+    includes: ["WhatsApp bot in Hindi and English", "Lead capture into a sheet you already read", "Follow-ups and reminders", "Tool and email integrations"],
+    note: "Replies day and night",
   },
   {
     title: "Chrome extensions",
     description:
       "Browser tools for a sales team — auto-fill GST portals, build quotes faster, pull data off a page as you work.",
     price: "₹14,999",
+    includes: ["Auto-fill GST and vendor portals", "Faster quote building", "On-page data extraction", "Packaged for your team"],
+    note: "Built for a sales team",
   },
   {
     title: "Bulk scraping",
     description:
       "Competitor prices, supplier catalogues and leads out of JustDial and IndiaMART, delivered as Excel you can use the same day.",
     price: "₹11,999",
+    includes: ["JustDial and IndiaMART directories", "Competitor price tracking", "Clean Excel or CSV delivery", "Repeatable, re-runnable"],
+    note: "Delivered ready to use",
   },
 ];
 
 export type Step = {
   title: string;
   description: string;
+  /** The comp puts a timing chip on each step. These match the 2-3 week promise. */
+  when: string;
 };
 
 export const STEPS: Step[] = [
   {
     title: "Book a free call",
     description: "Thirty minutes. Tell us the business and what it needs to do online.",
+    when: "Day 1",
   },
   {
     title: "We plan and build",
     description: "You see it at every stage. No month of silence ending in a surprise.",
+    when: "Days 2-10",
   },
   {
     title: "Review and launch",
     description: "Test the whole thing on a staging site, then go live when you're happy.",
+    when: "Days 11-16",
   },
   {
     title: "Ongoing support",
     description: "Updates, fixes and advice. Maintenance from ₹2,999/month if you want it.",
+    when: "After launch",
   },
 ];
 
