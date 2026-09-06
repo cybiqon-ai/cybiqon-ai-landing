@@ -1018,3 +1018,30 @@
   different ratios, and matched framing stops the pair looking accidental without pretending
   it is one shoot.
 
+* **2026-09-07 (later) — the keywords get their own pages, and the claims get references.**
+
+  Founder review of the rebuilt homepage, and the substantive half of it was SEO: the
+  rewrite traded the old page's explicit keyword coverage for better copy. `/services` plus
+  seven children now carry the commercial terms and the homepage links down into them. See
+  [SEO](/site/seo.md) for the route/term table and why it is seven pages rather than the
+  nine terms asked for.
+
+  **Eight new routes cost zero Worker bytes** — all prerendered static, bundle moved 3.4 KB
+  from the nav link. That is the first real test of the "only the 12 edge routes count"
+  rule and it held.
+
+  Six homepage changes with it: the agent card's steps arrive in sequence (CSS delays, no
+  JS timeline, still a server component), prices moved into the hero, the secondary CTA
+  stopped competing, a four-project case grid using Play Store feature graphics, and a
+  "who this is for" band.
+
+  **Building the case grid caught a wrong claim.** Lumina's live Play listing says 300
+  levels across 10 worlds; `data/products.ts` said 150 across five, and the feature graphic
+  now on the homepage says 300 — the site was contradicting itself in public and
+  understating a shipped product. This is the second time products.ts has drifted from the
+  live listing; the first was a `status` field, recorded on 29 Aug.
+
+  **Trust claims now carry references rather than assertions** — DIPP256002 and D-U-N-S
+  772066074 are printed because a number can be checked and a badge cannot. The LLP
+  incorporation is the one left resting on our word: its certificate is a scan.
+

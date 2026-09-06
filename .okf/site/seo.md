@@ -85,6 +85,60 @@ Now: `/blog?page=1..9` server-rendered with real hrefs (verified live, 76/76 pos
 reachable), 21 `/blog/tag/<slug>` archives, and a sitemap listing all 120 URLs —
 76 posts, 21 tags, 8 paginated indexes, 15 static.
 
+# Service pages — added 7 Sep 2026
+
+**`/services` plus seven children carry the commercial search terms.** The homepage was
+rewritten around positioning — custom software and AI agents — which reads better and ranks
+for less than the old page's literal "Website Development" / "Android App Development" /
+"Bulk Scraping" / "Chrome Extensions" headings. Both can be true, but not on one page.
+
+| Route | Term |
+|---|---|
+| `/services` | custom software development for Indian businesses (**primary**) |
+| `/services/custom-websites` | website development |
+| `/services/ai-agents` | AI agent development, AI automation, business automation |
+| `/services/whatsapp-automation` | WhatsApp automation |
+| `/services/android-apps` | Android app development |
+| `/services/admin-panels` | custom admin panels, internal software |
+| `/services/chrome-extensions` | Chrome extension development |
+| `/services/web-scraping` | web scraping, data extraction |
+
+**Seven, not the nine terms requested.** "AI Automation", "Business Automation" and "AI
+Agent Development" are one intent with three names; three near-identical pages would
+cannibalise each other and read as thin, which this site already refuses to ship elsewhere.
+They are one page naming the alternatives in its copy, `keywords` and schema.
+
+Each carries `Service` + `FAQPage` + `BreadcrumbList` on top of the layout's `Organization`
+and `ProfessionalService` — five schema types per page. Routes are **concrete shims**, not
+`/services/[slug]`, for the reason in [Routes](/site/routes.md): Next 16 emits a Node ISR
+fallback for a dynamic segment even with `dynamicParams = false` and next-on-pages rejects
+it.
+
+**They cost nothing.** Eight new routes added **zero** Worker functions — all prerendered
+static — and the bundle moved 3.4 KB, from the nav link. This is the practical proof of the
+rule in [design system](/site/design-system.md): only the 12 edge routes count.
+
+`data/llms.config.json` and `app/sitemap.ts` both need updating for any new route — the
+pre-push hook runs `check:llms` and blocks on an unlisted one, which is how these were
+caught. 49 routes covered now.
+
+# Verifiable trust claims — 7 Sep 2026
+
+Every credibility claim on the homepage now carries either a link to evidence or a
+reference number someone can look up:
+
+| Claim | Backed by |
+|---|---|
+| Startup India, DPIIT | **DIPP256002**, checkable on the Startup India portal |
+| D-U-N-S | **772066074**, checkable through D&B |
+| The Economic Times | links to `/press`, which shows the scanned page |
+| Snackly | links to the live site at `snacklyfoods.in` |
+| Testimonial | links to `/case-studies` |
+| 100% code ownership | a promise, and positioned last so it does not read as a lookup |
+
+⚠️ The **LLP incorporation** is the one claim still resting on our word: the certificate is
+a scan with no extractable text, so no LLPIN is printed.
+
 # Still missing
 
 | Gap | Consequence |
