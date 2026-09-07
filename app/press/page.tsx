@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Newspaper } from "lucide-react";
 
 import { MENTIONS, PRESS_KIT } from "@/data/press";
 
@@ -151,17 +150,17 @@ export default function PressPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(quotation) }}
       />
 
-      {/* pt-24 md:pt-28 is the site-wide clearance for the 73px fixed navbar. */}
-      <section className="pt-24 pb-8 md:pt-28 md:pb-10">
-        <div className={CONTAINER}>
-          <p className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/15 rounded-full text-[11px] font-medium text-primary mb-4">
-            <Newspaper className="w-3 h-3" />
-            In the press
-          </p>
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.15] tracking-tight mb-3">
-            Cybiqon in the <span className="text-primary">press</span>
-          </h1>
-          <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg">
+      {/* pt-32 lg:pt-40 clears the fixed header, which is taller since the
+          announcement strip moved inside it. */}
+      <section className="relative overflow-hidden bg-surface pb-12 pt-32 lg:pb-16 lg:pt-40">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
+        />
+        <div className={`relative ${CONTAINER}`}>
+          <p className="t-eyebrow text-accent">In the press</p>
+          <h1 className="t-h1 mt-2.5 max-w-[18ch] text-primary">Cybiqon in the press</h1>
+          <p className="t-body-lg mt-5 max-w-[58ch] text-muted-foreground">
             One mention so far. It is in print only, so the clipping is the record — the
             full page is here too, for anyone who wants to check it.
           </p>
@@ -173,7 +172,7 @@ export default function PressPage() {
             version mixed flush-left text with a centred figure 96px to its right. */}
         <div className={CONTAINER}>
           <div className="max-w-3xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
+            <p className="t-eyebrow text-muted-foreground tabular-nums">
               {provenance.map((part, i) => (
                 <span key={part}>
                   {i > 0 && <span className="mx-2 text-border">·</span>}
