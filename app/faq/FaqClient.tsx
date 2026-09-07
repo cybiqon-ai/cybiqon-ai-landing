@@ -13,7 +13,7 @@ import { TIDYCAL } from "@/data/homepage";
  *
  * Native <details>/<summary> rather than a React accordion. It opens without JavaScript,
  * it is keyboard accessible and screen-reader announced for free, and it takes the page
- * off useScrollReveal — one of two consumers left.
+ * off useScrollReveal.
  */
 const breadcrumbSchema = {
   "@context": "https://schema.org",

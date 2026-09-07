@@ -18,7 +18,7 @@ import { TIDYCAL } from "@/data/homepage";
  * /process, on the marketing design system.
  *
  * A server component now — it was "use client" for useScrollReveal and a window.open,
- * both gone. Three of the hook's six consumers left.
+ * both gone.
  *
  * The five steps here are the detailed version of the four on the homepage, which is
  * deliberate: the homepage summarises, this page is where someone goes to find out what

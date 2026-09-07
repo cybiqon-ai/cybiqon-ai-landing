@@ -16,8 +16,7 @@ import { TIDYCAL } from "@/data/homepage";
 /**
  * /contact, on the marketing design system.
  *
- * A server component — it was "use client" for useScrollReveal and a window.open. Two of
- * that hook's six consumers left after this.
+ * A server component — it was "use client" for useScrollReveal and a window.open.
  *
  * The four channels are ordered by what actually gets a useful answer fastest, and the
  * call is marked as the one we recommend rather than all four being presented as equal.
