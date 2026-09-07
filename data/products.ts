@@ -91,6 +91,14 @@ export interface Product {
    * product's own repo and downsized; nothing here is generated art.
    */
   icon?: string | null;
+  /**
+   * Phone screenshots in public/img/shots/, 360px wide WebP.
+   *
+   * Only where real captures exist. MeFlow's only capture holds the founder's actual
+   * personal finance data and VitaLoop has none at all, so both are absent rather than
+   * padded — a gallery with a placeholder in it is worse than no gallery.
+   */
+  shots?: string[];
   platform: string;
   /** Short, concrete, no marketing verbs. 4–8 items. */
   features: { title: string; description: string }[];
@@ -117,6 +125,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "llmbytes",
     icon: "/img/icon-llmbytes.webp",
+    shots: ["/img/shots/llmbytes-1.webp", "/img/shots/llmbytes-2.webp", "/img/shots/llmbytes-3.webp"],
     category: "app",
     name: "LLMBytes",
     tagline: "AI news, written fresh every day",
@@ -259,6 +268,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "lumina",
     icon: "/img/icon-lumina.webp",
+    shots: ["/img/shots/lumina-1.webp", "/img/shots/lumina-2.webp", "/img/shots/lumina-3.webp"],
     category: "game",
     name: "Lumina: The Lightkeeper's Path",
     tagline: "A cosy sliding-block puzzle",
@@ -308,6 +318,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "orbitone",
     icon: "/img/icon-orbitone.webp",
+    shots: ["/img/shots/orbitone-1.webp", "/img/shots/orbitone-2.webp", "/img/shots/orbitone-3.webp"],
     category: "game",
     name: "Orbitone",
     tagline: "Eight arcade games, one thumb",
@@ -357,6 +368,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "curvved",
     icon: "/img/icon-curvved.webp",
+    shots: ["/img/shots/curvved-1.webp", "/img/shots/curvved-2.webp", "/img/shots/curvved-3.webp"],
     category: "game",
     name: "Curvved",
     tagline: "The answer is a picture",
