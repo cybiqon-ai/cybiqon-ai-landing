@@ -1089,3 +1089,30 @@
   lead-enrichment engagement unnameable while two other surfaces named LeadzGalaxy. Named
   now, confirmed by the founder.
 
+* **2026-09-08 — the legal pages stop describing a different company.**
+
+  `/privacy` and `/terms` both said **"Last updated: January 2025"**. The LLP was
+  incorporated on 5 March 2026, so both claimed to predate the company by fourteen months.
+
+  Three corrections of substance in the privacy policy. It **did not disclose that every
+  form stores the submitter's IP address** — `api/audit`, `api/apply` and `api/subscribe`
+  all write one to D1, and an IP is personal data under the DPDP Act. It described
+  processors as "trusted third-party services" and named none, where they are nameable:
+  Cloudflare, Resend, Google Analytics, TidyCal. And it described forms that are not the
+  forms this site has.
+
+  The terms carried the old five-service list rather than the seven that exist, at prices
+  that no longer matched `/pricing`.
+
+  Both now render through the product legal renderer — no `dangerouslySetInnerHTML` — via
+  `data/legal/site.ts`. See [content data](/content/content-data.md).
+
+  **Found on the way:** `--ochre` was still the old Tailwind blue with a comment claiming it
+  equalled `--primary`, which stopped being true when the palette changed on 6 Sep. Nineteen
+  pages were rendering links in last season's accent.
+
+  ⚠️ Two open items are recorded at the top of `data/legal/site.ts` rather than silently
+  decided: the jurisdiction clause still says "courts in India" without naming a city, and
+  no individual is appointed Grievance Officer under the DPDP Act. Neither document has been
+  reviewed by a lawyer.
+
