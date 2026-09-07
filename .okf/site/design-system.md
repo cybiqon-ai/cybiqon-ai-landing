@@ -218,7 +218,18 @@ opacity 0.
 
 # Migrated so far
 
-`/` · `/about` · `/products` · `/products/{apps,games,extensions}`.
+`/` · `/about` · `/pricing` · `/services` + 7 children · `/products` ·
+`/products/{apps,games,extensions}`.
+
+**`/pricing` had drifted furthest of any page** — green prices, teal icon tiles and a
+pink-to-magenta gradient button that appears nowhere else. It is on the system now and is a
+server component.
+
+**The seven product detail pages keep Ledger, and that is a decision rather than a
+leftover.** The index and category pages came off it because a catalogue of ruled rows read
+as a seam behind the redesigned chrome; a detail page is a spec document — summary,
+rationale, labelled feature list — and ruled rows are the right form for that. They gained
+the product icon and a screenshot strip, which is what they were actually missing.
 
 **Ledger is now scoped away from part of its own tree.** `components/ThemeScope.tsx` gained
 `LEDGER_EXCEPTIONS`: `/products` and its three category pages come off Ledger, while the

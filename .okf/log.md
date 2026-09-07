@@ -1045,3 +1045,23 @@
   772066074 are printed because a number can be checked and a badge cannot. The LLP
   incorporation is the one left resting on our word: its certificate is a scan.
 
+* **2026-09-07 (evening) — /pricing and the product pages.**
+
+  **Prices were in three files.** `data/services.ts` is the single authority now;
+  `data/homepage.ts` reads it through a helper and `/pricing` renders it directly and
+  generates its Product JSON-LD from the same array. The ₹6,999 change the day before had
+  taken three edits and could have taken two — the same shape of drift that put a
+  150-level claim on a 300-level game. See [content data](/content/content-data.md).
+
+  **/pricing had drifted furthest of any page** and is now on the system and a server
+  component. Its card list also grew from five services to seven: the old list predated
+  the service pages and omitted WhatsApp automation and admin panels, which the company
+  sells. The custom-quote card lost its price and says "quoted on the call", because a
+  number nobody can stand behind is the one thing a pricing page must not carry.
+
+  **The product detail pages finally show the products.** Icon plus a screenshot strip,
+  from captures that were sitting in each product's own repo. Four of seven get screens;
+  MeFlow, VitaLoop and MapWit are absent rather than padded, for reasons recorded at the
+  `shots` field. They keep Ledger deliberately — see
+  [design system](/site/design-system.md).
+

@@ -151,6 +151,17 @@ build are genuinely ours, but the food photograph inside it is placeholder art, 
 caption on the page says exactly that. Cheaper than a visitor assuming it is a real product
 shot.
 
+# One price list
+
+**`data/services.ts` is the authority for prices.** They previously lived in three files —
+that one, `data/homepage.ts` and `app/pricing/PricingClient.tsx` — so the Chrome extension
+change to ₹6,999 on 6 Sep took three edits and could have taken two, leaving the site
+quoting two numbers for one service.
+
+`data/homepage.ts` reads through a `price(slug)` helper; `/pricing` renders the array
+directly and **generates its Product JSON-LD from it**, so the structured data cannot drift
+from the cards above it.
+
 # Assets
 
 `public/portfolio/*.webp` (15) · `public/logo.png` · `public/founder1.jpg`,
