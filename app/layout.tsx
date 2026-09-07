@@ -7,7 +7,6 @@ import WhatsAppWidget from "@/components/WhatsAppWidget";
 import RevealObserver from "@/components/RevealObserver";
 import TrackedEvents from "@/components/TrackedEvents";
 import ThemeScope from "@/components/ThemeScope";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import "./globals.css";
 
 
@@ -200,7 +199,6 @@ export default function RootLayout({
         </ThemeScope>
         <RevealObserver />
         <TrackedEvents />
-        <Sonner />
 
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-JBTXQ3BF5C"
