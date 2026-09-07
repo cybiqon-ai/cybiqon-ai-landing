@@ -37,19 +37,17 @@ export interface ClientProject {
 export const CLIENT_PROJECTS: ClientProject[] = [
   {
     slug: "lead-enrichment-platform",
-    name: "A B2B lead-enrichment platform",
-    tagline: "Live, and the client is not ours to name",
+    name: "LeadzGalaxy.com",
+    tagline: "B2B lead enrichment, live",
     summary:
       "Ongoing engineering on a business-to-business lead-enrichment product: the pipeline that takes a raw company or contact record, resolves it against several sources, removes the duplicates that resolution creates, and hands back something a sales team can work. It is in production and under active development.",
     status: "live",
-    url: null,
+    url: "https://leadzgalaxy.com",
     work: [
       "Enrichment pipeline work — resolving a record against multiple sources and reconciling what they disagree about",
       "Deduplication, including the in-flight case where two enrichments of the same record are running at once",
       "Backend services in Python, and the test coverage that lets the above be changed safely",
     ],
-    unnamed:
-      "The client's repositories are private and the product is theirs to announce, so the work is described and they are not named. If you want a reference, ask and we will ask them.",
   },
   {
     slug: "snackly",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Check, X } from "lucide-react";
+import { Check, X } from "@phosphor-icons/react/dist/ssr";
 import ApplyForm from "@/components/free-website/ApplyForm";
 import {
   BAD_FIT,
@@ -50,22 +50,20 @@ export const metadata: Metadata = {
 function TradePanel() {
   const column = (title: string, items: string[]) => (
     <div>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+      <p className="t-eyebrow text-accent">
         {title}
       </p>
-      <ol className="mt-4 border-t border-border">
-        {items.map((item, i) => (
+      <ul className="mt-5 space-y-3">
+        {items.map((item) => (
           <li
             key={item}
-            className="grid grid-cols-[2rem_1fr] items-baseline gap-x-3 border-b border-border py-3.5"
+            className="flex gap-3 rounded-xl border border-border/60 bg-surface-lowest px-4 py-3.5"
           >
-            <span className="text-[13px] font-semibold tabular-nums tracking-[0.1em] text-primary">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span className="text-[15px] leading-relaxed text-foreground">{item}</span>
+            <Check weight="bold" aria-hidden className="mt-1 h-3.5 w-3.5 shrink-0 text-secondary" />
+            <span className="t-body-sm text-foreground">{item}</span>
           </li>
         ))}
-      </ol>
+      </ul>
     </div>
   );
 
@@ -93,10 +91,10 @@ function SlotStrip() {
           <span
             key={i}
             aria-hidden
-            className={`border px-2.5 py-1 text-[12px] font-semibold tabular-nums tracking-[0.1em] ${
+            className={`rounded-full border px-2.5 py-1 text-[12px] font-semibold tabular-nums ${
               taken
                 ? "border-border text-muted-foreground/50 line-through"
-                : "border-primary/40 text-primary"
+                : "border-accent/50 bg-accent-softer text-[hsl(var(--accent))]"
             }`}
           >
             {String(i + 1).padStart(2, "0")}
@@ -114,13 +112,13 @@ function FitList({ items, kind }: { items: string[]; kind: "good" | "bad" }) {
       {items.map((item) => (
         <li key={item} className="flex items-start gap-3">
           <Icon
-            strokeWidth={1.5}
+            weight="bold"
             aria-hidden
             className={`mt-1 h-4 w-4 shrink-0 ${
-              kind === "good" ? "text-primary" : "text-muted-foreground"
+              kind === "good" ? "text-secondary" : "text-muted-foreground"
             }`}
           />
-          <span className="text-[15px] leading-relaxed text-foreground">{item}</span>
+          <span className="t-body-sm text-foreground">{item}</span>
         </li>
       ))}
     </ul>
@@ -129,7 +127,7 @@ function FitList({ items, kind }: { items: string[]; kind: "good" | "bad" }) {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+    <p className="t-eyebrow text-accent">
       {children}
     </p>
   );
@@ -161,12 +159,12 @@ export default function FreeWebsitePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ── Hero: the trade is the thesis ─────────────────────────────────── */}
-      <section className="pt-28 md:pt-32">
+      <section className="relative overflow-hidden bg-surface pt-32 lg:pt-40">
         <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
             <SectionLabel>Launch 5</SectionLabel>
             <SlotStrip />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            <span className="t-eyebrow text-accent">
               {SLOTS_LEFT} of {TOTAL_SLOTS} open
             </span>
           </div>
@@ -183,7 +181,9 @@ export default function FreeWebsitePage() {
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
               href="#apply"
-              className="inline-flex items-center justify-center bg-primary px-7 py-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-primary-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.99]"
+              data-track="launch5_apply"
+              data-track-label="free_website_hero"
+              className="inline-flex h-12 items-center justify-center rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             >
               Apply for a slot
             </a>
@@ -193,7 +193,9 @@ export default function FreeWebsitePage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center border border-border px-7 py-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-foreground transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              data-track="whatsapp_click"
+              data-track-label="free_website_hero"
+              className="inline-flex h-12 items-center justify-center rounded-lg border border-border bg-white px-7 text-[15px] font-medium text-primary transition-colors hover:bg-surface-low focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               Ask on WhatsApp
             </a>

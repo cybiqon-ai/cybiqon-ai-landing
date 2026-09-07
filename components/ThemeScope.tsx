@@ -46,7 +46,7 @@ import { usePathname } from "next/navigation";
  * fired from the apply form will use the default theme. That is acceptable for
  * something transient, but it is a known seam, not an oversight.
  */
-const LEDGER_ROUTES = ["/free-website", "/products"];
+const LEDGER_ROUTES = ["/products"];
 const BARE_ROUTES = ["/lab"];
 
 /**
@@ -57,9 +57,13 @@ const BARE_ROUTES = ["/lab"];
  * behind the redesigned chrome — and because a page whose whole job is to show what has
  * been built was showing no imagery at all.
  *
- * The seven product detail pages and twelve legal pages stay on Ledger: they are long-form
- * documents where it still reads well. Exact matches only, so `/products/lumina` is
- * unaffected while `/products/games` is.
+ * `/free-website` followed on 7 Sep and left LEDGER_ROUTES entirely: it is a sales page
+ * doing the same job as the homepage, so a separate visual language was harder to justify
+ * there than anywhere else.
+ *
+ * **Ledger now survives only on the seven product detail pages and twelve legal pages**,
+ * which are long-form documents where the ruled treatment still reads well. Exact matches
+ * only, so `/products/lumina` is unaffected while `/products/games` is.
  */
 const LEDGER_EXCEPTIONS = [
   "/products",
