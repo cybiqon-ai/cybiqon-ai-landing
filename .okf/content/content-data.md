@@ -92,6 +92,19 @@ That also retired a caveat: the comp carried Imagen placeholder food photography
 a caption saying so, and the live site has the client's own packaging. **`snacklyfoods.com`
 is a parked domain** that redirects to `/lander` — only the `.in` resolves.
 
+**Three fabricated case studies were deleted from `/case-studies` on 7 Sep 2026** — a
+retail site, a consulting portal and a home-services rebuild, unnamed and unattributed,
+carrying "20+ monthly inquiries, top 10 Google rankings for 3 keywords", "15+ client
+inquiries in the first month" and "2x lead conversion, 60% faster load times, 35% lower
+bounce rate". The company has no paying website clients. This file had already flagged them
+as the same class of thing as `/our-works`, which was deleted on 29 Aug for exactly this.
+Two real studies remain: LeadzGalaxy and Snackly.
+
+**`data/clients.ts` now names LeadzGalaxy.** It described that engagement as "not ours to
+name" while `/case-studies` named and linked it and the homepage testimonial had carried
+Amit Menon's name for months — the site contradicted itself. Confirmed by the founder on
+7 Sep; the `unnamed` note is removed rather than left true of nothing.
+
 **`components/Testimonials.tsx`** deliberately holds **one real testimonial**
 (LeadzGalaxy / Amit Menon) after placeholders were removed, with a comment saying
 so. Keep it that way — the whole point of the Launch-5 programme is to earn more

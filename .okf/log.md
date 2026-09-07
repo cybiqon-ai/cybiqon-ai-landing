@@ -1065,3 +1065,27 @@
   `shots` field. They keep Ledger deliberately — see
   [design system](/site/design-system.md).
 
+* **2026-09-07 (late) — the marketing migration finishes.**
+
+  The last seven pages: `/process`, `/contact`, `/faq`, `/case-studies`, `/free-audit`,
+  `/press`, `/free-website`. **All fourteen marketing pages are now on the design system,
+  none is a client component, and `hooks/useScrollReveal.ts` is deleted** — its six call
+  sites were the only reason those pages hydrated at all.
+
+  **Ledger survives only on the seven product detail pages and twelve legal pages.**
+  `/free-website` came off it too: it is a sales page doing the homepage's job, so a
+  separate language there was a seam rather than a distinction. The theme is now scoped by
+  exception rather than by prefix, which `ThemeScope.tsx` explains because the constant
+  names do not.
+
+  **Two real defects surfaced.** `/faq` was serving **3 of 16 answers** — it filtered by
+  category in React state while its `FAQPage` schema declared all sixteen, which is a
+  markup/content mismatch Google can drop the rich result over. Native `<details>` fixes it
+  and needs no JavaScript. And `/case-studies` carried **three fabricated projects** with
+  invented metrics against zero paying website clients; deleted, as `/our-works` was on
+  29 Aug. See [content data](/content/content-data.md).
+
+  `data/clients.ts` also stopped contradicting the rest of the site: it called the
+  lead-enrichment engagement unnameable while two other surfaces named LeadzGalaxy. Named
+  now, confirmed by the founder.
+

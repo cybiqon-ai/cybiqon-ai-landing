@@ -216,47 +216,49 @@ stays in `/blog`, `/lab` and parts of the chrome so a second icon library never 
 on intersection, so killing the transition alone strands anything above the fold at
 opacity 0.
 
-# Migrated so far
+# Migration complete — 7 Sep 2026
 
-`/` · `/about` · `/pricing` · `/services` + 7 children · `/products` ·
-`/products/{apps,games,extensions}`.
+**All fourteen marketing pages are on the design system.** `/` · `/about` · `/services` +7 ·
+`/products` +3 categories · `/pricing` · `/process` · `/contact` · `/faq` · `/case-studies` ·
+`/free-audit` · `/free-website` · `/press` · `/privacy` · `/terms`.
 
-**`/pricing` had drifted furthest of any page** — green prices, teal icon tiles and a
-pink-to-magenta gradient button that appears nowhere else. It is on the system now and is a
-server component.
+**No marketing page is a client component any more**, and `hooks/useScrollReveal.ts` is
+deleted — its six call sites were the only thing making those pages `"use client"`. Anything
+wanting a scroll reveal uses the `.reveal` class, which `RevealObserver` already drives from
+one shared IntersectionObserver and which respects `prefers-reduced-motion`; the hook never
+did.
 
-**The seven product detail pages keep Ledger, and that is a decision rather than a
-leftover.** The index and category pages came off it because a catalogue of ruled rows read
-as a seam behind the redesigned chrome; a detail page is a spec document — summary,
-rationale, labelled feature list — and ruled rows are the right form for that. They gained
-the product icon and a screenshot strip, which is what they were actually missing.
+## Ledger, at the end of it
 
-**Ledger is now scoped away from part of its own tree.** `components/ThemeScope.tsx` gained
-`LEDGER_EXCEPTIONS`: `/products` and its three category pages come off Ledger, while the
-seven product detail pages and twelve legal pages stay on it. Exact matches only, so
-`/products/lumina` is unaffected while `/products/games` is.
+**Ledger survives only on the seven product detail pages and twelve legal pages.** It has
+left `LEDGER_ROUTES` except for the `/products` prefix, and `LEDGER_EXCEPTIONS` carves the
+index and category pages back out — so the theme is now scoped *by exception*, which is not
+obvious from the constant names and is why `ThemeScope.tsx` explains it.
 
-That is the first time Ledger has been removed from anything, and the reason is worth
-keeping: it was the right form for a catalogue index when the rest of the site was quiet,
-but the chrome around it is now cards, colour and depth, so squared hairline rules read as
-a different site rather than a deliberate section — the same seam this document warns
-about, arriving from the other direction. The long-form detail and legal pages keep it
-because it still reads well there.
+The line that decided each case is worth keeping: **a catalogue or a sales page behind the
+new chrome reads as a seam; a spec document does not.** `/products` and `/free-website` came
+off for that reason, product detail and legal pages stayed for the same one.
 
-`/products` also stopped being a page about products that showed no products. Seven real
-launcher icons had been sitting in `public/img/` unused by it.
+## Two defects the migration surfaced
+
+**`/faq` shipped 3 of 16 answers.** It filtered by category in React state, so only the
+active category reached the DOM while the `FAQPage` schema declared all sixteen. Google
+requires FAQ markup to match visible content. Native `<details>` renders all sixteen, needs
+no JavaScript, and the schema is generated from the same array.
+
+**`/case-studies` carried three fabricated projects** — unnamed, unattributed, with figures
+like "20+ monthly inquiries" and "2x lead conversion" against zero paying website clients.
+Deleted, exactly as `/our-works` was on 29 Aug. Two real studies remain.
 
 # Not done yet
 
-The other 10 marketing pages still use the original look. They inherit the new palette
+Nothing on the marketing side. The remaining work is /blog and /lab, which have their own
+languages on purpose. They inherit the new palette
 through the tokens but not the type scale or the card language, so `/pricing` and `/about`
 currently read as part-way between. `/` is the reference; the comp is the source. Do not
 leave the site half-migrated across a merge.
 
-`hooks/useScrollReveal.ts` should go with that migration. `/about` was the first of its six
-consumers to drop it and became a server component in the process; `/pricing`, `/process`,
-`/contact`, `/faq` and `/case-studies` still hold it, and each is `"use client"` for no
-other reason.
+`hooks/useScrollReveal.ts` is **deleted** — all six consumers migrated.
 
 `.display` is kept as an alias so the unmigrated pages do not lose their headings mid-way.
 Remove it when they are all on `.t-*`.
