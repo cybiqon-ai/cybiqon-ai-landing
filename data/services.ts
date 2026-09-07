@@ -41,6 +41,12 @@ export type Service = {
   price: string | null;
   /** Sits under the price on the card. */
   priceNote: string;
+  /** What agencies typically charge for the same work. Context, not a discount claim. */
+  anchor: string;
+  /** Who the service suits, for the /pricing card. */
+  bestFor: string;
+  /** Typical delivery, stated on /pricing so nobody has to ask. */
+  timeline: string;
   /** The lede under the h1. */
   intro: string;
   /** What the buyer actually receives. */
@@ -57,6 +63,9 @@ export type Service = {
 export const SERVICES: Service[] = [
   {
     slug: "custom-websites",
+    anchor: "₹50,000+",
+    bestFor: "Startups, local businesses and service providers",
+    timeline: "2–3 weeks",
     name: "Custom websites",
     headline: "Custom website development for Indian businesses",
     tagline: "Hand-coded, mobile-first sites that load fast and rank.",
@@ -108,6 +117,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "ai-agents",
+    anchor: "₹60,000+",
+    bestFor: "Teams losing hours to repetitive work",
+    timeline: "1–3 weeks",
     name: "AI agents & automation",
     headline: "AI agent development and business automation",
     tagline: "Agents that read, decide and act on your own data.",
@@ -158,6 +170,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "whatsapp-automation",
+    anchor: "₹60,000+",
+    bestFor: "Anyone answering the same questions all day",
+    timeline: "1–3 weeks",
     name: "WhatsApp automation",
     headline: "WhatsApp automation for Indian businesses",
     tagline: "Answer customers day and night, in the language they write in.",
@@ -203,6 +218,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "android-apps",
+    anchor: "₹1,50,000+",
+    bestFor: "Booking, inventory, field tools and customer apps",
+    timeline: "4–6 weeks",
     name: "Android apps",
     headline: "Android app development for Indian businesses",
     tagline: "Play Store–ready apps, built and shipped by people who have shipped.",
@@ -248,6 +266,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "admin-panels",
+    anchor: "₹1,50,000+",
+    bestFor: "Businesses a spreadsheet has stopped serving",
+    timeline: "4–6 weeks",
     name: "Admin panels & internal tools",
     headline: "Custom admin panels and internal software",
     tagline: "The system your business already runs on, built properly.",
@@ -294,6 +315,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "chrome-extensions",
+    anchor: "₹40,000+",
+    bestFor: "Sales teams and anyone retyping into portals",
+    timeline: "1–2 weeks",
     name: "Chrome extensions",
     headline: "Chrome extension development",
     tagline: "Browser tools that remove the copying and pasting.",
@@ -330,6 +354,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "web-scraping",
+    anchor: "₹30,000+",
+    bestFor: "Lead generation, price monitoring, market research",
+    timeline: "3–7 days",
     name: "Web scraping & data",
     headline: "Web scraping and data extraction",
     tagline: "Competitor prices, supplier catalogues and leads, as clean data.",

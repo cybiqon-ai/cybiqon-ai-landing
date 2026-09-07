@@ -11,6 +11,8 @@
  * grep-finds when they restyle.
  */
 
+import { getService } from "@/data/services";
+
 /** The booking link. Repeated in Hero, Contact and Navbar, so it lives once. */
 export const TIDYCAL = "https://tidycal.com/itspyguru/cybiqon-30-minute-meeting";
 
@@ -45,6 +47,15 @@ export const PROBLEMS: Problem[] = [
   },
 ];
 
+/**
+ * Prices come from data/services.ts and are not written here.
+ *
+ * They used to live in three files — this one, data/services.ts and
+ * app/pricing/PricingClient.tsx — which meant changing the Chrome extension price on
+ * 6 Sep took three edits and could have taken two. One authority, three consumers.
+ */
+const price = (slug: string) => getService(slug)!.price!;
+
 export type Service = {
   title: string;
   description: string;
@@ -66,7 +77,7 @@ export const SERVICES: Service[] = [
     href: "/services/custom-websites",
     description:
       "Hand-written, not a theme with your logo dropped in. Mobile-first, fast on a mid-range phone, and indexed by Google. Delivered in 2–3 weeks.",
-    price: "₹9,999",
+    price: price("custom-websites"),
     includes: ["Custom design, not a template", "Contact forms and WhatsApp click-to-chat", "Basic SEO and Google Analytics setup", "One year of fast hosting included", "100% source code handed over"],
     popular: true,
     note: "Live in 2-3 weeks",
@@ -76,7 +87,7 @@ export const SERVICES: Service[] = [
     href: "/services/android-apps",
     description:
       "Admin panels, dealer portals, inventory and field tools — plus Android builds ready for the Play Store, with support after launch.",
-    price: "₹29,999",
+    price: price("android-apps"),
     includes: ["Clean, intuitive interface", "Scalable backend", "Play Store-ready build", "Post-launch support"],
     note: "Booking, inventory or field tools",
   },
@@ -85,7 +96,7 @@ export const SERVICES: Service[] = [
     href: "/services/ai-agents",
     description:
       "Agents that read an order, check stock, update your sheet and draft the reply. Built on your own data and your own rules, not a generic chatbot.",
-    price: "₹19,999",
+    price: price("ai-agents"),
     includes: ["WhatsApp bot in Hindi and English", "Lead capture into a sheet you already read", "Follow-ups and reminders", "Tool and email integrations"],
     note: "Replies day and night",
   },
@@ -94,7 +105,7 @@ export const SERVICES: Service[] = [
     href: "/services/chrome-extensions",
     description:
       "Browser tools for a sales team — auto-fill GST portals, build quotes faster, pull data off a page as you work.",
-    price: "₹6,999",
+    price: price("chrome-extensions"),
     includes: ["Auto-fill GST and vendor portals", "Faster quote building", "On-page data extraction", "Packaged for your team"],
     note: "Built for a sales team",
   },
@@ -103,7 +114,7 @@ export const SERVICES: Service[] = [
     href: "/services/web-scraping",
     description:
       "Competitor prices, supplier catalogues and leads out of JustDial and IndiaMART, delivered as Excel you can use the same day.",
-    price: "₹11,999",
+    price: price("web-scraping"),
     includes: ["JustDial and IndiaMART directories", "Competitor price tracking", "Clean Excel or CSV delivery", "Repeatable, re-runnable"],
     note: "Delivered ready to use",
   },
