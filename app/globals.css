@@ -122,7 +122,11 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   .theme-ledger {
     --radius: 0px;
 
-    --ochre: 221 83% 53%;        /* = --primary. Accents stay on brand blue. */
+    /* = --primary. It was left at the old Tailwind blue when the palette changed on
+       6 Sep 2026, so the seven product detail pages and twelve legal pages rendered
+       their links in last season's accent. The name is vestigial and kept on purpose —
+       see the design-system concept — but the value has to track --primary. */
+    --ochre: 205 100% 15%;
     --rule-strong: 215 25% 27%;  /* = --foreground, for the heavier section rules. */
   }
 
