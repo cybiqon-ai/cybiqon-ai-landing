@@ -1229,3 +1229,23 @@
   lands on the finished run rather than on either closing frame.
 
   Worker 2,949,706 B, up 11 B. The CSS is a static asset and costs the Worker nothing.
+
+* **2026-09-08 — nine below-the-fold images were being preloaded, and React was doing it.**
+
+  The SEO skill run against the live homepage after the hero card shipped. One finding
+  survived verification and it was worse than the tool said: React 19 emits a
+  `<link rel="preload" as="image">` for every server-rendered `<img>` that does not carry
+  `loading="lazy"`, so 155 KB of press scan, storefront shot and product icons were racing
+  the LCP element and two font files in `<head>`.
+
+  `components/Proof.tsx` now carries the attribute on all three tags and a header comment
+  saying why, so it does not get stripped back off. The page emits one image preload now —
+  the navbar logo, which is above the fold.
+
+  Not a blanket fix. Seven other components have the same pattern, and on some of those
+  pages the image is the LCP element, where lazy-loading would make it worse. Listed in
+  [seo](/site/seo.md) for a per-page pass.
+
+  Three of the six findings were false or misapplied — the "7 images missing alt text" is
+  seven correct `alt=""` on decorative icons next to their own labels. Recorded so the next
+  run does not re-litigate them.
