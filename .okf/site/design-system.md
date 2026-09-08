@@ -3,7 +3,7 @@ type: Architecture
 title: Design system
 description: A stock shadcn site, one scoped structural theme, one scoped full-palette theme, and the marketing pages now on the structural language too — plus the record of why the first may not recolour and the second may.
 tags: [design, tailwind, shadcn, theming, css-variables]
-timestamp: 2026-09-07T00:00:00Z
+timestamp: 2026-09-08T00:00:00Z
 ---
 
 # Overview
@@ -199,8 +199,40 @@ service cards → four-step process → why-us → evidence → navy CTA → foo
 
 **The hero card is an AI agent working a task, not the comp's WhatsApp chat.** Changed
 6 Sep 2026 with the positioning: the company sells custom software and AI agents, and a
-chat mockup framed it as a WhatsApp-bot shop. Both versions carry a caption saying they are
-illustrations — a mockup on a homepage reads as a real customer otherwise.
+chat mockup framed it as a WhatsApp-bot shop. Every version carries a caption saying it is
+an illustration — a mockup on a homepage reads as a real customer otherwise.
+
+### The card runs a loop — 8 Sep 2026
+
+`components/AgentDemo.tsx` plays one complete job on an **18-second cycle**: a WhatsApp
+enquiry arrives, the agent reads it, checks the business's own records, prepares a quote,
+the day's numbers move, and a human is asked before anything is sent. The full timeline
+lives in `app/globals.css` under *"The hero agent card's loop"*. Four things about it are
+decisions rather than details:
+
+- **It is CSS on a server component.** No client JS, so it runs before the bundle does and
+  survives the bundle never arriving. `RevealObserver` does the one thing CSS cannot —
+  toggles `[data-paused]` on `[data-hero-loop]` so an 18-second animation stops costing
+  compositor frames once the visitor has scrolled past it.
+- **Twelve keyframe blocks, and they may not be collapsed into one.** The obvious
+  simplification — one shared `@keyframes` plus per-element `animation-delay` — shifts each
+  beat's *clear* as much as its reveal, so the card empties from the top while the bottom is
+  still filling and the next cycle overlaps the last. Staggered starts with a common end
+  cannot be expressed in one keyframe set. The block is also **outside `@layer utilities`**
+  on purpose: Tailwind tree-shakes that layer, and the `[data-paused]` rule carries no class
+  for it to match on.
+- **Unreached beats are dimmed to `.35`, not hidden.** The first build hid them and the card
+  spent ten of its eighteen seconds as a tall white void. Dimmed, it is always full and you
+  watch it light up. The trade is that a pending row sits near 2:1 against white while it
+  waits — a transient loading affordance, not the resting state: every row reaches full
+  contrast inside the cycle and holds it for 4.5s, and the reduced-motion path never dims
+  anything.
+- **Nothing in the card is interactive.** `Approve` is a `<span>`, so the homepage's tab
+  order runs CTA → "See what we build" and never stops on a dead control inside an
+  illustration. The numbers in the strip are **deltas of the order shown two rows above** —
+  never business totals. `HeroDashboardMockup` was deleted from this page for showing
+  "1,247 visitors, +147%", figures that claimed nothing in particular; that line stays
+  deleted.
 
 **The uppercase eyebrow is back, deliberately.** v1 used it above every heading and it was
 a tell. Here it is the comp's own device, it marks section starts on a long sales page, and
@@ -242,7 +274,9 @@ stays in `/blog`, `/lab` and parts of the chrome so a second icon library never 
 **`prefers-reduced-motion` covers the marketing pages.** `.reveal` must be forced to its
 *visible* state rather than merely losing its transition — `RevealObserver` adds `.visible`
 on intersection, so killing the transition alone strands anything above the fold at
-opacity 0.
+opacity 0. The hero loop follows the same rule from the other direction: its keyframes only
+hide and reveal, never supply the resting appearance, so `animation: none` lands on the
+completed card with every beat lit. Anything added to that loop has to keep that property.
 
 # Migration complete — 7 Sep 2026
 

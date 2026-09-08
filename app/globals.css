@@ -379,42 +379,6 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     animation: fade-in 0.6s ease-out both;
   }
 
-  /* The one working indicator on the page, in the hero's agent card. Slow enough to
-     read as "in progress" rather than "loading". Stilled under reduced motion. */
-  .animate-spin-slow {
-    animation: spin 2.4s linear infinite;
-  }
-
-  /* ── The agent card's sequence ──────────────────────────────────────────
-     The hero card is the signature visual, so its steps arrive in order rather
-     than all at once — it should read as an agent working through a task, not
-     as a static list that happens to have ticks on it.
-
-     Deliberately small: a 12px lift and a fade, once, on load. No looping, no
-     parallax, no morphing. The row is fully legible the whole time; the only
-     thing animating is how it arrives.
-
-     `both` holds the from-state through the delay, exactly as .enter does —
-     without it a delayed row paints, disappears, then fades back in. */
-  .agent-step {
-    animation: agent-step-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  @keyframes agent-step-in {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* The tick lands after its row has settled. */
-  .agent-check {
-    animation: agent-check-in 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
-
-  @keyframes agent-check-in {
-    from { opacity: 0; transform: scale(0.6); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-
   /* Accent text — now a single solid hue, not a rainbow gradient. */
   .gradient-text {
     @apply text-primary;
@@ -476,6 +440,182 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
   .reveal-delay-5 { transition-delay: 0.5s; }
+}
+
+/* ── The hero agent card's loop ─────────────────────────────────────────
+   The card is the signature visual and its job is to *demonstrate* the
+   sentence beside it: an agent does business work, it does not just chat.
+   So it plays the whole job — enquiry in, records checked, quote out,
+   dashboard moved, human asked — and then plays it again.
+
+   ONE 18-SECOND CYCLE. Every beat is in the DOM at its final position the
+   whole time; only opacity and transform move, so nothing reflows, there is
+   no CLS, and all of it stays on the compositor.
+
+   A beat the run has not reached yet sits at opacity .35 rather than 0 — it is
+   PENDING, not absent. The first build hid them outright and the card spent
+   ten of its eighteen seconds as a tall white void with two rows floating at
+   the top of it. Dimmed, the card is always full and you watch it light up,
+   which is also what a real task list looks like mid-run. It is why the cycle
+   has no empty state and needs no "waiting" placeholder.
+
+   The trade is that a pending row's text sits around 2:1 against white while it
+   waits, which on its own would fail WCAG 1.4.3. It is a transient loading
+   affordance, not the resting state: every row reaches full contrast inside the
+   cycle and stays there for 4.5s, and the reduced-motion path never dims
+   anything at all. Do not reach for a middle value — the only opacity that
+   passes on its own is high enough that pending and done stop being
+   distinguishable, which defeats the point of showing progress.
+
+      0.0s    0.0%   every beat pending at .35
+      0.7s    3.9%   beat 1   inbound WhatsApp enquiry
+      2.3s   12.8%   beat 2   request understood      tick  3.5s / 19.4%
+      4.1s   22.8%   beat 3   records checked         tick  6.6s / 36.7%
+                              chips 5.0s/27.8% · 5.6s/31.1% · 6.2s/34.4%
+      7.0s   38.9%   beat 4   quote prepared          tick  8.4s / 46.7%
+      8.8s   48.9%   beat 5   dashboard delta
+     10.4s   57.8%   beat 6   approval asked
+     11.0s          ─── complete, still and fully legible for 4.5s ───
+     15.5s   86.1%   every beat drops back to pending together
+     16.3s   90.6%   reset
+     18.0s  100.0%   loop — 100% and 0% are the same state, so it does not jump
+
+   The 4.5s hold is the point. A quarter of every cycle the card is a still,
+   readable screenshot of finished work — that is what makes it scannable
+   instead of a flicker, and it is why this is a loop worth having rather
+   than ambient decoration.
+
+   WHY TWELVE KEYFRAME BLOCKS AND NOT ONE. The obvious simplification is a
+   single shared @keyframes plus per-element animation-delay. It does not
+   work: a positive delay shifts an element's *clear* as much as its reveal,
+   so beat 1 empties while beat 6 is still arriving, and beat 1 of the next
+   cycle paints above beat 6 of the last one. Staggered starts with a COMMON
+   END cannot be expressed in one keyframe set, and the common end is what
+   makes the reset legible. Hence one block per beat, all sharing the same
+   86.1% / 90.6% / 100% tail. Do not collapse them.
+
+   REDUCED MOTION. The base, un-animated state of this markup is the
+   COMPLETED card — these keyframes only hide and reveal, they never supply
+   the resting appearance. So `animation: none` at the foot of this file
+   lands on all six beats visible and every tick set, which is exactly the
+   right still frame. Anything added here must keep that property.
+
+   OFFSCREEN. RevealObserver toggles [data-paused] on the card as it leaves
+   and re-enters the viewport; an 18s loop should not burn compositor cycles
+   on a mid-range Android that has already scrolled past it.
+
+   All of this sits OUTSIDE @layer utilities on purpose. Tailwind tree-shakes
+   that layer against the scanned source, and the [data-paused] rule carries no
+   class for it to match on, so inside the layer it would be dropped from the
+   build. Plain CSS is passed through untouched. */
+.hero-beat-1,
+.hero-beat-2,
+.hero-beat-3,
+.hero-beat-4,
+.hero-beat-5,
+.hero-beat-6 {
+  animation-duration: 18s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.hero-beat-1 { animation-name: hero-beat-1; }
+.hero-beat-2 { animation-name: hero-beat-2; }
+.hero-beat-3 { animation-name: hero-beat-3; }
+.hero-beat-4 { animation-name: hero-beat-4; }
+.hero-beat-5 { animation-name: hero-beat-5; }
+.hero-beat-6 { animation-name: hero-beat-6; }
+
+@keyframes hero-beat-1 {
+  0%,     3.9% { opacity: .35; transform: translateY(8px); }
+  6.7%,  86.1% { opacity: 1; transform: translateY(0); }
+  90.6%,  100% { opacity: .35; transform: translateY(8px); }
+}
+@keyframes hero-beat-2 {
+  0%,    12.8% { opacity: .35; transform: translateY(8px); }
+  15.6%, 86.1% { opacity: 1; transform: translateY(0); }
+  90.6%,  100% { opacity: .35; transform: translateY(8px); }
+}
+@keyframes hero-beat-3 {
+  0%,    22.8% { opacity: .35; transform: translateY(8px); }
+  25.6%, 86.1% { opacity: 1; transform: translateY(0); }
+  90.6%,  100% { opacity: .35; transform: translateY(8px); }
+}
+@keyframes hero-beat-4 {
+  0%,    38.9% { opacity: .35; transform: translateY(8px); }
+  41.7%, 86.1% { opacity: 1; transform: translateY(0); }
+  90.6%,  100% { opacity: .35; transform: translateY(8px); }
+}
+@keyframes hero-beat-5 {
+  0%,    48.9% { opacity: .35; transform: translateY(8px); }
+  51.7%, 86.1% { opacity: 1; transform: translateY(0); }
+  90.6%,  100% { opacity: .35; transform: translateY(8px); }
+}
+@keyframes hero-beat-6 {
+  0%,    57.8% { opacity: .35; transform: translateY(8px); }
+  60.6%, 86.1% { opacity: 1; transform: translateY(0); }
+  90.6%,  100% { opacity: .35; transform: translateY(8px); }
+}
+
+/* Ticks and the three record chips pop in after the row they belong to has
+   settled — that delay is most of what reads as "working" rather than "a
+   list with ticks on it". Scale only on the way in: the springy curve would
+   overshoot on the way out, where there is nothing to express. */
+.hero-tick-1,
+.hero-tick-2,
+.hero-tick-3,
+.hero-chip-1,
+.hero-chip-2,
+.hero-chip-3 {
+  animation-duration: 18s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation-fill-mode: both;
+}
+
+.hero-tick-1 { animation-name: hero-tick-1; }
+.hero-tick-2 { animation-name: hero-tick-2; }
+.hero-tick-3 { animation-name: hero-tick-3; }
+.hero-chip-1 { animation-name: hero-chip-1; }
+.hero-chip-2 { animation-name: hero-chip-2; }
+.hero-chip-3 { animation-name: hero-chip-3; }
+
+@keyframes hero-tick-1 {
+  0%,    19.4% { opacity: 0; transform: scale(0.6); }
+  21.2%, 86.1% { opacity: 1; transform: scale(1); }
+  90.6%,  100% { opacity: 0; transform: scale(1); }
+}
+@keyframes hero-tick-2 {
+  0%,    36.7% { opacity: 0; transform: scale(0.6); }
+  38.5%, 86.1% { opacity: 1; transform: scale(1); }
+  90.6%,  100% { opacity: 0; transform: scale(1); }
+}
+@keyframes hero-tick-3 {
+  0%,    46.7% { opacity: 0; transform: scale(0.6); }
+  48.5%, 86.1% { opacity: 1; transform: scale(1); }
+  90.6%,  100% { opacity: 0; transform: scale(1); }
+}
+@keyframes hero-chip-1 {
+  0%,    27.8% { opacity: 0; transform: scale(0.6); }
+  29.6%, 86.1% { opacity: 1; transform: scale(1); }
+  90.6%,  100% { opacity: 0; transform: scale(1); }
+}
+@keyframes hero-chip-2 {
+  0%,    31.1% { opacity: 0; transform: scale(0.6); }
+  32.9%, 86.1% { opacity: 1; transform: scale(1); }
+  90.6%,  100% { opacity: 0; transform: scale(1); }
+}
+@keyframes hero-chip-3 {
+  0%,    34.4% { opacity: 0; transform: scale(0.6); }
+  36.2%, 86.1% { opacity: 1; transform: scale(1); }
+  90.6%,  100% { opacity: 0; transform: scale(1); }
+}
+
+/* Set by RevealObserver when the card is out of view. */
+[data-hero-loop][data-paused],
+[data-hero-loop][data-paused] * {
+  animation-play-state: paused;
 }
 
 /* Dark mode: the unified card already uses bg-card/border tokens, so no
@@ -884,10 +1024,21 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     transition: none !important;
   }
 
+  /* The hero loop: the markup's base state is the completed card, so stilling
+     these lands on all six beats lit and every tick set — the right still frame. */
   .enter,
-  .agent-step,
-  .agent-check,
-  .animate-spin-slow,
+  .hero-beat-1,
+  .hero-beat-2,
+  .hero-beat-3,
+  .hero-beat-4,
+  .hero-beat-5,
+  .hero-beat-6,
+  .hero-tick-1,
+  .hero-tick-2,
+  .hero-tick-3,
+  .hero-chip-1,
+  .hero-chip-2,
+  .hero-chip-3,
   .animate-float,
   .animate-float-slow,
   .animate-fade-in,

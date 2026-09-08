@@ -1135,3 +1135,22 @@
   The homepage's "Selected work" grid came off in the same pass — the evidence block below
   it already carried the same proof.
 
+
+* **2026-09-08 — the hero card stops being a snapshot and runs a loop.**
+
+  Same branch. `components/AgentDemo.tsx` now plays one complete job on an 18-second cycle —
+  WhatsApp enquiry in, records checked, quote out, the day's numbers move, a human asked —
+  and holds the finished card still for 4.5s of every cycle. The page already claimed in
+  words that an agent does business work rather than chatting; this demonstrates it.
+
+  Built in CSS on a server component so it costs no hydration and runs without the bundle,
+  which is the same lesson framer-motion taught this hero the hard way.
+  `components/RevealObserver.tsx` gained a second observer to pause it off screen.
+
+  Two traps are written down in [design system](/site/design-system.md) because both are
+  the kind a later edit walks straight into: the twelve keyframe blocks cannot be collapsed
+  into one shared `@keyframes` with delays, and the block has to sit outside
+  `@layer utilities` or Tailwind strips the `[data-paused]` rule.
+
+  Worker 2,949,659 B — up 155 B, all of it the observer. The CSS is a static asset and
+  costs the Worker nothing.

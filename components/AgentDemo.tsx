@@ -1,120 +1,192 @@
 import {
-  ArrowsClockwise,
-  CheckCircle,
   Certificate,
+  Check,
+  CheckCircle,
   Database,
-  EnvelopeSimple,
-  Table,
+  CurrencyInr,
+  PaperPlaneTilt,
+  Receipt,
+  Scan,
+  TrendUp,
+  WhatsappLogo,
 } from "@phosphor-icons/react/dist/ssr";
 
 /**
- * The hero's right-hand card: a custom AI agent working through a task.
+ * The hero's right-hand card: one complete job, on an 18-second loop.
  *
- * It replaces a WhatsApp chat mockup, which was the Stitch comp's own device. Two reasons
- * it went: it framed the company as a WhatsApp-bot shop just as the positioning moved to
- * custom software and AI engineering, and a chat bubble on a homepage reads as a real
- * customer unless it argues otherwise.
+ * The sentence beside it claims an agent does business work rather than just chatting.
+ * A static card only asserts that. This plays it: enquiry arrives, the agent reads it,
+ * checks the business's own records, prepares a quote, the day's numbers move, and a
+ * human is asked before anything is sent. Then it holds still for four and a half
+ * seconds, resets, and runs again. Beats the run has not reached are dimmed rather than
+ * hidden, so the card is always full and you watch it light up. The timeline, and the
+ * reason it is twelve keyframe blocks rather than one, are in globals.css under "The hero
+ * agent card's loop".
  *
- * This is a **product demonstration** — an illustration of what an agent built for a
- * business does with an incoming order. It is not a recording of a live run and the
- * caption says so. No figures here are presented as results.
+ * A SERVER COMPONENT WITH NO CLIENT JS, deliberately. An earlier pass at this hero put
+ * framer-motion on the h1 and server-rendered the LCP element at opacity:0, leaving the
+ * headline waiting on hydration — the wrong trade on the networks this page sells into.
+ * The loop is CSS, so it runs before the bundle does and works if the bundle never
+ * arrives. RevealObserver does the one thing CSS cannot: pause it when scrolled past.
+ *
+ * THREE RULES FOR ANYONE EDITING THIS.
+ *
+ * 1. It is an illustration and the caption says so. No figure here is a result.
+ *
+ * 2. The numbers in the strip are DELTAS FROM THE ORDER TWO ROWS ABOVE — +1 order and
+ *    +₹32,500 are the arithmetic of that quote. This page used to carry a mock dashboard
+ *    reading "1,247 visitors, +147%"; it was deleted because those were claims about
+ *    nothing in particular. Business totals do not come back here. Deltas of a shown
+ *    transaction are the only numbers this card is entitled to.
+ *
+ * 3. Approve is a <span>, not a <button>. Nothing in this card is interactive, and a
+ *    real control here would put a dead tab stop on the most-visited page of the site.
+ *
+ * The inbound row is a channel label, not a chat mockup. A WhatsApp thread was the
+ * Stitch comp's device and came out: it framed the company as a bot shop just as the
+ * positioning moved to custom software. WhatsApp is where one of six beats starts, and
+ * no phone number is printed — a real-looking one is not worth inventing.
  */
-const STEPS = [
+const WORK = [
   {
-    icon: EnvelopeSimple,
-    label: "Read the order email",
-    detail: "12 kg cashews · Nagpur · GST invoice",
-    state: "done" as const,
+    icon: Scan,
+    label: "Understood the request",
+    detail: "50 kg · almonds · wholesale rate",
   },
   {
     icon: Database,
-    label: "Checked stock and pricing",
-    detail: "In stock · slab price applied",
-    state: "done" as const,
+    label: "Checked your own records",
+    detail: null, // renders CHECKS as chips that tick in turn
   },
   {
-    icon: Table,
-    label: "Wrote the row to your sheet",
-    detail: "Orders › October",
-    state: "done" as const,
-  },
-  {
-    icon: ArrowsClockwise,
-    label: "Drafting the reply and invoice",
-    detail: "Waiting for your approval",
-    state: "active" as const,
+    icon: Receipt,
+    label: "Quote prepared · ₹32,500",
+    detail: "Slab price applied · GST added · PDF attached",
   },
 ];
+
+const CHECKS = ["Inventory", "Pricing", "Customer"];
+
+/* Literal class names, not `hero-beat-${i}`. These live in globals.css and the
+   strings have to survive Tailwind's content scan. */
+const BEAT = ["hero-beat-2", "hero-beat-3", "hero-beat-4"];
+const TICK = ["hero-tick-1", "hero-tick-2", "hero-tick-3"];
+const CHIP = ["hero-chip-1", "hero-chip-2", "hero-chip-3"];
 
 const AgentDemo = () => (
   <div>
     <div className="relative">
-      <div className="overflow-hidden rounded-2xl border border-border/70 bg-white shadow-[0_18px_50px_-16px_rgba(0,48,79,0.28)]">
+      <div
+        data-hero-loop
+        className="overflow-hidden rounded-2xl border border-border/70 bg-white shadow-[0_18px_50px_-16px_rgba(0,48,79,0.28)]"
+      >
         <div className="flex items-center gap-3 bg-primary px-4 py-3.5 text-primary-foreground">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-[13px] font-bold">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-[13px] font-bold text-accent-foreground">
             AI
           </span>
           <div className="min-w-0 flex-1">
             <p className="t-label">Order desk agent</p>
-            <p className="t-label-sm text-white/70">Custom-built · running since 06:00</p>
+            <p className="t-label-sm text-white/70">Built for one business, on its own data</p>
           </div>
-          <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-secondary" />
-            </span>
-            <span className="t-label-sm">Live</span>
+          {/* "Live" was here. A card that visibly replays cannot claim it. */}
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            <span className="t-label-sm">Example run</span>
           </span>
         </div>
 
-        {/* The steps arrive in order — see .agent-step in globals.css for why it is
-            kept this small. Index-based delays rather than a JS timeline: no client
-            component, no hydration, and it still works if the bundle never loads. */}
-        <ol className="divide-y divide-border/60 bg-surface-lowest">
-          {STEPS.map((step, i) => (
-            <li
-              key={step.label}
-              className="agent-step flex items-start gap-3 px-4 py-3.5"
-              style={{ animationDelay: `${360 + i * 260}ms` }}
-            >
-              <span
-                className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-                  step.state === "done"
-                    ? "bg-surface-high text-primary"
-                    : "bg-accent-softer text-accent-ink"
-                }`}
-              >
-                <step.icon
-                  weight="fill"
-                  aria-hidden
-                  className={`h-4 w-4 ${step.state === "active" ? "animate-spin-slow" : ""}`}
-                />
+        <div>
+          {/* Beat 1 — the trigger. Tinted, because it is an input rather than
+              something the agent did. */}
+          <div className="hero-beat-1 flex items-start gap-3 border-b border-border/60 bg-surface-container px-4 py-3.5">
+            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-[#128C7E]">
+              <WhatsappLogo weight="fill" aria-hidden className="h-4 w-4" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="t-label-sm flex items-baseline justify-between gap-2 text-muted-foreground">
+                <span>WhatsApp · new enquiry</span>
+                <span className="shrink-0">09:14</span>
               </span>
-              <span className="min-w-0 flex-1">
-                <span className="t-body-sm block font-semibold text-foreground">
-                  {step.label}
+              <span className="t-body-sm mt-0.5 block font-semibold text-foreground">
+                “Bhai 50 kg almonds ka rate?”
+              </span>
+            </span>
+          </div>
+
+          {/* Beats 2–4 — the work. */}
+          <ol className="divide-y divide-border/60 bg-surface-lowest">
+            {WORK.map((step, i) => (
+              <li key={step.label} className={`${BEAT[i]} flex items-start gap-3 px-4 py-3.5`}>
+                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface-high text-primary">
+                  <step.icon weight="fill" aria-hidden className="h-4 w-4" />
                 </span>
-                <span className="t-label-sm block text-muted-foreground">{step.detail}</span>
-              </span>
-              {step.state === "done" ? (
+                <span className="min-w-0 flex-1">
+                  <span className="t-body-sm block font-semibold text-foreground">
+                    {step.label}
+                  </span>
+                  {step.detail ? (
+                    <span className="t-label-sm mt-0.5 block text-muted-foreground">
+                      {step.detail}
+                    </span>
+                  ) : (
+                    <span className="mt-1.5 flex flex-wrap gap-1.5">
+                      {/* The pills are always there; only the ticks land one by one.
+                          Animating the pills themselves left a hole in the row for the
+                          ten seconds before they arrived. */}
+                      {CHECKS.map((check, c) => (
+                        <span
+                          key={check}
+                          className="t-label-sm inline-flex items-center gap-1 rounded-md bg-surface-low px-1.5 py-0.5 text-muted-foreground"
+                        >
+                          <Check
+                            weight="bold"
+                            aria-hidden
+                            className={`${CHIP[c]} h-3 w-3 text-secondary`}
+                          />
+                          {check}
+                        </span>
+                      ))}
+                    </span>
+                  )}
+                </span>
                 <CheckCircle
                   weight="fill"
                   aria-hidden
-                  className="agent-check mt-1 h-4 w-4 shrink-0 text-secondary"
-                  style={{ animationDelay: `${700 + i * 260}ms` }}
+                  className={`${TICK[i]} mt-1 h-4 w-4 shrink-0 text-secondary`}
                 />
-              ) : (
-                <span className="t-label-sm mt-1 shrink-0 text-accent-ink">now</span>
-              )}
-            </li>
-          ))}
-        </ol>
+              </li>
+            ))}
+          </ol>
 
-        {/* Right-aligned so the floating credential card below has clear space to sit
-            over on the left. */}
-        <p className="t-label-sm border-t border-border/60 bg-surface-low px-4 py-3 text-right text-muted-foreground">
-          Runs on your own data.
-        </p>
+          {/* Beat 5 — what moved. Deltas of the quote above, never business totals;
+              see rule 2 in the header. */}
+          <dl className="hero-beat-5 grid grid-cols-2 divide-x divide-border/60 border-y border-border/60 bg-surface-low">
+            {[
+              { icon: TrendUp, value: "+1", label: "order on the books" },
+              { icon: CurrencyInr, value: "+₹32,500", label: "quoted, awaiting you" },
+            ].map((stat) => (
+              <div key={stat.label} className="px-4 py-3">
+                <dd className="t-h3 flex items-center gap-1.5 text-primary">
+                  <stat.icon weight="fill" aria-hidden className="h-4 w-4 text-accent-ink" />
+                  {stat.value}
+                </dd>
+                <dt className="t-label-sm mt-0.5 text-muted-foreground">{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
+
+          {/* Beat 6 — the decision stays yours. Not a button: see rule 3.
+              Right-aligned so the floating credential card has clear space to sit over
+              on the left, and navy rather than accent so the page's one filled-green
+              affordance stays the real CTA beside it. */}
+          <div className="hero-beat-6 flex items-center justify-end gap-3 bg-surface-lowest px-4 py-3">
+            <span className="t-body-sm font-semibold text-foreground">Send the quotation?</span>
+            <span className="t-label-sm inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 font-semibold text-primary-foreground">
+              <PaperPlaneTilt weight="fill" aria-hidden className="h-3.5 w-3.5" />
+              Approve
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* Credential card. Both are real: the DPIIT certificate and the D-U-N-S
