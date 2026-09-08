@@ -1229,3 +1229,22 @@
   lands on the finished run rather than on either closing frame.
 
   Worker 2,949,706 B, up 11 B. The CSS is a static asset and costs the Worker nothing.
+
+* **2026-09-08 — titles and descriptions fixed across all 44 pages, from one audit finding.**
+
+  An external audit flagged the homepage title and description. Measuring the built output
+  for every route found the same problem sitewide plus two things the audit could not see:
+  the root `default` title was still the pre-repositioning "Affordable Web Development"
+  copy, and seven service descriptions were being cut mid-word by a `.slice(0, 185)`.
+
+  The fix for the titles was the suffix, not the titles: `| Cybiqon AI Solutions` →
+  `| Cybiqon` bought 13 characters on every templated page and cost no keyword. **44/44
+  titles now under 60, 0 descriptions over 160.**
+
+  `lib/seo.ts` holds `clampDescription`, shared by the service and product metadata
+  builders. An em dash is not a sentence end — the first version thought it was.
+
+  Also: hreflang had been configured in the root layout and emitted on zero routes,
+  because `alternates` does not deep-merge. Removed. Two homepage h2s now carry query
+  terms; the other five stay as voice. See [seo](/site/seo.md) for what was deliberately
+  not acted on, including www serving a 200 duplicate that wants a Cloudflare rule.

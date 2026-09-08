@@ -37,12 +37,22 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  /* The suffix is "| Cybiqon", not "| Cybiqon AI Solutions". Twenty-three characters
+     of brand on every page pushed nine of thirteen titles past the 60 Google renders,
+     and the part that got cut was always the brand — so it was costing the keywords
+     nothing to shorten and buying every page thirteen characters back. Google prints
+     the site name above the title in the SERP regardless.
+
+     The default title and description are the CURRENT positioning. They said
+     "Affordable Web Development & AI Automation" and "WhatsApp bots" until 8 Sep 2026,
+     which is the copy the whole repositioning moved away from — this is the fallback
+     for any page that forgets its own, so it has to be right. */
   title: {
-    default: "Affordable Web Development & AI Automation for Indian MSMEs | Cybiqon AI Solutions",
-    template: "%s | Cybiqon AI Solutions",
+    default: "Custom Software, AI Agents & Websites for Indian Businesses",
+    template: "%s | Cybiqon",
   },
   description:
-    "Affordable websites and AI automation built for Indian MSMEs. Professional web development starting at ₹9,999, WhatsApp bots, data scraping, and Chrome extensions. Fast delivery, transparent pricing.",
+    "Custom AI agents, internal software and hand-coded websites for Indian businesses — written for you, not assembled from a template. Websites from ₹9,999.",
   authors: [{ name: "Cybiqon AI Solutions" }],
   robots: {
     index: true,
@@ -84,12 +94,13 @@ export const metadata: Metadata = {
     "theme-color": "#3B82F6",
     "msapplication-TileColor": "#3B82F6",
   },
+  /* The `languages` block that used to sit here never reached the page. Next does NOT
+     deep-merge `alternates`: every page that sets `alternates: { canonical }` replaced
+     this object whole, so the hreflang tags were emitted on exactly zero routes — the
+     same non-merge trap that bit `openGraph` in this file. Rather than wire it through
+     thirteen pages, it is gone: this is a single-language site with no alternate
+     versions, which is the case Google says not to use hreflang for. */
   alternates: {
-    languages: {
-      "en-IN": siteUrl,
-      en: siteUrl,
-      "x-default": siteUrl,
-    },
     types: {
       "application/rss+xml": `${siteUrl}/rss.xml`,
     },

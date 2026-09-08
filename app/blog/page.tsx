@@ -17,7 +17,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   return {
     title: `Blog | AI, Automation & MSME Growth Insights${suffix}`,
     description:
-      "Practical insights on AI automation, no-code tools, and digital growth strategies for Indian MSMEs. Updated daily.",
+      "Practical writing on AI automation, custom software, no-code tools and digital growth for Indian MSMEs — what works, what does not, and what it costs.",
     keywords:
       "AI blog India, MSME automation tips, no-code tools India, small business growth strategies, AI tools for MSMEs, WhatsApp automation, digital transformation India",
     // Each page gets its own canonical. Pointing page 2+ back at /blog would tell Google

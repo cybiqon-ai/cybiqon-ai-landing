@@ -20,7 +20,7 @@ const siteUrl = "https://cybiqon.in";
 export const metadata: Metadata = {
   title: "Custom Software Development for Indian Businesses",
   description:
-    "Custom software, AI agents, websites, Android apps, admin panels, WhatsApp automation, Chrome extensions and web scraping — written for one business rather than assembled from a template. Prices published, from ₹6,999.",
+    "Custom software, AI agents, websites, Android apps, admin panels, WhatsApp automation and Chrome extensions — built for one business. From ₹6,999.",
   keywords:
     "custom software development India, software development company India, AI agent development, custom website development India, android app development India, admin panel development, WhatsApp automation India, chrome extension development, web scraping services India, business automation India",
   alternates: { canonical: "/services" },

@@ -5,7 +5,7 @@ import AuditForm from "@/components/AuditForm";
 export const metadata: Metadata = {
   title: "Free Website Audit for Indian MSMEs | Cybiqon",
   description:
-    "Get a free, expert website audit for your business. We review performance, SEO, mobile-friendliness, and security — and send you a detailed report within 48 hours.",
+    "A free website audit for your business: performance, SEO, mobile-friendliness and security, in a detailed report within 48 hours.",
   keywords:
     "free website audit, website review India, MSME website audit, website performance check, SEO audit India",
   alternates: { canonical: "/free-audit" },
