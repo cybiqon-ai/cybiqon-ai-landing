@@ -12,8 +12,10 @@ const WhoFor = () => (
     <div className="mx-auto grid max-w-[1240px] gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:items-center lg:gap-16 lg:px-8">
       <div>
         <p className="t-eyebrow text-accent-ink">Who this is for</p>
+        {/* "Custom software for" prefixed on 8 Sep so this h2 carries a query term too;
+            the rest of the line is unchanged, because it is the good part. */}
         <h2 className="t-h2 mt-2.5 text-primary">
-          Businesses that have outgrown spreadsheets
+          Custom software for businesses that have outgrown spreadsheets
         </h2>
       </div>
       <div>

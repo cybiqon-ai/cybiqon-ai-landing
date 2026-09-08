@@ -1249,3 +1249,22 @@
   Three of the six findings were false or misapplied — the "7 images missing alt text" is
   seven correct `alt=""` on decorative icons next to their own labels. Recorded so the next
   run does not re-litigate them.
+
+* **2026-09-08 — titles and descriptions fixed across all 44 pages, from one audit finding.**
+
+  An external audit flagged the homepage title and description. Measuring the built output
+  for every route found the same problem sitewide plus two things the audit could not see:
+  the root `default` title was still the pre-repositioning "Affordable Web Development"
+  copy, and seven service descriptions were being cut mid-word by a `.slice(0, 185)`.
+
+  The fix for the titles was the suffix, not the titles: `| Cybiqon AI Solutions` →
+  `| Cybiqon` bought 13 characters on every templated page and cost no keyword. **44/44
+  titles now under 60, 0 descriptions over 160.**
+
+  `lib/seo.ts` holds `clampDescription`, shared by the service and product metadata
+  builders. An em dash is not a sentence end — the first version thought it was.
+
+  Also: hreflang had been configured in the root layout and emitted on zero routes,
+  because `alternates` does not deep-merge. Removed. Two homepage h2s now carry query
+  terms; the other five stay as voice. See [seo](/site/seo.md) for what was deliberately
+  not acted on, including www serving a 200 duplicate that wants a Cloudflare rule.

@@ -15,10 +15,14 @@ const Services = () => (
   <section id="solutions" className="bg-surface-lowest py-16 lg:py-24">
     <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
+        {/* The service terms belong in an h2, not the h1. An 8 Sep audit found not one of
+            the homepage's seven h2s carried a term anyone searches — every one was a
+            benefit line. This is the section that lists the services, so it is the one
+            that should say their names. The "priced up front" hook is kept. */}
         <SectionHeading
           align="left"
           eyebrow="Clear unit pricing"
-          title="What we build, priced up front"
+          title="Custom software, AI agents and websites — priced up front"
           lede="Everything here is written for one business rather than configured from a theme. One-time prices, no recurring percentage cuts."
         />
         <p className="t-label-sm inline-flex shrink-0 items-center gap-2 rounded-full border border-border/70 bg-surface-low px-3.5 py-2 text-muted-foreground">

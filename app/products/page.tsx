@@ -10,7 +10,7 @@ const siteUrl = "https://cybiqon.in";
 export const metadata: Metadata = {
   title: "Products We've Built and Shipped",
   description:
-    "The apps, games, Chrome extensions and client work Cybiqon has built and published — LLMBytes, MeFlow and VitaLoop on Android, Lumina and Orbitone on Google Play, and MapWit in the browser.",
+    "The apps, games, Chrome extensions and client work Cybiqon has built and shipped — LLMBytes, MeFlow, VitaLoop, Lumina and Orbitone, and MapWit.",
   keywords:
     "Cybiqon products, Android apps, Android games, Chrome extensions, LLMBytes, MeFlow, VitaLoop, Lumina, Orbitone, MapWit",
   alternates: { canonical: "/products" },

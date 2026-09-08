@@ -39,20 +39,96 @@ image that should preload, and it is the heaviest file on the page. Re-encoding 
 is a separate change — it is referenced from the navbar, the footer and the
 metadata.
 
-## What the 8 Sep audit found that was NOT real
+## Titles and descriptions, measured across all 44 pages — 8 Sep 2026
 
-`article_seo.py` reported **"7 images missing alt text"** on the homepage. Checked
-against the live HTML: every `<img>` has an `alt` attribute. The seven are product
-icons with `alt=""` inside a `<Link>` whose accessible name comes from the adjacent
-`<span>` carrying the product name — which is correct markup, not a gap. An alt of
-"Lumina logo" beside the word "Lumina" double-announces. The checker counts an
-empty alt as a missing one.
+An external audit flagged the homepage title at 69 and its description at 189. Measuring
+the **built output for every route** rather than the one page found the same problem on
+most of the site, plus two defects the audit could not see.
 
-It also reported thin content (679 words) against a *blog post* threshold on a
-homepage, and no publish date on a page that is not an article. `a11y_seo_checker`
-scored 100 with zero issues, the canonical is self-referential, and all four
-JSON-LD blocks parse — the one the tool labels "Unknown" is the `@graph` wrapper
-holding the five `Service` objects, which has no top-level `@type` by design.
+**The title suffix was the whole problem.** `%s | Cybiqon AI Solutions` put 23 characters
+of brand on every templated page, which pushed nine of thirteen marketing titles past the
+60 Google renders — and the part being cut was always the brand. Shortening it to
+`| Cybiqon` bought every page 13 characters back and cost no keyword. **All 44 titles are
+now under 60**, against 10 over before.
+
+The homepage title drops the brand entirely (58 chars, all three keywords intact); Google
+prints the site name above the title in the SERP regardless, which the audit's own preview
+showed.
+
+**The root `default` title and description were the pre-repositioning copy** — "Affordable
+Web Development & AI Automation", "WhatsApp bots" — nine months after the company stopped
+selling that. They are the fallback for any page that forgets its own, so they were the
+one string that had to be right and were not.
+
+**Seven service descriptions were being cut mid-word.** `components/services/meta.ts` did
+`\`${tagline} ${intro}\`.slice(0, 185)`, so every one shipped at exactly 185 characters
+ending "…checking stock, updat", "…and, where it is". A description cut mid-word reads as
+broken, which is worse than one that is merely long. `lib/seo.ts` now holds
+`clampDescription`, shared with `components/products/meta.ts`, which prefers the last full
+sentence and falls back to a word boundary. **An em dash is not a sentence end** — the
+first version of the helper treated it as one and shipped "…own data and rules —".
+
+`app.summary` on the product pages is on-page copy as well as meta, so it is clamped for
+the tag and never edited at source.
+
+**Where it stands: 0 titles over 60, 0 descriptions over 160.** Sixteen are under 120, all
+of them `products/*/privacy`, `products/*/terms` and the product category pages. Left
+alone deliberately — nobody searches for a game's privacy policy, and padding thin legal
+pages to hit a length target is writing for a checker.
+
+## hreflang was configured and never emitted
+
+`app/layout.tsx` carried `alternates.languages` with `en-IN`, `en` and `x-default`. It
+reached **zero routes**: Next does not deep-merge `alternates`, so every page setting
+`alternates: { canonical }` replaced the object whole — the same non-merge trap already
+recorded here for `openGraph`. Removed rather than wired through thirteen pages: this is a
+single-language site with no alternate versions, which is the case Google says not to use
+hreflang for.
+
+## The homepage h2s carried no query terms
+
+Seven h2s, every one a benefit line — "Say goodbye to Indian agency headaches", "What we
+build, priced up front", "Businesses that have outgrown spreadsheets". Not one contained a
+term anyone types. This repo's own rule is that the h1 stays written to be read and query
+terms go in the h2s; two now do — the services section says "Custom software, AI agents and
+websites" and the audience section says "Custom software for businesses that have outgrown
+spreadsheets". The other five are left as voice.
+
+## Audit findings NOT acted on, and why — 8 Sep 2026
+
+Two audits ran that day: the bundled `seo` skill against the live homepage, and an
+external online tool. They overlap, and both are re-run periodically, so the standing
+answers live here rather than being re-derived each time.
+
+- **"7 images missing alt text" / "Add Alt Attributes to all images."** Not real. Every
+  `<img>` has an `alt`. The seven counted are product icons with `alt=""` inside a link
+  whose accessible name comes from the adjacent `<span>` carrying the product name — which
+  is correct markup. An alt of "Lumina logo" beside the word "Lumina" double-announces.
+  Both checkers count an empty alt as a missing one.
+- **"Content may be thin (679 words)"** applies a blog-post threshold to a homepage, and
+  **"no publish date"** applies an article rule to a page that is not one.
+- **"Remove Inline Styles."** There is exactly one on the page, a `font-variation-settings`
+  on a variable font. Not removable and not a cost.
+- **"Install a Facebook Pixel."** A tracking pixel with DPDP consent and privacy-policy
+  consequences, for ads the company is not running.
+- **"Create and link an associated YouTube Channel."** There is no channel. Linking one
+  that does not exist is worse than not linking.
+- **"Not making use of Hreflang."** Correct at the time and now fixed by deletion — see
+  the section above.
+- **"Execute a Link Building Strategy."** Correct, and the highest-value item on either
+  list — 2 backlinks from 1 referring domain — but no code change addresses it.
+
+What passed and should stay passing: `a11y_seo_checker` scored **100 with zero issues**,
+the canonical is self-referential, and all four JSON-LD blocks parse — the one a tool
+labels "Unknown" is the `@graph` wrapper holding the five `Service` objects, which has no
+top-level `@type` by design.
+
+## www serves a duplicate of the site
+
+`https://www.cybiqon.in/` returns **200**, not a redirect, canonicalised to the apex. The
+canonical keeps it out of trouble, but a 301 from www to apex is the clean fix and it is a
+**Cloudflare dashboard redirect rule**, not a code change. `http://cybiqon.in` correctly
+does one hop to https.
 
 **The blog is indexed.** `site:cybiqon.in` returns blog URLs; posts carry unique
 titles, descriptions, `index, follow`, canonicals and Article JSON-LD, and all 76
