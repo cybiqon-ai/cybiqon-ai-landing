@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getService } from "@/data/services";
+import { clampDescription } from "@/lib/seo";
 
 const siteUrl = "https://cybiqon.in";
 
@@ -19,7 +20,7 @@ export function serviceMetadata(slug: string): Metadata {
   const s = getService(slug);
   if (!s) return {};
 
-  const description = `${s.tagline} ${s.intro}`.slice(0, 185);
+  const description = clampDescription(`${s.tagline} ${s.intro}`);
 
   return {
     title: s.headline,

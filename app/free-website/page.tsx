@@ -17,9 +17,9 @@ import {
 } from "@/data/launch5";
 
 export const metadata: Metadata = {
-  title: "Free Website for 5 Indian Businesses — Launch 5 | Cybiqon",
+  title: "Free Website for 5 Indian Businesses — Launch 5",
   description:
-    "Five Indian businesses get a complete 4–5 page website, free, delivered in 7 days. The trade: a short video testimonial, a Google review, and permission to use your name. No fee, no contract.",
+    "Five Indian businesses get a complete 4–5 page website, free, in 7 days. The trade: a video testimonial, a Google review, your name. No contract.",
   keywords:
     "free website for small business India, free website design MSME, free business website offer, website for shop owners India",
   alternates: { canonical: "/free-website" },

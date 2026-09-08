@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CATEGORIES, getProduct, productsIn } from "@/data/products";
+import { clampDescription } from "@/lib/seo";
 
 const siteUrl = "https://cybiqon.in";
 
@@ -37,21 +38,31 @@ export function categoryMetadata(categorySlug: string): Metadata {
     // Title case for a <title>; `label` stays sentence case because it is also the
     // on-page heading, where "Android Apps" would look shouted.
     title: `${cat.label.replace(/\b\w/g, (c) => c.toUpperCase())} We've Built`,
-    description: `${cat.blurb} ${claim}`,
+    description: clampDescription(`${cat.blurb} ${claim}`),
     alternates: { canonical: `/products/${cat.slug}` },
   };
+}
+
+/** " | Cybiqon" is appended by the root template, so the budget here is 50. */
+function title(name: string, tagline: string): string {
+  const full = `${name} — ${tagline}`;
+  return full.length <= 50 ? full : `${name.split(":")[0]} — ${tagline}`;
 }
 
 export function productMetadata(slug: string): Metadata {
   const app = getProduct(slug);
   if (!app) return { title: "App not found" };
   return {
-    title: `${app.name} — ${app.tagline}`,
-    description: app.summary,
+    // Full store name where it fits, short name where it does not. "Lumina: The
+    // Lightkeeper's Path — <tagline>" came to 70 with the brand suffix, past the 60
+    // Google renders; every other product fits, so this only trims the one that needs
+    // it rather than dropping the store subtitle from all seven.
+    title: title(app.name, app.tagline),
+    description: clampDescription(app.summary),
     alternates: { canonical: `/products/${app.slug}` },
     openGraph: {
       title: `${app.name} — ${app.tagline} | Cybiqon`,
-      description: app.summary,
+      description: clampDescription(app.summary),
       url: `${siteUrl}/products/${app.slug}`,
       type: "website",
     },

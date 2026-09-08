@@ -10,9 +10,9 @@ import Proof from "@/components/Proof";
 import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
-  title: "Custom Software, AI Agents & Websites for Indian Businesses | Cybiqon",
+  title: "Custom Software, AI Agents & Websites for Indian Businesses",
   description:
-    "Custom AI agents, internal software and hand-coded websites for Indian businesses — written for you, not assembled from a template. Websites from ₹9,999, and you own every line of the code.",
+    "Custom AI agents, internal software and hand-coded websites for Indian businesses — written for you, not assembled from a template. From ₹9,999.",
   keywords:
     "custom AI agents India, AI automation for small business, custom software development India, custom coded website India, MSME website design India, android app development India, admin panel development, bulk data scraping India, chrome extension development, business website cost India, software agency India",
   alternates: { canonical: "/" },
