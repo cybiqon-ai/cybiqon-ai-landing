@@ -85,7 +85,7 @@ export default function ServicesPage() {
           className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
         />
         <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-          <p className="t-eyebrow text-accent">Services</p>
+          <p className="t-eyebrow text-accent-ink">Services</p>
           <h1 className="t-h1 mt-2.5 max-w-[20ch] text-primary">
             Custom software development for Indian businesses
           </h1>
@@ -101,7 +101,7 @@ export default function ServicesPage() {
               rel="noopener noreferrer"
               data-track="book_call"
               data-track-label="services_hub"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)]"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(0,216,144,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(0,216,144,0.38)]"
             >
               <CalendarBlank weight="bold" aria-hidden className="h-4 w-4" />
               Book a free 30-min call
@@ -132,7 +132,7 @@ export default function ServicesPage() {
                       {s.price ? (
                         <>
                           <p className="t-label-sm text-muted-foreground">From</p>
-                          <p className="t-h3 text-accent">{s.price}</p>
+                          <p className="t-h3 text-accent-ink">{s.price}</p>
                         </>
                       ) : (
                         <p className="t-label text-primary">Scoped per project</p>

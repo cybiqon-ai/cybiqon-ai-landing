@@ -38,7 +38,7 @@ export default function FreeAuditPage() {
           className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
         />
         <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-          <p className="t-eyebrow text-accent">Free, no obligation</p>
+          <p className="t-eyebrow text-accent-ink">Free, no obligation</p>
           <h1 className="t-h1 mt-2.5 max-w-[18ch] text-primary">
             A free audit of your current website
           </h1>

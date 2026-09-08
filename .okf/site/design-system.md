@@ -3,7 +3,7 @@ type: Architecture
 title: Design system
 description: A stock shadcn site, one scoped structural theme, one scoped full-palette theme, and the marketing pages now on the structural language too — plus the record of why the first may not recolour and the second may.
 tags: [design, tailwind, shadcn, theming, css-variables]
-timestamp: 2026-09-07T00:00:00Z
+timestamp: 2026-09-08T00:00:00Z
 ---
 
 # Overview
@@ -154,10 +154,38 @@ Read out of the comp, not eyeballed from a screenshot.
 ```
 Fonts    Plus Jakarta Sans 600/700/800   headings   (--font-jakarta)
          Inter             400–700       body       (--font-inter)
-Primary  #00304f navy      Accent  #fd651e vermilion
-Green    #2fc88e           Ink     #111c2d
+Primary  #00304f navy      Ink     #111c2d
+Accent   #00D890 green     Tick    #00875a
 Surfaces #ffffff  #f9f9ff  #f0f3ff  #e7eeff  #dee8ff  #cfdaf2
 ```
+
+## The accent is the logo's, not the comp's — 8 Sep 2026
+
+The comp's vermilion `#fd651e` was replaced. It was never a brand colour, and that was
+checkable: `public/logo.png` samples as a **blue → cyan → green** gradient — `#0C60E4`,
+`#00B4D8`, `#00D890` — with no orange in the mark, and the pre-redesign palette on `main`
+commented its own gradient *"Blue to Green"*.
+
+It was also **failing contrast**: white on `#fd651e` is **2.98:1**, under AA's 4.5:1. Every
+primary button on the site had an accessibility defect independent of the brand question.
+
+**Three accent tokens, because one colour cannot do every job.** Measured on the shipped CSS:
+
+| Token | Value | Use | Contrast |
+|---|---|---|---|
+| `--accent` | `#00D890` | filled backgrounds, navy text on it | **7.44** |
+| `--accent-ink` | `#00784f` | the accent as TEXT on white or `--surface` | **5.38** / 5.13 |
+| `--accent-dark` | `#00D890` | labels inside navy sections | **7.44** |
+| `--secondary` | `#00875a` | ticks, "included" | **4.67** |
+
+**Pick by ground, not by habit.** White → `ink`, navy → `dark`, a filled button → `accent`.
+Using `--accent` as text on white ships **1.87:1**, which is why 39 `text-accent` call sites
+moved to `text-accent-ink`.
+
+`--secondary` deepened from `#2fc88e` so a tick does not read as a small button now that the
+CTA is green too. **In-page WhatsApp buttons are outlines** for the same reason — a filled
+WhatsApp green beside a green CTA made two different actions look like one. The floating
+widget keeps official `#25D366`, alone in the corner, where it reads as an affordance.
 
 **The surface ladder is the load-bearing part.** Sections alternate down it, and that
 alternation is where the page gets its depth. Both rejected versions were flat
@@ -171,8 +199,81 @@ service cards → four-step process → why-us → evidence → navy CTA → foo
 
 **The hero card is an AI agent working a task, not the comp's WhatsApp chat.** Changed
 6 Sep 2026 with the positioning: the company sells custom software and AI agents, and a
-chat mockup framed it as a WhatsApp-bot shop. Both versions carry a caption saying they are
-illustrations — a mockup on a homepage reads as a real customer otherwise.
+chat mockup framed it as a WhatsApp-bot shop. Every version carries a caption saying it is
+an illustration — a mockup on a homepage reads as a real customer otherwise.
+
+### The card runs a loop — five screens on a rail, 8 Sep 2026
+
+`components/AgentDemo.tsx` plays one complete job on a **30-second cycle**: a WhatsApp
+enquiry arrives, the agent reads it off the message, checks the business's own records,
+prepares a quote, and asks a human before anything is sent. It is **five screens** inside a
+fixed 196px panel, under a **stage rail** whose dots light and whose connectors sweep into
+the next dot as the run advances. Then the card **deforms** — a navy panel fills downward
+over header, rail and screens together, *"We'll build yours."* is written across it on a
+caret, and that clears for one last screen: four tiles cascading in for websites, apps,
+chrome extensions and AI agents, under *"You ideate, we deliver."* The run proves one
+agent; the statement makes the offer; the last screen is the only place the card says the
+range. The card is **305px**, down from 479px when the same content was six rows stacked in
+one screen, and it sits in an `0.85fr` column rather than `0.95fr` so it clears the
+headline. The full timeline lives in `app/globals.css` under *"The hero agent card's
+loop"*. Six things about it are decisions rather than details:
+
+- **It is CSS on a server component.** No client JS, so it runs before the bundle does and
+  survives the bundle never arriving. `RevealObserver` does the one thing CSS cannot —
+  toggles `[data-paused]` on `[data-hero-loop]` so a 20-second animation stops costing
+  compositor frames once the visitor has scrolled past it.
+- **A carousel push, not a crossfade.** The outgoing screen slides a full panel width left
+  while the incoming one slides in from the right, both fully opaque, clipped by the card's
+  `overflow-hidden`. The crossfade that was tried first superimposed two sets of text on
+  the same ground and neither was legible. Screen 1 is the only one that has to teleport
+  from left to right to be ready for the next cycle, and `steps(1, end)` on its 96%
+  keyframe is what stops that jump sweeping visibly across the panel.
+- **The base state is the FINISHED frame, and it is load-bearing.** Screens are exclusive,
+  so the earlier rule — *keyframes only hide, the base shows everything* — would stack five
+  panels on top of each other. Instead `.hero-screen` is `opacity: 0`, `.hero-screen-5` is
+  `opacity: 1`, and every dot and connector is lit by default, so
+  `prefers-reduced-motion` renders one complete readable card: run finished, rail full,
+  quote waiting. It is why screen 5 carries the ₹32,500 figure as well as the approval.
+- **Twenty-six keyframe blocks, and they may not be collapsed into one.** The obvious
+  simplification — one shared `@keyframes` plus per-element `animation-delay` — shifts each
+  element's exit as much as its entry, so the rail would empty from the left while the
+  right was still filling and the next cycle would overlap the last. Staggered starts with
+  a common end cannot be expressed in one keyframe set. The block is also **outside
+  `@layer utilities`** on purpose: Tailwind tree-shakes that layer, and the `[data-paused]`
+  rule carries no class for it to match on. The junction carets carry no keyframes of their
+  own — they reuse the dot they point at.
+- **The closing frame is a clip-path, and the writing is a cover that slides off.** The
+  navy is revealed by animating the bottom inset of `clip-path: inset(0 0 100% 0)`, which
+  fills downward without the distortion a `scaleY` would put on the text inside it. The
+  headline is written by a navy bar with a 2px accent left border sliding `translateX(0)` →
+  `translateX(101%)`, so its leading edge is the caret. A `steps()` character typewriter
+  was the alternative and was rejected: it needs `white-space: nowrap` and a hard-coded
+  character count, so it breaks at 390px and chunks unevenly on a proportional font. The
+  outro's base is clipped to nothing, so reduced motion lands on the finished **run**
+  rather than the statement — the demo is the better still frame and the statement's claims
+  are already in the hero copy beside it. The two closing frames are groups inside that
+  panel — `.hero-outro-a` and `.hero-outro-b` — and each gates its own children, which is
+  why a capability tile needs only an entry keyframe. The AI tile carries `FlowArrow`
+  rather than a robot or a sparkle: the card's own language for an agent is already a flow
+  of steps, and those two are the clichés the fourth rule rules out.
+- **Nothing in the card is interactive.** `Approve` is a `<span>`, so the homepage's tab
+  order runs CTA → "See what we build" and never stops on a dead control inside an
+  illustration. The numbers on screen 5 are **deltas of the order on screen 4** — never
+  business totals. `HeroDashboardMockup` was deleted from this page for showing
+  "1,247 visitors, +147%", figures that claimed nothing in particular; that line stays
+  deleted. The stock and pricing figures on screen 3 are the fictional customer's records.
+
+Thirty seconds is long for a hero loop and that is the price of the seventh beat: someone
+who lands and scrolls inside ten seconds sees two of them. The run itself is unchanged, so
+the beats they are most likely to catch are the ones that demonstrate the product rather
+than the ones that sell it.
+
+Two layout traps worth knowing. `Hero.tsx` pins `AI agents` with `whitespace-nowrap`:
+with the card moved right the balancer split the phrase across lines, leaving "AI" green at
+the end of one and "agents" green at the start of the next. And the rail labels must not
+carry `t-label-sm`. It is a utility
+in the same layer as `text-[10px]` and wins on source order, which pushed all five to 12px
+and truncated three of them at 390px.
 
 **The uppercase eyebrow is back, deliberately.** v1 used it above every heading and it was
 a tell. Here it is the comp's own device, it marks section starts on a long sales page, and
@@ -214,7 +315,9 @@ stays in `/blog`, `/lab` and parts of the chrome so a second icon library never 
 **`prefers-reduced-motion` covers the marketing pages.** `.reveal` must be forced to its
 *visible* state rather than merely losing its transition — `RevealObserver` adds `.visible`
 on intersection, so killing the transition alone strands anything above the fold at
-opacity 0.
+opacity 0. The hero loop follows the same rule from the other direction: its keyframes only
+hide and reveal, never supply the resting appearance, so `animation: none` lands on the
+completed card with every beat lit. Anything added to that loop has to keep that property.
 
 # Migration complete — 7 Sep 2026
 

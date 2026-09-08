@@ -14,7 +14,7 @@ import { STATUS_LABEL, type Product } from "@/data/products";
  */
 const STATUS_STYLE: Record<string, string> = {
   live: "bg-secondary/15 text-tertiary-deep",
-  testing: "bg-accent-softer text-[hsl(var(--accent))]",
+  testing: "bg-accent-softer text-accent-ink",
   building: "bg-surface-high text-primary",
 };
 

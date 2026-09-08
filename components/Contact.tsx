@@ -48,7 +48,7 @@ const Contact = () => (
           rel="noopener noreferrer"
           data-track="book_call"
           data-track-label="footer_cta"
-          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(253,101,30,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(253,101,30,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:w-auto"
+          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(0,216,144,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(0,216,144,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:w-auto"
         >
           <CalendarBlank weight="bold" aria-hidden className="h-4 w-4" />
           Book a free 30-min call
@@ -59,7 +59,7 @@ const Contact = () => (
           rel="noopener noreferrer"
           data-track="whatsapp_click"
           data-track-label="footer_cta"
-          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#128C7E] px-7 text-[15px] font-semibold text-white transition-colors hover:bg-[#0f7568] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:w-auto"
+          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-white/25 px-7 text-[15px] font-medium text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:w-auto"
         >
           <WhatsappLogo weight="fill" aria-hidden className="h-4.5 w-4.5" />
           WhatsApp +91 92507 11473

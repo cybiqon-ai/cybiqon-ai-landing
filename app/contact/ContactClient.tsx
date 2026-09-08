@@ -132,7 +132,7 @@ const Contact = () => (
         className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
       />
       <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <p className="t-eyebrow text-accent">Contact</p>
+        <p className="t-eyebrow text-accent-ink">Contact</p>
         <h1 className="t-h1 mt-2.5 max-w-[18ch] text-primary">
           Tell us what the business needs
         </h1>
@@ -233,7 +233,7 @@ const Contact = () => (
     <section className="bg-surface py-16 lg:py-20">
       <div className="mx-auto grid max-w-[1240px] gap-10 px-4 sm:px-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-16 lg:px-8">
         <div>
-          <p className="t-eyebrow text-accent">Details</p>
+          <p className="t-eyebrow text-accent-ink">Details</p>
           <h2 className="t-h2 mt-2.5 text-primary">The company</h2>
         </div>
         <dl className="grid gap-x-12 gap-y-6 sm:grid-cols-2">
@@ -267,7 +267,7 @@ const Contact = () => (
         <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
           <Link
             href="/products"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(253,101,30,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(253,101,30,0.5)]"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(0,216,144,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(0,216,144,0.5)]"
           >
             See our work
           </Link>

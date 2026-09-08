@@ -55,6 +55,10 @@ export default {
           dim: "hsl(var(--surface-dim))",
         },
         "accent-soft": "hsl(var(--accent-soft))",
+        // Pick by ground, not by habit: --ink for text on white, --dark for text
+        // on navy, plain `accent` only for a filled background. See globals.css.
+        "accent-ink": "hsl(var(--accent-ink))",
+        "accent-dark": "hsl(var(--accent-dark))",
         "accent-softer": "hsl(var(--accent-softer))",
         "primary-container": "hsl(var(--primary-container))",
         "tertiary-deep": "hsl(var(--tertiary-deep))",

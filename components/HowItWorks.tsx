@@ -40,7 +40,7 @@ const HowItWorks = () => (
               <p className="t-body-sm mt-2 flex-1 text-muted-foreground">{step.description}</p>
               <p
                 className={`t-label-sm mt-5 inline-flex items-center gap-1.5 ${
-                  last ? "text-secondary-foreground" : "text-accent"
+                  last ? "text-secondary-foreground" : "text-accent-ink"
                 }`}
               >
                 {last ? (

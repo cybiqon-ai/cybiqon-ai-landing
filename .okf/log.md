@@ -1116,3 +1116,116 @@
   no individual is appointed Grievance Officer under the DPDP Act. Neither document has been
   reviewed by a lawyer.
 
+* **2026-09-08 — the accent becomes the brand's own green.**
+
+  On `redesign/brand-palette`, branched off `redesign/homepage-ledger` (PR #39, unmerged).
+
+  The comp's vermilion `#fd651e` is gone. Founder's instinct that "orange doesn't match our
+  company colour" was **checkable and correct**: `public/logo.png` samples as a blue → cyan
+  → green gradient with no orange in it, and the palette on `main` commented its own
+  gradient *"Blue to Green"*. The orange came from the Stitch comp, not the brand.
+
+  It was **also failing contrast** — white on `#fd651e` is 2.98:1 against AA's 4.5:1 — so
+  every primary button carried an accessibility defect regardless of the brand question.
+
+  `#00D890` with navy text at **7.44:1**. Three accent tokens rather than one, because the
+  bright green ships **1.87:1** as text on white; see
+  [design system](/site/design-system.md) for which to reach for by ground.
+
+  The homepage's "Selected work" grid came off in the same pass — the evidence block below
+  it already carried the same proof.
+
+
+* **2026-09-08 — the hero card stops being a snapshot and runs a loop.**
+
+  Same branch. `components/AgentDemo.tsx` now plays one complete job on an 18-second cycle —
+  WhatsApp enquiry in, records checked, quote out, the day's numbers move, a human asked —
+  and holds the finished card still for 4.5s of every cycle. The page already claimed in
+  words that an agent does business work rather than chatting; this demonstrates it.
+
+  Built in CSS on a server component so it costs no hydration and runs without the bundle,
+  which is the same lesson framer-motion taught this hero the hard way.
+  `components/RevealObserver.tsx` gained a second observer to pause it off screen.
+
+  Two traps are written down in [design system](/site/design-system.md) because both are
+  the kind a later edit walks straight into: the twelve keyframe blocks cannot be collapsed
+  into one shared `@keyframes` with delays, and the block has to sit outside
+  `@layer utilities` or Tailwind strips the `[data-paused]` rule.
+
+  Worker 2,949,659 B — up 155 B, all of it the observer. The CSS is a static asset and
+  costs the Worker nothing.
+
+* **2026-09-08 — the hero card becomes five screens on a rail.**
+
+  Same branch, on top of the loop that landed earlier the same day. The feedback was that
+  the loop was right but "just a single screen", and the card was too big.
+
+  It is now five screens pushed through a fixed 196px panel — enquiry, reads, checks,
+  quote, approve — under a stage rail whose connectors sweep into the next dot as the run
+  advances. **305px, down from 479px**, and the same content. A carousel push rather than a
+  crossfade: the first attempt superimposed two sets of text and neither was legible.
+
+  The base-state rule inverted with it, and that is the thing to know before editing:
+  exclusive screens mean the resting appearance is the FINISHED run — screen 5 visible,
+  the other four at opacity 0, the rail full — so `prefers-reduced-motion` lands on one
+  complete card rather than five stacked panels. Recorded in
+  [design system](/site/design-system.md).
+
+  Worker 2,949,633 B, down 46 B. The CSS is a static asset and costs the Worker nothing.
+
+* **2026-09-08 — the eighth lab post, and the first that is not about AI or a game.**
+  `their-shop-costs-zero-a-month-to-run`, on `clients-work/snackly`: a client's D2C store
+  running entirely inside Cloudflare's free tier. It establishes a third register for the
+  lab — infrastructure and client work — alongside the AI posts and the two game ones,
+  and it is the shortest first-party engineering post here at 4,694 rendered words after
+  the Orbitone piece ran to 7,600 and was flagged as long.
+
+  **The spine is a decision rather than an architecture.** The order-alert emails are
+  built, tested and were deployed; Cloudflare Email Sending turns out to require the
+  Workers Paid plan; the scope document had promised the client a zero monthly cost twice
+  in writing. So the binding ships commented out with the reason attached. The article
+  quotes the commit that says the pricing page had been misread and the wrong thing said
+  to the client twice — which is the part that makes the rest of it believable.
+
+  Scoped on the way in, on the owner's call: the ₹0 claim covers **hosting only** and the
+  post is silent on what the build cost. The client is named with their agreement. Kept
+  out entirely: the owner's name and personal email, their FSSAI licence number, the
+  contents of their requirements document, the unsent phase-two pricing, the live account
+  and database identifiers, and the client's own outstanding statutory numbers. Each was
+  grepped for before publishing rather than trusted to have been avoided.
+
+  Every free-tier limit in the post is quoted from Cloudflare's own pricing docs rather
+  than from our repo, because the repo's own table carries a caveat saying limits change —
+  and one line in it turned out to be wrong, which is what the article is about.
+
+* **2026-09-08 — the hero card ends by folding into an offer.**
+
+  Same branch again. The run no longer just repeats: after screen 5 holds, a navy panel
+  fills downward over the header, the rail and the screens together, and *"We'll build
+  yours."* is written across it on an accent caret. That is the one thing the card cannot
+  say by demonstrating — the visitor has watched a job get done, and this turns it into an
+  offer. The cycle went 20s → 26s to make room.
+
+  The card also moved right, `0.95fr` → `0.85fr`, which gave the headline back its third
+  line and required pinning `AI agents` with `whitespace-nowrap` — the balancer had split
+  the accent phrase across two lines.
+
+  Both mechanisms and the reason a `steps()` typewriter was rejected are in
+  [design system](/site/design-system.md). Worker 2,949,695 B, up 62 B.
+
+* **2026-09-08 — the hero card closes on what actually gets built.**
+
+  A seventh beat, same branch. After *"We'll build yours."* holds, the statement clears and
+  four tiles cascade in — websites, apps, chrome extensions, AI agents — under *"You
+  ideate, we deliver."* The run proves one agent; this is the only place the card says the
+  range. Cycle 26s → 30s, and every existing percentage was retimed into that frame with
+  the real-time position of each run beat unchanged.
+
+  The AI tile is `FlowArrow`, not a robot or a sparkle — the card's own language for an
+  agent is already a flow of steps, and those two are on the list of clichés this card is
+  not allowed to use.
+
+  Reduced motion is unaffected: the navy is still clipped to nothing by default, so it
+  lands on the finished run rather than on either closing frame.
+
+  Worker 2,949,706 B, up 11 B. The CSS is a static asset and costs the Worker nothing.

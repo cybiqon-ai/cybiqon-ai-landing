@@ -33,7 +33,7 @@ const Services = () => (
             key={service.title}
             className={`relative flex flex-col rounded-2xl border bg-surface-lowest p-6 ${
               service.popular
-                ? "border-accent/50 shadow-[0_10px_34px_-14px_rgba(253,101,30,0.45)]"
+                ? "border-accent/50 shadow-[0_10px_34px_-14px_rgba(0,216,144,0.45)]"
                 : "border-border/60 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)]"
             }`}
           >
@@ -50,7 +50,7 @@ const Services = () => (
 
             <div className="mt-5 rounded-xl bg-surface-low px-4 py-3.5">
               <p className="t-label-sm text-muted-foreground">One-time, from</p>
-              <p className="t-h2 mt-0.5 text-accent">{service.price}</p>
+              <p className="t-h2 mt-0.5 text-accent-ink">{service.price}</p>
               {service.note && (
                 <p className="t-label-sm mt-0.5 text-primary">{service.note}</p>
               )}
@@ -73,7 +73,7 @@ const Services = () => (
               href={service.href}
               className={`mt-6 inline-flex h-11 items-center justify-center gap-1.5 rounded-lg px-5 text-[15px] font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
                 service.popular
-                  ? "bg-accent text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)] focus-visible:ring-accent"
+                  ? "bg-accent text-accent-foreground shadow-[0_4px_12px_rgba(0,216,144,0.25)] hover:shadow-[0_6px_18px_rgba(0,216,144,0.38)] focus-visible:ring-accent"
                   : "bg-surface-high text-primary hover:bg-surface-container focus-visible:ring-ring"
               }`}
             >

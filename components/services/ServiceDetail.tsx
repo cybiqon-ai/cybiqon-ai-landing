@@ -110,7 +110,7 @@ export default function ServiceDetail({ slug }: { slug: string }) {
                   rel="noopener noreferrer"
                   data-track="book_call"
                   data-track-label={`service_${service.slug}`}
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(0,216,144,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(0,216,144,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 >
                   <CalendarBlank weight="bold" aria-hidden className="h-4 w-4" />
                   Book a free 30-min call
@@ -127,7 +127,7 @@ export default function ServiceDetail({ slug }: { slug: string }) {
             {service.price && (
               <div className="rounded-2xl border border-border/60 bg-surface-lowest p-6 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)] lg:self-start">
                 <p className="t-label-sm text-muted-foreground">One-time, from</p>
-                <p className="t-display mt-1 text-accent" style={{ fontSize: "3rem", lineHeight: 1.05 }}>
+                <p className="t-display mt-1 text-accent-ink" style={{ fontSize: "3rem", lineHeight: 1.05 }}>
                   {service.price}
                 </p>
                 <p className="t-label mt-1 text-primary">{service.priceNote}</p>
@@ -145,7 +145,7 @@ export default function ServiceDetail({ slug }: { slug: string }) {
       <section className="bg-surface-lowest py-16 lg:py-20">
         <div className="mx-auto grid max-w-[1240px] gap-10 px-4 sm:px-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-16 lg:px-8">
           <div>
-            <p className="t-eyebrow text-accent">What you get</p>
+            <p className="t-eyebrow text-accent-ink">What you get</p>
             <h2 className="t-h2 mt-2.5 text-primary">Included</h2>
           </div>
           <ul className="space-y-3.5">
@@ -177,7 +177,7 @@ export default function ServiceDetail({ slug }: { slug: string }) {
       <section className="bg-surface-low py-16 lg:py-20">
         <div className="mx-auto grid max-w-[1240px] gap-10 px-4 sm:px-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-16 lg:px-8">
           <div>
-            <p className="t-eyebrow text-accent">Questions</p>
+            <p className="t-eyebrow text-accent-ink">Questions</p>
             <h2 className="t-h2 mt-2.5 text-primary">Asked on most calls</h2>
           </div>
           <dl className="space-y-6">
@@ -207,7 +207,7 @@ export default function ServiceDetail({ slug }: { slug: string }) {
             rel="noopener noreferrer"
             data-track="book_call"
             data-track-label={`service_${service.slug}_cta`}
-            className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(253,101,30,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(253,101,30,0.5)]"
+            className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(0,216,144,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(0,216,144,0.5)]"
           >
             Book a free call
           </a>

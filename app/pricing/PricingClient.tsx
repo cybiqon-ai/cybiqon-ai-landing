@@ -123,7 +123,7 @@ const Pricing = () => (
         className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
       />
       <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <p className="t-eyebrow text-accent">Pricing</p>
+        <p className="t-eyebrow text-accent-ink">Pricing</p>
         <h1 className="t-h1 mt-2.5 max-w-[20ch] text-primary">
           Every price on one page
         </h1>
@@ -154,7 +154,7 @@ const Pricing = () => (
               <div
                 className={`relative flex h-full flex-col rounded-2xl border bg-surface-lowest p-6 ${
                   s.slug === "custom-websites"
-                    ? "border-accent/50 shadow-[0_10px_34px_-14px_rgba(253,101,30,0.45)]"
+                    ? "border-accent/50 shadow-[0_10px_34px_-14px_rgba(0,216,144,0.45)]"
                     : "border-border/60 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)]"
                 }`}
               >
@@ -168,7 +168,7 @@ const Pricing = () => (
                 <p className="t-body-sm mt-2 text-muted-foreground">{s.tagline}</p>
 
                 <div className="mt-5 rounded-xl bg-surface-low px-4 py-3.5">
-                  <p className="t-h2 text-accent">{s.price}</p>
+                  <p className="t-h2 text-accent-ink">{s.price}</p>
                   <p className="t-label-sm mt-1 text-muted-foreground">
                     One-time · agencies typically charge {s.anchor}
                   </p>
@@ -197,7 +197,7 @@ const Pricing = () => (
                   href={`/services/${s.slug}`}
                   className={`mt-5 inline-flex h-11 items-center justify-center gap-1.5 rounded-lg px-5 text-[15px] font-semibold transition-all ${
                     s.slug === "custom-websites"
-                      ? "bg-accent text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)]"
+                      ? "bg-accent text-accent-foreground shadow-[0_4px_12px_rgba(0,216,144,0.25)] hover:shadow-[0_6px_18px_rgba(0,216,144,0.38)]"
                       : "bg-surface-high text-primary hover:bg-surface-container"
                   }`}
                 >
@@ -277,7 +277,7 @@ const Pricing = () => (
     <section className="bg-surface-low py-16 lg:py-20">
       <div className="mx-auto grid max-w-[1240px] gap-10 px-4 sm:px-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-16 lg:px-8">
         <div>
-          <p className="t-eyebrow text-accent">Questions</p>
+          <p className="t-eyebrow text-accent-ink">Questions</p>
           <h2 className="t-h2 mt-2.5 text-primary">Asked on most calls</h2>
         </div>
         <dl className="space-y-6">
@@ -307,7 +307,7 @@ const Pricing = () => (
           rel="noopener noreferrer"
           data-track="book_call"
           data-track-label="pricing_cta"
-          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(253,101,30,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(253,101,30,0.5)]"
+          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(0,216,144,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(0,216,144,0.5)]"
         >
           Book a free 30-min call
         </a>

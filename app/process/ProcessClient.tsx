@@ -167,7 +167,7 @@ const Process = () => (
         className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
       />
       <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <p className="t-eyebrow text-accent">How we work</p>
+        <p className="t-eyebrow text-accent-ink">How we work</p>
         <h1 className="t-h1 mt-2.5 max-w-[20ch] text-primary">
           What actually happens, week by week
         </h1>
@@ -182,7 +182,7 @@ const Process = () => (
             rel="noopener noreferrer"
             data-track="book_call"
             data-track-label="process_hero"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)]"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(0,216,144,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(0,216,144,0.38)]"
           >
             <CalendarBlank weight="bold" aria-hidden className="h-4 w-4" />
             Start with step one
@@ -203,7 +203,7 @@ const Process = () => (
         <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {TIMELINE.map((t, i) => (
             <li key={t.milestone} className="border-l-2 border-accent/30 pl-4">
-              <p className="t-label-sm text-accent">{t.days}</p>
+              <p className="t-label-sm text-accent-ink">{t.days}</p>
               <p className="t-h3 mt-1 text-primary">{t.milestone}</p>
               {i === TIMELINE.length - 1 && (
                 <p className="t-label-sm mt-1 text-muted-foreground">
@@ -240,7 +240,7 @@ const Process = () => (
                   </span>
                 </div>
                 <h3 className="t-h3 mt-4 text-primary">{step.title}</h3>
-                <p className="t-label-sm mt-1.5 inline-flex items-center gap-1.5 text-accent">
+                <p className="t-label-sm mt-1.5 inline-flex items-center gap-1.5 text-accent-ink">
                   <Clock weight="fill" aria-hidden className="h-3.5 w-3.5" />
                   {step.duration}
                 </p>
@@ -312,7 +312,7 @@ const Process = () => (
           rel="noopener noreferrer"
           data-track="book_call"
           data-track-label="process_cta"
-          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(253,101,30,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(253,101,30,0.5)]"
+          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(0,216,144,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(0,216,144,0.5)]"
         >
           Book a free 30-min call
         </a>

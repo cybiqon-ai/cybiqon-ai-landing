@@ -209,63 +209,6 @@ export const DIFFERENTIATORS: Differentiator[] = [
 ];
 
 
-export type CaseStudy = {
-  name: string;
-  what: string;
-  img: string;
-  alt: string;
-  href: string;
-  external?: boolean;
-  status: string;
-};
-
-/**
- * The case grid.
- *
- * Four, because four have a real picture. MeFlow and VitaLoop are shipped and are on
- * /products, but neither has a usable screenshot — MeFlow's only capture contains the
- * founder's actual personal finance data and VitaLoop has none at all — and four boxes
- * where two hold an icon is a grid with two holes in it.
- *
- * The three app images are Play Store feature graphics, which are landscape by design and
- * are the artwork each product ships with. Snackly is a capture of the live site.
- */
-export const CASES: CaseStudy[] = [
-  {
-    name: "Snackly Foods",
-    what: "D2C storefront and a custom admin panel",
-    img: "/img/case-snackly.webp",
-    alt: "The Snackly storefront at snacklyfoods.in, showing the product range and promotional bar.",
-    href: "https://snacklyfoods.in",
-    external: true,
-    status: "Live",
-  },
-  {
-    name: "LLMBytes",
-    what: "AI news, written fresh every day",
-    img: "/img/case-llmbytes.webp",
-    alt: "The LLMBytes Play Store feature graphic.",
-    href: "/products/llmbytes",
-    status: "On Google Play",
-  },
-  {
-    name: "Lumina",
-    what: "A cosy sliding-block puzzle",
-    img: "/img/case-lumina.webp",
-    alt: "The Lumina Play Store feature graphic — a lantern in a forest.",
-    href: "/products/lumina",
-    status: "On Google Play",
-  },
-  {
-    name: "Orbitone",
-    what: "Eight arcade games, one thumb",
-    img: "/img/case-orbitone.webp",
-    alt: "The Orbitone Play Store feature graphic.",
-    href: "/products/orbitone",
-    status: "On Google Play",
-  },
-];
-
 /**
  * Who the work is for.
  *

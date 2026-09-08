@@ -3,7 +3,7 @@ type: Domain
 title: Lab
 description: The second blog at /lab — hand-written engineering notes sharing a D1 table with the automated MSME blog, separated by a section column, its own chrome, and the only palette departure on the site.
 tags: [lab, blog, d1, content, design, edge, seo, aeo]
-timestamp: 2026-08-29T00:00:00Z
+timestamp: 2026-09-08T00:00:00Z
 ---
 
 # Overview
@@ -12,7 +12,7 @@ timestamp: 2026-08-29T00:00:00Z
 being built, what broke, and what the numbers said. `/blog` is the automated MSME SEO
 channel — see [Blog](blog.md). They share one D1 table and nothing else.
 
-Created 1 Aug 2026. **Seven posts**: two migrated from `itspyguru.github.io` on day one;
+Created 1 Aug 2026. **Eight posts**: two migrated from `itspyguru.github.io` on day one;
 `nobody-escaped-the-sandbox-had-a-door` written here and committed 6 Aug 2026 (commit
 `cc37929`, whose subject line belongs to a different change — the commit touches only that
 post); `puzzle-generator-random-walk-doesnt-work` on 10 Aug 2026;
@@ -23,7 +23,12 @@ sequel to the fifth post, which it links twice; and
 pipeline. The seventh is the longest in the lab and the second about a game, and it is
 the companion to the fourth: that one is a *solver* that proves a puzzle solvable, this
 one is a statistical *player model* that can only estimate whether an arcade level is
-fair, and it links there for the contrast.
+fair, and it links there for the contrast. Eighth,
+`their-shop-costs-zero-a-month-to-run` on 8 Sep 2026 — `clients-work/snackly` on
+Cloudflare's free tier, and **the first lab post about infrastructure or client work**
+rather than about AI or a game. Its spine is a finished, tested, deployed feature that
+ships switched off, because Cloudflare Email Sending needs the paid plan and the client
+was promised a zero monthly cost in writing.
 
 The fourth post is the first that is **not** AI commentary — it documents the level
 generator in `products/lumina` (its own bundle) — and the first to use **inline SVG** in a

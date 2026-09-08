@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 function TradePanel() {
   const column = (title: string, items: string[]) => (
     <div>
-      <p className="t-eyebrow text-accent">
+      <p className="t-eyebrow text-accent-ink">
         {title}
       </p>
       <ul className="mt-5 space-y-3">
@@ -94,7 +94,7 @@ function SlotStrip() {
             className={`rounded-full border px-2.5 py-1 text-[12px] font-semibold tabular-nums ${
               taken
                 ? "border-border text-muted-foreground/50 line-through"
-                : "border-accent/50 bg-accent-softer text-[hsl(var(--accent))]"
+                : "border-accent/50 bg-accent-softer text-accent-ink"
             }`}
           >
             {String(i + 1).padStart(2, "0")}
@@ -127,7 +127,7 @@ function FitList({ items, kind }: { items: string[]; kind: "good" | "bad" }) {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="t-eyebrow text-accent">
+    <p className="t-eyebrow text-accent-ink">
       {children}
     </p>
   );
@@ -164,7 +164,7 @@ export default function FreeWebsitePage() {
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
             <SectionLabel>Launch 5</SectionLabel>
             <SlotStrip />
-            <span className="t-eyebrow text-accent">
+            <span className="t-eyebrow text-accent-ink">
               {SLOTS_LEFT} of {TOTAL_SLOTS} open
             </span>
           </div>
@@ -183,7 +183,7 @@ export default function FreeWebsitePage() {
               href="#apply"
               data-track="launch5_apply"
               data-track-label="free_website_hero"
-              className="inline-flex h-12 items-center justify-center rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+              className="inline-flex h-12 items-center justify-center rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(0,216,144,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(0,216,144,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             >
               Apply for a slot
             </a>
