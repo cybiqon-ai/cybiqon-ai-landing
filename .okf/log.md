@@ -1154,3 +1154,21 @@
 
   Worker 2,949,659 B — up 155 B, all of it the observer. The CSS is a static asset and
   costs the Worker nothing.
+
+* **2026-09-08 — the hero card becomes five screens on a rail.**
+
+  Same branch, on top of the loop that landed earlier the same day. The feedback was that
+  the loop was right but "just a single screen", and the card was too big.
+
+  It is now five screens pushed through a fixed 196px panel — enquiry, reads, checks,
+  quote, approve — under a stage rail whose connectors sweep into the next dot as the run
+  advances. **305px, down from 479px**, and the same content. A carousel push rather than a
+  crossfade: the first attempt superimposed two sets of text and neither was legible.
+
+  The base-state rule inverted with it, and that is the thing to know before editing:
+  exclusive screens mean the resting appearance is the FINISHED run — screen 5 visible,
+  the other four at opacity 0, the rail full — so `prefers-reduced-motion` lands on one
+  complete card rather than five stacked panels. Recorded in
+  [design system](/site/design-system.md).
+
+  Worker 2,949,633 B, down 46 B. The CSS is a static asset and costs the Worker nothing.

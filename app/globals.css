@@ -445,171 +445,233 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 /* ── The hero agent card's loop ─────────────────────────────────────────
    The card is the signature visual and its job is to *demonstrate* the
    sentence beside it: an agent does business work, it does not just chat.
-   So it plays the whole job — enquiry in, records checked, quote out,
-   dashboard moved, human asked — and then plays it again.
+   So it plays the whole job as FIVE SCREENS on a 20-second cycle, with a
+   stage rail across the top that fills as the run advances.
 
-   ONE 18-SECOND CYCLE. Every beat is in the DOM at its final position the
-   whole time; only opacity and transform move, so nothing reflows, there is
-   no CLS, and all of it stays on the compositor.
+   The rail is the arrow. Five dots joined by four connectors; a connector
+   sweeps left to right into the next dot, which then lights and stays lit.
+   It is the only element that shows the whole flow at once, which is what
+   earns it its row.
 
-   A beat the run has not reached yet sits at opacity .35 rather than 0 — it is
-   PENDING, not absent. The first build hid them outright and the card spent
-   ten of its eighteen seconds as a tall white void with two rows floating at
-   the top of it. Dimmed, the card is always full and you watch it light up,
-   which is also what a real task list looks like mid-run. It is why the cycle
-   has no empty state and needs no "waiting" placeholder.
+   The panel below it is FIXED HEIGHT and holds five screens, each absolutely
+   positioned across it. They move as a CAROUSEL PUSH, not a crossfade: the
+   outgoing screen slides a full panel width to the left while the incoming one
+   slides in from the right, both fully opaque the whole way, and the card's
+   overflow-hidden clips whatever is outside. A crossfade was tried first and
+   superimposed two sets of text on the same ground — legible in neither.
+   Nothing reflows, there is no CLS, and every animated property is a transform
+   so all of it stays on the compositor.
 
-   The trade is that a pending row's text sits around 2:1 against white while it
-   waits, which on its own would fail WCAG 1.4.3. It is a transient loading
-   affordance, not the resting state: every row reaches full contrast inside the
-   cycle and stays there for 4.5s, and the reduced-motion path never dims
-   anything at all. Do not reach for a middle value — the only opacity that
-   passes on its own is high enough that pending and done stop being
-   distinguishable, which defeats the point of showing progress.
+       t        %     screen                  rail
+     0.0     0.0    S1 in place            dot 1 lit
+     3.4    17.0    S1 → S2 push           link 1 sweeps 17 → 20%
+     4.0    20.0    S2 in place            dot 2 lights 20 → 22%
+     7.2    36.0    S2 → S3 push           link 2 sweeps 36 → 39%
+     7.8    39.0    S3 in place            dot 3 lights 39 → 41%
+                    ticks inside S3 at 42% · 46% · 50%
+    11.0    55.0    S3 → S4 push           link 3 sweeps 55 → 58%
+    11.6    58.0    S4 in place            dot 4 lights 58 → 60%
+    14.8    74.0    S4 → S5 push           link 4 sweeps 74 → 77%
+    15.4    77.0    S5 in place            dot 5 lights 77 → 79%
+    15.4–19.4       ── S5 holds, 4.0s, the longest of the five ──
+    19.4    97.0    S5 → S1 push, and the rail empties with it
+    20.0   100.0    identical to 0% — the loop does not jump
 
-      0.0s    0.0%   every beat pending at .35
-      0.7s    3.9%   beat 1   inbound WhatsApp enquiry
-      2.3s   12.8%   beat 2   request understood      tick  3.5s / 19.4%
-      4.1s   22.8%   beat 3   records checked         tick  6.6s / 36.7%
-                              chips 5.0s/27.8% · 5.6s/31.1% · 6.2s/34.4%
-      7.0s   38.9%   beat 4   quote prepared          tick  8.4s / 46.7%
-      8.8s   48.9%   beat 5   dashboard delta
-     10.4s   57.8%   beat 6   approval asked
-     11.0s          ─── complete, still and fully legible for 4.5s ───
-     15.5s   86.1%   every beat drops back to pending together
-     16.3s   90.6%   reset
-     18.0s  100.0%   loop — 100% and 0% are the same state, so it does not jump
+   S1 is the only screen that has to teleport: it exits left at 20% and has to
+   be waiting on the right by 97%. `steps(1, end)` on its 96% keyframe is what
+   makes that jump instant rather than a fast sweep back across the panel.
 
-   The 4.5s hold is the point. A quarter of every cycle the card is a still,
-   readable screenshot of finished work — that is what makes it scannable
-   instead of a flicker, and it is why this is a loop worth having rather
-   than ambient decoration.
+   THE BASE STATE IS THE FINISHED FRAME, AND THAT IS LOAD-BEARING. Screens are
+   exclusive, so the old rule — "keyframes only hide, the base state shows
+   everything" — would stack five panels on top of each other. Instead
+   .hero-screen is opacity 0 by default, .hero-screen-5 is opacity 1, and every
+   dot, connector and tick is lit by default. Under prefers-reduced-motion, or
+   any time these animations never start, that renders a complete readable
+   card: the run finished, the rail full, the quote waiting to be approved.
+   It is why S5 carries the ₹32,500 figure as well as the approval. Anything
+   added here has to preserve that property.
 
-   WHY TWELVE KEYFRAME BLOCKS AND NOT ONE. The obvious simplification is a
-   single shared @keyframes plus per-element animation-delay. It does not
-   work: a positive delay shifts an element's *clear* as much as its reveal,
-   so beat 1 empties while beat 6 is still arriving, and beat 1 of the next
-   cycle paints above beat 6 of the last one. Staggered starts with a COMMON
-   END cannot be expressed in one keyframe set, and the common end is what
-   makes the reset legible. Hence one block per beat, all sharing the same
-   86.1% / 90.6% / 100% tail. Do not collapse them.
+   WHY SIXTEEN KEYFRAME BLOCKS AND NOT ONE. The obvious simplification is a
+   single shared @keyframes plus per-element animation-delay. It does not work:
+   a positive delay shifts an element's exit as much as its entry, so the rail
+   would empty from the left while the right was still filling and the next
+   cycle would overlap the last. Staggered starts with a COMMON END cannot be
+   expressed in one keyframe set, and the common end at 97% is what makes the
+   reset legible. Do not collapse them.
 
-   REDUCED MOTION. The base, un-animated state of this markup is the
-   COMPLETED card — these keyframes only hide and reveal, they never supply
-   the resting appearance. So `animation: none` at the foot of this file
-   lands on all six beats visible and every tick set, which is exactly the
-   right still frame. Anything added here must keep that property.
+   The junction carets reuse their following dot's keyframe rather than owning
+   one — a caret lights when the dot it points at does.
 
-   OFFSCREEN. RevealObserver toggles [data-paused] on the card as it leaves
-   and re-enters the viewport; an 18s loop should not burn compositor cycles
-   on a mid-range Android that has already scrolled past it.
+   OFFSCREEN. RevealObserver toggles [data-paused] on the card as it leaves and
+   re-enters the viewport; a 20s loop should not burn compositor cycles on a
+   mid-range Android that has already scrolled past it.
 
    All of this sits OUTSIDE @layer utilities on purpose. Tailwind tree-shakes
    that layer against the scanned source, and the [data-paused] rule carries no
    class for it to match on, so inside the layer it would be dropped from the
    build. Plain CSS is passed through untouched. */
-.hero-beat-1,
-.hero-beat-2,
-.hero-beat-3,
-.hero-beat-4,
-.hero-beat-5,
-.hero-beat-6 {
-  animation-duration: 18s;
-  animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  animation-fill-mode: both;
-}
-
-.hero-beat-1 { animation-name: hero-beat-1; }
-.hero-beat-2 { animation-name: hero-beat-2; }
-.hero-beat-3 { animation-name: hero-beat-3; }
-.hero-beat-4 { animation-name: hero-beat-4; }
-.hero-beat-5 { animation-name: hero-beat-5; }
-.hero-beat-6 { animation-name: hero-beat-6; }
-
-@keyframes hero-beat-1 {
-  0%,     3.9% { opacity: .35; transform: translateY(8px); }
-  6.7%,  86.1% { opacity: 1; transform: translateY(0); }
-  90.6%,  100% { opacity: .35; transform: translateY(8px); }
-}
-@keyframes hero-beat-2 {
-  0%,    12.8% { opacity: .35; transform: translateY(8px); }
-  15.6%, 86.1% { opacity: 1; transform: translateY(0); }
-  90.6%,  100% { opacity: .35; transform: translateY(8px); }
-}
-@keyframes hero-beat-3 {
-  0%,    22.8% { opacity: .35; transform: translateY(8px); }
-  25.6%, 86.1% { opacity: 1; transform: translateY(0); }
-  90.6%,  100% { opacity: .35; transform: translateY(8px); }
-}
-@keyframes hero-beat-4 {
-  0%,    38.9% { opacity: .35; transform: translateY(8px); }
-  41.7%, 86.1% { opacity: 1; transform: translateY(0); }
-  90.6%,  100% { opacity: .35; transform: translateY(8px); }
-}
-@keyframes hero-beat-5 {
-  0%,    48.9% { opacity: .35; transform: translateY(8px); }
-  51.7%, 86.1% { opacity: 1; transform: translateY(0); }
-  90.6%,  100% { opacity: .35; transform: translateY(8px); }
-}
-@keyframes hero-beat-6 {
-  0%,    57.8% { opacity: .35; transform: translateY(8px); }
-  60.6%, 86.1% { opacity: 1; transform: translateY(0); }
-  90.6%,  100% { opacity: .35; transform: translateY(8px); }
-}
-
-/* Ticks and the three record chips pop in after the row they belong to has
-   settled — that delay is most of what reads as "working" rather than "a
-   list with ticks on it". Scale only on the way in: the springy curve would
-   overshoot on the way out, where there is nothing to express. */
+.hero-screen,
+.hero-dot-2,
+.hero-dot-3,
+.hero-dot-4,
+.hero-dot-5,
+.hero-link-1,
+.hero-link-2,
+.hero-link-3,
+.hero-link-4,
 .hero-tick-1,
 .hero-tick-2,
-.hero-tick-3,
-.hero-chip-1,
-.hero-chip-2,
-.hero-chip-3 {
-  animation-duration: 18s;
+.hero-tick-3 {
+  animation-duration: 20s;
   animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
   animation-fill-mode: both;
+}
+
+/* ── Screens ──────────────────────────────────────────────────────────── */
+.hero-screen {
+  opacity: 0;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The finished frame. Read the base-state note above before changing it. */
+.hero-screen-5 { opacity: 1; }
+
+.hero-screen-1 { animation-name: hero-screen-1; }
+.hero-screen-2 { animation-name: hero-screen-2; }
+.hero-screen-3 { animation-name: hero-screen-3; }
+.hero-screen-4 { animation-name: hero-screen-4; }
+.hero-screen-5 { animation-name: hero-screen-5; }
+
+/* S1 is the only one that starts visible, so it exits first and re-enters at the
+   very end. The 96% → 97% step is a TELEPORT from the left of the panel to the
+   right, ready to be pushed back in; `steps(1, end)` is what stops it sweeping
+   across the visible area on the way. */
+@keyframes hero-screen-1 {
+  0%,  17% { opacity: 1; transform: translateX(0); }
+  20%      { transform: translateX(-100%); }
+  96%      { transform: translateX(-100%); animation-timing-function: steps(1, end); }
+  97%      { transform: translateX(100%); }
+  100%     { opacity: 1; transform: translateX(0); }
+}
+@keyframes hero-screen-2 {
+  0%,  17% { opacity: 1; transform: translateX(100%); }
+  20%, 36% { transform: translateX(0); }
+  39%, 100% { opacity: 1; transform: translateX(-100%); }
+}
+@keyframes hero-screen-3 {
+  0%,  36% { opacity: 1; transform: translateX(100%); }
+  39%, 55% { transform: translateX(0); }
+  58%, 100% { opacity: 1; transform: translateX(-100%); }
+}
+@keyframes hero-screen-4 {
+  0%,  55% { opacity: 1; transform: translateX(100%); }
+  58%, 74% { transform: translateX(0); }
+  77%, 100% { opacity: 1; transform: translateX(-100%); }
+}
+@keyframes hero-screen-5 {
+  0%,  74% { opacity: 1; transform: translateX(100%); }
+  77%, 97% { transform: translateX(0); }
+  100%     { opacity: 1; transform: translateX(-100%); }
+}
+
+/* ── The rail ─────────────────────────────────────────────────────────────
+   Dot 1 is lit for the whole cycle and carries no animation at all. */
+.hero-dot-2,
+.hero-dot-3,
+.hero-dot-4,
+.hero-dot-5 {
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-dot-2 { animation-name: hero-dot-2; }
+.hero-dot-3 { animation-name: hero-dot-3; }
+.hero-dot-4 { animation-name: hero-dot-4; }
+.hero-dot-5 { animation-name: hero-dot-5; }
+
+@keyframes hero-dot-2 {
+  0%,   20% { opacity: 0; transform: scale(0.4); }
+  22%,  97% { opacity: 1; transform: scale(1); }
+  100%      { opacity: 0; transform: scale(0.4); }
+}
+@keyframes hero-dot-3 {
+  0%,   39% { opacity: 0; transform: scale(0.4); }
+  41%,  97% { opacity: 1; transform: scale(1); }
+  100%      { opacity: 0; transform: scale(0.4); }
+}
+@keyframes hero-dot-4 {
+  0%,   58% { opacity: 0; transform: scale(0.4); }
+  60%,  97% { opacity: 1; transform: scale(1); }
+  100%      { opacity: 0; transform: scale(0.4); }
+}
+@keyframes hero-dot-5 {
+  0%,   77% { opacity: 0; transform: scale(0.4); }
+  79%,  97% { opacity: 1; transform: scale(1); }
+  100%      { opacity: 0; transform: scale(0.4); }
+}
+
+/* The connectors. transform-origin: left is what makes this a sweep towards
+   the next dot rather than a bar growing out of its own middle. */
+.hero-link-1,
+.hero-link-2,
+.hero-link-3,
+.hero-link-4 {
+  transform-origin: left center;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.hero-link-1 { animation-name: hero-link-1; }
+.hero-link-2 { animation-name: hero-link-2; }
+.hero-link-3 { animation-name: hero-link-3; }
+.hero-link-4 { animation-name: hero-link-4; }
+
+@keyframes hero-link-1 {
+  0%,   17% { transform: scaleX(0); }
+  20%,  97% { transform: scaleX(1); }
+  100%      { transform: scaleX(0); }
+}
+@keyframes hero-link-2 {
+  0%,   36% { transform: scaleX(0); }
+  39%,  97% { transform: scaleX(1); }
+  100%      { transform: scaleX(0); }
+}
+@keyframes hero-link-3 {
+  0%,   55% { transform: scaleX(0); }
+  58%,  97% { transform: scaleX(1); }
+  100%      { transform: scaleX(0); }
+}
+@keyframes hero-link-4 {
+  0%,   74% { transform: scaleX(0); }
+  77%,  97% { transform: scaleX(1); }
+  100%      { transform: scaleX(0); }
+}
+
+/* ── The three record ticks inside screen 3 ───────────────────────────────
+   They land one at a time, which is most of what reads as "checking" rather
+   than "a list that happens to have ticks on it". */
+.hero-tick-1,
+.hero-tick-2,
+.hero-tick-3 {
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .hero-tick-1 { animation-name: hero-tick-1; }
 .hero-tick-2 { animation-name: hero-tick-2; }
 .hero-tick-3 { animation-name: hero-tick-3; }
-.hero-chip-1 { animation-name: hero-chip-1; }
-.hero-chip-2 { animation-name: hero-chip-2; }
-.hero-chip-3 { animation-name: hero-chip-3; }
 
 @keyframes hero-tick-1 {
-  0%,    19.4% { opacity: 0; transform: scale(0.6); }
-  21.2%, 86.1% { opacity: 1; transform: scale(1); }
-  90.6%,  100% { opacity: 0; transform: scale(1); }
+  0%,   42% { opacity: 0; transform: scale(0.6); }
+  44%,  97% { opacity: 1; transform: scale(1); }
+  100%      { opacity: 0; transform: scale(0.6); }
 }
 @keyframes hero-tick-2 {
-  0%,    36.7% { opacity: 0; transform: scale(0.6); }
-  38.5%, 86.1% { opacity: 1; transform: scale(1); }
-  90.6%,  100% { opacity: 0; transform: scale(1); }
+  0%,   46% { opacity: 0; transform: scale(0.6); }
+  48%,  97% { opacity: 1; transform: scale(1); }
+  100%      { opacity: 0; transform: scale(0.6); }
 }
 @keyframes hero-tick-3 {
-  0%,    46.7% { opacity: 0; transform: scale(0.6); }
-  48.5%, 86.1% { opacity: 1; transform: scale(1); }
-  90.6%,  100% { opacity: 0; transform: scale(1); }
-}
-@keyframes hero-chip-1 {
-  0%,    27.8% { opacity: 0; transform: scale(0.6); }
-  29.6%, 86.1% { opacity: 1; transform: scale(1); }
-  90.6%,  100% { opacity: 0; transform: scale(1); }
-}
-@keyframes hero-chip-2 {
-  0%,    31.1% { opacity: 0; transform: scale(0.6); }
-  32.9%, 86.1% { opacity: 1; transform: scale(1); }
-  90.6%,  100% { opacity: 0; transform: scale(1); }
-}
-@keyframes hero-chip-3 {
-  0%,    34.4% { opacity: 0; transform: scale(0.6); }
-  36.2%, 86.1% { opacity: 1; transform: scale(1); }
-  90.6%,  100% { opacity: 0; transform: scale(1); }
+  0%,   50% { opacity: 0; transform: scale(0.6); }
+  52%,  97% { opacity: 1; transform: scale(1); }
+  100%      { opacity: 0; transform: scale(0.6); }
 }
 
 /* Set by RevealObserver when the card is out of view. */
@@ -1024,21 +1086,23 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     transition: none !important;
   }
 
-  /* The hero loop: the markup's base state is the completed card, so stilling
-     these lands on all six beats lit and every tick set — the right still frame. */
+  /* The hero loop. Its base state is the FINISHED frame — screen 5 visible, the
+     other four at opacity 0, every dot and connector lit — so stilling these
+     lands on a complete readable card rather than five panels stacked on top of
+     each other. See the base-state note above the keyframes. */
   .enter,
-  .hero-beat-1,
-  .hero-beat-2,
-  .hero-beat-3,
-  .hero-beat-4,
-  .hero-beat-5,
-  .hero-beat-6,
+  .hero-screen,
+  .hero-dot-2,
+  .hero-dot-3,
+  .hero-dot-4,
+  .hero-dot-5,
+  .hero-link-1,
+  .hero-link-2,
+  .hero-link-3,
+  .hero-link-4,
   .hero-tick-1,
   .hero-tick-2,
   .hero-tick-3,
-  .hero-chip-1,
-  .hero-chip-2,
-  .hero-chip-3,
   .animate-float,
   .animate-float-slow,
   .animate-fade-in,

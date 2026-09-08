@@ -202,37 +202,51 @@ service cards → four-step process → why-us → evidence → navy CTA → foo
 chat mockup framed it as a WhatsApp-bot shop. Every version carries a caption saying it is
 an illustration — a mockup on a homepage reads as a real customer otherwise.
 
-### The card runs a loop — 8 Sep 2026
+### The card runs a loop — five screens on a rail, 8 Sep 2026
 
-`components/AgentDemo.tsx` plays one complete job on an **18-second cycle**: a WhatsApp
-enquiry arrives, the agent reads it, checks the business's own records, prepares a quote,
-the day's numbers move, and a human is asked before anything is sent. The full timeline
-lives in `app/globals.css` under *"The hero agent card's loop"*. Four things about it are
-decisions rather than details:
+`components/AgentDemo.tsx` plays one complete job on a **20-second cycle**: a WhatsApp
+enquiry arrives, the agent reads it off the message, checks the business's own records,
+prepares a quote, and asks a human before anything is sent. It is **five screens** inside a
+fixed 196px panel, under a **stage rail** whose dots light and whose connectors sweep into
+the next dot as the run advances. The card is **305px**, down from 479px when the same
+content was six rows stacked in one screen. The full timeline lives in `app/globals.css`
+under *"The hero agent card's loop"*. Five things about it are decisions rather than
+details:
 
 - **It is CSS on a server component.** No client JS, so it runs before the bundle does and
   survives the bundle never arriving. `RevealObserver` does the one thing CSS cannot —
-  toggles `[data-paused]` on `[data-hero-loop]` so an 18-second animation stops costing
+  toggles `[data-paused]` on `[data-hero-loop]` so a 20-second animation stops costing
   compositor frames once the visitor has scrolled past it.
-- **Twelve keyframe blocks, and they may not be collapsed into one.** The obvious
+- **A carousel push, not a crossfade.** The outgoing screen slides a full panel width left
+  while the incoming one slides in from the right, both fully opaque, clipped by the card's
+  `overflow-hidden`. The crossfade that was tried first superimposed two sets of text on
+  the same ground and neither was legible. Screen 1 is the only one that has to teleport
+  from left to right to be ready for the next cycle, and `steps(1, end)` on its 96%
+  keyframe is what stops that jump sweeping visibly across the panel.
+- **The base state is the FINISHED frame, and it is load-bearing.** Screens are exclusive,
+  so the earlier rule — *keyframes only hide, the base shows everything* — would stack five
+  panels on top of each other. Instead `.hero-screen` is `opacity: 0`, `.hero-screen-5` is
+  `opacity: 1`, and every dot and connector is lit by default, so
+  `prefers-reduced-motion` renders one complete readable card: run finished, rail full,
+  quote waiting. It is why screen 5 carries the ₹32,500 figure as well as the approval.
+- **Sixteen keyframe blocks, and they may not be collapsed into one.** The obvious
   simplification — one shared `@keyframes` plus per-element `animation-delay` — shifts each
-  beat's *clear* as much as its reveal, so the card empties from the top while the bottom is
-  still filling and the next cycle overlaps the last. Staggered starts with a common end
-  cannot be expressed in one keyframe set. The block is also **outside `@layer utilities`**
-  on purpose: Tailwind tree-shakes that layer, and the `[data-paused]` rule carries no class
-  for it to match on.
-- **Unreached beats are dimmed to `.35`, not hidden.** The first build hid them and the card
-  spent ten of its eighteen seconds as a tall white void. Dimmed, it is always full and you
-  watch it light up. The trade is that a pending row sits near 2:1 against white while it
-  waits — a transient loading affordance, not the resting state: every row reaches full
-  contrast inside the cycle and holds it for 4.5s, and the reduced-motion path never dims
-  anything.
+  element's exit as much as its entry, so the rail would empty from the left while the
+  right was still filling and the next cycle would overlap the last. Staggered starts with
+  a common end cannot be expressed in one keyframe set. The block is also **outside
+  `@layer utilities`** on purpose: Tailwind tree-shakes that layer, and the `[data-paused]`
+  rule carries no class for it to match on. The junction carets carry no keyframes of their
+  own — they reuse the dot they point at.
 - **Nothing in the card is interactive.** `Approve` is a `<span>`, so the homepage's tab
   order runs CTA → "See what we build" and never stops on a dead control inside an
-  illustration. The numbers in the strip are **deltas of the order shown two rows above** —
-  never business totals. `HeroDashboardMockup` was deleted from this page for showing
+  illustration. The numbers on screen 5 are **deltas of the order on screen 4** — never
+  business totals. `HeroDashboardMockup` was deleted from this page for showing
   "1,247 visitors, +147%", figures that claimed nothing in particular; that line stays
-  deleted.
+  deleted. The stock and pricing figures on screen 3 are the fictional customer's records.
+
+One layout trap worth knowing: the rail labels must not carry `t-label-sm`. It is a utility
+in the same layer as `text-[10px]` and wins on source order, which pushed all five to 12px
+and truncated three of them at 390px.
 
 **The uppercase eyebrow is back, deliberately.** v1 used it above every heading and it was
 a tell. Here it is the comp's own device, it marks section starts on a long sales page, and
