@@ -154,10 +154,38 @@ Read out of the comp, not eyeballed from a screenshot.
 ```
 Fonts    Plus Jakarta Sans 600/700/800   headings   (--font-jakarta)
          Inter             400–700       body       (--font-inter)
-Primary  #00304f navy      Accent  #fd651e vermilion
-Green    #2fc88e           Ink     #111c2d
+Primary  #00304f navy      Ink     #111c2d
+Accent   #00D890 green     Tick    #00875a
 Surfaces #ffffff  #f9f9ff  #f0f3ff  #e7eeff  #dee8ff  #cfdaf2
 ```
+
+## The accent is the logo's, not the comp's — 8 Sep 2026
+
+The comp's vermilion `#fd651e` was replaced. It was never a brand colour, and that was
+checkable: `public/logo.png` samples as a **blue → cyan → green** gradient — `#0C60E4`,
+`#00B4D8`, `#00D890` — with no orange in the mark, and the pre-redesign palette on `main`
+commented its own gradient *"Blue to Green"*.
+
+It was also **failing contrast**: white on `#fd651e` is **2.98:1**, under AA's 4.5:1. Every
+primary button on the site had an accessibility defect independent of the brand question.
+
+**Three accent tokens, because one colour cannot do every job.** Measured on the shipped CSS:
+
+| Token | Value | Use | Contrast |
+|---|---|---|---|
+| `--accent` | `#00D890` | filled backgrounds, navy text on it | **7.44** |
+| `--accent-ink` | `#00784f` | the accent as TEXT on white or `--surface` | **5.38** / 5.13 |
+| `--accent-dark` | `#00D890` | labels inside navy sections | **7.44** |
+| `--secondary` | `#00875a` | ticks, "included" | **4.67** |
+
+**Pick by ground, not by habit.** White → `ink`, navy → `dark`, a filled button → `accent`.
+Using `--accent` as text on white ships **1.87:1**, which is why 39 `text-accent` call sites
+moved to `text-accent-ink`.
+
+`--secondary` deepened from `#2fc88e` so a tick does not read as a small button now that the
+CTA is green too. **In-page WhatsApp buttons are outlines** for the same reason — a filled
+WhatsApp green beside a green CTA made two different actions look like one. The floating
+widget keeps official `#25D366`, alone in the corner, where it reads as an affordance.
 
 **The surface ladder is the load-bearing part.** Sections alternate down it, and that
 alternation is where the page gets its depth. Both rejected versions were flat

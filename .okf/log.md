@@ -1116,3 +1116,22 @@
   no individual is appointed Grievance Officer under the DPDP Act. Neither document has been
   reviewed by a lawyer.
 
+* **2026-09-08 — the accent becomes the brand's own green.**
+
+  On `redesign/brand-palette`, branched off `redesign/homepage-ledger` (PR #39, unmerged).
+
+  The comp's vermilion `#fd651e` is gone. Founder's instinct that "orange doesn't match our
+  company colour" was **checkable and correct**: `public/logo.png` samples as a blue → cyan
+  → green gradient with no orange in it, and the palette on `main` commented its own
+  gradient *"Blue to Green"*. The orange came from the Stitch comp, not the brand.
+
+  It was **also failing contrast** — white on `#fd651e` is 2.98:1 against AA's 4.5:1 — so
+  every primary button carried an accessibility defect regardless of the brand question.
+
+  `#00D890` with navy text at **7.44:1**. Three accent tokens rather than one, because the
+  bright green ships **1.87:1** as text on white; see
+  [design system](/site/design-system.md) for which to reach for by ground.
+
+  The homepage's "Selected work" grid came off in the same pass — the evidence block below
+  it already carried the same proof.
+
