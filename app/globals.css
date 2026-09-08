@@ -463,32 +463,44 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
    or a clip-path so all of it stays on the compositor.
 
    Then the card DEFORMS. After screen 5 has held, a navy panel fills downward
-   over the header, the rail and the screens together, and the offer is written
-   across it. That is the one thing the card cannot say by demonstrating: the
-   visitor has watched a job get done, and this turns it into an offer. It also
-   gives the loop an ending rather than a reset.
+   over the header, the rail and the screens together, the offer is written
+   across it, and then the offer clears for one last screen: what actually gets
+   built. The demo proves one agent; the statement makes the offer; the last
+   screen is the only place the card says the range.
 
        t         %     screen / outro              rail
      0.0      0.0    S1 in place                dot 1 lit
-     3.4     13.1    S1 → S2 push               link 1 sweeps 13.1 → 15.4%
-     4.0     15.4    S2 in place                dot 2 lights 15.4 → 16.9%
-     7.2     27.7    S2 → S3 push               link 2 sweeps 27.7 → 30%
-     7.8     30.0    S3 in place                dot 3 lights 30 → 31.5%
-                     ticks inside S3 at 32.3% · 35.4% · 38.5%
-    11.0     42.3    S3 → S4 push               link 3 sweeps 42.3 → 44.6%
-    11.6     44.6    S4 in place                dot 4 lights 44.6 → 46.2%
-    14.8     56.9    S4 → S5 push               link 4 sweeps 56.9 → 59.2%
-    15.4     59.2    S5 in place                dot 5 lights 59.2 → 60.8%
+     3.4     11.3    S1 → S2 push               link 1 sweeps 11.3 → 13.3%
+     4.0     13.3    S2 in place                dot 2 lights 13.3 → 14.7%
+     7.2     24.0    S2 → S3 push               link 2 sweeps 24 → 26%
+     7.8     26.0    S3 in place                dot 3 lights 26 → 27.3%
+                     ticks inside S3 at 28% · 30.7% · 33.3%
+    11.0     36.7    S3 → S4 push               link 3 sweeps 36.7 → 38.7%
+    11.6     38.7    S4 in place                dot 4 lights 38.7 → 40%
+    14.8     49.3    S4 → S5 push               link 4 sweeps 49.3 → 51.3%
+    15.4     51.3    S5 in place                dot 5 lights 51.3 → 52.7%
     15.4–18.6        ── S5 holds, 3.2s ──
-    18.6     71.5    the navy fills down over the whole card
-    19.5     75.0    the small line fades up
-    20.4     78.5    "We'll build yours." is written across
-    21.4–24.8        ── the statement holds, 3.4s ──
-    24.8     95.4    the navy retracts, the rail empties, S5 → S1 push
-    26.0    100.0    identical to 0% — the loop does not jump
+    18.6     62.0    the navy fills down over the whole card
+    19.5     65.0    the small line rises
+    20.4     68.0    "We'll build yours." is written across
+    21.4–23.4        ── the statement holds, 2.0s ──
+    23.4     78.0    the statement clears
+    24.0     80.0    tile 1 · Websites
+    24.3     81.0    tile 2 · Apps
+    24.6     82.0    tile 3 · Extensions
+    24.9     83.0    tile 4 · AI agents
+    25.6     85.3    "You ideate, we deliver." rises
+    26.3–28.8        ── the closing screen holds, 2.5s ──
+    28.8     96.0    the navy retracts, the rail empties, S5 → S1 push
+    30.0    100.0    identical to 0% — the loop does not jump
 
-   S1 is the only screen that has to teleport: it exits left at 15.4% and has to
-   be waiting on the right by 95.4%. `steps(1, end)` on its 95% keyframe is what
+   Thirty seconds is long for a hero loop and that is the price of the seventh
+   beat. Someone who lands and scrolls inside ten seconds sees two of them — but
+   the run itself is unchanged, so the beats they are most likely to catch are
+   the ones that demonstrate the product rather than the ones that sell it.
+
+   S1 is the only screen that has to teleport: it exits left at 13.3% and has to
+   be waiting on the right by 96%. `steps(1, end)` on its 95.6% keyframe is what
    makes that jump instant rather than a fast sweep back across the panel.
 
    THE BASE STATE IS THE FINISHED FRAME, AND THAT IS LOAD-BEARING. Screens are
@@ -503,10 +515,10 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 
    The outro follows the same rule from the other side — its base is clipped to
    nothing, so a reduced-motion visitor gets the finished RUN rather than the
-   closing statement. That is deliberate: the demo is the better still frame,
+   statement or the capability screen. That is deliberate: the demo is the better still frame,
    and the statement's claims are already in the hero copy beside the card.
 
-   WHY NINETEEN KEYFRAME BLOCKS AND NOT ONE. The obvious simplification is a
+   WHY TWENTY-SIX KEYFRAME BLOCKS AND NOT ONE. The obvious simplification is a
    single shared @keyframes plus per-element animation-delay. It does not work:
    a positive delay shifts an element's exit as much as its entry, so the rail
    would empty from the left while the right was still filling and the next
@@ -538,9 +550,16 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 .hero-tick-2,
 .hero-tick-3,
 .hero-outro,
+.hero-outro-a,
+.hero-outro-b,
 .hero-outro-line,
-.hero-write {
-  animation-duration: 26s;
+.hero-write,
+.hero-deliver,
+.hero-tile-1,
+.hero-tile-2,
+.hero-tile-3,
+.hero-tile-4 {
+  animation-duration: 30s;
   animation-iteration-count: infinite;
   animation-fill-mode: both;
 }
@@ -565,30 +584,30 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
    right, ready to be pushed back in; `steps(1, end)` is what stops it sweeping
    across the visible area on the way. */
 @keyframes hero-screen-1 {
-  0%,    13.1% { opacity: 1; transform: translateX(0); }
-  15.4%       { transform: translateX(-100%); }
-  95%         { transform: translateX(-100%); animation-timing-function: steps(1, end); }
-  95.4%       { transform: translateX(100%); }
+  0%,    11.3% { opacity: 1; transform: translateX(0); }
+  13.3%       { transform: translateX(-100%); }
+  95.6%         { transform: translateX(-100%); animation-timing-function: steps(1, end); }
+  96%       { transform: translateX(100%); }
   100%        { opacity: 1; transform: translateX(0); }
 }
 @keyframes hero-screen-2 {
-  0%,    13.1% { opacity: 1; transform: translateX(100%); }
-  15.4%, 27.7% { transform: translateX(0); }
-  30%,  100%   { opacity: 1; transform: translateX(-100%); }
+  0%,    11.3% { opacity: 1; transform: translateX(100%); }
+  13.3%, 24% { transform: translateX(0); }
+  26%,  100%   { opacity: 1; transform: translateX(-100%); }
 }
 @keyframes hero-screen-3 {
-  0%,    27.7% { opacity: 1; transform: translateX(100%); }
-  30%,   42.3% { transform: translateX(0); }
-  44.6%, 100%  { opacity: 1; transform: translateX(-100%); }
+  0%,    24% { opacity: 1; transform: translateX(100%); }
+  26%,   36.7% { transform: translateX(0); }
+  38.7%, 100%  { opacity: 1; transform: translateX(-100%); }
 }
 @keyframes hero-screen-4 {
-  0%,    42.3% { opacity: 1; transform: translateX(100%); }
-  44.6%, 56.9% { transform: translateX(0); }
-  59.2%, 100%  { opacity: 1; transform: translateX(-100%); }
+  0%,    36.7% { opacity: 1; transform: translateX(100%); }
+  38.7%, 49.3% { transform: translateX(0); }
+  51.3%, 100%  { opacity: 1; transform: translateX(-100%); }
 }
 @keyframes hero-screen-5 {
-  0%,    56.9% { opacity: 1; transform: translateX(100%); }
-  59.2%, 95.4% { transform: translateX(0); }
+  0%,    49.3% { opacity: 1; transform: translateX(100%); }
+  51.3%, 96% { transform: translateX(0); }
   100%         { opacity: 1; transform: translateX(-100%); }
 }
 
@@ -607,23 +626,23 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 .hero-dot-5 { animation-name: hero-dot-5; }
 
 @keyframes hero-dot-2 {
-  0%,     15.4% { opacity: 0; transform: scale(0.4); }
-  16.9%,  95.4% { opacity: 1; transform: scale(1); }
+  0%,     13.3% { opacity: 0; transform: scale(0.4); }
+  14.7%,  96% { opacity: 1; transform: scale(1); }
   100%      { opacity: 0; transform: scale(0.4); }
 }
 @keyframes hero-dot-3 {
-  0%,     30% { opacity: 0; transform: scale(0.4); }
-  31.5%,  95.4% { opacity: 1; transform: scale(1); }
+  0%,     26% { opacity: 0; transform: scale(0.4); }
+  27.3%,  96% { opacity: 1; transform: scale(1); }
   100%      { opacity: 0; transform: scale(0.4); }
 }
 @keyframes hero-dot-4 {
-  0%,     44.6% { opacity: 0; transform: scale(0.4); }
-  46.2%,  95.4% { opacity: 1; transform: scale(1); }
+  0%,     38.7% { opacity: 0; transform: scale(0.4); }
+  40%,  96% { opacity: 1; transform: scale(1); }
   100%      { opacity: 0; transform: scale(0.4); }
 }
 @keyframes hero-dot-5 {
-  0%,     59.2% { opacity: 0; transform: scale(0.4); }
-  60.8%,  95.4% { opacity: 1; transform: scale(1); }
+  0%,     51.3% { opacity: 0; transform: scale(0.4); }
+  52.7%,  96% { opacity: 1; transform: scale(1); }
   100%      { opacity: 0; transform: scale(0.4); }
 }
 
@@ -643,23 +662,23 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 .hero-link-4 { animation-name: hero-link-4; }
 
 @keyframes hero-link-1 {
-  0%,     13.1% { transform: scaleX(0); }
-  15.4%,  95.4% { transform: scaleX(1); }
+  0%,     11.3% { transform: scaleX(0); }
+  13.3%,  96% { transform: scaleX(1); }
   100%      { transform: scaleX(0); }
 }
 @keyframes hero-link-2 {
-  0%,     27.7% { transform: scaleX(0); }
-  30%,  95.4% { transform: scaleX(1); }
+  0%,     24% { transform: scaleX(0); }
+  26%,  96% { transform: scaleX(1); }
   100%      { transform: scaleX(0); }
 }
 @keyframes hero-link-3 {
-  0%,     42.3% { transform: scaleX(0); }
-  44.6%,  95.4% { transform: scaleX(1); }
+  0%,     36.7% { transform: scaleX(0); }
+  38.7%,  96% { transform: scaleX(1); }
   100%      { transform: scaleX(0); }
 }
 @keyframes hero-link-4 {
-  0%,     56.9% { transform: scaleX(0); }
-  59.2%,  95.4% { transform: scaleX(1); }
+  0%,     49.3% { transform: scaleX(0); }
+  51.3%,  96% { transform: scaleX(1); }
   100%      { transform: scaleX(0); }
 }
 
@@ -677,26 +696,34 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 .hero-tick-3 { animation-name: hero-tick-3; }
 
 @keyframes hero-tick-1 {
-  0%,     32.3% { opacity: 0; transform: scale(0.6); }
-  33.8%,  95.4% { opacity: 1; transform: scale(1); }
+  0%,     28% { opacity: 0; transform: scale(0.6); }
+  29.3%,  96% { opacity: 1; transform: scale(1); }
   100%      { opacity: 0; transform: scale(0.6); }
 }
 @keyframes hero-tick-2 {
-  0%,     35.4% { opacity: 0; transform: scale(0.6); }
-  36.9%,  95.4% { opacity: 1; transform: scale(1); }
+  0%,     30.7% { opacity: 0; transform: scale(0.6); }
+  32%,  96% { opacity: 1; transform: scale(1); }
   100%      { opacity: 0; transform: scale(0.6); }
 }
 @keyframes hero-tick-3 {
-  0%,     38.5% { opacity: 0; transform: scale(0.6); }
-  40%,  95.4% { opacity: 1; transform: scale(1); }
+  0%,     33.3% { opacity: 0; transform: scale(0.6); }
+  34.7%,  96% { opacity: 1; transform: scale(1); }
   100%      { opacity: 0; transform: scale(0.6); }
 }
 
-/* ── The closing frame ────────────────────────────────────────────────────
+/* ── The closing frames ──────────────────────────────────────────────────
    One navy panel over the ENTIRE card — header, rail and screens — revealed by
    animating the bottom inset of a clip-path. It fills downward, which reads as
    the card folding into itself, and unlike a scaleY it leaves the text inside
-   it undistorted. At the end of the hold it retracts the way it came.
+   it undistorted. At the end it retracts the way it came.
+
+   It holds TWO groups, both absolute inset-0 over each other:
+
+     .hero-outro-a   the statement — "We'll build yours."
+     .hero-outro-b   what we build — four tiles and "You ideate, we deliver."
+
+   The groups gate their own children, which is why each tile needs only an
+   entry: the group takes care of clearing it.
 
    The big line is written by a cover that slides off to the right: a navy bar
    with a 2px accent left border, so its leading edge travels across the text
@@ -714,21 +741,51 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 }
 
 @keyframes hero-outro {
-  0%,     71.5% { clip-path: inset(0 0 100% 0); }
-  75%,    95.4% { clip-path: inset(0 0 0 0); }
-  98%,    100%  { clip-path: inset(0 0 100% 0); }
+  0%,     62%   { clip-path: inset(0 0 100% 0); }
+  64.3%,  96%   { clip-path: inset(0 0 0 0); }
+  98.5%,  100%  { clip-path: inset(0 0 100% 0); }
 }
 
-.hero-outro-line {
+/* The two groups. `steps(1, end)` on A's 98% keyframe snaps the statement back
+   rather than letting it fade in behind the navy while it is still retracting. */
+.hero-outro-a { animation-name: hero-outro-a; }
+.hero-outro-b { opacity: 0; animation-name: hero-outro-b; }
+
+@keyframes hero-outro-a {
+  0%,     78%   { opacity: 1; }
+  79.7%,  98%   { opacity: 0; animation-timing-function: steps(1, end); }
+  99%,    100%  { opacity: 1; }
+}
+
+@keyframes hero-outro-b {
+  0%,     79.7% { opacity: 0; }
+  80%,    96%   { opacity: 1; }
+  98%,    100%  { opacity: 0; }
+}
+
+.hero-outro-line,
+.hero-deliver,
+.hero-tile-1,
+.hero-tile-2,
+.hero-tile-3,
+.hero-tile-4 {
   opacity: 0;
-  animation-name: hero-outro-line;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.hero-outro-line { animation-name: hero-outro-line; }
+.hero-deliver    { animation-name: hero-deliver; }
+
 @keyframes hero-outro-line {
-  0%,     75%   { opacity: 0; transform: translateY(8px); }
-  77.7%,  95.4% { opacity: 1; transform: translateY(0); }
+  0%,     65%   { opacity: 0; transform: translateY(8px); }
+  67.3%,  96%   { opacity: 1; transform: translateY(0); }
   98%,    100%  { opacity: 0; transform: translateY(8px); }
+}
+
+@keyframes hero-deliver {
+  0%,     85.3% { opacity: 0; transform: translateY(6px); }
+  87.7%,  96%   { opacity: 1; transform: translateY(0); }
+  98%,    100%  { opacity: 0; transform: translateY(6px); }
 }
 
 /* The cover starts ON the text and slides off it. steps(1, end) on the 98%
@@ -740,9 +797,39 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 }
 
 @keyframes hero-write {
-  0%,     78.5% { transform: translateX(0); }
-  82.3%,  98%   { transform: translateX(101%); animation-timing-function: steps(1, end); }
+  0%,     68%   { transform: translateX(0); }
+  71.3%,  98%   { transform: translateX(101%); animation-timing-function: steps(1, end); }
   99%,    100%  { transform: translateX(0); }
+}
+
+/* The four capability tiles cascade left to right, each arriving as the last
+   one settles. Four explicit blocks rather than one keyframe plus delays: the
+   parent group would make delays safe here, but one rule in this file beats
+   two, and the rule is that these do not get collapsed. */
+.hero-tile-1 { animation-name: hero-tile-1; }
+.hero-tile-2 { animation-name: hero-tile-2; }
+.hero-tile-3 { animation-name: hero-tile-3; }
+.hero-tile-4 { animation-name: hero-tile-4; }
+
+@keyframes hero-tile-1 {
+  0%,     80%   { opacity: 0; transform: translateX(-8px) scale(0.9); }
+  81.3%,  96%   { opacity: 1; transform: translateX(0) scale(1); }
+  98%,    100%  { opacity: 0; transform: translateX(-8px) scale(0.9); }
+}
+@keyframes hero-tile-2 {
+  0%,     81%   { opacity: 0; transform: translateX(-8px) scale(0.9); }
+  82.3%,  96%   { opacity: 1; transform: translateX(0) scale(1); }
+  98%,    100%  { opacity: 0; transform: translateX(-8px) scale(0.9); }
+}
+@keyframes hero-tile-3 {
+  0%,     82%   { opacity: 0; transform: translateX(-8px) scale(0.9); }
+  83.3%,  96%   { opacity: 1; transform: translateX(0) scale(1); }
+  98%,    100%  { opacity: 0; transform: translateX(-8px) scale(0.9); }
+}
+@keyframes hero-tile-4 {
+  0%,     83%   { opacity: 0; transform: translateX(-8px) scale(0.9); }
+  84.3%,  96%   { opacity: 1; transform: translateX(0) scale(1); }
+  98%,    100%  { opacity: 0; transform: translateX(-8px) scale(0.9); }
 }
 
 /* Set by RevealObserver when the card is out of view. */
@@ -1175,8 +1262,15 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   .hero-tick-2,
   .hero-tick-3,
   .hero-outro,
+  .hero-outro-a,
+  .hero-outro-b,
   .hero-outro-line,
   .hero-write,
+  .hero-deliver,
+  .hero-tile-1,
+  .hero-tile-2,
+  .hero-tile-3,
+  .hero-tile-4,
   .animate-float,
   .animate-float-slow,
   .animate-fade-in,

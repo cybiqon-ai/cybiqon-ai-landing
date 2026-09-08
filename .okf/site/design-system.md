@@ -204,16 +204,19 @@ an illustration — a mockup on a homepage reads as a real customer otherwise.
 
 ### The card runs a loop — five screens on a rail, 8 Sep 2026
 
-`components/AgentDemo.tsx` plays one complete job on a **26-second cycle**: a WhatsApp
+`components/AgentDemo.tsx` plays one complete job on a **30-second cycle**: a WhatsApp
 enquiry arrives, the agent reads it off the message, checks the business's own records,
 prepares a quote, and asks a human before anything is sent. It is **five screens** inside a
 fixed 196px panel, under a **stage rail** whose dots light and whose connectors sweep into
 the next dot as the run advances. Then the card **deforms** — a navy panel fills downward
-over header, rail and screens together, and *"We'll build yours."* is written across it on
-a caret before the run restarts. The card is **305px**, down from 479px when the same
-content was six rows stacked in one screen, and it sits in an `0.85fr` column rather than
-`0.95fr` so it clears the headline. The full timeline lives in `app/globals.css` under
-*"The hero agent card's loop"*. Six things about it are decisions rather than details:
+over header, rail and screens together, *"We'll build yours."* is written across it on a
+caret, and that clears for one last screen: four tiles cascading in for websites, apps,
+chrome extensions and AI agents, under *"You ideate, we deliver."* The run proves one
+agent; the statement makes the offer; the last screen is the only place the card says the
+range. The card is **305px**, down from 479px when the same content was six rows stacked in
+one screen, and it sits in an `0.85fr` column rather than `0.95fr` so it clears the
+headline. The full timeline lives in `app/globals.css` under *"The hero agent card's
+loop"*. Six things about it are decisions rather than details:
 
 - **It is CSS on a server component.** No client JS, so it runs before the bundle does and
   survives the bundle never arriving. `RevealObserver` does the one thing CSS cannot —
@@ -231,7 +234,7 @@ content was six rows stacked in one screen, and it sits in an `0.85fr` column ra
   `opacity: 1`, and every dot and connector is lit by default, so
   `prefers-reduced-motion` renders one complete readable card: run finished, rail full,
   quote waiting. It is why screen 5 carries the ₹32,500 figure as well as the approval.
-- **Nineteen keyframe blocks, and they may not be collapsed into one.** The obvious
+- **Twenty-six keyframe blocks, and they may not be collapsed into one.** The obvious
   simplification — one shared `@keyframes` plus per-element `animation-delay` — shifts each
   element's exit as much as its entry, so the rail would empty from the left while the
   right was still filling and the next cycle would overlap the last. Staggered starts with
@@ -248,13 +251,22 @@ content was six rows stacked in one screen, and it sits in an `0.85fr` column ra
   character count, so it breaks at 390px and chunks unevenly on a proportional font. The
   outro's base is clipped to nothing, so reduced motion lands on the finished **run**
   rather than the statement — the demo is the better still frame and the statement's claims
-  are already in the hero copy beside it.
+  are already in the hero copy beside it. The two closing frames are groups inside that
+  panel — `.hero-outro-a` and `.hero-outro-b` — and each gates its own children, which is
+  why a capability tile needs only an entry keyframe. The AI tile carries `FlowArrow`
+  rather than a robot or a sparkle: the card's own language for an agent is already a flow
+  of steps, and those two are the clichés the fourth rule rules out.
 - **Nothing in the card is interactive.** `Approve` is a `<span>`, so the homepage's tab
   order runs CTA → "See what we build" and never stops on a dead control inside an
   illustration. The numbers on screen 5 are **deltas of the order on screen 4** — never
   business totals. `HeroDashboardMockup` was deleted from this page for showing
   "1,247 visitors, +147%", figures that claimed nothing in particular; that line stays
   deleted. The stock and pricing figures on screen 3 are the fictional customer's records.
+
+Thirty seconds is long for a hero loop and that is the price of the seventh beat: someone
+who lands and scrolls inside ten seconds sees two of them. The run itself is unchanged, so
+the beats they are most likely to catch are the ones that demonstrate the product rather
+than the ones that sell it.
 
 Two layout traps worth knowing. `Hero.tsx` pins `AI agents` with `whitespace-nowrap`:
 with the card moved right the balancer split the phrase across lines, leaving "AI" green at

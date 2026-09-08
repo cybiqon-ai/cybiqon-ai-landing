@@ -1,13 +1,18 @@
 import {
+  Browser,
   CaretRight,
   Certificate,
   CheckCircle,
+  DeviceMobile,
+  FlowArrow,
   PaperPlaneTilt,
+  PuzzlePiece,
   WhatsappLogo,
 } from "@phosphor-icons/react/dist/ssr";
 
 /**
- * The hero's right-hand card: one complete job, five screens, on a 20-second loop.
+ * The hero's right-hand card: one complete job, five screens, then two closing frames,
+ * on a 30-second loop.
  *
  * The sentence beside it claims an agent does business work rather than just chatting.
  * A static card only asserts that. This plays it — enquiry in, message read, records
@@ -71,6 +76,16 @@ const FIELDS = [
   { label: "Quantity", value: "50 kg" },
   { label: "Product", value: "Almonds" },
   { label: "Asking for", value: "Rate" },
+];
+
+/* What the closing screen shows. FlowArrow for the agent rather than a robot or a
+   sparkle: the card's own language for an agent is already a flow of steps, and those
+   two are the clichés rule 4 rules out. */
+const CAPABILITIES = [
+  { icon: Browser, label: "Websites", tile: "hero-tile-1" },
+  { icon: DeviceMobile, label: "Apps", tile: "hero-tile-2" },
+  { icon: PuzzlePiece, label: "Extensions", tile: "hero-tile-3" },
+  { icon: FlowArrow, label: "AI agents", tile: "hero-tile-4" },
 ];
 
 const DELTAS = [
@@ -273,18 +288,40 @@ const AgentDemo = () => (
             reads it in order after the five screens. Clipped to nothing by
             default, which is why reduced motion lands on the finished run rather
             than on this — see the base-state note in globals.css. */}
-        <div className="hero-outro absolute inset-0 flex flex-col justify-center gap-2 bg-primary px-5 text-primary-foreground">
-          <p className="hero-outro-line t-body-sm text-white/70">
-            That was one agent, built for one business.
-          </p>
-          {/* The cover slides off to the right; its accent left edge is the caret. */}
-          <p className="t-h2 relative inline-block self-start text-primary-foreground">
-            We&rsquo;ll build yours.
-            <span
-              aria-hidden
-              className="hero-write absolute -inset-y-0.5 -left-0.5 right-0 border-l-2 border-accent bg-primary"
-            />
-          </p>
+        <div className="hero-outro absolute inset-0 bg-primary text-primary-foreground">
+          {/* A — the offer. */}
+          <div className="hero-outro-a absolute inset-0 flex flex-col justify-center gap-2 px-5">
+            <p className="hero-outro-line t-body-sm text-white/70">
+              That was one agent, built for one business.
+            </p>
+            {/* The cover slides off to the right; its accent left edge is the caret. */}
+            <p className="t-h2 relative inline-block self-start text-primary-foreground">
+              We&rsquo;ll build yours.
+              <span
+                aria-hidden
+                className="hero-write absolute -inset-y-0.5 -left-0.5 right-0 border-l-2 border-accent bg-primary"
+              />
+            </p>
+          </div>
+
+          {/* B — the range. The demo proves one agent; this is the only place the card
+              says what else gets built. */}
+          <div className="hero-outro-b absolute inset-0 flex flex-col justify-center gap-4 px-5">
+            <ul className="grid grid-cols-4 gap-2">
+              {CAPABILITIES.map((capability) => (
+                <li
+                  key={capability.label}
+                  className={`${capability.tile} flex flex-col items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-1.5 py-3`}
+                >
+                  <capability.icon weight="fill" aria-hidden className="h-5 w-5 text-accent" />
+                  <span className="text-center text-[10px] font-medium leading-tight tracking-tight text-white/80 sm:text-[11px]">
+                    {capability.label}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="hero-deliver t-h3 text-accent-dark">You ideate, we deliver.</p>
+          </div>
         </div>
       </div>
 

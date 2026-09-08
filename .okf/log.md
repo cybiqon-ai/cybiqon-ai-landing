@@ -1212,3 +1212,20 @@
 
   Both mechanisms and the reason a `steps()` typewriter was rejected are in
   [design system](/site/design-system.md). Worker 2,949,695 B, up 62 B.
+
+* **2026-09-08 — the hero card closes on what actually gets built.**
+
+  A seventh beat, same branch. After *"We'll build yours."* holds, the statement clears and
+  four tiles cascade in — websites, apps, chrome extensions, AI agents — under *"You
+  ideate, we deliver."* The run proves one agent; this is the only place the card says the
+  range. Cycle 26s → 30s, and every existing percentage was retimed into that frame with
+  the real-time position of each run beat unchanged.
+
+  The AI tile is `FlowArrow`, not a robot or a sparkle — the card's own language for an
+  agent is already a flow of steps, and those two are on the list of clichés this card is
+  not allowed to use.
+
+  Reduced motion is unaffected: the navy is still clipped to nothing by default, so it
+  lands on the finished run rather than on either closing frame.
+
+  Worker 2,949,706 B, up 11 B. The CSS is a static asset and costs the Worker nothing.
