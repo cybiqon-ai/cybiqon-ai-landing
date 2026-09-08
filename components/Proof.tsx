@@ -7,6 +7,14 @@ import { CLIENT_PROJECTS } from "@/data/clients";
 /**
  * The comp's "proven outcomes" band, rebuilt out of things that can be checked.
  *
+ * EVERY <img> HERE CARRIES loading="lazy", AND THAT IS NOT A MICRO-OPTIMISATION.
+ * React 19 emits a <link rel="preload" as="image"> in <head> for any server-rendered
+ * <img> that does not declare it, so without the attribute these nine images —
+ * 155 KB of press scan, storefront shot and product icons, none of them above the
+ * fold — were preloaded at high priority against the LCP element and two font files.
+ * The SEO audit on 8 Sep 2026 found it. The footer logo was the only image on the
+ * page not being preloaded, and the only one that already had the attribute.
+ *
  * The comp filled this with per-industry figures — +310% retail, 40+ leads a month,
  * 60% automated, sub-15-second replies — and a testimonial card carrying five stars, a
  * "Verified Client Partner" badge, "Pune & Mumbai", "3.2x Qualified Inquiries" and a
@@ -36,6 +44,8 @@ const Proof = () => (
             src="/img/et-clipping.webp"
             width={840}
             height={1048}
+            loading="lazy"
+            decoding="async"
             alt='Clipping from The Economic Times, Hyderabad edition, 15 August 2026, page 4 — the headline "Vernacular AI gives India&apos;s entrepreneurs a voice" and the paragraph quoting Prajjwal Pathak of Cybiqon AI.'
             className="w-full rounded-lg border border-border/60"
           />
@@ -62,6 +72,8 @@ const Proof = () => (
                 src="/img/snackly-home.webp"
                 width={900}
                 height={537}
+                loading="lazy"
+                decoding="async"
                 alt="The Snackly storefront at snacklyfoods.in — promotional bar, navigation, and the hero band showing the client's own product packaging."
                 className="w-full rounded-lg border border-border/60 transition-shadow group-hover:shadow-[0_10px_30px_-12px_rgba(0,48,79,0.35)]"
               />
@@ -100,6 +112,8 @@ const Proof = () => (
                       src={product.icon as string}
                       width={128}
                       height={128}
+                      loading="lazy"
+                      decoding="async"
                       alt=""
                       className="h-12 w-12 rounded-xl border border-border/60 transition-transform duration-300 group-hover:-translate-y-0.5"
                     />
