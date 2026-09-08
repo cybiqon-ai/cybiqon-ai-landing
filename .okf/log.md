@@ -1229,3 +1229,19 @@
   lands on the finished run rather than on either closing frame.
 
   Worker 2,949,706 B, up 11 B. The CSS is a static asset and costs the Worker nothing.
+
+* **2026-09-08 — the hero run paced down, and its timeline moved into a generator.**
+
+  3.2s a screen to 2.6s at the founder's request: the cycle went 30s → 26s and the
+  five-screen run 18.6s → 15.0s. The closing frames kept their durations.
+
+  The more useful half is `tools/hero-timeline.py`. Twenty-six keyframe blocks had been
+  retimed three times by search-and-replace, and each pass was one mistyped decimal away
+  from a visual bug nobody would attribute to a percentage. The timeline is now written
+  once in seconds and the blocks are generated from it — change the seconds, not the
+  percentages.
+
+  The floor on pace is screen 3: three record ticks 0.6s apart, and the last one needs a
+  beat to be read before the push. Below ~2.4s a screen that stops working.
+
+  Worker 2,949,649 B.
