@@ -158,7 +158,7 @@ export default function PressPage() {
           className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
         />
         <div className={`relative ${CONTAINER}`}>
-          <p className="t-eyebrow text-accent">In the press</p>
+          <p className="t-eyebrow text-accent-ink">In the press</p>
           <h1 className="t-h1 mt-2.5 max-w-[18ch] text-primary">Cybiqon in the press</h1>
           <p className="t-body-lg mt-5 max-w-[58ch] text-muted-foreground">
             One mention so far. It is in print only, so the clipping is the record — the

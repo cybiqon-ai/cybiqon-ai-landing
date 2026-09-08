@@ -50,7 +50,7 @@ const Faq = () => (
         className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
       />
       <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <p className="t-eyebrow text-accent">Questions</p>
+        <p className="t-eyebrow text-accent-ink">Questions</p>
         <h1 className="t-h1 mt-2.5 max-w-[18ch] text-primary">
           Everything people ask before signing
         </h1>
@@ -121,7 +121,7 @@ const Faq = () => (
             rel="noopener noreferrer"
             data-track="book_call"
             data-track-label="faq_cta"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(253,101,30,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(253,101,30,0.5)]"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(0,216,144,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(0,216,144,0.5)]"
           >
             <CalendarBlank weight="bold" aria-hidden className="h-4 w-4" />
             Book a free call

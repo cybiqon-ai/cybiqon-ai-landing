@@ -11,7 +11,7 @@ const WhoFor = () => (
   <section className="bg-surface py-16 lg:py-20">
     <div className="mx-auto grid max-w-[1240px] gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:items-center lg:gap-16 lg:px-8">
       <div>
-        <p className="t-eyebrow text-accent">Who this is for</p>
+        <p className="t-eyebrow text-accent-ink">Who this is for</p>
         <h2 className="t-h2 mt-2.5 text-primary">
           Businesses that have outgrown spreadsheets
         </h2>

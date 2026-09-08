@@ -74,7 +74,7 @@ export default function ProductsPage() {
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_22rem] lg:items-end">
             <div>
-              <p className="t-eyebrow text-accent">Products</p>
+              <p className="t-eyebrow text-accent-ink">Products</p>
               <h1 className="t-h1 mt-2.5 max-w-[18ch] text-primary">
                 What we&apos;ve built and shipped
               </h1>

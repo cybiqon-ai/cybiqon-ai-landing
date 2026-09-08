@@ -34,15 +34,34 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     --primary-foreground: 0 0% 100%;
     --primary-container: 205 88% 24%; /* #074770 */
 
-    /* Accent: vermilion. Eyebrows, the primary CTA, the "most popular" ribbon.
-       The comp calls this secondary-container; it is the one hot colour. */
-    --accent: 19 98% 55%;             /* #fd651e */
-    --accent-foreground: 0 0% 100%;
-    --accent-soft: 19 100% 86%;       /* #ffb599 */
-    --accent-softer: 19 100% 92%;     /* #ffdbce */
+    /* ── Accent: the logo's green ───────────────────────────────────────────
+       The Stitch comp used a vermilion here and it was never a brand colour.
+       public/logo.png samples as a blue → cyan → green gradient — #0C60E4,
+       #00B4D8, #00D890 — with no orange in it, and the palette this site had
+       before the redesign carried the comment "Blue to Green" on its own
+       gradient. The vermilion also failed contrast: white on #fd651e is
+       2.98:1, under the 4.5:1 AA asks for.
 
-    /* Tertiary: green. Positive answers, WhatsApp, "included" ticks. */
-    --secondary: 161 62% 48%;         /* #2fc88e */
+       THREE tokens, not one, because a colour this bright cannot do both jobs:
+
+         --accent      button and ribbon BACKGROUNDS, with navy text  7.31:1
+         --accent-ink  the same accent as TEXT on white               5.53:1
+         --accent-dark eyebrows and labels inside navy sections       7.31:1
+
+       Using --accent for text on white would ship 1.87:1, which is why the
+       56 `text-accent` call sites moved to `text-accent-ink`. If you add a new
+       one, pick by ground: white → ink, navy → dark, a filled button → accent. */
+    --accent: 160 100% 42%;           /* #00D890 */
+    --accent-foreground: 205 100% 15%;/* #00304f — navy, not white */
+    --accent-ink: 160 100% 24%;       /* #00784f — accent as text on white */
+    --accent-dark: 160 100% 42%;      /* #00D890 — accent as text on navy */
+    --accent-soft: 160 74% 76%;       /* #96ecc9 */
+    --accent-softer: 160 72% 89%;     /* #d3f8e8 */
+
+    /* Tertiary: a deeper green for ticks and "included".
+       Deepened from #2fc88e on 8 Sep 2026: with the CTA now green too, a tick at
+       the same lightness read as a small button. 4.55:1 on white. */
+    --secondary: 160 100% 26%;        /* #00875a */
     --secondary-foreground: 162 100% 10%;
     --tertiary-deep: 162 100% 10%;    /* #003522 */
 

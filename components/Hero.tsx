@@ -41,7 +41,7 @@ const Hero = () => (
 
         <h1 className="t-display mt-5 text-primary">
           Custom software and{" "}
-          <span className="text-accent">AI agents</span> for Indian businesses
+          <span className="text-accent-ink">AI agents</span> for Indian businesses
         </h1>
 
         <p className="t-body-lg mt-5 max-w-[54ch] text-muted-foreground">
@@ -55,11 +55,11 @@ const Hero = () => (
             below the comparison made the page read as "enquire for pricing". */}
         <p className="t-label mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-primary">
           <span>
-            Websites from <span className="font-bold text-accent">₹9,999</span>
+            Websites from <span className="font-bold text-accent-ink">₹9,999</span>
           </span>
           <span aria-hidden className="text-border">·</span>
           <span>
-            AI automation from <span className="font-bold text-accent">₹19,999</span>
+            AI automation from <span className="font-bold text-accent-ink">₹19,999</span>
           </span>
         </p>
 
@@ -70,7 +70,7 @@ const Hero = () => (
             rel="noopener noreferrer"
             data-track="book_call"
             data-track-label="hero"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-6 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-6 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(0,216,144,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(0,216,144,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             <CalendarBlank weight="bold" aria-hidden className="h-4 w-4" />
             Book a free 30-min call
@@ -87,7 +87,7 @@ const Hero = () => (
         <ul className="mt-7 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-x-6">
           {MICRO.map((item) => (
             <li key={item.text} className="flex items-center gap-2 text-muted-foreground">
-              <item.icon weight="fill" aria-hidden className="h-4 w-4 shrink-0 text-accent" />
+              <item.icon weight="fill" aria-hidden className="h-4 w-4 shrink-0 text-accent-ink" />
               <span className="t-body-sm">{item.text}</span>
             </li>
           ))}

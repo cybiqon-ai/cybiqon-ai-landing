@@ -97,7 +97,7 @@ const CaseStudies = () => (
         className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
       />
       <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <p className="t-eyebrow text-accent">Case studies</p>
+        <p className="t-eyebrow text-accent-ink">Case studies</p>
         <h1 className="t-h1 mt-2.5 max-w-[20ch] text-primary">
           Two builds, described honestly
         </h1>
@@ -121,7 +121,7 @@ const CaseStudies = () => (
         <div className="rounded-2xl border border-border/60 bg-surface-lowest p-6 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)] lg:p-10">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="t-label-sm text-accent">{LEADZ.industry}</p>
+              <p className="t-label-sm text-accent-ink">{LEADZ.industry}</p>
               <h2 className="t-h2 mt-1.5 text-primary">{LEADZ.client}</h2>
             </div>
             <a
@@ -206,7 +206,7 @@ const CaseStudies = () => (
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
-              <p className="t-label-sm text-accent">D2C ecommerce</p>
+              <p className="t-label-sm text-accent-ink">D2C ecommerce</p>
               <h2 className="t-h2 mt-1.5 text-primary">{snackly.name}</h2>
               <p className="t-body-lg mt-4 text-muted-foreground">{snackly.summary}</p>
               <ul className="mt-6 space-y-2.5">
@@ -259,7 +259,7 @@ const CaseStudies = () => (
           rel="noopener noreferrer"
           data-track="book_call"
           data-track-label="case_studies_cta"
-          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(253,101,30,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(253,101,30,0.5)]"
+          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(0,216,144,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(0,216,144,0.5)]"
         >
           <CalendarBlank weight="bold" aria-hidden className="h-4 w-4" />
           Book a free call

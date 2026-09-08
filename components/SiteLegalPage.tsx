@@ -44,7 +44,7 @@ export default function SiteLegalPage({ kind }: { kind: "privacy" | "terms" }) {
 
       <section className="bg-surface pb-12 pt-32 lg:pb-16 lg:pt-40">
         <div className="mx-auto max-w-[52rem] px-4 sm:px-6 lg:px-8">
-          <p className="t-eyebrow text-accent">Legal</p>
+          <p className="t-eyebrow text-accent-ink">Legal</p>
           <h1 className="t-h1 mt-2.5 text-primary">{title}</h1>
           <p className="t-body-lg mt-4 max-w-[54ch] text-muted-foreground">{lede}</p>
           <p className="t-body-sm mt-5 text-muted-foreground">

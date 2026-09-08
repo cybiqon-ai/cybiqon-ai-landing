@@ -80,7 +80,7 @@ const Navbar = () => {
                     {link.label}
                     {/* The price badge from the comp, on Pricing. */}
                     {link.path === "/pricing" && (
-                      <span className="rounded-full bg-accent-softer px-1.5 py-0.5 text-[11px] font-bold text-[hsl(var(--accent))]">
+                      <span className="rounded-full bg-accent-softer px-1.5 py-0.5 text-[11px] font-bold text-accent-ink">
                         ₹9,999+
                       </span>
                     )}

@@ -81,7 +81,7 @@ const AgentDemo = () => (
                 className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
                   step.state === "done"
                     ? "bg-surface-high text-primary"
-                    : "bg-accent-softer text-[hsl(var(--accent))]"
+                    : "bg-accent-softer text-accent-ink"
                 }`}
               >
                 <step.icon
@@ -104,7 +104,7 @@ const AgentDemo = () => (
                   style={{ animationDelay: `${700 + i * 260}ms` }}
                 />
               ) : (
-                <span className="t-label-sm mt-1 shrink-0 text-[hsl(var(--accent))]">now</span>
+                <span className="t-label-sm mt-1 shrink-0 text-accent-ink">now</span>
               )}
             </li>
           ))}
@@ -120,7 +120,7 @@ const AgentDemo = () => (
       {/* Credential card. Both are real: the DPIIT certificate and the D-U-N-S
           registration are documents on file, not marketing copy. */}
       <div className="absolute -bottom-6 -left-4 z-10 hidden items-center gap-2.5 rounded-xl border border-border bg-white px-3.5 py-2.5 shadow-[0_12px_30px_-10px_rgba(0,48,79,0.35)] sm:flex">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-softer text-[hsl(var(--accent))]">
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-softer text-accent-ink">
           <Certificate weight="fill" aria-hidden className="h-5 w-5" />
         </span>
         <div>

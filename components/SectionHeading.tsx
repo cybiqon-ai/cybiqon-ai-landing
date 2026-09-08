@@ -20,7 +20,7 @@ const SectionHeading = ({
   align?: "center" | "left";
 }) => (
   <header className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-    <p className="t-eyebrow text-accent">{eyebrow}</p>
+    <p className="t-eyebrow text-accent-ink">{eyebrow}</p>
     <h2 className="t-h2 mt-2.5 text-primary">{title}</h2>
     {lede ? <p className="t-body-lg mt-3 text-muted-foreground">{lede}</p> : null}
   </header>
