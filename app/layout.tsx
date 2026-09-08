@@ -1,21 +1,39 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import RevealObserver from "@/components/RevealObserver";
+import TrackedEvents from "@/components/TrackedEvents";
 import ThemeScope from "@/components/ThemeScope";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import "./globals.css";
 
-const geist = Geist({
+
+// The marketing typefaces, taken from the Stitch comp this page is built to —
+// projects/7623040016974616845, "Cybiqon AI Homepage Redesign".
+//
+// Plus Jakarta Sans carries the headings, Inter the body. Two families with clearly
+// different jobs rather than one family doing both, which is what the comp specifies
+// and what the type scale in globals.css is measured against.
+//
+// The Tailwind key for the display face is `jakarta`, NOT `heading` — Navbar.tsx and
+// Footer.tsx both apply a `font-heading` class that has never resolved to anything, and
+// defining that name would silently restyle the wordmark on every page.
+//
+// Font files are static assets, so this costs zero Worker bytes against the 3 MiB cap.
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-geist",
+  weight: ["600", "700", "800"],
+  variable: "--font-jakarta",
   display: "swap",
 });
 
-const siteUrl = "https://cybiqon.in";
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});const siteUrl = "https://cybiqon.in";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -42,12 +60,15 @@ export const metadata: Metadata = {
     siteName: "Cybiqon AI Solutions",
     locale: "en_IN",
     url: siteUrl,
+    // /logo.png is 500x500 and was declared here as 1200x630, so every platform reading
+    // this metadata got a wrong aspect-ratio hint and a square image in a 1.91:1 slot.
+    // The site default is now a real card at the size it claims. See .okf/site/seo.md F4.
     images: [
       {
-        url: "/logo.png",
+        url: "/og/home.png",
         width: 1200,
         height: 630,
-        alt: "Cybiqon AI Solutions - Web Development & AI Solutions",
+        alt: "Your business online in 2–3 weeks — Cybiqon AI Solutions",
       },
     ],
   },
@@ -137,7 +158,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
       <head>
         <meta httpEquiv="content-language" content="en-IN" />
         <script
@@ -177,7 +198,7 @@ export default function RootLayout({
           <main>{children}</main>
         </ThemeScope>
         <RevealObserver />
-        <Sonner />
+        <TrackedEvents />
 
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-JBTXQ3BF5C"

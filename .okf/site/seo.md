@@ -3,7 +3,7 @@ type: Domain
 title: SEO
 description: Structured data, sitemap, RSS and per-page metadata are all in place as of 25 Jul 2026; the blog is indexed and the remaining gap is ranking, not discovery.
 tags: [seo, metadata, json-ld, sitemap, search-console, rss, aeo, ai-crawlers]
-timestamp: 2026-08-29T00:00:00Z
+timestamp: 2026-09-06T00:00:00Z
 ---
 
 # Overview
@@ -85,11 +85,74 @@ Now: `/blog?page=1..9` server-rendered with real hrefs (verified live, 76/76 pos
 reachable), 21 `/blog/tag/<slug>` archives, and a sitemap listing all 120 URLs —
 76 posts, 21 tags, 8 paginated indexes, 15 static.
 
+# Service pages — added 7 Sep 2026
+
+**`/services` plus seven children carry the commercial search terms.** The homepage was
+rewritten around positioning — custom software and AI agents — which reads better and ranks
+for less than the old page's literal "Website Development" / "Android App Development" /
+"Bulk Scraping" / "Chrome Extensions" headings. Both can be true, but not on one page.
+
+| Route | Term |
+|---|---|
+| `/services` | custom software development for Indian businesses (**primary**) |
+| `/services/custom-websites` | website development |
+| `/services/ai-agents` | AI agent development, AI automation, business automation |
+| `/services/whatsapp-automation` | WhatsApp automation |
+| `/services/android-apps` | Android app development |
+| `/services/admin-panels` | custom admin panels, internal software |
+| `/services/chrome-extensions` | Chrome extension development |
+| `/services/web-scraping` | web scraping, data extraction |
+
+**Seven, not the nine terms requested.** "AI Automation", "Business Automation" and "AI
+Agent Development" are one intent with three names; three near-identical pages would
+cannibalise each other and read as thin, which this site already refuses to ship elsewhere.
+They are one page naming the alternatives in its copy, `keywords` and schema.
+
+Each carries `Service` + `FAQPage` + `BreadcrumbList` on top of the layout's `Organization`
+and `ProfessionalService` — five schema types per page. Routes are **concrete shims**, not
+`/services/[slug]`, for the reason in [Routes](/site/routes.md): Next 16 emits a Node ISR
+fallback for a dynamic segment even with `dynamicParams = false` and next-on-pages rejects
+it.
+
+**They cost nothing.** Eight new routes added **zero** Worker functions — all prerendered
+static — and the bundle moved 3.4 KB, from the nav link. This is the practical proof of the
+rule in [design system](/site/design-system.md): only the 12 edge routes count.
+
+`data/llms.config.json` and `app/sitemap.ts` both need updating for any new route — the
+pre-push hook runs `check:llms` and blocks on an unlisted one, which is how these were
+caught. 49 routes covered now.
+
+# Verifiable trust claims — 7 Sep 2026
+
+Every credibility claim on the homepage now carries either a link to evidence or a
+reference number someone can look up:
+
+| Claim | Backed by |
+|---|---|
+| Startup India, DPIIT | **DIPP256002**, checkable on the Startup India portal |
+| Registered LLP | **LLPIN ACV-9817**, checkable on the MCA portal. Incorporated 5 Mar 2026 |
+| D-U-N-S | **772066074**, checkable through D&B |
+| The Economic Times | links to `/press`, which shows the scanned page |
+| Snackly | links to the live site at `snacklyfoods.in` |
+| Testimonial | links to `/case-studies` |
+| 100% code ownership | a promise, and positioned last so it does not read as a lookup |
+
+Every claim in that row now carries a reference. The LLPIN closed the last gap on
+7 Sep 2026 — its certificate is a scan, so the number was supplied by hand rather than
+extracted.
+
+⚠️ **The incorporation certificate also carries the LLP's PAN and TAN. Neither is on the
+site and neither should be added.** They are tax identifiers rather than registry ones, a
+PAN is used for identity verification in India, and this is the org's only public repo
+where a push deploys production. Nothing a customer needs to verify about this company
+requires either. The LLPIN, DIPP number and D-U-N-S are all public registry identifiers
+and do the job.
+
 # Still missing
 
 | Gap | Consequence |
 |---|---|
-| **No OG image generation for the 14 marketing pages** | ⚠️ worse than this row said — measured 10 Aug 2026, **9 of them emit no `og:image` tag at all**, they do not fall back to `/logo.png`. See F4 in the audit below. Narrowed 1 Aug 2026: `/lab` posts now get a real 1200×630 card each, rendered by `tools/social-media-manager/lab/og_card.py` at publish time and served from `media.cybiqon.in/lab/og/<slug>.png`. The same approach would work for the marketing pages and has not been done. |
+| ~~**No OG image generation for the 14 marketing pages**~~ | **Closed 6 Sep 2026.** Nine pages (`/`, `/about`, `/pricing`, `/process`, `/case-studies`, `/faq`, `/contact`, `/free-website`, `/products`) now emit a real 1200×630 card from `public/og/`, rendered by `tools/social-media-manager/lab/marketing_cards.py` — a new caller for `og_card.render_card` and its already-defined `MARKETING` theme, which had none. The site default previously pointed at `/logo.png`, **500×500 declared as 1200×630**. The cause of the eight empties is worth keeping: **Next does not deep-merge `openGraph`**, so a page defining title/description/url/type replaces the parent object and silently drops the inherited `images`. |
 | ~~`sitemap.ts` `lastModified`~~ | **Closed 6 Aug 2026.** Static pages now use a `STATIC_LAST_MODIFIED` literal that is bumped by hand when a page actually changes; `/lab` posts use `updated_at ?? created_at`. `/blog` posts already used their real dates. |
 | **No author / E-E-A-T page for `/blog`** | MSME posts still credit "Cybiqon Team" with no link. Closed for `/lab` on 1 Aug 2026: `/lab/about` is a real author page with `Person` JSON-LD, and lab posts carry a named byline linking to it. |
 | **No FAQ, TL;DR or `citation` schema on `/blog`** | Built for `/lab` on 6 Aug 2026 and deliberately not ported: the MSME posts are agent-written and an auto-generated FAQ would be invented Q&A, which is the one thing `FAQPage` must not contain. |
@@ -186,16 +249,24 @@ ranks 8th–20th for, where a small improvement actually converts.
 
 **GA4 only** (`G-JBTXQ3BF5C`), inline in `app/layout.tsx` via `next/script`.
 
-**Zero events fire on the marketing site.** Audit-form submissions and WhatsApp clicks
-are untracked, so no *lead* conversion is currently measurable. No GTM, no Plausible, no
+**The marketing site started firing events on 6 Sep 2026.** It had fired none since
+install — the `config` call was the only `gtag` call outside `/lab`, so pageviews were
+measured and nothing else, and no conversion could be attributed to the page that produced
+it. `components/TrackedEvents.tsx` is one delegated click listener in the root layout: a
+control opts in with `data-track` / `data-track-label`, which keeps every section a server
+component instead of putting an `onClick` on each CTA. Live now: `book_call` (hero, navbar
+desktop, navbar mobile, closing CTA) and `whatsapp_click` (floating widget, homepage
+contact list). Cost 1,778 B across the five edge functions.
+
+**Still untracked:** the free-audit form and the Launch-5 apply. No GTM, no Plausible, no
 Clarity, no Meta pixel.
 
 `/lab` is the exception and has been since 1 Aug 2026 — this concept said "zero events
 fire" flatly until 6 Aug, which was wrong. `lib/analytics.ts` no-ops when `gtag` is
 absent, and every call site is under `/lab`: `lab_cta_click` (`{method: call | email |
-linkedin}`), `lab_subscribe` (`{source}`) and `lab_share` (`{method, slug}`). Adopting the
-same helper on the audit form, the Launch-5 apply and the WhatsApp widget is still the
-open work.
+linkedin}`), `lab_subscribe` (`{source}`) and `lab_share` (`{method, slug}`). The WhatsApp
+widget adopted the same helper on 6 Sep 2026; the audit form and the Launch-5 apply have
+not.
 
 ### F9 — every article page dropped its Twitter handles · FIXED 12 Aug 2026
 

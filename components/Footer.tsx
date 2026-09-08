@@ -9,7 +9,12 @@ const Footer = () => {
           <div>
             <Link href="/" className="flex items-center gap-1 mb-4 hover:opacity-80 transition-opacity">
               <img src="/logo.png" alt="Cybiqon AI Logo" className="w-6 h-6 object-contain" loading="lazy" />
-              <span className="text-xl font-bold font-heading gradient-text">Cybiqon AI</span>
+              <span
+                className="font-anek text-[1.35rem] text-primary"
+                style={{ fontVariationSettings: '"wght" 700, "wdth" 88' }}
+              >
+                Cybiqon AI
+              </span>
             </Link>
             <p className="text-muted-foreground text-sm">
               Empowering MSMEs with modern websites and AI automation solutions.

@@ -13,6 +13,14 @@ export const metadata: Metadata = {
       "Transparent pricing for business websites, mobile apps and AI automation for Indian MSMEs. Fixed quotes, no hidden costs — websites start at ₹9,999.",
     url: "https://cybiqon.in/pricing",
     type: "website",
+    images: [
+      {
+        url: "/og/pricing.png",
+        width: 1200,
+        height: 630,
+        alt: "Every price, published — Cybiqon AI Solutions",
+      },
+    ],
   },
 };
 

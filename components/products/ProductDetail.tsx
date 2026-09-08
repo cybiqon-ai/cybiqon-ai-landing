@@ -1,10 +1,22 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, GooglePlayLogo } from "@phosphor-icons/react/dist/ssr";
 import { STATUS_LABEL, getProduct } from "@/data/products";
 
 const siteUrl = "https://cybiqon.in";
 
+/**
+ * A product page that shows the product.
+ *
+ * These carried no imagery at all until 7 Sep 2026 — a page about an app, with the app's
+ * own launcher icon and store screenshots sitting unused in its repo. The icon is in the
+ * header and the screenshots are a strip below it, where both exist.
+ *
+ * Ledger stays here deliberately. The index and category pages came off it because a
+ * catalogue of ruled rows read as a seam behind the redesigned chrome, but this page is a
+ * spec document — a summary, a rationale and a labelled feature list — and the ruled
+ * treatment is the right form for that. See .okf/site/design-system.md.
+ */
 export default function ProductDetail({ slug }: { slug: string }) {
   const app = getProduct(slug);
   if (!app) notFound();
@@ -55,6 +67,15 @@ export default function ProductDetail({ slug }: { slug: string }) {
 
           <div className="grid gap-8 md:grid-cols-[1fr_16rem] md:items-start md:gap-12">
             <div>
+              {app.icon && (
+                <img
+                  src={app.icon}
+                  width={128}
+                  height={128}
+                  alt=""
+                  className="mb-5 h-16 w-16 rounded-2xl border border-border"
+                />
+              )}
               <h1 className="text-3xl font-semibold leading-[1.1] tracking-tight text-foreground md:text-4xl">
                 {app.name}
               </h1>
@@ -87,12 +108,40 @@ export default function ProductDetail({ slug }: { slug: string }) {
               rel="noopener noreferrer"
               className="mt-8 inline-flex items-center gap-2 bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:opacity-90 active:scale-[0.98]"
             >
+              <GooglePlayLogo weight="fill" aria-hidden className="h-4 w-4" />
               Get it on Google Play
-              <ArrowUpRight strokeWidth={1.5} className="h-4 w-4" />
+              <ArrowUpRight weight="bold" aria-hidden className="h-4 w-4" />
             </a>
           )}
         </div>
       </section>
+
+      {/* The screenshots, where real ones exist. Horizontal scroll rather than a grid:
+          phone captures are tall, and three of them in a row on desktop would push the
+          rest of the page below the fold for no gain. */}
+      {app.shots && app.shots.length > 0 && (
+        <section className="pb-12 md:pb-16">
+          <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
+            <h2 className="mb-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              Screens
+            </h2>
+            <ul className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 md:mx-0 md:px-0">
+              {app.shots.map((src, i) => (
+                <li key={src} className="shrink-0 snap-start">
+                  <img
+                    src={src}
+                    width={360}
+                    height={640}
+                    loading="lazy"
+                    alt={`${app.name} screenshot ${i + 1}`}
+                    className="h-[420px] w-auto rounded-xl border border-border bg-muted"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       {/* Why it exists — the part a template leaves out. */}
       <section className="pb-14 md:pb-20">

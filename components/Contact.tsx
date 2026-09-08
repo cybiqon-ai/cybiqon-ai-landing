@@ -1,117 +1,81 @@
-"use client";
+import { CalendarBlank, Check, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { TIDYCAL } from "@/data/homepage";
 
-import { Button } from "@/components/ui/button";
-import { Calendar, Mail, Phone, ArrowRight, FileSearch } from "lucide-react";
-import Link from "next/link";
+/**
+ * The comp's closing CTA: navy field, pill badge, two buttons, a row of reassurances.
+ *
+ * The comp's badge read "Limited Monthly Onboarding Slots", which is scarcity marketing
+ * against a slot counter (data/launch5.ts) that holds a real zero. The badge here states
+ * the actual commitment instead.
+ */
+const REASSURANCES = [
+  "No credit card needed",
+  "No pushy sales pitch",
+  "You talk to the founders",
+  "A quote within 24 hours",
+];
 
-const Contact = () => {
-  const handleBookCall = () => {
-    window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
-  };
+const Contact = () => (
+  <section id="contact" className="relative overflow-hidden bg-primary py-16 text-primary-foreground lg:py-24">
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-accent/15 blur-3xl"
+    />
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-secondary/10 blur-3xl"
+    />
 
-  return (
-    <section id="contact" className="py-8 md:py-18 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/50 to-transparent" />
+    <div className="relative mx-auto max-w-[1240px] px-4 text-center sm:px-6 lg:px-8">
+      <p className="t-label-sm inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+        Free, and there is nothing to sign
+      </p>
 
-      <div className="container mx-auto px-4 relative">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-8 animate-fade-in">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
-              Ready to <span className="text-primary">Grow</span> Your Business?
-            </h2>
-            <p className="text-sm md:text-base text-muted-foreground mb-6">
-              Let&apos;s discuss how we can help you grow online
-            </p>
-          </div>
+      <h2 className="t-display mx-auto mt-5 max-w-[20ch] text-white">
+        Ready to get your business online?
+      </h2>
 
-          <div className="glass-card p-6 md:p-8">
-            <div className="text-center mb-6">
-              <Button
-                onClick={handleBookCall}
-                size="lg"
-                variant="accent"
-                className="text-sm px-8"
-              >
-                <Calendar className="mr-2 w-5 h-5" />
-                Book a free call
-              </Button>
-              <p className="text-xs text-muted-foreground mt-3">
-                Get instant answers, exact quote, and timeline — no commitment required
-              </p>
-              <p className="text-xs font-medium text-primary mt-1.5">
-                We respond within 24 hours — guaranteed
-              </p>
-            </div>
+      <p className="t-body-lg mx-auto mt-4 max-w-[58ch] text-white/70">
+        Thirty minutes on a call and you leave with an exact quote and a timeline — or with
+        the honest answer that we are not the right fit for what you need.
+      </p>
 
-            <div className="flex items-center gap-3 my-6">
-              <div className="flex-1 border-t border-border"></div>
-              <span className="text-xs text-muted-foreground">or reach out directly</span>
-              <div className="flex-1 border-t border-border"></div>
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-3">
-              <a
-                href="mailto:support@cybiqon.in"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
-              >
-                <div className="icon-chip rounded-full w-10 h-10 group-hover:scale-110 transition-transform">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-sm mb-0.5">Email Us</p>
-                  <p className="text-xs text-muted-foreground">support@cybiqon.in</p>
-                </div>
-              </a>
-
-              <a
-                href="https://wa.me/919250711473"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
-              >
-                <div className="icon-chip rounded-full w-10 h-10 group-hover:scale-110 transition-transform">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-sm mb-0.5">WhatsApp / Call</p>
-                  <p className="text-xs text-muted-foreground">+91 92507 11473</p>
-                </div>
-              </a>
-
-              {/* Free Website Audit tile — hidden with the other free-audit prompts. */}
-              {false && (
-              <Link
-                href="/free-audit"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
-              >
-                <div className="icon-chip rounded-full w-10 h-10 group-hover:scale-110 transition-transform">
-                  <FileSearch className="w-5 h-5" />
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-sm mb-0.5">Free Website Audit</p>
-                  <p className="text-xs text-muted-foreground">Get a detailed review</p>
-                </div>
-              </Link>
-              )}
-
-              <Link
-                href="/contact"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 hover:shadow-md group"
-              >
-                <div className="icon-chip rounded-full w-10 h-10 group-hover:scale-110 transition-transform">
-                  <ArrowRight className="w-5 h-5" />
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-sm mb-0.5">More Options</p>
-                  <p className="text-xs text-muted-foreground">Visit Contact Page</p>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </div>
+      <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href={TIDYCAL}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="book_call"
+          data-track-label="footer_cta"
+          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-accent px-7 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_14px_rgba(253,101,30,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(253,101,30,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:w-auto"
+        >
+          <CalendarBlank weight="bold" aria-hidden className="h-4 w-4" />
+          Book a free 30-min call
+        </a>
+        <a
+          href="https://wa.me/919250711473"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="whatsapp_click"
+          data-track-label="footer_cta"
+          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#128C7E] px-7 text-[15px] font-semibold text-white transition-colors hover:bg-[#0f7568] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:w-auto"
+        >
+          <WhatsappLogo weight="fill" aria-hidden className="h-4.5 w-4.5" />
+          WhatsApp +91 92507 11473
+        </a>
       </div>
-    </section>
-  );
-};
+
+      <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        {REASSURANCES.map((item) => (
+          <li key={item} className="t-body-sm flex items-center gap-1.5 text-white/70">
+            <Check weight="bold" aria-hidden className="h-3.5 w-3.5 text-secondary" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+);
 
 export default Contact;

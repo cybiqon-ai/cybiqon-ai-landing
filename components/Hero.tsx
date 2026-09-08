@@ -1,122 +1,102 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, TrendingUp } from "lucide-react";
 import Link from "next/link";
-import AnimatedBackground from "./AnimatedBackground";
-import HeroDashboardMockup from "./HeroDashboardMockup";
+import { ArrowRight, CalendarBlank, Code, Lock, Lightning } from "@phosphor-icons/react/dist/ssr";
+import { TIDYCAL } from "@/data/homepage";
+import AgentDemo from "./AgentDemo";
 
-const Hero = () => {
-  const handleBookCall = () => {
-    window.open('https://tidycal.com/itspyguru/cybiqon-30-minute-meeting', '_blank');
-  };
+/**
+ * Built to the Stitch comp — projects/7623040016974616845, "Cybiqon AI Homepage Redesign".
+ *
+ * A server component with no entrance animation on the h1: it is the LCP element and it
+ * paints on the first frame. An earlier attempt at this redesign animated it with
+ * framer-motion, which server-rendered it at opacity:0 and left the headline waiting on
+ * hydration — the wrong trade on the mobile networks this page sells into.
+ *
+ * The ambient blurred fields behind the content are the comp's own device and are most of
+ * where the section gets its depth. They are pointer-events-none and purely decorative.
+ */
+const MICRO = [
+  { icon: Code, text: "Written for you, not assembled from a template" },
+  { icon: Lightning, text: "Websites live in 2–3 weeks" },
+  { icon: Lock, text: "100% code and domain ownership" },
+];
 
-  const scrollToSolutions = () => {
-    document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' });
-  };
+const Hero = () => (
+  <section className="relative overflow-hidden bg-surface pb-16 pt-32 lg:pb-24 lg:pt-40">
+    {/* Ambient backdrops */}
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-[hsl(var(--surface-high))] opacity-70 blur-3xl"
+    />
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -right-32 top-1/2 h-96 w-96 rounded-full bg-accent-softer opacity-60 blur-3xl"
+    />
 
-  return (
-    <section className="relative min-h-[85dvh] lg:min-h-[100dvh] flex items-center overflow-hidden pt-28 pb-20 lg:pt-16 lg:pb-10">
-      <AnimatedBackground />
+    <div className="relative mx-auto grid max-w-[1240px] items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8">
+      <div>
+        <p className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+          <span className="t-label-sm text-primary">Custom software and AI for Indian businesses</span>
+        </p>
 
-      <div className="relative z-10 mx-auto max-w-[90rem] px-6 md:px-10 lg:px-16">
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-center">
-          {/* Left column - Text content */}
-          <div className="space-y-5 md:space-y-4">
-            {/* Eyebrow text */}
-            <div className="lg:text-left text-center">
-              <p className="inline-flex items-center gap-2 px-3 py-1.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground">
-                <TrendingUp className="w-3.5 h-3.5 text-primary" />
-                Helping Indian MSMEs Grow Online Since 2025
-              </p>
-            </div>
+        <h1 className="t-display mt-5 text-primary">
+          Custom software and{" "}
+          <span className="text-accent">AI agents</span> for Indian businesses
+        </h1>
 
-            {/* Main headline */}
-            <h1 className="display text-4xl md:text-5xl lg:text-[3.25rem] xl:text-6xl lg:text-left text-center">
-              <span className="text-foreground">Your business online in </span>
-              <span className="gradient-text">2-3 weeks</span>
-            </h1>
+        <p className="t-body-lg mt-5 max-w-[54ch] text-muted-foreground">
+          Agents that do real work, admin panels, storefronts and automation — written for
+          your business rather than assembled from a template, and you own every line of
+          the code.
+        </p>
 
-            <p className="text-base md:text-base text-muted-foreground leading-relaxed max-w-lg lg:text-left text-center">
-              Websites and WhatsApp automation built for Indian MSMEs — fast, affordable, and you own 100% of the code.
-            </p>
+        {/* Prices in the hero rather than four sections down. The entry price is what
+            makes a small business willing to have the conversation at all, and burying it
+            below the comparison made the page read as "enquire for pricing". */}
+        <p className="t-label mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-primary">
+          <span>
+            Websites from <span className="font-bold text-accent">₹9,999</span>
+          </span>
+          <span aria-hidden className="text-border">·</span>
+          <span>
+            AI automation from <span className="font-bold text-accent">₹19,999</span>
+          </span>
+        </p>
 
-            <p className="text-sm md:text-sm font-semibold text-primary lg:text-left text-center">
-              Fast delivery. Fair pricing. Zero tech headaches.
-            </p>
-
-            {/* Trust signals - micro */}
-            <div className="flex flex-wrap lg:justify-start justify-center gap-3 md:gap-5 text-sm md:text-sm text-muted-foreground">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                <span>Live in 2-3 weeks</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                <span>You own the code</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-secondary" />
-                <span>Founder-led, based in India</span>
-              </div>
-            </div>
-
-            {/* CTAs — one reserved accent (orange) for the primary action */}
-            <div className="flex flex-col sm:flex-row gap-3 lg:justify-start justify-center items-center pt-1">
-              <Button
-                onClick={handleBookCall}
-                size="lg"
-                variant="accent"
-                className="text-sm px-6"
-              >
-                Book a free call <ArrowRight />
-              </Button>
-              <Button
-                onClick={scrollToSolutions}
-                size="lg"
-                variant="outline"
-                className="text-sm px-6"
-              >
-                See what we build
-              </Button>
-            </div>
-
-            {/* Free-audit secondary CTA — hidden, not deleted.
-                The hero now leads with one action instead of two, so the free audit
-                doesn't compete with the primary CTA. /free-audit itself still exists and
-                is still linked from the footer and the sitemap; only this hero prompt is
-                hidden. Restore by removing the wrapping block below. */}
-            {false && (
-              <div className="text-sm text-muted-foreground lg:text-left text-center">
-                <span>
-                  Not ready to talk? Get a{" "}
-                  <Link href="/free-audit" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80 transition-colors">
-                    free website audit
-                  </Link>{" "}
-                  — no strings attached.
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Right column - dashboard mockup.
-              HeroSocialProof.tsx used to render below this and was DELETED on
-              1 Aug 2026, along with features/LiveActivityTicker and
-              features/SocialProofBar. Keeping the reason where someone would rebuild
-              it: it showed "{N} MSME owners got their free audit this week" beside a
-              pulsing "Live" badge and five invented names (Ramesh S., Priya K.,
-              Vijay M., Anjali J., Suresh K.). The number came from useLiveCount(47) —
-              it started at 47 and randomly incremented every 15 seconds. The real
-              audit_leads table held 2 rows. That is a fabricated claim on the homepage
-              of a company selling trust to small businesses. It should not come back
-              without real numbers behind it. */}
-          <div className="hidden lg:block pt-4">
-            <HeroDashboardMockup />
-          </div>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a
+            href={TIDYCAL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track="book_call"
+            data-track-label="hero"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-6 text-[15px] font-semibold text-accent-foreground shadow-[0_4px_12px_rgba(253,101,30,0.25)] transition-all hover:shadow-[0_6px_18px_rgba(253,101,30,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+          >
+            <CalendarBlank weight="bold" aria-hidden className="h-4 w-4" />
+            Book a free 30-min call
+          </a>
+          <Link
+            href="/services"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-border bg-white px-6 text-[15px] font-medium text-primary transition-colors hover:bg-surface-low focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            See what we build
+            <ArrowRight weight="bold" aria-hidden className="h-4 w-4" />
+          </Link>
         </div>
+
+        <ul className="mt-7 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-x-6">
+          {MICRO.map((item) => (
+            <li key={item.text} className="flex items-center gap-2 text-muted-foreground">
+              <item.icon weight="fill" aria-hidden className="h-4 w-4 shrink-0 text-accent" />
+              <span className="t-body-sm">{item.text}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-    </section>
-  );
-};
+
+      <AgentDemo />
+    </div>
+  </section>
+);
 
 export default Hero;

@@ -13,6 +13,14 @@ export const metadata: Metadata = {
       "Who we are, which businesses we work with, what it costs, how long it takes, and whether you need technical knowledge — answered plainly.",
     url: "https://cybiqon.in/faq",
     type: "website",
+    images: [
+      {
+        url: "/og/faq.png",
+        width: 1200,
+        height: 630,
+        alt: "The questions that come up on every call — Cybiqon AI Solutions",
+      },
+    ],
   },
 };
 

@@ -10,45 +10,75 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
 @layer base {
   :root {
     /* Base Colors */
-    --background: 0 0% 100%;
-    --foreground: 215 25% 27%; /* Deep navy for text */
+    --background: 240 100% 99%;   /* #f9f9ff — surface */
+    --foreground: 218 46% 12%;    /* #111c2d — on-surface */ /* Deep navy for text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card: 0 0% 100%;            /* #ffffff — surface-container-lowest */
+    --card-foreground: 218 46% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 218 46% 12%;
 
-    /* Primary: Trust Blue (Indigo 600 #2563EB) */
-    --primary: 221 83% 53%;
+    /* ── Palette — from the Stitch comp, 6 Sep 2026 ─────────────────────────
+     projects/7623040016974616845 "Cybiqon AI Homepage Redesign". These are the
+     comp's own Material-3 tokens, not an interpretation of a screenshot. The
+     alternating surface ladder below is where the page gets its depth; two
+     earlier attempts at this redesign were flat white-on-white and were
+     rejected for exactly that.
+
+     Anything named --surface-* is a GROUND for a section. Sections alternate
+     surface / surface-container-lowest / surface-container-low down the page. */
+
+    /* Primary: deep navy. Dark section grounds, headings, primary buttons. */
+    --primary: 205 100% 15%;          /* #00304f */
     --primary-foreground: 0 0% 100%;
+    --primary-container: 205 88% 24%; /* #074770 */
 
-    /* Secondary: Growth Green (Emerald 500 #10B981) */
-    --secondary: 160 84% 39%;
-    --secondary-foreground: 0 0% 100%;
-
-    /* Accent: Energy Orange (Amber 500 #F59E0B) */
-    --accent: 38 92% 50%;
+    /* Accent: vermilion. Eyebrows, the primary CTA, the "most popular" ribbon.
+       The comp calls this secondary-container; it is the one hot colour. */
+    --accent: 19 98% 55%;             /* #fd651e */
     --accent-foreground: 0 0% 100%;
+    --accent-soft: 19 100% 86%;       /* #ffb599 */
+    --accent-softer: 19 100% 92%;     /* #ffdbce */
+
+    /* Tertiary: green. Positive answers, WhatsApp, "included" ticks. */
+    --secondary: 161 62% 48%;         /* #2fc88e */
+    --secondary-foreground: 162 100% 10%;
+    --tertiary-deep: 162 100% 10%;    /* #003522 */
+
+    /* Surface ladder — the section grounds, lightest to deepest. */
+    --surface-lowest: 0 0% 100%;      /* #ffffff */
+    --surface: 240 100% 99%;          /* #f9f9ff */
+    --surface-low: 228 100% 97%;      /* #f0f3ff */
+    --surface-container: 224 100% 95%;/* #e7eeff */
+    --surface-high: 223 100% 93%;     /* #dee8ff */
+    --surface-dim: 220 55% 88%;       /* #cfdaf2 */
 
     /* Success: Emerald 600 */
     --success: 160 84% 35%;
     --success-foreground: 0 0% 100%;
 
     /* Muted colors — warm neutral surface (calmer than cool slate) */
-    --muted: 40 22% 97%; /* warm near-white section surface */
-    --muted-foreground: 215 16% 47%; /* Slate 500 text */
+    --muted: 228 100% 97%;        /* #f0f3ff — surface-container-low */
+    --muted-foreground: 206 9% 28%;  /* #41474e — on-surface-variant */
 
     /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders and inputs */
-    --border: 214 32% 91%; /* Slate 200 */
-    --input: 214 32% 91%;
-    --ring: 221 83% 53%; /* Primary blue */
+    --border: 213 13% 79%;        /* #c1c7cf — outline-variant */
+    --input: 213 13% 79%;
+    --ring: 205 100% 15%;
 
-    --radius: 0.75rem; /* softer, more premium corners */
+    --radius: 0.75rem; /* comp: xl. lg 0.5rem, base 0.25rem, full for pills. */
+
+    /* Promoted out of .theme-ledger on 6 Sep 2026. The heavier section rule is now
+       part of the marketing language too, so the token has to resolve outside the
+       Ledger scope — `border-rule-strong` previously fell back to currentColor on
+       any page that was not /products or /free-website. Same value as there:
+       = --foreground. .theme-ledger still redeclares it, harmlessly. */
+    --rule-strong: 215 25% 27%;
 
     /* Gradients (kept for legacy refs; used sparingly now) */
     --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(160 84% 39%)); /* Blue to Green */
@@ -92,7 +122,11 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   .theme-ledger {
     --radius: 0px;
 
-    --ochre: 221 83% 53%;        /* = --primary. Accents stay on brand blue. */
+    /* = --primary. It was left at the old Tailwind blue when the palette changed on
+       6 Sep 2026, so the seven product detail pages and twelve legal pages rendered
+       their links in last season's accent. The name is vestigial and kept on purpose —
+       see the design-system concept — but the value has to track --primary. */
+    --ochre: 205 100% 15%;
     --rule-strong: 215 25% 27%;  /* = --foreground, for the heavier section rules. */
   }
 
@@ -248,12 +282,118 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
     @apply inline-flex items-center justify-center rounded-lg bg-primary/10 text-primary;
   }
 
-  /* Display heading — confident, optically tightened. */
+  /* ── Type scale — from the Stitch comp ──────────────────────────────────
+     Plus Jakarta Sans for headings, Inter for body. Sizes, line-heights,
+     tracking and weights are the comp's own values, not approximations.
+
+     display-hero 56/64 -0.03em 800   |  body-lg 18/28 400
+     headline-lg  32/40 -0.02em 700   |  body-md 16/24 400
+     headline-md  24/32 -0.015em 600  |  body-sm 14/20 400
+     headline-sm  20/28 -0.01em 600   |  label-lg 15/20 600
+                                      |  label-md 13/18 600 .02em
+                                      |  label-sm 11/16 700 .05em          */
+
+  .t-display {
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-size: 36px; line-height: 44px; letter-spacing: -0.02em; font-weight: 800;
+  }
+  @media (min-width: 1024px) {
+    .t-display { font-size: 56px; line-height: 64px; letter-spacing: -0.03em; }
+  }
+
+  .t-h1 {
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-size: 28px; line-height: 36px; letter-spacing: -0.02em; font-weight: 700;
+  }
+  @media (min-width: 1024px) {
+    .t-h1 { font-size: 40px; line-height: 48px; letter-spacing: -0.025em; }
+  }
+
+  .t-h2 {
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-size: 26px; line-height: 34px; letter-spacing: -0.02em; font-weight: 700;
+  }
+  @media (min-width: 1024px) {
+    .t-h2 { font-size: 32px; line-height: 40px; }
+  }
+
+  .t-h3 {
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-size: 20px; line-height: 28px; letter-spacing: -0.01em; font-weight: 600;
+  }
+
+  .t-body-lg { font-size: 18px; line-height: 28px; font-weight: 400; }
+  .t-body    { font-size: 16px; line-height: 24px; font-weight: 400; }
+  .t-body-sm { font-size: 14px; line-height: 20px; font-weight: 400; }
+
+  .t-label    { font-size: 15px; line-height: 20px; letter-spacing: 0.01em; font-weight: 600; }
+  .t-label-sm { font-size: 13px; line-height: 18px; letter-spacing: 0.02em; font-weight: 600; }
+
+  /* The section eyebrow. Uppercase here is the comp's own device and it earns
+     its place: it is the only uppercase on the page and it marks section
+     starts on a long scrolling document. */
+  .t-eyebrow {
+    font-size: 11px; line-height: 16px; letter-spacing: 0.05em; font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .t-measure { max-width: 68ch; }
+
+  /* Kept as an alias so /free-website, /products and the 13 unmigrated pages do
+     not lose their headings mid-migration. Remove when they are all on .t-*. */
   .display {
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    line-height: 1.05;
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
     text-wrap: balance;
+  }
+
+  /* Staggered entrance for above-the-fold content.
+     `animate-fade-in` alone cannot be delayed: the Tailwind animation declares no
+     fill-mode, so an element with animation-delay paints fully visible, then snaps to
+     opacity 0 when the animation starts. `both` holds the from-state through the delay.
+
+     The LCP element (the h1) deliberately does NOT use this — it paints immediately.
+     Disabled wholesale under prefers-reduced-motion at the foot of this file. */
+  .enter {
+    animation: fade-in 0.6s ease-out both;
+  }
+
+  /* The one working indicator on the page, in the hero's agent card. Slow enough to
+     read as "in progress" rather than "loading". Stilled under reduced motion. */
+  .animate-spin-slow {
+    animation: spin 2.4s linear infinite;
+  }
+
+  /* ── The agent card's sequence ──────────────────────────────────────────
+     The hero card is the signature visual, so its steps arrive in order rather
+     than all at once — it should read as an agent working through a task, not
+     as a static list that happens to have ticks on it.
+
+     Deliberately small: a 12px lift and a fade, once, on load. No looping, no
+     parallax, no morphing. The row is fully legible the whole time; the only
+     thing animating is how it arrives.
+
+     `both` holds the from-state through the delay, exactly as .enter does —
+     without it a delayed row paints, disappears, then fades back in. */
+  .agent-step {
+    animation: agent-step-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes agent-step-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* The tick lands after its row has settled. */
+  .agent-check {
+    animation: agent-check-in 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes agent-check-in {
+    from { opacity: 0; transform: scale(0.6); }
+    to   { opacity: 1; transform: scale(1); }
   }
 
   /* Accent text — now a single solid hue, not a rainbow gradient. */
@@ -709,5 +849,45 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   .lab-row,
   .lab-row * {
     transition: none !important;
+  }
+
+  /* The marketing side was never covered here — only /lab was. The scroll-reveal
+     system, the floating hero orbs and the card hover lifts all ran regardless of
+     the user's stated preference. WCAG 2.3.3.
+
+     .reveal must land at its visible state rather than simply losing its transition:
+     RevealObserver adds .visible on intersection, so killing the transition alone
+     would leave anything above the fold at opacity 0 permanently. */
+  .reveal,
+  .reveal.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .enter,
+  .agent-step,
+  .agent-check,
+  .animate-spin-slow,
+  .animate-float,
+  .animate-float-slow,
+  .animate-fade-in,
+  .animate-scale-in,
+  .animate-glow-pulse {
+    animation: none !important;
+  }
+
+  .card-surface,
+  .glass-card,
+  .warm-card,
+  .success-card {
+    transition: none !important;
+  }
+
+  .card-surface:hover,
+  .glass-card:hover,
+  .warm-card:hover,
+  .success-card:hover {
+    transform: none !important;
   }
 }

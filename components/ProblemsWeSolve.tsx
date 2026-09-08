@@ -1,74 +1,56 @@
-import { X, CheckCircle2 } from "lucide-react";
+import { CheckCircle, XCircle } from "@phosphor-icons/react/dist/ssr";
+import SectionHeading from "@/components/SectionHeading";
+import { PROBLEMS } from "@/data/homepage";
 
-const problems = [
-  {
-    pain: "Losing customers to competitors with websites",
-    solution: "Get found on Google in 2-3 weeks",
-  },
-  {
-    pain: "3+ hours daily answering WhatsApp messages",
-    solution: "AI handles customer queries 24/7",
-  },
-  {
-    pain: "Paying \u20B950,000+ for a basic website",
-    solution: "Professional site starting at \u20B99,999",
-  },
-  {
-    pain: "No idea if your marketing is working",
-    solution: "Real-time dashboard with actual numbers",
-  },
-];
+/**
+ * The comp's two-column comparison: what agencies do on the left, what we do on the right.
+ *
+ * The left column sits on a tinted surface with a muted treatment and the right on white
+ * cards with a shadow, so the eye lands on the answer rather than the complaint. That
+ * asymmetry is the point of the section and is the comp's own composition.
+ */
+const ProblemsWeSolve = () => (
+  <section className="bg-surface py-16 lg:py-24">
+    <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Honest comparison"
+        title="Say goodbye to Indian agency headaches"
+        lede="Most agencies treat a small business as a low-priority ticket with a recurring bill attached. Here is how we work instead."
+      />
 
-const ProblemsWeSolve = () => {
-  return (
-    <section className="py-8 md:py-16 relative">
-      <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10 reveal">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">
-              Real Problems We <span className="text-primary">Solve</span>
-            </h2>
-            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-              Sound familiar? We built Cybiqon to fix exactly these headaches.
-            </p>
-          </div>
+      <div className="mt-12 grid gap-4 lg:mt-16 lg:grid-cols-2 lg:gap-6">
+        <div className="space-y-4">
+          <p className="t-label flex items-center gap-2 text-muted-foreground">
+            <XCircle weight="fill" aria-hidden className="h-4 w-4 text-destructive" />
+            The typical agency
+          </p>
+          {PROBLEMS.map((item) => (
+            <div
+              key={item.pain}
+              className="rounded-xl border border-border/60 bg-surface-container px-5 py-4"
+            >
+              <p className="t-body text-muted-foreground">{item.pain}</p>
+            </div>
+          ))}
+        </div>
 
-          <div className="space-y-3">
-            {problems.map((item, index) => (
-              <div
-                key={index}
-                className={`grid md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center reveal`}
-                style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
-              >
-                {/* Pain — recessed, muted surface; the X carries the meaning */}
-                <div className="flex items-center gap-2.5 p-3.5 rounded-lg bg-muted/60 border border-border">
-                  <X className="w-4 h-4 text-red-500 flex-shrink-0" />
-                  <p className="text-xs md:text-sm font-medium text-foreground/70">
-                    {item.pain}
-                  </p>
-                </div>
-
-                {/* Arrow */}
-                <div className="hidden md:flex items-center justify-center">
-                  <div className="w-8 h-[2px] bg-border relative">
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent border-l-[6px] border-l-primary" />
-                  </div>
-                </div>
-
-                {/* Solution — elevated white card; the check carries the meaning */}
-                <div className="flex items-center gap-2.5 p-3.5 rounded-lg bg-card border border-border shadow-sm">
-                  <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
-                  <p className="text-xs md:text-sm font-medium text-foreground">
-                    {item.solution}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="space-y-4">
+          <p className="t-label flex items-center gap-2 text-primary">
+            <CheckCircle weight="fill" aria-hidden className="h-4 w-4 text-secondary" />
+            The Cybiqon way
+          </p>
+          {PROBLEMS.map((item) => (
+            <div
+              key={item.solution}
+              className="rounded-xl border border-border/50 bg-surface-lowest px-5 py-4 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.15)]"
+            >
+              <p className="t-body text-foreground">{item.solution}</p>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default ProblemsWeSolve;

@@ -46,8 +46,31 @@ import { usePathname } from "next/navigation";
  * fired from the apply form will use the default theme. That is acceptable for
  * something transient, but it is a known seam, not an oversight.
  */
-const LEDGER_ROUTES = ["/free-website", "/products"];
+const LEDGER_ROUTES = ["/products"];
 const BARE_ROUTES = ["/lab"];
+
+/**
+ * Routes under a Ledger prefix that are NOT Ledger.
+ *
+ * `/products` and its three category pages were migrated to the marketing card language on
+ * 6 Sep 2026, because Ledger's squared, hairline, ruled-row treatment had become a seam
+ * behind the redesigned chrome — and because a page whose whole job is to show what has
+ * been built was showing no imagery at all.
+ *
+ * `/free-website` followed on 7 Sep and left LEDGER_ROUTES entirely: it is a sales page
+ * doing the same job as the homepage, so a separate visual language was harder to justify
+ * there than anywhere else.
+ *
+ * **Ledger now survives only on the seven product detail pages and twelve legal pages**,
+ * which are long-form documents where the ruled treatment still reads well. Exact matches
+ * only, so `/products/lumina` is unaffected while `/products/games` is.
+ */
+const LEDGER_EXCEPTIONS = [
+  "/products",
+  "/products/apps",
+  "/products/games",
+  "/products/extensions",
+];
 
 function matches(pathname: string, routes: string[]): boolean {
   return routes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
@@ -69,7 +92,8 @@ export default function ThemeScope({
   // edges on short pages.
   if (matches(pathname, BARE_ROUTES)) return <>{children}</>;
 
-  const isLedger = matches(pathname, LEDGER_ROUTES);
+  const isLedger =
+    matches(pathname, LEDGER_ROUTES) && !LEDGER_EXCEPTIONS.includes(pathname);
 
   return (
     <div className={isLedger ? "theme-ledger bg-background text-foreground" : undefined}>

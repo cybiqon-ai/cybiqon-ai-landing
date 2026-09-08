@@ -876,3 +876,243 @@
   flat "Products" link again, still eight slots. `isActive` now matches prefixes, so a
   product page keeps the nav item lit — the flat version never did that, and with three
   category pages and seven product pages under `/products` it now matters.
+
+* **2026-09-06 — the homepage redesign, on `redesign/homepage-ledger`.**
+
+  Triggered by `review.md`, an external audit dropped into the repo. Its three headline
+  recommendations were checked against the live HTML and the bundle and **all three were
+  wrong**, which is worth recording because the same audit will be run again by someone
+  else. It reported "no meta description, no Organization JSON-LD" — the live page carries
+  a description, a canonical, an `og:image` and four JSON-LD blocks, and its §5.1 then
+  recommends markup that already ships. It proposed repainting to `#005B96`/`#F49D1A`,
+  which is the recolour [design system](/site/design-system.md) already records as shipped
+  and rejected. And it proposed "Trusted by 100+ MSMEs" and a client-logo wall against a
+  real position of one testimonial, zero paying clients and `SLOTS_TAKEN = 0` — the 9,000+
+  figure in it is lifted from competitor RS999. What it got right: the page did read as
+  templated, and `prefers-reduced-motion` genuinely did not cover the marketing side.
+
+  **Structure, not colour — the same conclusion as before.** No hue changed. Ten sections
+  became seven, `icon-chip` went 24 → 0 on the rendered page, and the homepage went 145,980
+  → 122,822 bytes. Archivo finally loads for the marketing pages. Details in
+  [design system](/site/design-system.md).
+
+  **Two fabricated surfaces are gone**, both flagged in
+  [content data](/content/content-data.md) and now closed: `HeroDashboardMockup` (1,247
+  visitors, +147%, 12 orders, 73% repeat) and `IndustryShowcase` ("Retail Shops — 3x more
+  inquiries"). `Proof` replaces the second and **derives** its counts from
+  `data/products.ts` and `data/clients.ts` so they cannot go stale into a lie.
+
+  **The Worker budget was measured rather than assumed**, and the result is the most
+  reusable thing here: only the 12 edge routes count, every marketing page is prerendered
+  static and costs nothing, and the **root layout is a 5× multiplier** — `sonner` appears
+  121 times inside `blog.func.js`. framer-motion was installed under that rule, then
+  removed: it SSR'd the `h1` at `opacity:0` and left the LCP element waiting on hydration,
+  and `.reveal` already did the rest at zero client JS. Phosphor stayed, marketing-side
+  only.
+
+  **Two long-standing gaps closed on the way past.** Nine pages now emit a real 1200×630
+  OG card — eight had none because Next does not deep-merge `openGraph`, and the ninth
+  declared a 500×500 logo as 1200×630. And GA4 fires events for the first time. Both in
+  [SEO](/site/seo.md).
+
+  Not done: the other 13 marketing pages, and `hooks/useScrollReveal.ts` with them.
+
+* **2026-09-06 (later) — the homepage redesign was rejected and rebuilt.**
+
+  The morning's version shipped the Ledger language across all seven sections and was
+  rejected on sight: *"no hierarchy, nothing, just looks a collection of texts."* Correct,
+  and measurable — **266 text spans in the 13–16px band** against a handful of larger sizes,
+  a ~2× type range across a whole page.
+
+  **The mistake is the part worth keeping.** Ledger is an *index* language, built for
+  `/products` where a catalogue of ruled rows is the honest form. Applied to a marketing
+  homepage it made all seven sections interchangeable — and every existing visual element
+  had been deleted with nothing put back, so the page had no texture at all. Measured
+  against the `frontend-design` skill afterwards, it hit **four of the five clichés that
+  skill names**. The research that produced it was thorough on content honesty and Worker
+  bytes and had done no visual design work at all.
+
+  Rebuilt on **Anek Latin** (Ek Type, Mumbai) — one family, hierarchy from its width axis,
+  13px → 132px — and a **deep indigo and marigold** palette used as full-bleed fields rather
+  than as tints on small text. This **reverses** the "structure carries the distinctiveness,
+  colour carries the brand" rule recorded on 1 Aug: that was the right diagnosis of Ledger
+  v1 and the wrong general rule. See [design system](/site/design-system.md), which now
+  carries both the failure and the rebuild.
+
+  **The site got imagery for the first time.** The Economic Times clipping — a national
+  paper naming the founder, and the strongest asset the company has — had been on the
+  homepage as eight words of link text reading "Read the clipping". It is a picture now.
+  Beside it, the Snackly storefront comp, the only visual evidence of client web work, with
+  a caption saying the design is ours and the food photography is Imagen placeholder. Plus
+  seven real launcher icons. See [content data](/content/content-data.md) for the list of
+  what must never be shown.
+
+  `components/ledger/` is deleted. `font-heading` — a named trap in the design concept for a
+  month — is finally gone from the wordmark.
+
+* **2026-09-06 (third pass) — the homepage was already designed, in Stitch.**
+
+  Two rebuilds were rejected — the Ledger one as *"a collection of texts"*, the Anek one as
+  *"around 5% good"* — before anyone thought to look in the design tool. **Two Stitch
+  projects were created at 07:18 and 07:45 that morning**, minutes before the task was
+  handed over, and `review.md` was written at 07:51. `projects/7623040016974616845` holds a
+  complete desktop comp, 3246 × 12570, with source HTML. Two design languages were invented
+  while the intended one sat in an account the tooling could already reach. The repo had
+  been using Stitch this way for client work since August.
+
+  `/` is now built to that comp: Plus Jakarta Sans and Inter, navy `#00304f`, vermilion
+  `#fd651e`, and the Material-3 surface ladder that gives the page its depth. Tokens were
+  read out of the comp's HTML rather than eyeballed. See
+  [design system](/site/design-system.md), which keeps both failures and the reasoning.
+
+  **The comp is a design reference and not a content one**, and that distinction is now
+  written down in [content data](/content/content-data.md). It carries "trusted by 100+
+  businesses across 18 cities", an ISO 9001 badge, per-industry percentages, a five-star
+  rating and a generated founder headshot — the same project contains that headshot under
+  the title *"…trustworthy business consultant avatar"*. The DPIIT recognition and the LLP
+  incorporation replaced them, both being real certificates in `ops/Downloads/`.
+
+  Lesson worth more than the palette: **check the design tool before designing.**
+
+* **2026-09-06 (fourth pass) — the homepage repositions, and Snackly goes live.**
+
+  Founder review of the comp-built page. Six changes: `Free Website` out of the header
+  (seven slots now, still in the footer and sitemap), Chrome extensions repriced to
+  **₹6,999** in all three places that state it including the Product JSON-LD, and the
+  positioning moved from *"web and WhatsApp AI"* to **custom software and AI agents**.
+
+  The company writes code for one business rather than configuring themes, and the old
+  framing sold it as a cheap website shop with a chatbot attached. The ₹9,999 website is
+  now the entry point rather than the headline. Service names, page title, description,
+  keywords and the Service JSON-LD moved together, so the structured data does not describe
+  a different company from the page.
+
+  The hero's WhatsApp chat card is replaced by an agent working an order. See
+  [design system](/site/design-system.md).
+
+  **The D-U-N-S number is displayed** beside the DPIIT recognition — worth showing precisely
+  because a buyer can verify it.
+
+  **Snackly is live at `snacklyfoods.in`.** `data/clients.ts` updated, and the homepage now
+  shows the running storefront rather than the design comp, which also retired the
+  placeholder-photography caveat. `snacklyfoods.com` is parked and redirects to `/lander`.
+
+* **2026-09-07 — /about and /products join the redesign.**
+
+  **`/products` came off Ledger**, which is the first time that theme has been removed from
+  anything. `ThemeScope` gained `LEDGER_EXCEPTIONS` so the index and three category pages
+  use the marketing card language while the seven detail pages and twelve legal pages keep
+  Ledger, which still suits long-form documents. Exact matches only — `/products/lumina` is
+  untouched, `/products/games` is not.
+
+  The reason is the seam this bundle has warned about since August, arriving from the other
+  side: Ledger was right for a catalogue index when the site around it was quiet, and the
+  chrome is now cards and colour. It also fixed something plainer — **a page whose entire
+  job is to show what has been built was showing no imagery at all**, while seven real
+  launcher icons sat in `public/img/` being used by the homepage.
+
+  **`/about` became a server component.** It was `"use client"` only for `useScrollReveal`
+  and a `window.open`; both are gone. Five of that hook's six consumers remain. The founder
+  photographs are now pre-cropped to a matched square rather than squeezed with
+  `objectPosition` — the sources are a studio portrait and a dusk phone snapshot at
+  different ratios, and matched framing stops the pair looking accidental without pretending
+  it is one shoot.
+
+* **2026-09-07 (later) — the keywords get their own pages, and the claims get references.**
+
+  Founder review of the rebuilt homepage, and the substantive half of it was SEO: the
+  rewrite traded the old page's explicit keyword coverage for better copy. `/services` plus
+  seven children now carry the commercial terms and the homepage links down into them. See
+  [SEO](/site/seo.md) for the route/term table and why it is seven pages rather than the
+  nine terms asked for.
+
+  **Eight new routes cost zero Worker bytes** — all prerendered static, bundle moved 3.4 KB
+  from the nav link. That is the first real test of the "only the 12 edge routes count"
+  rule and it held.
+
+  Six homepage changes with it: the agent card's steps arrive in sequence (CSS delays, no
+  JS timeline, still a server component), prices moved into the hero, the secondary CTA
+  stopped competing, a four-project case grid using Play Store feature graphics, and a
+  "who this is for" band.
+
+  **Building the case grid caught a wrong claim.** Lumina's live Play listing says 300
+  levels across 10 worlds; `data/products.ts` said 150 across five, and the feature graphic
+  now on the homepage says 300 — the site was contradicting itself in public and
+  understating a shipped product. This is the second time products.ts has drifted from the
+  live listing; the first was a `status` field, recorded on 29 Aug.
+
+  **Trust claims now carry references rather than assertions** — DIPP256002 and D-U-N-S
+  772066074 are printed because a number can be checked and a badge cannot. The LLP
+  incorporation is the one left resting on our word: its certificate is a scan.
+
+* **2026-09-07 (evening) — /pricing and the product pages.**
+
+  **Prices were in three files.** `data/services.ts` is the single authority now;
+  `data/homepage.ts` reads it through a helper and `/pricing` renders it directly and
+  generates its Product JSON-LD from the same array. The ₹6,999 change the day before had
+  taken three edits and could have taken two — the same shape of drift that put a
+  150-level claim on a 300-level game. See [content data](/content/content-data.md).
+
+  **/pricing had drifted furthest of any page** and is now on the system and a server
+  component. Its card list also grew from five services to seven: the old list predated
+  the service pages and omitted WhatsApp automation and admin panels, which the company
+  sells. The custom-quote card lost its price and says "quoted on the call", because a
+  number nobody can stand behind is the one thing a pricing page must not carry.
+
+  **The product detail pages finally show the products.** Icon plus a screenshot strip,
+  from captures that were sitting in each product's own repo. Four of seven get screens;
+  MeFlow, VitaLoop and MapWit are absent rather than padded, for reasons recorded at the
+  `shots` field. They keep Ledger deliberately — see
+  [design system](/site/design-system.md).
+
+* **2026-09-07 (late) — the marketing migration finishes.**
+
+  The last seven pages: `/process`, `/contact`, `/faq`, `/case-studies`, `/free-audit`,
+  `/press`, `/free-website`. **All fourteen marketing pages are now on the design system,
+  none is a client component, and `hooks/useScrollReveal.ts` is deleted** — its six call
+  sites were the only reason those pages hydrated at all.
+
+  **Ledger survives only on the seven product detail pages and twelve legal pages.**
+  `/free-website` came off it too: it is a sales page doing the homepage's job, so a
+  separate language there was a seam rather than a distinction. The theme is now scoped by
+  exception rather than by prefix, which `ThemeScope.tsx` explains because the constant
+  names do not.
+
+  **Two real defects surfaced.** `/faq` was serving **3 of 16 answers** — it filtered by
+  category in React state while its `FAQPage` schema declared all sixteen, which is a
+  markup/content mismatch Google can drop the rich result over. Native `<details>` fixes it
+  and needs no JavaScript. And `/case-studies` carried **three fabricated projects** with
+  invented metrics against zero paying website clients; deleted, as `/our-works` was on
+  29 Aug. See [content data](/content/content-data.md).
+
+  `data/clients.ts` also stopped contradicting the rest of the site: it called the
+  lead-enrichment engagement unnameable while two other surfaces named LeadzGalaxy. Named
+  now, confirmed by the founder.
+
+* **2026-09-08 — the legal pages stop describing a different company.**
+
+  `/privacy` and `/terms` both said **"Last updated: January 2025"**. The LLP was
+  incorporated on 5 March 2026, so both claimed to predate the company by fourteen months.
+
+  Three corrections of substance in the privacy policy. It **did not disclose that every
+  form stores the submitter's IP address** — `api/audit`, `api/apply` and `api/subscribe`
+  all write one to D1, and an IP is personal data under the DPDP Act. It described
+  processors as "trusted third-party services" and named none, where they are nameable:
+  Cloudflare, Resend, Google Analytics, TidyCal. And it described forms that are not the
+  forms this site has.
+
+  The terms carried the old five-service list rather than the seven that exist, at prices
+  that no longer matched `/pricing`.
+
+  Both now render through the product legal renderer — no `dangerouslySetInnerHTML` — via
+  `data/legal/site.ts`. See [content data](/content/content-data.md).
+
+  **Found on the way:** `--ochre` was still the old Tailwind blue with a comment claiming it
+  equalled `--primary`, which stopped being true when the palette changed on 6 Sep. Nineteen
+  pages were rendering links in last season's accent.
+
+  ⚠️ Two open items are recorded at the top of `data/legal/site.ts` rather than silently
+  decided: the jurisdiction clause still says "courts in India" without naming a city, and
+  no individual is appointed Grievance Officer under the DPDP Act. Neither document has been
+  reviewed by a lawyer.
+

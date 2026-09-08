@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckCircle2, Zap, Search, BarChart3, Shield } from "lucide-react";
+import { ChartBar, CheckCircle, Lightning, MagnifyingGlass, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import AuditForm from "@/components/AuditForm";
 
 export const metadata: Metadata = {
@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 };
 
 const benefits = [
-  { icon: Search, title: "SEO health check", description: "How search engines see your site — titles, meta tags, headings, and indexing issues." },
-  { icon: Zap, title: "Performance score", description: "Page speed, Core Web Vitals, and load time analysis on mobile and desktop." },
-  { icon: BarChart3, title: "Conversion review", description: "Your CTAs, forms, and user flow — where you're losing leads." },
-  { icon: Shield, title: "Security & mobile check", description: "SSL, mobile responsiveness, and basic security best-practices review." },
+  { icon: MagnifyingGlass, title: "SEO health check", description: "How search engines actually see the site — titles, meta tags, headings and anything blocking indexing." },
+  { icon: Lightning, title: "Performance score", description: "Page speed and Core Web Vitals, measured on a mid-range phone rather than a laptop." },
+  { icon: ChartBar, title: "Conversion review", description: "Calls to action, forms and the path through the site — where enquiries are being lost." },
+  { icon: ShieldCheck, title: "Security and mobile", description: "SSL, mobile behaviour and a basic security best-practice review." },
 ];
 
 export default function FreeAuditPage() {
@@ -32,66 +32,61 @@ export default function FreeAuditPage() {
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      {/* Hero */}
-      <section className="pt-24 pb-8 md:pt-28 md:pb-10">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
-          <div className="max-w-2xl">
-            <p className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/15 rounded-full text-[11px] font-medium text-primary mb-4">
-              <Search className="w-3 h-3" />
-              100% free, no obligations
-            </p>
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.15] tracking-tight mb-3">
-              Get a free <span className="text-primary">website audit</span>
-            </h1>
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg">
-              Find out what&apos;s holding your website back — we&apos;ll review it and send you a detailed report within 48 hours. No strings attached.
-            </p>
-          </div>
+      <section className="relative overflow-hidden bg-surface pb-14 pt-32 lg:pb-16 lg:pt-40">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-accent-softer opacity-50 blur-3xl"
+        />
+        <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+          <p className="t-eyebrow text-accent">Free, no obligation</p>
+          <h1 className="t-h1 mt-2.5 max-w-[18ch] text-primary">
+            A free audit of your current website
+          </h1>
+          <p className="t-body-lg mt-5 max-w-[58ch] text-muted-foreground">
+            Tell us the address and we will read it properly, then send a written report
+            within 48 hours. It is a real review, not a sales document with your logo on it.
+          </p>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="pb-14 md:pb-18">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
-          <div className="grid lg:grid-cols-[1fr_1.1fr] gap-6 items-start">
-            {/* Left — Benefits */}
+      <section className="bg-surface-lowest py-16 lg:py-20">
+        <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+          <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
             <div>
-              <h2 className="text-base font-extrabold mb-4">What you&apos;ll get</h2>
+              <h2 className="t-h2 text-primary">What the report covers</h2>
 
-              <div className="space-y-3 mb-4">
-                {benefits.map((benefit, i) => (
+              <div className="mt-8 space-y-4">
+                {benefits.map((benefit) => (
                   <div
                     key={benefit.title}
-                    className={`flex items-start gap-3 p-4 rounded-xl ${
-                      i === 0 ? "warm-card" : i === 1 ? "glass-card" : i === 2 ? "success-card" : "border border-border bg-white rounded-2xl"
-                    }`}
+                    className="flex items-start gap-4 rounded-2xl border border-border/60 bg-surface-low p-5"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                      <benefit.icon className="w-4 h-4 text-white" />
-                    </div>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-surface-high text-primary">
+                      <benefit.icon weight="fill" aria-hidden className="h-5 w-5" />
+                    </span>
                     <div>
-                      <h3 className="text-sm font-bold mb-0.5">{benefit.title}</h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{benefit.description}</p>
+                      <h3 className="t-h3 text-primary">{benefit.title}</h3>
+                      <p className="t-body-sm mt-1 text-muted-foreground">{benefit.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="warm-card p-4">
-                <div className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-xs font-bold mb-0.5">100% free, no obligations</p>
-                    <p className="text-[11px] text-muted-foreground leading-relaxed">
-                      This isn&apos;t a sales pitch disguised as an audit. You&apos;ll get an honest, actionable report — whether you work with us or not.
-                    </p>
-                  </div>
+              <div className="mt-6 flex items-start gap-3 rounded-2xl border border-secondary/30 bg-secondary/10 p-5">
+                <CheckCircle weight="fill" aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-tertiary-deep" />
+                <div>
+                  <p className="t-label text-primary">No obligation, and no pitch</p>
+                  <p className="t-body-sm mt-1 text-muted-foreground">
+                    You get an honest, actionable report whether you ever work with us or
+                    not. If the site is fine, the report will say the site is fine.
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Right — Form */}
-            <AuditForm />
+            <div className="rounded-2xl border border-border/60 bg-surface-lowest p-6 shadow-[0_2px_10px_-4px_rgba(0,48,79,0.12)] lg:p-8">
+              <AuditForm />
+            </div>
           </div>
         </div>
       </section>

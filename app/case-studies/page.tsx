@@ -13,6 +13,14 @@ export const metadata: Metadata = {
       "A closer look at what we built and what changed: from manual LinkedIn scraping to automated lead intelligence, and other projects with measurable outcomes.",
     url: "https://cybiqon.in/case-studies",
     type: "website",
+    images: [
+      {
+        url: "/og/case-studies.png",
+        width: 1200,
+        height: 630,
+        alt: "What we built, and what it changed — Cybiqon AI Solutions",
+      },
+    ],
   },
 };
 

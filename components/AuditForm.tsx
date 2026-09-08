@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { toast } from "sonner";
 import { Loader2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +27,7 @@ type AuditFormValues = z.infer<typeof auditSchema>;
 
 export default function AuditForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const form = useForm<AuditFormValues>({
     resolver: zodResolver(auditSchema),
@@ -35,6 +35,7 @@ export default function AuditForm() {
   });
 
   const onSubmit = async (values: AuditFormValues) => {
+    setFormError(null);
     try {
       const res = await fetch("/api/audit", {
         method: "POST",
@@ -45,32 +46,33 @@ export default function AuditForm() {
       const data: { success?: boolean; error?: string } = await res.json();
 
       if (!res.ok) {
-        toast.error(data.error || "Something went wrong");
+        setFormError(data.error || "Something went wrong. Please try again.");
         return;
       }
 
       setSubmitted(true);
-      toast.success("Audit request submitted!");
     } catch {
-      toast.error("Network error. Please try again.");
+      setFormError(
+        "Network error — nothing was sent. Please try again, or message us on WhatsApp.",
+      );
     }
   };
 
   if (submitted) {
     return (
-      <div className="glass-card p-6 md:p-8 text-center space-y-3">
-        <CheckCircle2 className="w-10 h-10 text-secondary mx-auto" />
-        <h3 className="text-base font-bold">Thank you</h3>
-        <p className="text-xs text-muted-foreground">
-          We&apos;ll review your website and get back within 48 hours with a detailed audit report.
+      <div className="space-y-3 text-center">
+        <CheckCircle2 className="mx-auto h-10 w-10 text-secondary" />
+        <h3 className="t-h3 text-primary">Thank you</h3>
+        <p className="t-body-sm text-muted-foreground">
+          We will read the site properly and send a written report within 48 hours.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="glass-card p-5 md:p-6">
-      <h3 className="text-sm font-bold mb-4">Get your free audit</h3>
+    <div>
+      <h3 className="t-h3 mb-5 text-primary">Get your free audit</h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -125,15 +127,23 @@ export default function AuditForm() {
               </FormItem>
             )}
           />
+          {formError && (
+            <p role="alert" className="t-body-sm text-destructive">
+              {formError}
+            </p>
+          )}
+
           <Button
             type="submit"
+            variant="accent"
+            size="lg"
             disabled={form.formState.isSubmitting}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold text-xs px-5 py-4"
+            className="w-full"
           >
             {form.formState.isSubmitting ? (
               <>
                 <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
-                Submitting...
+                Sending…
               </>
             ) : (
               "Get my free audit"

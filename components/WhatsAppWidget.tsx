@@ -53,6 +53,8 @@ const WhatsAppWidget = () => {
         href="https://wa.me/919250711473"
         target="_blank"
         rel="noopener noreferrer"
+        data-track="whatsapp_click"
+        data-track-label="floating_widget"
         className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg transition-transform duration-300 hover:scale-110 hover:shadow-xl"
         aria-label="Chat on WhatsApp"
       >

@@ -82,6 +82,23 @@ export interface Product {
   status: ProductStatus;
   /** Null until the listing is public. */
   playUrl: string | null;
+  /**
+   * 128x128 WebP in public/img/, or null where no icon has been drawn.
+   *
+   * Added 6 Sep 2026. Until then this catalogue of seven products carried no visual
+   * representation of any of them anywhere on the site — the homepage could only ever
+   * describe them in prose. These are the real launcher icons, copied out of each
+   * product's own repo and downsized; nothing here is generated art.
+   */
+  icon?: string | null;
+  /**
+   * Phone screenshots in public/img/shots/, 360px wide WebP.
+   *
+   * Only where real captures exist. MeFlow's only capture holds the founder's actual
+   * personal finance data and VitaLoop has none at all, so both are absent rather than
+   * padded — a gallery with a placeholder in it is worse than no gallery.
+   */
+  shots?: string[];
   platform: string;
   /** Short, concrete, no marketing verbs. 4–8 items. */
   features: { title: string; description: string }[];
@@ -107,6 +124,8 @@ import { vitaloopPrivacy, vitaloopTerms } from "./legal/vitaloop";
 export const PRODUCTS: Product[] = [
   {
     slug: "llmbytes",
+    icon: "/img/icon-llmbytes.webp",
+    shots: ["/img/shots/llmbytes-1.webp", "/img/shots/llmbytes-2.webp", "/img/shots/llmbytes-3.webp"],
     category: "app",
     name: "LLMBytes",
     tagline: "AI news, written fresh every day",
@@ -153,6 +172,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "meflow",
+    icon: "/img/icon-meflow.webp",
     category: "app",
     name: "MeFlow",
     tagline: "Money, habits and notes in one place",
@@ -200,6 +220,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "vitaloop",
+    icon: "/img/icon-vitaloop.webp",
     category: "app",
     name: "VitaLoop",
     tagline: "Kidney health, built for Indian food",
@@ -246,11 +267,13 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "lumina",
+    icon: "/img/icon-lumina.webp",
+    shots: ["/img/shots/lumina-1.webp", "/img/shots/lumina-2.webp", "/img/shots/lumina-3.webp"],
     category: "game",
     name: "Lumina: The Lightkeeper's Path",
     tagline: "A cosy sliding-block puzzle",
     summary:
-      "Slide crystal blocks aside so a glowing Light Key can reach its lantern, and relight a fading world one puzzle at a time. 150 hand-verified levels across five worlds, a new puzzle every day, and no timers, lives or fail states \u2014 you cannot lose, only not have finished yet.",
+      "Slide crystal blocks aside so a glowing Light Key can reach its lantern, and relight a fading world one puzzle at a time. 300 hand-verified levels across ten worlds, a new puzzle every day, and no timers, lives or fail states \u2014 you cannot lose, only not have finished yet.",
     packageId: "com.cybiqon.lumina",
     status: "live",
     playUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.lumina",
@@ -259,14 +282,14 @@ export const PRODUCTS: Product[] = [
       "Most puzzle games on Play are built to interrupt you \u2014 energy meters, countdowns, an ad between every level. Lumina is the opposite argument: every level is solvable at your own pace, every one is proven solvable by the solver that generated it, and the reward for playing is watching a world light back up.",
     features: [
       {
-        title: "150 levels, every one verified",
+        title: "300 levels, every one verified",
         description:
           "Each level is generated and then re-solved by a breadth-first solver, so the three-star target is the true shortest solution \u2014 never a guess that cannot be met.",
       },
       {
-        title: "Five worlds, five ideas",
+        title: "Ten worlds, ten ideas",
         description:
-          "Crystal, sand that crumbles once moved, ice that cannot stop short, rime frozen until the Key thaws it, and mirrors that bend the Key's light to the lantern.",
+          "Crystal, sand that crumbles once moved, ice that cannot stop short, rime frozen until the Key thaws it, and mirrors that bend the Key's light to the lantern \u2014 each world introducing one more.",
       },
       {
         title: "A new puzzle every day",
@@ -294,6 +317,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "orbitone",
+    icon: "/img/icon-orbitone.webp",
+    shots: ["/img/shots/orbitone-1.webp", "/img/shots/orbitone-2.webp", "/img/shots/orbitone-3.webp"],
     category: "game",
     name: "Orbitone",
     tagline: "Eight arcade games, one thumb",
@@ -342,6 +367,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "curvved",
+    icon: "/img/icon-curvved.webp",
+    shots: ["/img/shots/curvved-1.webp", "/img/shots/curvved-2.webp", "/img/shots/curvved-3.webp"],
     category: "game",
     name: "Curvved",
     tagline: "The answer is a picture",
@@ -395,6 +422,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "mapwit",
+    icon: "/img/icon-mapwit.webp",
     category: "extension",
     name: "MapWit",
     tagline: "Google Maps leads, scored in the browser",
