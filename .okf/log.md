@@ -1197,3 +1197,18 @@
   Every free-tier limit in the post is quoted from Cloudflare's own pricing docs rather
   than from our repo, because the repo's own table carries a caveat saying limits change —
   and one line in it turned out to be wrong, which is what the article is about.
+
+* **2026-09-08 — the hero card ends by folding into an offer.**
+
+  Same branch again. The run no longer just repeats: after screen 5 holds, a navy panel
+  fills downward over the header, the rail and the screens together, and *"We'll build
+  yours."* is written across it on an accent caret. That is the one thing the card cannot
+  say by demonstrating — the visitor has watched a job get done, and this turns it into an
+  offer. The cycle went 20s → 26s to make room.
+
+  The card also moved right, `0.95fr` → `0.85fr`, which gave the headline back its third
+  line and required pinning `AI agents` with `whitespace-nowrap` — the balancer had split
+  the accent phrase across two lines.
+
+  Both mechanisms and the reason a `steps()` typewriter was rejected are in
+  [design system](/site/design-system.md). Worker 2,949,695 B, up 62 B.

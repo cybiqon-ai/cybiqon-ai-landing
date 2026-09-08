@@ -32,7 +32,7 @@ const Hero = () => (
       className="pointer-events-none absolute -right-32 top-1/2 h-96 w-96 rounded-full bg-accent-softer opacity-60 blur-3xl"
     />
 
-    <div className="relative mx-auto grid max-w-[1240px] items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8">
+    <div className="relative mx-auto grid max-w-[1240px] items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:px-8">
       <div>
         <p className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5">
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
@@ -41,7 +41,11 @@ const Hero = () => (
 
         <h1 className="t-display mt-5 text-primary">
           Custom software and{" "}
-          <span className="text-accent-ink">AI agents</span> for Indian businesses
+          {/* nowrap: with the card moved right the balancer split this across two
+              lines, leaving "AI" green at the end of one and "agents" green at the
+              start of the next. */}
+          <span className="whitespace-nowrap text-accent-ink">AI agents</span> for Indian
+          businesses
         </h1>
 
         <p className="t-body-lg mt-5 max-w-[54ch] text-muted-foreground">

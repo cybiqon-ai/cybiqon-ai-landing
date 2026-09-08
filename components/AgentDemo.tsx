@@ -100,7 +100,7 @@ const AgentDemo = () => (
     <div className="relative">
       <div
         data-hero-loop
-        className="overflow-hidden rounded-2xl border border-border/70 bg-white shadow-[0_18px_50px_-16px_rgba(0,48,79,0.28)]"
+        className="relative overflow-hidden rounded-2xl border border-border/70 bg-white shadow-[0_18px_50px_-16px_rgba(0,48,79,0.28)]"
       >
         {/* Header. The subtitle that used to sit here said what the hero copy beside
             the card already says, and cost two lines of height. */}
@@ -263,6 +263,28 @@ const AgentDemo = () => (
               </span>
             </div>
           </Screen>
+        </div>
+
+        {/* ── The closing frame ───────────────────────────────────────────────
+            Covers the whole card once the run has finished and turns it into an
+            offer. It is the one thing the card cannot say by demonstrating.
+
+            Real text in the DOM the whole time, just clipped, so a screen reader
+            reads it in order after the five screens. Clipped to nothing by
+            default, which is why reduced motion lands on the finished run rather
+            than on this — see the base-state note in globals.css. */}
+        <div className="hero-outro absolute inset-0 flex flex-col justify-center gap-2 bg-primary px-5 text-primary-foreground">
+          <p className="hero-outro-line t-body-sm text-white/70">
+            That was one agent, built for one business.
+          </p>
+          {/* The cover slides off to the right; its accent left edge is the caret. */}
+          <p className="t-h2 relative inline-block self-start text-primary-foreground">
+            We&rsquo;ll build yours.
+            <span
+              aria-hidden
+              className="hero-write absolute -inset-y-0.5 -left-0.5 right-0 border-l-2 border-accent bg-primary"
+            />
+          </p>
         </div>
       </div>
 

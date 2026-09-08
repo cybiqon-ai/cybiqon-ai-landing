@@ -204,14 +204,16 @@ an illustration — a mockup on a homepage reads as a real customer otherwise.
 
 ### The card runs a loop — five screens on a rail, 8 Sep 2026
 
-`components/AgentDemo.tsx` plays one complete job on a **20-second cycle**: a WhatsApp
+`components/AgentDemo.tsx` plays one complete job on a **26-second cycle**: a WhatsApp
 enquiry arrives, the agent reads it off the message, checks the business's own records,
 prepares a quote, and asks a human before anything is sent. It is **five screens** inside a
 fixed 196px panel, under a **stage rail** whose dots light and whose connectors sweep into
-the next dot as the run advances. The card is **305px**, down from 479px when the same
-content was six rows stacked in one screen. The full timeline lives in `app/globals.css`
-under *"The hero agent card's loop"*. Five things about it are decisions rather than
-details:
+the next dot as the run advances. Then the card **deforms** — a navy panel fills downward
+over header, rail and screens together, and *"We'll build yours."* is written across it on
+a caret before the run restarts. The card is **305px**, down from 479px when the same
+content was six rows stacked in one screen, and it sits in an `0.85fr` column rather than
+`0.95fr` so it clears the headline. The full timeline lives in `app/globals.css` under
+*"The hero agent card's loop"*. Six things about it are decisions rather than details:
 
 - **It is CSS on a server component.** No client JS, so it runs before the bundle does and
   survives the bundle never arriving. `RevealObserver` does the one thing CSS cannot —
@@ -229,7 +231,7 @@ details:
   `opacity: 1`, and every dot and connector is lit by default, so
   `prefers-reduced-motion` renders one complete readable card: run finished, rail full,
   quote waiting. It is why screen 5 carries the ₹32,500 figure as well as the approval.
-- **Sixteen keyframe blocks, and they may not be collapsed into one.** The obvious
+- **Nineteen keyframe blocks, and they may not be collapsed into one.** The obvious
   simplification — one shared `@keyframes` plus per-element `animation-delay` — shifts each
   element's exit as much as its entry, so the rail would empty from the left while the
   right was still filling and the next cycle would overlap the last. Staggered starts with
@@ -237,6 +239,16 @@ details:
   `@layer utilities`** on purpose: Tailwind tree-shakes that layer, and the `[data-paused]`
   rule carries no class for it to match on. The junction carets carry no keyframes of their
   own — they reuse the dot they point at.
+- **The closing frame is a clip-path, and the writing is a cover that slides off.** The
+  navy is revealed by animating the bottom inset of `clip-path: inset(0 0 100% 0)`, which
+  fills downward without the distortion a `scaleY` would put on the text inside it. The
+  headline is written by a navy bar with a 2px accent left border sliding `translateX(0)` →
+  `translateX(101%)`, so its leading edge is the caret. A `steps()` character typewriter
+  was the alternative and was rejected: it needs `white-space: nowrap` and a hard-coded
+  character count, so it breaks at 390px and chunks unevenly on a proportional font. The
+  outro's base is clipped to nothing, so reduced motion lands on the finished **run**
+  rather than the statement — the demo is the better still frame and the statement's claims
+  are already in the hero copy beside it.
 - **Nothing in the card is interactive.** `Approve` is a `<span>`, so the homepage's tab
   order runs CTA → "See what we build" and never stops on a dead control inside an
   illustration. The numbers on screen 5 are **deltas of the order on screen 4** — never
@@ -244,7 +256,10 @@ details:
   "1,247 visitors, +147%", figures that claimed nothing in particular; that line stays
   deleted. The stock and pricing figures on screen 3 are the fictional customer's records.
 
-One layout trap worth knowing: the rail labels must not carry `t-label-sm`. It is a utility
+Two layout traps worth knowing. `Hero.tsx` pins `AI agents` with `whitespace-nowrap`:
+with the card moved right the balancer split the phrase across lines, leaving "AI" green at
+the end of one and "agents" green at the start of the next. And the rail labels must not
+carry `t-label-sm`. It is a utility
 in the same layer as `text-[10px]` and wins on source order, which pushed all five to 12px
 and truncated three of them at 390px.
 
