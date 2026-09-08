@@ -3,10 +3,41 @@ type: Domain
 title: SEO
 description: Structured data, sitemap, RSS and per-page metadata are all in place as of 25 Jul 2026; the blog is indexed and the remaining gap is ranking, not discovery.
 tags: [seo, metadata, json-ld, sitemap, search-console, rss, aeo, ai-crawlers]
-timestamp: 2026-09-06T00:00:00Z
+timestamp: 2026-09-08T00:00:00Z
 ---
 
 # Overview
+
+## React 19 preloads every server-rendered `<img>` — 8 Sep 2026
+
+**Any `<img>` rendered on the server without `loading="lazy"` gets a
+`<link rel="preload" as="image">` in `<head>`.** Not a Next config, not something
+this repo asked for — it is React 19's renderer, and it applies to plain `<img>`
+tags, which is what this site uses throughout (`next.config.mjs` installs a
+passthrough loader).
+
+On the homepage that meant **nine below-the-fold images preloaded at high
+priority**: the 90 KB Economic Times scan, the 45 KB Snackly storefront shot and
+seven product icons — 155 KB racing the LCP element and two font files on the
+mid-range Android this page sells into. The footer logo was the only image on the
+page *not* being preloaded, and the only one that already carried the attribute.
+
+Fixed in `components/Proof.tsx`, which now documents it so a later edit does not
+strip the attribute back off. After the fix the page emits **one** image preload,
+`/logo.png` in the navbar, which is genuinely above the fold.
+
+**Not yet audited:** the same pattern exists on other pages —
+`components/products/ProductIndex.tsx`, `ProductDetail.tsx`, `blog/BlogCard.tsx`,
+`app/press/page.tsx`, `app/about/AboutClient.tsx`,
+`app/case-studies/CaseStudiesClient.tsx` and `app/blog/[slug]/page.tsx`. It is
+deliberately *not* a blanket fix: on those pages some of those images are the LCP
+element, and lazy-loading an LCP image makes things worse. Each page needs its own
+look at what is above the fold.
+
+`public/logo.png` is **118 KB** for something rendered at 32×32. It is the one
+image that should preload, and it is the heaviest file on the page. Re-encoding it
+is a separate change — it is referenced from the navbar, the footer and the
+metadata.
 
 ## Titles and descriptions, measured across all 44 pages — 8 Sep 2026
 
@@ -63,19 +94,34 @@ terms go in the h2s; two now do — the services section says "Custom software, 
 websites" and the audience section says "Custom software for businesses that have outgrown
 spreadsheets". The other five are left as voice.
 
-## Findings from the 8 Sep external audit that were NOT acted on
+## Audit findings NOT acted on, and why — 8 Sep 2026
 
-- **"Add Alt Attributes to all images."** Every `<img>` has one. The seven counted are
-  product icons with `alt=""` inside a link whose name comes from the adjacent product
-  name. Correct markup; filling them would double-announce for a screen reader.
+Two audits ran that day: the bundled `seo` skill against the live homepage, and an
+external online tool. They overlap, and both are re-run periodically, so the standing
+answers live here rather than being re-derived each time.
+
+- **"7 images missing alt text" / "Add Alt Attributes to all images."** Not real. Every
+  `<img>` has an `alt`. The seven counted are product icons with `alt=""` inside a link
+  whose accessible name comes from the adjacent `<span>` carrying the product name — which
+  is correct markup. An alt of "Lumina logo" beside the word "Lumina" double-announces.
+  Both checkers count an empty alt as a missing one.
+- **"Content may be thin (679 words)"** applies a blog-post threshold to a homepage, and
+  **"no publish date"** applies an article rule to a page that is not one.
 - **"Remove Inline Styles."** There is exactly one on the page, a `font-variation-settings`
   on a variable font. Not removable and not a cost.
 - **"Install a Facebook Pixel."** A tracking pixel with DPDP consent and privacy-policy
   consequences, for ads the company is not running.
 - **"Create and link an associated YouTube Channel."** There is no channel. Linking one
   that does not exist is worse than not linking.
-- **"Execute a Link Building Strategy."** Correct and the highest-value item on the list —
-  2 backlinks from 1 referring domain — but no code change addresses it.
+- **"Not making use of Hreflang."** Correct at the time and now fixed by deletion — see
+  the section above.
+- **"Execute a Link Building Strategy."** Correct, and the highest-value item on either
+  list — 2 backlinks from 1 referring domain — but no code change addresses it.
+
+What passed and should stay passing: `a11y_seo_checker` scored **100 with zero issues**,
+the canonical is self-referential, and all four JSON-LD blocks parse — the one a tool
+labels "Unknown" is the `@graph` wrapper holding the five `Service` objects, which has no
+top-level `@type` by design.
 
 ## www serves a duplicate of the site
 
