@@ -1172,3 +1172,28 @@
   [design system](/site/design-system.md).
 
   Worker 2,949,633 B, down 46 B. The CSS is a static asset and costs the Worker nothing.
+
+* **2026-09-08 — the eighth lab post, and the first that is not about AI or a game.**
+  `their-shop-costs-zero-a-month-to-run`, on `clients-work/snackly`: a client's D2C store
+  running entirely inside Cloudflare's free tier. It establishes a third register for the
+  lab — infrastructure and client work — alongside the AI posts and the two game ones,
+  and it is the shortest first-party engineering post here at 4,694 rendered words after
+  the Orbitone piece ran to 7,600 and was flagged as long.
+
+  **The spine is a decision rather than an architecture.** The order-alert emails are
+  built, tested and were deployed; Cloudflare Email Sending turns out to require the
+  Workers Paid plan; the scope document had promised the client a zero monthly cost twice
+  in writing. So the binding ships commented out with the reason attached. The article
+  quotes the commit that says the pricing page had been misread and the wrong thing said
+  to the client twice — which is the part that makes the rest of it believable.
+
+  Scoped on the way in, on the owner's call: the ₹0 claim covers **hosting only** and the
+  post is silent on what the build cost. The client is named with their agreement. Kept
+  out entirely: the owner's name and personal email, their FSSAI licence number, the
+  contents of their requirements document, the unsent phase-two pricing, the live account
+  and database identifiers, and the client's own outstanding statutory numbers. Each was
+  grepped for before publishing rather than trusted to have been avoided.
+
+  Every free-tier limit in the post is quoted from Cloudflare's own pricing docs rather
+  than from our repo, because the repo's own table carries a caveat saying limits change —
+  and one line in it turned out to be wrong, which is what the article is about.
