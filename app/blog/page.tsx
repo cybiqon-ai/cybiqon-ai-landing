@@ -15,11 +15,11 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const suffix = page > 1 ? ` — Page ${page}` : "";
 
   return {
-    title: `Blog | AI, Automation & MSME Growth Insights${suffix}`,
+    title: `Blog | Custom Software, AI Agents & Automation${suffix}`,
     description:
-      "Practical writing on AI automation, custom software, no-code tools and digital growth for Indian MSMEs — what works, what does not, and what it costs.",
+      "Practical writing for Indian businesses that have outgrown spreadsheets — custom software, AI agents, automation and websites, and what each costs.",
     keywords:
-      "AI blog India, MSME automation tips, no-code tools India, small business growth strategies, AI tools for MSMEs, WhatsApp automation, digital transformation India",
+      "custom software India, AI agents for business, business automation India, dealer portal software, admin panel development, WhatsApp automation, AI automation India",
     // Each page gets its own canonical. Pointing page 2+ back at /blog would tell Google
     // those URLs are duplicates and undo the crawl paths this pagination exists to create.
     alternates: { canonical: page > 1 ? `/blog?page=${page}` : "/blog" },
@@ -59,8 +59,8 @@ export default async function BlogPage({ searchParams }: PageProps) {
               The Cybiqon <span className="text-primary">blog</span>
             </h1>
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg">
-              Daily insights on AI, automation, and how technology is transforming small
-              businesses in India.
+              Practical notes for businesses that have outgrown spreadsheets — custom
+              software, AI agents and automation, and what each one actually costs.
             </p>
           </div>
         </div>

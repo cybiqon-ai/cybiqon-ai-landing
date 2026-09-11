@@ -20,8 +20,9 @@ secret here.
 
 * [Content](content/) - two blogs sharing one D1 table, and where lead capture goes.
 
-The site publishes **`/blog`** (automated, MSME, daily, written by
-`tools/social-media-manager`) and **`/lab`** (hand-written engineering notes, no
+The site publishes **`/blog`** (automated, daily, written by
+`tools/social-media-manager` — for businesses that have outgrown spreadsheets since 11 Sep 2026;
+its D1 section value is still `'msme'`) and **`/lab`** (hand-written engineering notes, no
 schedule). They are one table separated by a `section` column, and slugs are unique
 across both — read [Lab](content/lab.md) before writing any query against
 `blog_posts`.

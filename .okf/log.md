@@ -1,5 +1,21 @@
 # Update Log
 
+## 2026-09-11
+
+* **Content**: `/blog` pruned from **113 to 80** posts, and the index repositioned to match the
+  homepage. 33 rows set `published = 0` in D1 (not deleted), each 308-redirected in
+  `next.config.mjs` to the surviving post on the same intent or to a `/services/<slug>` page —
+  none 404s, because the pipeline interlinks posts heavily. About 4% of recent impressions.
+  Account in [Blog](/content/blog.md#pruned--11-sep-2026).
+
+  The `/blog` title, description, keywords, hero line, RSS `<description>` and the llms.txt blog
+  section all said "MSME" or "small businesses" (and "no-code tools", which the company has never
+  sold). Now: custom software, AI agents and automation for businesses that have outgrown
+  spreadsheets. The publisher's prompts changed the same day, in that repo.
+
+  Worker: 2,949,706 → 2,962,102 B gzipped (+12.4 KB for 33 redirect rules), ~179 KiB under the
+  3 MiB ceiling.
+
 ## 2026-08-12
 
 * **Content**: the level-generator article now links to

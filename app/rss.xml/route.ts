@@ -71,7 +71,7 @@ export async function GET(): Promise<Response> {
   <channel>
     <title>Cybiqon Blog</title>
     <link>${siteUrl}/blog</link>
-    <description>Practical writing on websites, apps and AI automation for Indian MSMEs.</description>
+    <description>Practical writing on custom software, AI agents and websites for Indian businesses.</description>
     <language>en-IN</language>
     <lastBuildDate>${lastBuild}</lastBuildDate>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml" />

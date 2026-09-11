@@ -11,9 +11,10 @@
   "site": "https://cybiqon.in",
   "title": "Cybiqon AI Solutions",
   "summary": [
-    "A one-person Indian software company building websites, apps and AI automation for",
-    "MSMEs. The site publishes two things worth reading: /blog, daily notes for small",
-    "business owners, and /lab, hand-written engineering notes with the numbers shown."
+    "An Indian software company building custom software, AI agents and websites for",
+    "Indian businesses. The site publishes two things worth reading: /blog, daily notes for",
+    "businesses that have outgrown spreadsheets, and /lab, hand-written engineering notes",
+    "with the numbers shown."
   ],
   "prose": [
     "Every page listed here is server-rendered — the full text is in the HTML on first\nresponse, with no client-side fetch and no JavaScript required to read it. Lab posts\ncarry BlogPosting, BreadcrumbList and, where the post has an FAQ section, FAQPage\nJSON-LD, and their outbound citations appear in the structured data as well as in the\nprose. Blog posts carry Article and BreadcrumbList.",
@@ -36,13 +37,13 @@
   },
   "sections": [
     {
-      "heading": "Blog — daily notes for MSME owners",
+      "heading": "Blog — daily notes for businesses that have outgrown spreadsheets",
       "note": "Written by an automated pipeline, roughly one a day since March 2026. Listed as an index rather than post by post: this file is a curated entry point, and the full set belongs in the sitemap and the feed.",
       "entries": [
         {
           "title": "Cybiqon Blog",
           "url": "/blog",
-          "note": "practical notes for Indian small businesses on websites, apps and automation. Paginated, nine per page, newest first."
+          "note": "practical notes for Indian businesses on custom software, AI agents, automation and websites. Paginated, nine per page, newest first."
         }
       ]
     },
@@ -253,7 +254,7 @@
     ]
   },
   "excludeRoutes": {
-    "/blog/[slug]": "~91 posts. Represented by the /blog index, the feed and the sitemap rather than enumerated — a curated index, not a sitemap clone. Also keeps this generator filesystem-only: enumerating them needs a D1 query, which needs a Cloudflare token, which cannot live in this public repo.",
+    "/blog/[slug]": "~80 posts. Represented by the /blog index, the feed and the sitemap rather than enumerated — a curated index, not a sitemap clone. Also keeps this generator filesystem-only: enumerating them needs a D1 query, which needs a Cloudflare token, which cannot live in this public repo.",
     "/blog/tag/[tag]": "derived archive pages, one per tag, generated from D1 at request time.",
     "/lab/[slug]": "generated into the Lab section from lab/posts/.",
     "/products/llmbytes/privacy": "Play Store policy URL, not content.",
