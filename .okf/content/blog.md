@@ -1,9 +1,9 @@
 ---
 type: Domain
 title: Blog
-description: The automated MSME blog at /blog — posts are rows in Cloudflare D1, not files, written by a different repo and rendered by a live edge query. Shares its table with /lab, separated by a section column.
-tags: [blog, d1, cloudflare, content, edge, msme]
-timestamp: 2026-08-06T00:00:00Z
+description: The automated blog at /blog — posts are rows in Cloudflare D1, not files, written by a different repo and rendered by a live edge query. Shares its table with /lab, separated by a section column. Pruned from 113 to 80 posts on 11 Sep 2026.
+tags: [blog, d1, cloudflare, content, edge, msme, redirects, pruning]
+timestamp: 2026-09-11T00:00:00Z
 ---
 
 # Overview
@@ -18,7 +18,35 @@ the Cloudflare D1 database `cybiqon-blog`, and this repo only *reads* them.
 **Posts are authored and inserted by `tools/social-media-manager`** — a separate
 repo running a daily Claude-agent pipeline. Nothing in this repo creates a post.
 
-81 MSME posts live as of 1 Aug 2026, 15 Mar → 31 Jul, roughly one per day.
+81 MSME posts live as of 1 Aug 2026, 15 Mar → 31 Jul, roughly one per day. **80 live after
+the 11 Sep 2026 prune** (113 before it).
+
+`'msme'` is the section's **column value**, not its audience. Since 11 Sep 2026 the pipeline
+writes for Indian businesses that have outgrown spreadsheets, to match the homepage, and the
+`/blog` index title, description, hero line and RSS channel were rewritten the same day. The
+column value stays: renaming it means a migration plus every query in this repo and in the
+publisher, for no reader-visible gain.
+
+# Pruned — 11 Sep 2026
+
+**33 of 113 posts were unpublished (`published = 0`, not deleted) and each 301s elsewhere**
+from `next.config.mjs`. All 113 were read in full and joined with Search Console page data.
+Together the 33 drew about 4% of the blog's recent impressions. They were weaker duplicates of
+another post, out of date, or about things the company does not sell. The per-post audit lives
+in the private `social-media-manager` repo, not here.
+
+**Every removal redirects; none 404s.** The pipeline's reciprocal-backlink step interlinks
+heavily (one post had 16 inbound links), so a 404 would have broken links inside surviving
+posts. Each target is the surviving post on the same intent, or the `/services/<slug>` page the
+post was selling. Redirects are 308s from Next and pass ranking.
+
+**Order matters when doing this again:** deploy the redirects first, then flip `published`. The
+other way round, a pruned URL 404s until the deploy lands. Next redirects run before the route,
+so a redirect for a still-published post already works.
+
+**To restore one:** `UPDATE blog_posts SET published = 1 WHERE section = 'msme' AND slug = ?`
+and delete its line in `next.config.mjs`. The cost was 12.4 KB of Worker bundle for 33 rules —
+they compile into the routing table inside `_worker.js`, so a much longer list is not free.
 
 # Table
 
