@@ -204,7 +204,7 @@ an illustration — a mockup on a homepage reads as a real customer otherwise.
 
 ### The card runs a loop — five screens on a rail, 8 Sep 2026
 
-`components/AgentDemo.tsx` plays one complete job on a **30-second cycle**: a WhatsApp
+`components/AgentDemo.tsx` plays one complete job on a **26-second cycle**: a WhatsApp
 enquiry arrives, the agent reads it off the message, checks the business's own records,
 prepares a quote, and asks a human before anything is sent. It is **five screens** inside a
 fixed 196px panel, under a **stage rail** whose dots light and whose connectors sweep into
@@ -263,10 +263,16 @@ loop"*. Six things about it are decisions rather than details:
   "1,247 visitors, +147%", figures that claimed nothing in particular; that line stays
   deleted. The stock and pricing figures on screen 3 are the fictional customer's records.
 
-Thirty seconds is long for a hero loop and that is the price of the seventh beat: someone
-who lands and scrolls inside ten seconds sees two of them. The run itself is unchanged, so
-the beats they are most likely to catch are the ones that demonstrate the product rather
-than the ones that sell it.
+**The percentages are generated, not typed.** `tools/hero-timeline.py` holds the timeline
+once, in seconds, and emits all twenty-six blocks; run it and paste. The run was retimed
+three times by careful search-and-replace before that existed, which is exactly how
+arithmetic errors get into a file where a wrong decimal is a visual bug nobody can
+attribute. Change the seconds, not the percentages.
+
+The run was paced down from 3.2s a screen to **2.6s** on 8 Sep, taking the cycle from 30s
+to 26s and the five-screen run from 18.6s to 15.0s. **The floor is screen 3**: its three
+record ticks land 0.6s apart and the last needs a beat to be read before the push, so below
+about 2.4s a screen that stops working.
 
 Two layout traps worth knowing. `Hero.tsx` pins `AI agents` with `whitespace-nowrap`:
 with the card moved right the balancer split the phrase across lines, leaving "AI" green at
