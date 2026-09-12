@@ -3,7 +3,7 @@ type: Reference
 title: Routes
 description: Every route the site serves — two blogs on one table, which routes are server vs client, the chrome-suppression scope for /lab, and the redirect that keeps a published Play Store policy URL alive.
 tags: [routes, app-router, nextjs, redirects]
-timestamp: 2026-08-29T00:00:00Z
+timestamp: 2026-09-12T00:00:00Z
 ---
 
 # Marketing pages
@@ -70,7 +70,7 @@ the entire former contents of `app/apps/`.
 /products/games               category page — lumina · orbitone · curvved
 /products/extensions          category page — mapwit
 /products/<slug>              flat, one per product
-/products/<slug>/privacy      ← llmbytes' and lumina's are live Play policy URLs
+/products/<slug>/privacy      ← llmbytes' and lumina's are live Play policy URLs; mapwit's is the Chrome Web Store one
 /products/<slug>/terms        ← only where the product has a listing
 ```
 
@@ -84,6 +84,15 @@ optional, because MapWit has no store listing and therefore nowhere to publish a
 and inventing legally-material copy to satisfy a required field is worse than omitting
 it. `ProductDetail` hides the links and `app/sitemap.ts` skips the URLs when they are
 absent; a sitemap naming a route that does not exist is a crawl error we authored.
+
+**MapWit got its legal pages on 12 Sep 2026**, for Chrome Web Store submission — the store
+wants the policy URL before the listing exists, which is the one case the rule above did
+not anticipate. `data/legal/mapwit.ts` was written from the extension's source, not the
+Android template: it names the two things that leave the browser (business-website fetches
+and review excerpts to OpenRouter) and the user's own API key. `legalMetadata` now takes
+its noun from the product category, because "an Android app" was about to be wrong on a
+page a Web Store reviewer reads. Both routes are in llms.config.json's `excludeRoutes`,
+like every other product's.
 
 **Client work is a section on `/products`, not a route.** `data/clients.ts` holds the
 engagements and `components/products/ClientIndex.tsx` renders them as ruled rows that

@@ -120,6 +120,7 @@ import { orbitonePrivacy, orbitoneTerms } from "./legal/orbitone";
 import { curvvedPrivacy, curvvedTerms } from "./legal/curvved";
 import { meflowPrivacy, meflowTerms } from "./legal/meflow";
 import { vitaloopPrivacy, vitaloopTerms } from "./legal/vitaloop";
+import { mapwitPrivacy, mapwitTerms } from "./legal/mapwit";
 
 export const PRODUCTS: Product[] = [
   {
@@ -427,7 +428,7 @@ export const PRODUCTS: Product[] = [
     name: "MapWit",
     tagline: "Google Maps leads, scored in the browser",
     summary:
-      "A Chrome side panel that reads Google Maps results as you scroll, finds each business\u2019s contact email, grades the website it has or notices it has none, scores the lead and exports the lot to a spreadsheet. It runs entirely in the browser \u2014 no server, no account, and nothing leaves the machine.",
+      "A Chrome side panel that reads Google Maps results as you scroll, finds each business\u2019s contact email, grades the website it has or notices it has none, scores the lead and exports the lot to a spreadsheet. There is no server and no account: leads stay in your browser, and the only requests it makes are to the businesses\u2019 own websites and, if you ask for review analysis, to the AI model you choose.",
     packageId: "mapwit",
     status: "building",
     playUrl: null,
@@ -443,12 +444,12 @@ export const PRODUCTS: Product[] = [
       {
         title: "Enrichment, not just names",
         description:
-          "For every lead with a site it harvests contact emails, grades the site and detects social presence \u2014 the columns that decide whether a business is worth a call, rather than the ones that were easy to collect.",
+          "For every lead with a site it finds contact emails, grades the site and detects social presence \u2014 the columns that decide whether a business is worth a call, rather than the ones that were easy to collect.",
       },
       {
         title: "No website only",
         description:
-          "The one filter a web studio actually needs. Narrow five hundred listings to the businesses with nothing to lose, or use an industry template to narrow to the ones you already know how to serve.",
+          "The one filter a web studio actually needs. Narrow five hundred listings to the businesses with nothing to lose, then search by name or category for the ones you already know how to serve.",
       },
       {
         title: "Duplicates merge themselves",
@@ -466,6 +467,8 @@ export const PRODUCTS: Product[] = [
           "There is no server and no sign-in. Leads persist in the browser\u2019s own storage between sessions, so closing the tab does not cost you the morning\u2019s work.",
       },
     ],
+    privacy: mapwitPrivacy,
+    terms: mapwitTerms,
   },
 ];
 

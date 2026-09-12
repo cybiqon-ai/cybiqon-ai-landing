@@ -1,5 +1,13 @@
 # Update Log
 
+## 2026-09-12
+
+* **Routes**: `/products/mapwit/privacy` and `/products/mapwit/terms`, for the MapWit Chrome
+  Web Store submission. Policy in `data/legal/mapwit.ts`, written from the extension source
+  (see [Routes](/site/routes.md)). The MapWit summary also stopped saying "nothing leaves
+  the machine" — false since enrichment shipped — and stopped advertising industry
+  templates, which were cut before they were built.
+
 ## 2026-09-11
 
 * **Content**: `/blog` pruned from **113 to 80** posts, and the index repositioned to match the

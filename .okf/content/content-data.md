@@ -3,7 +3,7 @@ type: Reference
 title: Content data
 description: A data/ directory now exists and covers products, legal copy and the Launch-5 offer — but every marketing page's content is still a const array welded into the component that renders it.
 tags: [content, data, refactor, portfolio]
-timestamp: 2026-09-06T21:00:00Z
+timestamp: 2026-09-12T00:00:00Z
 ---
 
 # Overview
@@ -17,7 +17,7 @@ page is still a `const` array declared inside the component that renders it.**
 |---|---|
 | `data/products.ts` | `/products`, the three category pages and all seven product pages — types, `CATEGORIES`, `PRODUCTS`, `getProduct`, `productsIn`, `activeCategories` |
 | `data/clients.ts` | the client-work section of `/products` — `ClientProject`, `CLIENT_PROJECTS`. Separate from products on purpose: an engagement has a client and a delivery state where a product has a package id and a policy, and `unnamed` carries *why* a client is not named so the page can say so rather than quietly omit it |
-| `data/legal/{llmbytes,meflow,vitaloop}.ts` | privacy and terms, as a `Block` discriminated union (prose / checklist / deflist / table / contact) rather than MDX or raw HTML |
+| `data/legal/{llmbytes,meflow,vitaloop,lumina,orbitone,curvved,mapwit}.ts` | privacy and terms, as a `Block` discriminated union (prose / checklist / deflist / table / contact) rather than MDX or raw HTML |
 | `data/legal/site.ts` | **`/privacy` and `/terms`**, on the same union, added 7 Sep 2026. Both render through `components/products/LegalDoc.tsx` rather than a second renderer — it has no `dangerouslySetInnerHTML`, which is worth more here than on a product page. Its header records what was corrected and what still needs a lawyer. |
 | `data/launch5.ts` | `/free-website` — the trade, fit lists, sequence, FAQs, slot counts |
 | `data/homepage.ts` | `/` — `PROBLEMS`, `SERVICES` (all five with prices), `STEPS`, `DIFFERENTIATORS`. Added 6 Sep 2026 with the homepage redesign. |

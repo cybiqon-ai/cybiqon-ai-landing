@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CATEGORIES, getProduct, productsIn } from "@/data/products";
+import { CATEGORIES, getProduct, productsIn, type Category } from "@/data/products";
 import { clampDescription } from "@/lib/seo";
 
 const siteUrl = "https://cybiqon.in";
@@ -69,6 +69,15 @@ export function productMetadata(slug: string): Metadata {
   };
 }
 
+// What the product is, for the legal pages' meta description. MapWit made "an Android
+// app" wrong for the first time: the Chrome Web Store reviewer reads this page too.
+const KIND_NOUN: Record<Category, string> = {
+  app: "an Android app",
+  game: "an Android game",
+  extension: "a Chrome extension",
+  tool: "a tool",
+};
+
 export function legalMetadata(slug: string, kind: "privacy" | "terms"): Metadata {
   const app = getProduct(slug);
   if (!app) return { title: "Not found" };
@@ -76,7 +85,7 @@ export function legalMetadata(slug: string, kind: "privacy" | "terms"): Metadata
   const noun = kind === "privacy" ? "privacy policy" : "terms of service";
   return {
     title: `${label} — ${app.name}`,
-    description: `The ${noun} for ${app.name} (${app.packageId}), an Android app by Cybiqon AI Solutions.`,
+    description: `The ${noun} for ${app.name} (${app.packageId}), ${KIND_NOUN[app.category]} by Cybiqon AI Solutions.`,
     alternates: { canonical: `/products/${app.slug}/${kind}` },
   };
 }
