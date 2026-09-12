@@ -439,7 +439,7 @@ export const PRODUCTS: Product[] = [
       {
         title: "It reads what you scroll",
         description:
-          "Leads fill the side panel live as you scroll a Maps search, and Scrape more auto-scrolls the feed for you, up to 500 listings.",
+          "Leads fill the side panel live as you scroll a Maps search, and Load more auto-scrolls the feed for you, up to 500 listings.",
       },
       {
         title: "Enrichment, not just names",
