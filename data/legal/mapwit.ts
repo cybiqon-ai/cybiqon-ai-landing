@@ -95,7 +95,7 @@ export const mapwitPrivacy: LegalDoc = {
           def: [
             "When you click Analyse reviews, MapWit sends the business's name, category, rating, review count and up to 8 review excerpts to ",
             { link: "OpenRouter", href: "https://openrouter.ai" },
-            ", together with your API key and the model you chose. OpenRouter passes the request to that model's provider (by default Google, for google/gemini-2.5-flash). Opening Settings also fetches OpenRouter's public list of models, with no key, and the Test button sends a one-word request with your key.",
+            ", together with your API key and the model you chose. OpenRouter passes the request to that model's provider. By default that is Google: the default model is ~google/gemini-flash-latest, OpenRouter's name for whichever Gemini Flash model is newest. Opening Settings also fetches OpenRouter's public list of models, with no key, and the Test button sends a one-word request with your key.",
           ],
         },
       ],
