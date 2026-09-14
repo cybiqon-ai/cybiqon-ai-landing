@@ -160,7 +160,7 @@
         {
           "title": "Chrome extensions",
           "url": "/products/extensions",
-          "note": "browser tools. MapWit is the only one so far and is still in development."
+          "note": "browser tools. MapWit is the only one so far, published on the Chrome Web Store."
         },
         {
           "title": "LLMBytes",
@@ -195,7 +195,7 @@
         {
           "title": "MapWit",
           "url": "/products/mapwit",
-          "note": "a Chrome side panel that scrapes, enriches and scores Google Maps business listings entirely in the browser. In development, not yet on the Chrome Web Store."
+          "note": "a Chrome side panel that scrapes, enriches and scores Google Maps business listings entirely in the browser. Free on the Chrome Web Store, with AI review analysis on the user's own OpenRouter key."
         }
       ]
     },

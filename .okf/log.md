@@ -1,5 +1,15 @@
 # Update Log
 
+## 2026-09-14
+
+* **Content**: MapWit is live on the Chrome Web Store, and `/products/mapwit` says so —
+  status live, an "Add to Chrome" button, the extension ID. The catalogue was Play-shaped
+  and had to be generalised first: `playUrl` → `storeUrl`, a per-category `STORE`, and
+  `statusLabel()` in place of an unconditional "On Google Play". Extension JSON-LD is now
+  `SoftwareApplication` / `BrowserApplication`. See [Routes](/site/routes.md). Both MapWit
+  notes in `llms.config.json` updated; `llms.txt --check`: 9 lab posts · 8 sections · 47
+  links · 51 routes covered · 12.3 KB.
+
 ## 2026-09-13
 
 * **Content**: ninth lab post, `kolam-rangoli-mandala-indian-art-puzzle-game`, the first of a

@@ -78,10 +78,15 @@ export interface Product {
   tagline: string;
   /** Two or three sentences. Shown on the app page. */
   summary: string;
+  /** The store's own identifier — a Play package name, or a Chrome Web Store extension ID. */
   packageId: string;
   status: ProductStatus;
-  /** Null until the listing is public. */
-  playUrl: string | null;
+  /**
+   * The public store listing, or null until there is one. Which store is implied by the
+   * category — see `STORE`. Was `playUrl` until MapWit went live on the Chrome Web Store
+   * on 14 Sep 2026, the first listing that was not on Play.
+   */
+  storeUrl: string | null;
   /**
    * 128x128 WebP in public/img/, or null where no icon has been drawn.
    *
@@ -134,7 +139,7 @@ export const PRODUCTS: Product[] = [
       "A dark-mode AI news reader. A pipeline watches the channels where AI news actually breaks, researches each story, and writes it up — so you get a daily digest and a short-form feed instead of a timeline. Everything is cached, so it reads fine underground.",
     packageId: "com.cybiqon.llmbytes",
     status: "live",
-    playUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.llmbytes",
+    storeUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.llmbytes",
     platform: "Android",
     why:
       "AI news breaks on Telegram and X hours before it reaches a publication, and then arrives as a firehose. LLMBytes exists to do the reading for you: one digest a day, written from the source rather than rewritten from someone else's rewrite.",
@@ -181,7 +186,7 @@ export const PRODUCTS: Product[] = [
       "An all-in-one personal organiser. Track expenses across multiple accounts, manage tasks and goals, build habits, keep a journal with mood tracking, and write notes — without juggling five separate apps.",
     packageId: "com.cybiqon.meflow",
     status: "live",
-    playUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.meflow",
+    storeUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.meflow",
     platform: "Android",
     why:
       "Most people end up with an expense tracker, a to-do list, a habit tracker, a journal and a notes app — five apps that never talk to each other. MeFlow is the argument that one calm app beats five good ones.",
@@ -229,7 +234,7 @@ export const PRODUCTS: Product[] = [
       "A chronic-kidney-disease tracker for Indian patients, including those on dialysis or living with a transplant. Every food is scored red, amber or green for your CKD stage on sodium, potassium and phosphorus — using Indian food data, not a Western database.",
     packageId: "com.vitaloop.app",
     status: "testing",
-    playUrl: null,
+    storeUrl: null,
     platform: "Android",
     why:
       "Every kidney-diet app runs on the USDA food database, which is close to useless for dal, roti and sabzi. None of them warn about salt substitutes — marketed as the healthy choice, and dangerous for this group because they are potassium chloride. VitaLoop exists for those two gaps.",
@@ -277,7 +282,7 @@ export const PRODUCTS: Product[] = [
       "Slide crystal blocks aside so a glowing Light Key can reach its lantern, and relight a fading world one puzzle at a time. 300 hand-verified levels across ten worlds, a new puzzle every day, and no timers, lives or fail states \u2014 you cannot lose, only not have finished yet.",
     packageId: "com.cybiqon.lumina",
     status: "live",
-    playUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.lumina",
+    storeUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.lumina",
     platform: "Android",
     why:
       "Most puzzle games on Play are built to interrupt you \u2014 energy meters, countdowns, an ad between every level. Lumina is the opposite argument: every level is solvable at your own pace, every one is proven solvable by the solver that generated it, and the reward for playing is watching a world light back up.",
@@ -327,7 +332,7 @@ export const PRODUCTS: Product[] = [
       "A dot travels round a loop and a tap reverses it \u2014 and then, a hundred levels in, the game changes, and keeps changing seven more times. Eight different verbs across 500 levels, every one of them generated from its number and then played thousands of times by a bot before it ships.",
     packageId: "com.cybiqon.orbitone",
     status: "live",
-    playUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.orbitone",
+    storeUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.orbitone",
     platform: "Android",
     why:
       "Endless runners get harder; they do not get different. Orbitone's answer is to change the verb rather than the speed \u2014 eight games sharing one thumb, one shape language and one melody, so that reaching level 300 means having learned six things rather than having got faster at one.",
@@ -377,7 +382,7 @@ export const PRODUCTS: Product[] = [
       "A picture broken into pieces and scattered across a lattice of hexagons. Tap a piece and it turns; when the last loose end finds its neighbour, light runs through the figure and the lattice fades away, leaving the drawing behind. Seventy figures, no timer, no score and no way to lose.",
     packageId: "com.cybiqon.curvved",
     status: "building",
-    playUrl: null,
+    storeUrl: null,
     platform: "Android",
     why:
       "Rotate-the-tiles puzzles already exist and already market themselves as relaxing \u2014 that is a shipped product with the store keywords taken. The one thing they do not do is end on something worth looking at: their circuits light up, but nothing becomes anything. Curvved spends its whole budget on the last three seconds, where the lattice dissolves and what is left is the drawing rather than the solved grid.",
@@ -429,9 +434,11 @@ export const PRODUCTS: Product[] = [
     tagline: "Google Maps leads, scored in the browser",
     summary:
       "A Chrome side panel that reads Google Maps results as you scroll, finds each business\u2019s contact email, grades the website it has or notices it has none, scores the lead and exports the lot to a spreadsheet. There is no server and no account: leads stay in your browser, and the only requests it makes are to the businesses\u2019 own websites and, if you ask for review analysis, to the AI model you choose.",
-    packageId: "mapwit",
-    status: "building",
-    playUrl: null,
+    packageId: "pdpjbbgabmnoncnlkalmffgahpdihllc",
+    status: "live",
+    // The ID-only form: the store redirects it to whatever slug the current listing name
+    // produces, so renaming the listing cannot break this link.
+    storeUrl: "https://chromewebstore.google.com/detail/pdpjbbgabmnoncnlkalmffgahpdihllc",
     platform: "Chrome, Manifest V3",
     why:
       "A bought lead list is rows somebody else has already sold twice. The businesses actually worth calling are the ones already visible on Maps with no website or a bad one, and the only way to know which those are is to look at each one. MapWit does the looking \u2014 it reads the listings you are scrolling past anyway, checks whether a site exists and whether it is any good, and puts the ones worth a call at the top.",
@@ -480,7 +487,25 @@ export const productsIn = (category: Category) => PRODUCTS.filter((p) => p.categ
 export const activeCategories = () => CATEGORIES.filter((c) => productsIn(c.key).length > 0);
 
 export const STATUS_LABEL: Record<ProductStatus, string> = {
-  live: "On Google Play",
+  live: "Live",
   testing: "In closed testing",
   building: "In development",
+};
+
+/**
+ * Where each category publishes. `live` used to read "On Google Play" unconditionally,
+ * which was true of every live product until MapWit, and would have labelled a Chrome
+ * extension as a Play app on the day it launched.
+ */
+export const STORE: Record<Category, { name: string; idLabel: string } | null> = {
+  app: { name: "Google Play", idLabel: "Package" },
+  game: { name: "Google Play", idLabel: "Package" },
+  extension: { name: "Chrome Web Store", idLabel: "Extension ID" },
+  tool: null,
+};
+
+/** "On Google Play" / "On Chrome Web Store" when live in a store, else the plain status. */
+export const statusLabel = (p: Product) => {
+  const store = STORE[p.category];
+  return p.status === "live" && store ? `On ${store.name}` : STATUS_LABEL[p.status];
 };

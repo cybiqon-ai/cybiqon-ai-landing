@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight, GooglePlayLogo } from "@phosphor-icons/react/dist/ssr";
-import { STATUS_LABEL, getProduct } from "@/data/products";
+import { ArrowLeft, ArrowUpRight, GoogleChromeLogo, GooglePlayLogo } from "@phosphor-icons/react/dist/ssr";
+import { STORE, getProduct, statusLabel } from "@/data/products";
 
 const siteUrl = "https://cybiqon.in";
 
@@ -21,15 +21,21 @@ export default function ProductDetail({ slug }: { slug: string }) {
   const app = getProduct(slug);
   if (!app) notFound();
 
+  const store = STORE[app.category];
+  const isExtension = app.category === "extension";
+  const StoreLogo = isExtension ? GoogleChromeLogo : GooglePlayLogo;
+
+  // An extension is not a MobileApplication and does not run on Android. BrowserApplication
+  // is one of the applicationCategory values Google's software-app docs list.
   const schema = {
     "@context": "https://schema.org",
-    "@type": "MobileApplication",
+    "@type": isExtension ? "SoftwareApplication" : "MobileApplication",
     name: app.name,
     description: app.summary,
-    operatingSystem: "Android",
-    applicationCategory: "UtilitiesApplication",
+    operatingSystem: isExtension ? "Chrome" : "Android",
+    applicationCategory: isExtension ? "BrowserApplication" : "UtilitiesApplication",
     url: `${siteUrl}/products/${app.slug}`,
-    ...(app.playUrl ? { installUrl: app.playUrl } : {}),
+    ...(app.storeUrl ? { installUrl: app.storeUrl } : {}),
     author: { "@type": "Organization", name: "Cybiqon AI Solutions", url: siteUrl },
     offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
   };
@@ -87,29 +93,29 @@ export default function ProductDetail({ slug }: { slug: string }) {
             {/* Spec strip — label/value pairs, the document idiom rather than a card. */}
             <dl className="divide-y divide-border border-y border-border text-[13px]">
               {[
-                { k: "Status", v: STATUS_LABEL[app.status] },
+                { k: "Status", v: statusLabel(app) },
                 { k: "Platform", v: app.platform },
-                { k: "Package", v: app.packageId },
+                { k: store?.idLabel ?? "ID", v: app.packageId },
               ].map(({ k, v }) => (
                 <div key={k} className="flex items-baseline justify-between gap-4 py-2.5">
                   <dt className="font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                     {k}
                   </dt>
-                  <dd className="text-right tabular-nums text-foreground">{v}</dd>
+                  <dd className="text-right tabular-nums text-foreground [overflow-wrap:anywhere]">{v}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          {app.playUrl && (
+          {app.storeUrl && store && (
             <a
-              href={app.playUrl}
+              href={app.storeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-8 inline-flex items-center gap-2 bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:opacity-90 active:scale-[0.98]"
             >
-              <GooglePlayLogo weight="fill" aria-hidden className="h-4 w-4" />
-              Get it on Google Play
+              <StoreLogo weight="fill" aria-hidden className="h-4 w-4" />
+              {isExtension ? "Add to Chrome" : `Get it on ${store.name}`}
               <ArrowUpRight weight="bold" aria-hidden className="h-4 w-4" />
             </a>
           )}

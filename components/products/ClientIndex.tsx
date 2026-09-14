@@ -28,7 +28,7 @@ export default function ClientIndex({ projects }: { projects: ClientProject[] })
                   : "bg-surface-high text-primary"
               }`}
             >
-              {project.status === "live" ? "Live" : STATUS_LABEL[project.status]}
+              {STATUS_LABEL[project.status]}
             </span>
           </div>
 

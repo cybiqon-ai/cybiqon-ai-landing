@@ -3,7 +3,7 @@ type: Reference
 title: Routes
 description: Every route the site serves — two blogs on one table, which routes are server vs client, the chrome-suppression scope for /lab, and the redirect that keeps a published Play Store policy URL alive.
 tags: [routes, app-router, nextjs, redirects]
-timestamp: 2026-09-12T00:00:00Z
+timestamp: 2026-09-14T00:00:00Z
 ---
 
 # Marketing pages
@@ -93,6 +93,18 @@ and review excerpts to OpenRouter) and the user's own API key. `legalMetadata` n
 its noun from the product category, because "an Android app" was about to be wrong on a
 page a Web Store reviewer reads. Both routes are in llms.config.json's `excludeRoutes`,
 like every other product's.
+
+**MapWit went live on the Chrome Web Store on 14 Sep 2026** — the first listing not on
+Google Play, which is what the catalogue's Play-shaped fields had never been tested
+against. `Product.playUrl` is now **`storeUrl`**, and which store it points at is implied
+by the category through `STORE` in `data/products.ts`. `STATUS_LABEL.live` is plain "Live";
+the "On Google Play" / "On Chrome Web Store" wording comes from `statusLabel(product)`,
+because the old unconditional "On Google Play" would have labelled an extension a Play app
+on its launch day. `ProductDetail` emits `SoftwareApplication` / `BrowserApplication` /
+`operatingSystem: "Chrome"` JSON-LD for an extension rather than `MobileApplication` on
+Android, labels the ID row "Extension ID", and its CTA reads "Add to Chrome". MapWit's
+`packageId` is the real extension ID (`pdpjbbgabmnoncnlkalmffgahpdihllc`), and its
+`storeUrl` is the ID-only form, which the store redirects to the current name slug.
 
 **Client work is a section on `/products`, not a route.** `data/clients.ts` holds the
 engagements and `components/products/ClientIndex.tsx` renders them as ruled rows that
