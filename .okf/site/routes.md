@@ -3,7 +3,7 @@ type: Reference
 title: Routes
 description: Every route the site serves — two blogs on one table, which routes are server vs client, the chrome-suppression scope for /lab, and the redirect that keeps a published Play Store policy URL alive.
 tags: [routes, app-router, nextjs, redirects]
-timestamp: 2026-09-14T00:00:00Z
+timestamp: 2026-09-18T00:00:00Z
 ---
 
 # Marketing pages
@@ -68,9 +68,9 @@ the entire former contents of `app/apps/`.
 /products                     index: apps · games · extensions · client work
 /products/apps                category page — llmbytes · meflow · vitaloop
 /products/games               category page — lumina · orbitone · curvved
-/products/extensions          category page — mapwit
+/products/extensions          category page — mapwit · page-arcade
 /products/<slug>              flat, one per product
-/products/<slug>/privacy      ← llmbytes' and lumina's are live Play policy URLs; mapwit's is the Chrome Web Store one
+/products/<slug>/privacy      ← llmbytes' and lumina's are live Play policy URLs; mapwit's and page-arcade's are Chrome Web Store ones
 /products/<slug>/terms        ← only where the product has a listing
 ```
 
@@ -105,6 +105,18 @@ on its launch day. `ProductDetail` emits `SoftwareApplication` / `BrowserApplica
 Android, labels the ID row "Extension ID", and its CTA reads "Add to Chrome". MapWit's
 `packageId` is the real extension ID (`pdpjbbgabmnoncnlkalmffgahpdihllc`), and its
 `storeUrl` is the ID-only form, which the store redirects to the current name slug.
+
+**Page Arcade was added on 18 Sep 2026**, before its Chrome Web Store submission, the same
+way MapWit's legal pages were: the store wants the policy URL first. It is the second
+extension. Its policy briefly lived on the product's own Worker (`api.cybiqon.in/privacy`);
+the owner moved it here so every product's policy is on the company site. That URL now
+301-redirects to `/products/page-arcade/privacy`. `data/legal/page-arcade.ts` was written
+from the extension's source. Unlike MapWit, Page Arcade has a server of ours for two opt-in
+features (site leaderboards and share links), so the policy has a table of what each sends
+and how long it is kept. Every retention claim in it is enforced by code in the extension
+repo, and the file header says where. `packageId` is the placeholder `page-arcade` until the
+first upload assigns an extension ID. There are no `shots`, because `ProductDetail` sizes
+them as 360×640 phone captures and the store screenshots are 1280×800.
 
 **Client work is a section on `/products`, not a route.** `data/clients.ts` holds the
 engagements and `components/products/ClientIndex.tsx` renders them as ruled rows that

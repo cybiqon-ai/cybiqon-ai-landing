@@ -160,7 +160,7 @@
         {
           "title": "Chrome extensions",
           "url": "/products/extensions",
-          "note": "browser tools. MapWit is the only one so far, published on the Chrome Web Store."
+          "note": "browser tools. MapWit, published on the Chrome Web Store, and Page Arcade, in development."
         },
         {
           "title": "LLMBytes",
@@ -196,6 +196,11 @@
           "title": "MapWit",
           "url": "/products/mapwit",
           "note": "a Chrome side panel that scrapes, enriches and scores Google Maps business listings entirely in the browser. Free on the Chrome Web Store, with AI review analysis on the user's own OpenRouter key."
+        },
+        {
+          "title": "Page Arcade",
+          "url": "/products/page-arcade",
+          "note": "a Chrome extension that freezes the page you are reading into a game level: eight arcade games built from its words, empty space and images, with optional site leaderboards and share links. In development; the page is never modified."
         }
       ]
     },
@@ -270,6 +275,8 @@
     "/products/curvved/privacy": "Play Store policy URL, not content.",
     "/products/curvved/terms": "Play Store policy URL, not content.",
     "/products/mapwit/privacy": "Chrome Web Store policy URL, not content.",
-    "/products/mapwit/terms": "Chrome Web Store policy URL, not content."
+    "/products/mapwit/terms": "Chrome Web Store policy URL, not content.",
+    "/products/page-arcade/privacy": "Chrome Web Store policy URL, not content.",
+    "/products/page-arcade/terms": "Chrome Web Store policy URL, not content."
   }
 }

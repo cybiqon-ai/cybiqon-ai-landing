@@ -1,5 +1,16 @@
 # Update Log
 
+## 2026-09-18
+
+* **Content**: Page Arcade is listed under Chrome extensions, in development.
+  - Pages: `/products/page-arcade`, with `/privacy` and `/terms`.
+  - Why now: its Chrome Web Store policy URL. The policy moved here from the product's own
+    Worker at the owner's request.
+  - Icon: the extension's 128 px pixel icon.
+  - See [Routes](/site/routes.md). `llms.config.json` gains the product and excludes both
+    legal routes. `llms.txt`: 9 lab posts · 8 sections · 48 links · 54 routes covered ·
+    12.6 KB. `next build` renders all three pages statically.
+
 ## 2026-09-14
 
 * **Content**: MapWit is live on the Chrome Web Store, and `/products/mapwit` says so —

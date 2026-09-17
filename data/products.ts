@@ -126,6 +126,7 @@ import { curvvedPrivacy, curvvedTerms } from "./legal/curvved";
 import { meflowPrivacy, meflowTerms } from "./legal/meflow";
 import { vitaloopPrivacy, vitaloopTerms } from "./legal/vitaloop";
 import { mapwitPrivacy, mapwitTerms } from "./legal/mapwit";
+import { pageArcadePrivacy, pageArcadeTerms } from "./legal/page-arcade";
 
 export const PRODUCTS: Product[] = [
   {
@@ -476,6 +477,56 @@ export const PRODUCTS: Product[] = [
     ],
     privacy: mapwitPrivacy,
     terms: mapwitTerms,
+  },
+  {
+    slug: "page-arcade",
+    icon: "/img/icon-page-arcade.webp",
+    category: "extension",
+    name: "Page Arcade",
+    tagline: "The page you're reading is the level",
+    summary:
+      "Click the icon on any web page and it freezes into a game level: eight arcade games played with that page\u2019s own words, gaps and pictures. Snake threads the empty space, the words fall as invaders, every word becomes a brick, and when you leave, the page is exactly as it was.",
+    // No Chrome Web Store ID until the first upload assigns one; replace this then.
+    packageId: "page-arcade",
+    status: "building",
+    storeUrl: null,
+    platform: "Chrome, Manifest V3",
+    why:
+      "Browser games that use the page you are on go back at least to the Kick Ass bookmarklet, and most do the same thing: fly over the page and shoot it. Page Arcade asks what else a page could be. Its whitespace is a maze, its headings are bosses, its images are steel. Each game reads the actual layout, so no two pages play the same, and a long Wikipedia article is a different level from a news homepage.",
+    features: [
+      {
+        title: "Eight games, one page",
+        description:
+          "Snake, Word Blaster, Type Storm, Brickout, Whack-a-Word, Page Roller, Gravity Crumble and Page Chomp, all built from the same frozen screenshot.",
+      },
+      {
+        title: "The layout is the level",
+        description:
+          "The empty space is found pixel by pixel, so Snake and Page Chomp use the page\u2019s real gaps as corridors and never die on a wall you cannot see.",
+      },
+      {
+        title: "Tall levels",
+        description:
+          "Snake, Page Chomp and Page Roller can stitch several screens of a long page into one level, with a camera that follows you down it.",
+      },
+      {
+        title: "Nothing on the page changes",
+        description:
+          "It plays on a picture of the page. Press Esc and the page, and your scroll position, are exactly as they were.",
+      },
+      {
+        title: "Progress, skins and a share card",
+        description:
+          "XP, achievements and unlockable skins, plus a picture of the wrecked page to copy or save when a game ends.",
+      },
+      {
+        title: "Online only if you ask",
+        description:
+          "No site access until you click. Site leaderboards and share links are optional and off by default, and scores send the site\u2019s hostname, never the page address.",
+      },
+    ],
+    privacy: pageArcadePrivacy,
+    terms: pageArcadeTerms,
   },
 ];
 
