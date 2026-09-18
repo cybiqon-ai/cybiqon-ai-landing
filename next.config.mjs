@@ -33,6 +33,14 @@ const nextConfig = {
        */
       { source: "/our-works", destination: "/products", permanent: true },
       /**
+       * Curvved became ChitraYatra on 17 Sep 2026 — rebuilt as stained glass, renamed,
+       * new package. Its privacy URL was written into the Play Console draft and into
+       * PLAY_DATA_SAFETY.md, so every old path lands on the new page rather than 404s.
+       */
+      { source: "/products/curvved", destination: "/products/chitrayatra", permanent: true },
+      { source: "/products/curvved/privacy", destination: "/products/chitrayatra/privacy", permanent: true },
+      { source: "/products/curvved/terms", destination: "/products/chitrayatra/terms", permanent: true },
+      /**
        * 33 /blog posts pruned on 11 Sep 2026, out of 113, after each was read and checked
        * against Search Console. They were duplicates of a stronger post, out of date, or
        * about something the company does not sell, and together drew a small share of the

@@ -67,12 +67,17 @@ the entire former contents of `app/apps/`.
 ```
 /products                     index: apps · games · extensions · client work
 /products/apps                category page — llmbytes · meflow · vitaloop
-/products/games               category page — lumina · orbitone · curvved
+/products/games               category page — lumina · orbitone · chitrayatra
 /products/extensions          category page — mapwit · page-arcade
 /products/<slug>              flat, one per product
-/products/<slug>/privacy      ← llmbytes' and lumina's are live Play policy URLs; mapwit's and page-arcade's are Chrome Web Store ones
+/products/<slug>/privacy      ← llmbytes' and lumina's are live Play policy URLs; chitrayatra's is in its Play draft; mapwit's and page-arcade's are Chrome Web Store ones
 /products/<slug>/terms        ← only where the product has a listing
 ```
+
+**`/products/curvved`, `/privacy` and `/terms` redirect (308) to `/products/chitrayatra`**
+(`next.config.mjs`, 18 Sep 2026). Curvved was rebuilt as stained glass and renamed
+ChitraYatra, with a new package; its privacy URL had been written into Play Console and
+`PLAY_DATA_SAFETY.md`, so the old paths keep working.
 
 Everything is driven by `data/products.ts`; the routes are thin shims that look up a
 slug and render `components/products/ProductDetail.tsx` or `LegalPage.tsx`. Category

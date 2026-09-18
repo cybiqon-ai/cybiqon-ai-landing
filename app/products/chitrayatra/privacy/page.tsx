@@ -1,8 +1,8 @@
 import LegalPage from "@/components/products/LegalPage";
 import { legalMetadata } from "@/components/products/meta";
 
-export const metadata = legalMetadata("curvved", "terms");
+export const metadata = legalMetadata("chitrayatra", "privacy");
 
 export default function Page() {
-  return <LegalPage slug="curvved" kind="terms" />;
+  return <LegalPage slug="chitrayatra" kind="privacy" />;
 }

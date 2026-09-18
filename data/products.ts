@@ -122,7 +122,7 @@ export interface Product {
 import { llmbytesPrivacy, llmbytesTerms } from "./legal/llmbytes";
 import { luminaPrivacy, luminaTerms } from "./legal/lumina";
 import { orbitonePrivacy, orbitoneTerms } from "./legal/orbitone";
-import { curvvedPrivacy, curvvedTerms } from "./legal/curvved";
+import { chitrayatraPrivacy, chitrayatraTerms } from "./legal/chitrayatra";
 import { meflowPrivacy, meflowTerms } from "./legal/meflow";
 import { vitaloopPrivacy, vitaloopTerms } from "./legal/vitaloop";
 import { mapwitPrivacy, mapwitTerms } from "./legal/mapwit";
@@ -373,59 +373,66 @@ export const PRODUCTS: Product[] = [
     terms: orbitoneTerms,
   },
   {
-    slug: "curvved",
-    icon: "/img/icon-curvved.webp",
-    shots: ["/img/shots/curvved-1.webp", "/img/shots/curvved-2.webp", "/img/shots/curvved-3.webp"],
+    // Was "curvved" until 17 Sep 2026: the game was rebuilt as stained glass and
+    // renamed, with a new package. /products/curvved/* redirects here
+    // (next.config.mjs), because its privacy URL had been registered with Play.
+    slug: "chitrayatra",
+    icon: "/img/icon-chitrayatra.webp",
+    shots: [
+      "/img/shots/chitrayatra-1.webp",
+      "/img/shots/chitrayatra-2.webp",
+      "/img/shots/chitrayatra-3.webp",
+    ],
     category: "game",
-    name: "Curvved",
-    tagline: "The answer is a picture",
+    name: "ChitraYatra",
+    tagline: "A journey of pictures, in glass",
     summary:
-      "A picture broken into pieces and scattered across a lattice of hexagons. Tap a piece and it turns; when the last loose end finds its neighbour, light runs through the figure and the lattice fades away, leaving the drawing behind. Seventy figures, no timer, no score and no way to lose.",
-    packageId: "com.cybiqon.curvved",
+      "A calm puzzle of stained glass. Each window is a drawing from an Indian art tradition \u2014 a kolam, a jaali, a Madhubani fish pair \u2014 cut into hexagonal panes; turn, trade or carry them home until the lead lines meet and each closed shape lights. Choose windows state by state from a map of India, or shelf by shelf from the gallery. No timer, no score, no ads.",
+    packageId: "com.cybiqon.chitrayatra",
     status: "building",
     storeUrl: null,
     platform: "Android",
     why:
-      "Rotate-the-tiles puzzles already exist and already market themselves as relaxing \u2014 that is a shipped product with the store keywords taken. The one thing they do not do is end on something worth looking at: their circuits light up, but nothing becomes anything. Curvved spends its whole budget on the last three seconds, where the lattice dissolves and what is left is the drawing rather than the solved grid.",
+      "The first version, Curvved, was a lattice of curves whose solved board only approximated its drawing. The owner said twice that the two did not match, so the mechanic was rebuilt until the solved board is the drawing itself: the panes are cut from the picture, and a finished window is the art, not a grid that resembles it. Everything else followed from treating each window as something worth keeping.",
     features: [
       {
-        title: "The lattice dissolves and leaves the drawing",
+        title: "A window for every state",
         description:
-          "The board you solve is an approximation of a curve. When you finish it, the approximation fades out and the actual drawing fades in \u2014 so the last frame is line art, not a completed puzzle.",
+          "A map of India opens each state and union territory's own art: kolam from Tamil Nadu, pookalam from Kerala, mandana from Rajasthan, Phulkari from Punjab and more \u2014 145 windows free.",
       },
       {
-        title: "Seventy figures across six packs",
+        title: "Four ways to play every window",
         description:
-          "A wren, a fern, a koi with a gill and a lateral line, a crescent moon, a teacup, a guitar. Each pack has its own palette, drifting in hue as you move through it.",
+          "Turn panes in place, carry them home from a tray, trade two at a time, or turn whole flowers of seven. Each is taught once, by a hand, the first time.",
       },
       {
-        title: "Every level is proven before it ships",
+        title: "Difficulty that builds",
         description:
-          "The game\u2019s own solver verifies that each figure has exactly one arrangement with no loose ends, so finishing it really does mean you drew the picture rather than found a picture.",
+          "After the first window, five gentle ones open with only some panes out of place, so a new player is never dropped into a full scramble.",
       },
       {
-        title: "No timer, no score, no way to lose",
+        title: "Artisan: scenes of India",
         description:
-          "Nothing counts down, nothing turns red, and there is no streak to break. Put it down mid-figure and every half-made figure is kept \u2014 not just the most recent one.",
+          "A second game of painted scenes \u2014 Hampi at dusk, the tea hills of Munnar \u2014 cut into pieces that join as they meet. 54, 77 or 126 pieces.",
       },
       {
-        title: "You can hear yourself getting closer",
+        title: "The board alone",
         description:
-          "Four layers of a slow ambient bed fade up as the figure fills in, and every connection is a note climbing a pentatonic scale. That is the only progress indicator in the game.",
+          "While you play, the controls step aside and the window is all there is; a tap brings them back, and a finished window brings everything back.",
       },
       {
-        title: "A gallery that keeps what you made",
+        title: "Every window proven before it ships",
         description:
-          "Finished figures stay finished and can be reopened full-screen or exported as an image. A reveal that plays once and vanishes earns no ownership.",
+          "The game's own solver checks that each window has exactly one arrangement, so finishing it means you made the picture.",
       },
       {
-        title: "No ads, and no account",
+        title: "No ads, no account",
         description:
-          "Not fewer ads \u2014 none. Plays entirely offline, with nothing to sign in to and nothing uploaded anywhere.",
+          "Every window and scene is free. Optional purchases add Solve it for me, finishes and moving backgrounds, and packs of new windows \u2014 nothing free is ever moved behind one.",
       },
     ],
-    privacy: curvvedPrivacy,
-    terms: curvvedTerms,
+    privacy: chitrayatraPrivacy,
+    terms: chitrayatraTerms,
   },
   {
     slug: "mapwit",

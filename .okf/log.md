@@ -2,6 +2,20 @@
 
 ## 2026-09-18
 
+* **Content**: Curvved is now **ChitraYatra**, at `/products/chitrayatra` with `/privacy` and
+  `/terms`; the three `/products/curvved` paths redirect there (308).
+  - Why: the game was rebuilt as stained glass and renamed, with a new package
+    (`com.cybiqon.chitrayatra`), and its privacy URL is needed for the Play listing.
+  - **The policy was rewritten, not renamed.** Curvved's described the retired lattice game,
+    an unlock and a tip jar, and said nothing left the device but a Google Play purchase.
+    Since 14 Sep 2026 purchases go through RevenueCat, which receives purchase history and
+    an anonymous app user ID — declared in `PLAY_DATA_SAFETY.md`, missing from the policy.
+    `data/legal/chitrayatra.ts` states both, with deletion on request.
+  - Product page: new copy, icon and three screenshots from the game's store assets
+    (the map shot was left out: cropped to 9:16 it loses the CC BY attribution line).
+  - `llms.config.json` updated. `llms.txt`: 9 lab posts · 8 sections · 48 links · 54 routes
+    covered · 12.6 KB. `next build` renders all three pages statically.
+
 * **Content**: Page Arcade is listed under Chrome extensions, in development.
   - Pages: `/products/page-arcade`, with `/privacy` and `/terms`.
   - Why now: its Chrome Web Store policy URL. The policy moved here from the product's own

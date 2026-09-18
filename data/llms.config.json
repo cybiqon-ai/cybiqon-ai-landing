@@ -188,9 +188,9 @@
           "note": "a one-thumb arcade game for Android: eight different play-verbs across 500 levels, each level generated from its number and measured by headless bots before it ships. Flutter + Flame, pure-Dart engine."
         },
         {
-          "title": "Curvved",
-          "url": "/products/curvved",
-          "note": "a zen hex puzzle for Android: rotate pieces on a hexagonal lattice until a figure closes, then the lattice dissolves and leaves the drawing behind. Seventy figures, no timer and no score. Flutter with a Flutter-free pure-Dart engine — solver, tracer and difficulty gates all run headless."
+          "title": "ChitraYatra",
+          "url": "/products/chitrayatra",
+          "note": "a calm stained-glass puzzle for Android (was Curvved): drawings from Indian art traditions cut into hexagonal panes, chosen state by state from a map of India, in four ways to play, plus Artisan painted scenes. No ads, no timer. Flutter with a Flutter-free pure-Dart engine — solver and difficulty gates run headless."
         },
         {
           "title": "MapWit",
@@ -272,8 +272,8 @@
     "/products/lumina/terms": "Play Store policy URL, not content.",
     "/products/orbitone/privacy": "Play Store policy URL, not content.",
     "/products/orbitone/terms": "Play Store policy URL, not content.",
-    "/products/curvved/privacy": "Play Store policy URL, not content.",
-    "/products/curvved/terms": "Play Store policy URL, not content.",
+    "/products/chitrayatra/privacy": "Play Store policy URL, not content.",
+    "/products/chitrayatra/terms": "Play Store policy URL, not content.",
     "/products/mapwit/privacy": "Chrome Web Store policy URL, not content.",
     "/products/mapwit/terms": "Chrome Web Store policy URL, not content.",
     "/products/page-arcade/privacy": "Chrome Web Store policy URL, not content.",
