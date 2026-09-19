@@ -195,7 +195,7 @@
         {
           "title": "MapWit",
           "url": "/products/mapwit",
-          "note": "a Chrome side panel that scrapes, enriches and scores Google Maps business listings entirely in the browser. Free on the Chrome Web Store, with AI review analysis on the user's own OpenRouter key."
+          "note": "a Chrome side panel that captures, qualifies and scores the businesses in a Google Maps search, then exports them to Excel. No server or account; it fetches a business's own website only after the user allows it, and AI review analysis runs on the user's own OpenRouter key. Free on the Chrome Web Store. Build write-up: /lab/mapwit-chrome-extension-google-maps-leads."
         },
         {
           "title": "Page Arcade",

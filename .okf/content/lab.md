@@ -3,7 +3,7 @@ type: Domain
 title: Lab
 description: The second blog at /lab — hand-written engineering notes sharing a D1 table with the automated MSME blog, separated by a section column, its own chrome, and the only palette departure on the site.
 tags: [lab, blog, d1, content, design, edge, seo, aeo]
-timestamp: 2026-09-13T00:00:00Z
+timestamp: 2026-09-19T00:00:00Z
 ---
 
 # Overview
@@ -12,7 +12,7 @@ timestamp: 2026-09-13T00:00:00Z
 being built, what broke, and what the numbers said. `/blog` is the automated MSME SEO
 channel — see [Blog](blog.md). They share one D1 table and nothing else.
 
-Created 1 Aug 2026. **Nine posts**: two migrated from `itspyguru.github.io` on day one;
+Created 1 Aug 2026. **Ten posts**: two migrated from `itspyguru.github.io` on day one;
 `nobody-escaped-the-sandbox-had-a-door` written here and committed 6 Aug 2026 (commit
 `cc37929`, whose subject line belongs to a different change — the commit touches only that
 post); `puzzle-generator-random-walk-doesnt-work` on 10 Aug 2026;
@@ -43,6 +43,18 @@ standing in for the palette. The cost is page weight: ~55 KB of path data, and t
 page is **388 KB** of HTML because the RSC payload carries the body twice, against 118 KB
 for the sandbox post. Sources were verified by opening them; one that returned 403
 (Sarmaya, on Phad) was dropped rather than cited on the strength of a search snippet.
+
+Tenth, `mapwit-chrome-extension-google-maps-leads` on 19 Sep 2026 — the build story of the
+MapWit Chrome extension (`products/extensions/gmaps-extractor`, a **private** repo, so the
+post never links it). Every figure was re-measured from that repo while writing: a `vitest`
+run on the published commit, the store zip and `dist/` sizes, line counts. External claims
+were each checked by fetching the cited page, and five were corrected before publishing —
+among them the Google Maps end-user terms, which the post quotes verbatim ("mass download or
+create bulk feeds of the content") rather than paraphrasing as a ban on "scraping", a word
+those terms do not use. By the owner's decision the post describes how MapWit copes with
+Maps throttling **at a high level only** — no timings, rest intervals or stall detection —
+so it cannot read as an evasion guide. Its one SVG was drawn by hand and checked by
+rendering it with `sharp` before publishing.
 
 The fourth post is the first that is **not** AI commentary — it documents the level
 generator in `products/lumina` (its own bundle) — and the first to use **inline SVG** in a
