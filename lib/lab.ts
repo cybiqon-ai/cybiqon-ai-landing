@@ -1,5 +1,5 @@
 import { getDB } from "./db";
-import { POSTS_PER_PAGE, slugifyTag, type BlogPost, type FullBlogPost } from "./blog";
+import { POSTS_PER_PAGE, d1Date, slugifyTag, type BlogPost, type FullBlogPost } from "./blog";
 
 /**
  * The measurement rail — /lab's signature, and the reason it exists.
@@ -303,10 +303,7 @@ export function slugifyHeading(text: string): string {
  */
 const IST = "Asia/Kolkata";
 
-function toDate(createdAt: string): Date {
-  const iso = createdAt.includes("T") ? createdAt : createdAt.replace(" ", "T");
-  return new Date(/[Z+]/.test(iso) ? iso : `${iso}Z`);
-}
+const toDate = d1Date;
 
 /** "2026-07-31" */
 export function istDate(createdAt: string): string {

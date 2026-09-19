@@ -3,7 +3,7 @@ type: Domain
 title: Blog
 description: The automated blog at /blog — posts are rows in Cloudflare D1, not files, written by a different repo and rendered by a live edge query. Shares its table with /lab, separated by a section column. Pruned from 113 to 80 posts on 11 Sep 2026.
 tags: [blog, d1, cloudflare, content, edge, msme, redirects, pruning]
-timestamp: 2026-09-11T00:00:00Z
+timestamp: 2026-09-19T00:00:00Z
 ---
 
 # Overview
@@ -105,6 +105,10 @@ and `rel="prev"`/`rel="next"` are emitted.
 published = 1`, `notFound()` if missing. `generateMetadata` runs a **second**
 query. Content is injected with `dangerouslySetInnerHTML` after an H1→H2 rewrite
 (the page supplies its own H1). Reading time is words ÷ 200.
+
+**Revision dates (19 Sep 2026):** `revisedAt()` in `lib/blog.ts` turns the publisher's `updated_at`
+into `dateModified`, OpenGraph `modifiedTime`, the sitemap `lastModified` and a visible "Updated"
+date — but only when it is more than an hour after `created_at`. See [SEO](/site/seo.md).
 
 # Two consequences worth knowing
 

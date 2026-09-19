@@ -58,6 +58,35 @@ export interface FullBlogPost extends BlogPost {
   updated_at: string | null;
 }
 
+/**
+ * D1 stores DATETIME as "2026-09-13 05:30:38" — UTC, with no zone marker. `new Date()`
+ * on that string reads it as local time, which is only right because the edge runs in
+ * UTC; this reads it as UTC everywhere, including a local build.
+ */
+export function d1Date(value: string): Date {
+  const iso = value.includes("T") ? value : value.replace(" ", "T");
+  return new Date(/[Z+]/.test(iso) ? iso : `${iso}Z`);
+}
+
+/**
+ * When a /blog post was last revised, or null if it has not been.
+ *
+ * The publisher sets `updated_at` when it refreshes a post (ten had been, by Sep 2026,
+ * including the website-cost page), but it also sometimes stamps it within seconds of
+ * the insert. So a non-null value is not by itself an edit: it counts only when it lands
+ * more than an hour after `created_at`. Below that it is the same run finishing, and
+ * advertising it as a revision would be a claim the post does not support.
+ *
+ * This is the date that tells Google a refresh happened. Before 19 Sep 2026 /blog used
+ * `created_at` everywhere, so a rewritten post looked untouched — the website-cost page
+ * was refreshed on 13 Sep and Search Console still showed its last crawl as 11 Aug.
+ */
+export function revisedAt(post: { created_at: string; updated_at: string | null }): Date | null {
+  if (!post.updated_at) return null;
+  const updated = d1Date(post.updated_at);
+  return updated.getTime() - d1Date(post.created_at).getTime() > 60 * 60 * 1000 ? updated : null;
+}
+
 export interface TagInfo {
   name: string;
   slug: string;

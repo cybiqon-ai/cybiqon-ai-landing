@@ -1,5 +1,14 @@
 # Update Log
 
+## 2026-09-19
+
+* **SEO**: refreshed `/blog` posts now tell crawlers they changed. The sitemap, Article JSON-LD,
+  OpenGraph and the visible date all used `created_at`, so a rewrite looked untouched — the
+  website-cost post, rewritten 13 Sep, was still last-crawled 11 Aug. New `revisedAt()` /
+  `d1Date()` in `lib/blog.ts`. Also: layout Organization/ProfessionalService descriptions moved off
+  the "affordable … for MSMEs" copy, and `/services` names "website and app development". See
+  [SEO](/site/seo.md#a-refreshed-blog-post-never-looked-changed--fixed-19-sep-2026).
+
 ## 2026-09-18
 
 * **Content**: Curvved is now **ChitraYatra**, at `/products/chitrayatra` with `/privacy` and

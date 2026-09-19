@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description:
     "Custom software, AI agents, websites, Android apps, admin panels, WhatsApp automation and Chrome extensions — built for one business. From ₹6,999.",
   keywords:
-    "custom software development India, software development company India, AI agent development, custom website development India, android app development India, admin panel development, WhatsApp automation India, chrome extension development, web scraping services India, business automation India",
+    "custom software development India, software development company India, website and app development India, AI agent development, custom website development India, android app development India, admin panel development, WhatsApp automation India, chrome extension development, web scraping services India, business automation India",
   alternates: { canonical: "/services" },
   openGraph: {
     title: "Custom Software Development for Indian Businesses | Cybiqon AI Solutions",
@@ -90,8 +90,9 @@ export default function ServicesPage() {
             Custom software development for Indian businesses
           </h1>
           <p className="t-body-lg mt-5 max-w-[62ch] text-muted-foreground">
-            Seven things we build, each written for one business rather than configured from
-            a theme. Every price is on the page — one-time, not a retainer, and the code is
+            Seven things we build — from website and app development to AI agents and
+            internal software — each written for one business rather than configured from a
+            theme. Every price is on the page — one-time, not a retainer, and the code is
             yours on handover.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">

@@ -3,10 +3,34 @@ type: Domain
 title: SEO
 description: Structured data, sitemap, RSS and per-page metadata are all in place as of 25 Jul 2026; the blog is indexed and the remaining gap is ranking, not discovery.
 tags: [seo, metadata, json-ld, sitemap, search-console, rss, aeo, ai-crawlers]
-timestamp: 2026-09-08T00:00:00Z
+timestamp: 2026-09-19T00:00:00Z
 ---
 
 # Overview
+
+## A refreshed /blog post never looked changed — fixed 19 Sep 2026
+
+The publisher refreshes posts in place and sets `updated_at` when it does. **Nothing on the site read
+it for `/blog`**: the sitemap's `lastModified`, the Article JSON-LD and the page's visible date all
+came from `created_at`. So a rewrite was invisible to a crawler. The website-cost post was rewritten
+on 13 Sep for "website development cost in india", and URL Inspection still showed Google's last
+crawl as 11 Aug — the old version was the one ranking.
+
+`lib/blog.ts` now has `revisedAt(post)`, used by the sitemap, `dateModified`, OpenGraph
+`modifiedTime` and a visible "Updated" date. It only counts a revision when `updated_at` is more than
+an hour after `created_at`, because the publisher sometimes stamps `updated_at` in the same run as the
+insert — advertising that as an edit would be a false claim. `/lab` keeps its own rule (NULL means
+never edited). `d1Date` reads D1's zone-less DATETIME as UTC and replaced the private copy in
+`lib/lab.ts`.
+
+The same pass replaced the Organization and ProfessionalService descriptions in `app/layout.tsx`,
+which still said "affordable websites … for Indian MSMEs" on every page, and worked "website and app
+development" into the `/services` intro. `STATIC_LAST_MODIFIED` moved to 19 Sep because the layout
+JSON-LD changed on every page.
+
+**What a crawl signal cannot do:** head terms like "website development company" are held by
+directories and large agencies, and the site had no impressions on any such query as of Sep 2026.
+Those are an authority problem — directory listings and backlinks — not a markup one.
 
 ## React 19 preloads every server-rendered `<img>` — 8 Sep 2026
 

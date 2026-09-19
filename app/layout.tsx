@@ -114,7 +114,7 @@ const organizationSchema = {
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   description:
-    "Affordable websites and AI-powered automation solutions for Indian MSMEs",
+    "Custom software, AI agents and websites for Indian businesses — written for the business, with the code handed over.",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+91-92507-11473",
@@ -143,7 +143,7 @@ const localBusinessSchema = {
   logo: `${siteUrl}/logo.png`,
   image: `${siteUrl}/logo.png`,
   description:
-    "Affordable website development, Android app development, AI automation, data scraping, and Chrome extension services for Indian MSMEs.",
+    "Custom software, AI agents and automation, website and app development, admin panels, Chrome extensions and web scraping for Indian businesses.",
   telephone: "+91-92507-11473",
   email: "support@cybiqon.in",
   priceRange: "₹₹",
