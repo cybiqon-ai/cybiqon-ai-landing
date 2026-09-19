@@ -28,11 +28,13 @@ readouts:
   - label: deadline
     value: "30 Sep"
 ---
+*Renamed on 17 September 2026. The game in this post was called Curvved when it was written; it is now ChitraYatra. Apart from the name, nothing in it has changed.*
+
 The concept board that started this was made with an image model. Across the top it says *Indian Art Traditions, Reimagined*, and below that are ten traditions, each shown twice: scrambled into hexagonal tiles and then solved. Kolam, Madhubani, Warli, Pattachitra, Kalamkari, Rajasthani miniature, Gond, Phad, rangoli, Mughal floral. It is beautiful, and it would sell the game in one screenshot.
 
 It is also a precise picture of what we decided not to ship. One panel shows a Pattachitra goddess's face split across hexagonal tiles. Another is a Gond deer that no Gond artist drew.
 
-We are building **Curvved** for [RevenueCat Shipaton 2026](https://revenuecat-shipaton-2026.devpost.com/), whose submissions close on 30 September. This is the first post in a series about building it. The game is a drawing cut into hexagonal panes of stained glass: turn or move the panes until every line meets its neighbour, and each region of the picture lights up as glass. On 13 September we decided it should carry Indian traditions. By the end of that day, of the ten on the board, **two were in the game, kolam and rangoli, generated entirely by our own code, along with a third the board never showed: mandala, as plain geometry. Three are waiting for artists we have not yet paid. Two are shrines rather than pictures, and stay out. The last three might come later, from artists or from public-domain museum collections, but never as the board shows them.**
+We are building **[ChitraYatra](/products/chitrayatra)** for [RevenueCat Shipaton 2026](https://revenuecat-shipaton-2026.devpost.com/), whose submissions close on 30 September. This is the first post in a series about building it. The game is a drawing cut into hexagonal panes of stained glass: turn or move the panes until every line meets its neighbour, and each region of the picture lights up as glass. On 13 September we decided it should carry Indian traditions. By the end of that day, of the ten on the board, **two were in the game, kolam and rangoli, generated entirely by our own code, along with a third the board never showed: mandala, as plain geometry. Three are waiting for artists we have not yet paid. Two are shrines rather than pictures, and stay out. The last three might come later, from artists or from public-domain museum collections, but never as the board shows them.**
 
 This post is how that sorting happened: the history of each tradition, the mathematics that made one of them almost free to implement, and the rules that kept the rest out.
 
@@ -44,7 +46,7 @@ This post is how that sorting happened: the history of each tradition, the mathe
 - **Gond, Madhubani and Warli wait for commissioned artists.** These are authored styles practised by living communities, and each carries a Geographical Indication. Under the Indian Copyright Act an assignment is only valid **in writing** (s.19), and the artist's right to object to distortion **survives the sale** (s.57). We will not generate these styles, and we will not prompt an image model to imitate them.
 - **Deities and yantras are never puzzle pieces.** That rules out most of Pattachitra, Phad and temple Kalamkari. Our mandalas are secular geometry with no bindu and no interlocking triangles.
 
-## Curvved, in one paragraph
+## ChitraYatra, in one paragraph
 
 A drawing is laid under a coarse grid of 21–23 hexagonal panes. Wherever a line crosses the edge of a pane, it is snapped to one of seven evenly spaced **ports**. The panes are scrambled, and the rule is simply *no loose ends*: when every port meets the matching port on the neighbouring pane, the board **is** the drawing, exactly. Enclosed areas of the drawing fill with stained glass as soon as every pane around them is right, so the picture arrives while you play rather than being revealed at the end. There are four ways to play: rotate a pane, swap two, drag one in from a tray, or turn a ring of seven. There is no timer, no score and no way to fail. The engine is pure Dart with no Flutter, the same rule that kept [Lumina's level generator](/lab/puzzle-generator-random-walk-doesnt-work) testable, so every level can be validated in bulk from the command line before anyone plays it.
 
@@ -189,7 +191,7 @@ A kolam is drawn in rice flour on the threshold of a home, a shop or a temple. T
 
 A kolam is also food, and it is meant to disappear. The coarse flour is eaten by ants, birds and insects. In Vijaya Nagarajan's phrase, drawing it fulfils the duty of *feeding a thousand souls* ([Sahapedia, on Nagarajan's work](http://www.sahapedia.org/female-aesthetics-and-ecological-connect-kolam)). By afternoon it has been walked over, rained on and eaten, and tomorrow's is drawn fresh ([Wikipedia](https://en.wikipedia.org/wiki/Kolam)). In the month of Margazhi, from mid-December to mid-January ([Asia InCH](https://asiainch.org/craft/rangoli-kolam-threshold-arts-of-india/)), the kolams get bigger and the streets compete. Chennai's Mylapore Festival has held a kolam contest on North Mada Street since the late 1990s ([Mylapore Festival](https://mylaporefestival.in/2025/kolam_contest.html); [DT Next](https://www.dtnext.in/news/chennai/why-the-mylapore-festival-matters)).
 
-Read that as a game designer and it is already a puzzle: *one line, no loose ends, around every dot, back to the start*. That is the same rule the Curvved board enforces. When we surveyed Google Play in September, we found no rotate-to-solve kolam puzzle at all; the kolam apps were tracing tutorials and design catalogues.
+Read that as a game designer and it is already a puzzle: *one line, no loose ends, around every dot, back to the start*. That is the same rule the ChitraYatra board enforces. When we surveyed Google Play in September, we found no rotate-to-solve kolam puzzle at all; the kolam apps were tracing tutorials and design catalogues.
 
 ### Kolam is a mirror curve
 
@@ -434,15 +436,15 @@ PASS  Rose Window    tiles=22 ports=184 anchors=6  solutions=1 lookalikes=0 coll
 25 of 25 levels pass every gate
 ```
 
-Look at the last column. `mindless=1.00` means a player that turns any wrong pane to whatever fits its neighbours best finishes **every window, every time**. The step-by-step solver says the same thing from the other side: every rotation on every level can be read from the window's edge or from settled neighbours, and none needs looking ahead. On rotate, Curvved is a jigsaw, not a deduction puzzle. Last month we [built eight bots to play every level of another game](/lab/eight-bots-played-all-500-levels), because there we needed to know whether levels were fair. Here we already know: they are easy. For now, that is deliberate. In our September market review of about 1,150 Play reviews of the genre's biggest titles, only about 4% of the low ratings complained that a game was too easy. Whether assembling a kolam is satisfying *enough* is the playtest question, not the validator's.
+Look at the last column. `mindless=1.00` means a player that turns any wrong pane to whatever fits its neighbours best finishes **every window, every time**. The step-by-step solver says the same thing from the other side: every rotation on every level can be read from the window's edge or from settled neighbours, and none needs looking ahead. On rotate, ChitraYatra is a jigsaw, not a deduction puzzle. Last month we [built eight bots to play every level of another game](/lab/eight-bots-played-all-500-levels), because there we needed to know whether levels were fair. Here we already know: they are easy. For now, that is deliberate. In our September market review of about 1,150 Play reviews of the genre's biggest titles, only about 4% of the low ratings complained that a game was too easy. Whether assembling a kolam is satisfying *enough* is the playtest question, not the validator's.
 
 ## Why build this for Shipaton at all
 
 Shipaton's rules are simple: the app's first public release must fall inside the submission window, it must be downloadable in the US, and the RevenueCat SDK must power at least one purchase ([rules](https://revenuecat-shipaton-2026.devpost.com/rules)). This year there is a new **Best Game** award, judged on "great gameplay, art direction, and a monetization fit that suits the genre" ([RevenueCat](https://www.revenuecat.com/blog/company/announcing-shipaton-2026)).
 
-Art direction is where a one-person studio can compete, and it is where this game was weakest. Rotate-to-connect is saturated: our review found that of 23 rotate, pipe and loop games released on Play between December 2025 and September 2026, 16 had under a thousand installs and none had more than ten thousand. The original Curvved, a lattice that lit up to reveal a drawing, was one more of them, and after two playtests we stopped it. What no game in that list has is a tradition behind it. *Venba*, a short game about a Tamil family, won Best Debut Game at the 2024 BAFTA Games Awards ([Wikipedia](https://en.wikipedia.org/wiki/Venba_(video_game))) and the IGF's Seumas McNally Grand Prize ([Business Wire](https://www.businesswire.com/news/home/20240320279779/en/Venba-Wins-the-Seumas-McNally-Grand-Prize-at-the-26th-Annual-Independent-Games-Festival-Awards)). Culturally specific games travel, when they are made with care.
+Art direction is where a one-person studio can compete, and it is where this game was weakest. Rotate-to-connect is saturated: our review found that of 23 rotate, pipe and loop games released on Play between December 2025 and September 2026, 16 had under a thousand installs and none had more than ten thousand. The first version, a lattice that lit up to reveal a drawing and the one that was called Curvved, was one more of them, and after two playtests we stopped it. What no game in that list has is a tradition behind it. *Venba*, a short game about a Tamil family, won Best Debut Game at the 2024 BAFTA Games Awards ([Wikipedia](https://en.wikipedia.org/wiki/Venba_(video_game))) and the IGF's Seumas McNally Grand Prize ([Business Wire](https://www.businesswire.com/news/home/20240320279779/en/Venba-Wins-the-Seumas-McNally-Grand-Prize-at-the-26th-Annual-Independent-Games-Festival-Awards)). Culturally specific games travel, when they are made with care.
 
-As of today, Curvved has not been released. The Glass version exists as test builds on one phone. The RevenueCat integration, the release and what the judges need from us are later posts in this series. The one decision already made is that the deadline does not get to decide the game: if it is not good by 30 September, it ships when it is.
+As of 13 September, when this was written, ChitraYatra had not been released, and the Glass version existed as test builds on one phone. The RevenueCat integration, the release and what the judges need from us are later posts in this series. The one decision already made is that the deadline does not get to decide the game: if it is not good by 30 September, it ships when it is.
 
 ## Verdict
 
@@ -462,7 +464,7 @@ A sikku kolam is a South Indian threshold drawing, from Tamil Nadu, in which a s
 
 ### Why does a coprime dot grid give a single-line kolam?
 
-A kolam on an m×n dot grid behaves like a mirror curve: a line bouncing diagonally between the midpoints of the grid's edges, reflecting off the border like a billiard ball. With no interior mirrors that construction draws exactly gcd(m, n) separate closed lines, a result stated for kolam by Shojiro Nagata (Forma, 2015) and for mirror curves by Slavik Jablan (Bridges, 2001). When m and n share no common factor, gcd is 1 and the whole kolam is one line; the Curvved generator reproduces this on all 81 grids from 1×1 to 9×9.
+A kolam on an m×n dot grid behaves like a mirror curve: a line bouncing diagonally between the midpoints of the grid's edges, reflecting off the border like a billiard ball. With no interior mirrors that construction draws exactly gcd(m, n) separate closed lines, a result stated for kolam by Shojiro Nagata (Forma, 2015) and for mirror curves by Slavik Jablan (Bridges, 2001). When m and n share no common factor, gcd is 1 and the whole kolam is one line; ChitraYatra's generator reproduces this on all 81 grids from 1×1 to 9×9.
 
 ### What is the difference between kolam and rangoli?
 
@@ -470,7 +472,7 @@ Kolam is the Tamil Nadu form of the Indian floor art that is called rangoli in G
 
 ### Can I use Madhubani, Gond or Warli art in a commercial game?
 
-Only with a licence from the artist, in our reading of Indian law. Gond, Madhubani and Warli are authored styles practised by living artists and communities, and all three are registered Geographical Indications. The Indian Copyright Act requires an assignment to be in writing (Section 19), and gives the artist a right to object to distortion or modification that survives the sale (Section 57). Curvved commissions these packs from artists under a written licence and never generates or AI-imitates the styles.
+Only with a licence from the artist, in our reading of Indian law. Gond, Madhubani and Warli are authored styles practised by living artists and communities, and all three are registered Geographical Indications. The Indian Copyright Act requires an assignment to be in writing (Section 19), and gives the artist a right to object to distortion or modification that survives the sale (Section 57). ChitraYatra commissions these packs from artists under a written licence and never generates or AI-imitates the styles.
 
 ### What is a pookalam?
 
@@ -478,7 +480,7 @@ A pookalam is the flower rangoli made in Kerala for Onam. According to Kerala To
 
 ### Is a mandala the same as a yantra?
 
-No. Mandala means "a circle with a center" (Rubin Museum), and in Buddhist practice it is an aid to meditation, like the Tibetan sand mandala that is swept away when finished. A yantra is a Hindu geometric diagram used for worship, and is generally considered a representation of the deity itself. The Sri Yantra, nine interlocking triangles around a central bindu, is the best-known example. Curvved's mandalas are secular geometry and never draw a yantra.
+No. Mandala means "a circle with a center" (Rubin Museum), and in Buddhist practice it is an aid to meditation, like the Tibetan sand mandala that is swept away when finished. A yantra is a Hindu geometric diagram used for worship, and is generally considered a representation of the deity itself. The Sri Yantra, nine interlocking triangles around a central bindu, is the best-known example. ChitraYatra's mandalas are secular geometry and never draw a yantra.
 
 ### What is RevenueCat Shipaton 2026?
 
@@ -486,7 +488,7 @@ Shipaton 2026 is RevenueCat's app-building competition, run on Devpost, with $74
 
 ### Can kolam patterns be generated procedurally?
 
-Yes. Treat the kolam as a mirror curve: a line bouncing through the edge midpoints of a dot grid, reflecting off the border and off chosen interior mirrors. Curvved's generator walks that line, counts how many separate lines it drew, and keeps only mirror sets that give one line with mirror symmetry. On rectangular grids such as 5×7, about 10% of symmetric mirror sets keep the single line.
+Yes. Treat the kolam as a mirror curve: a line bouncing through the edge midpoints of a dot grid, reflecting off the border and off chosen interior mirrors. ChitraYatra's generator walks that line, counts how many separate lines it drew, and keeps only mirror sets that give one line with mirror symmetry. On rectangular grids such as 5×7, about 10% of symmetric mirror sets keep the single line.
 
 ## Sources
 
