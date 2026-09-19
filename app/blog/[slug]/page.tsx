@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { notFound } from "next/navigation";
 import TagPill from "@/components/blog/TagPill";
 import BlogCTA from "@/components/blog/BlogCTA";
-import { getPostBySlug } from "@/lib/blog";
+import { d1Date, getPostBySlug, revisedAt } from "@/lib/blog";
 
 export const runtime = "edge";
 
@@ -28,6 +28,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!post) return { title: "Post Not Found" };
 
+  const revised = revisedAt(post);
+
   return {
     title: post.title,
     description: post.excerpt || "",
@@ -37,6 +39,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: "article",
       title: post.title,
       description: post.excerpt || "",
+      publishedTime: d1Date(post.created_at).toISOString(),
+      modifiedTime: revised?.toISOString(),
       images: post.image_url ? [{ url: post.image_url }] : undefined,
     },
     twitter: {
@@ -66,7 +70,8 @@ export default async function BlogPostPage({ params }: PageProps) {
         .map((t) => t.trim())
         .filter((t) => t && !/["\[\]{}()]/.test(t))
     : [];
-  const date = new Date(post.created_at);
+  const date = d1Date(post.created_at);
+  const revised = revisedAt(post);
   const readingTime = estimateReadingTime(post.content);
   const sanitizedContent = post.content
     .replace(/<h1(\s[^>]*)?>/gi, "<h2$1>")
@@ -79,6 +84,9 @@ export default async function BlogPostPage({ params }: PageProps) {
     description: post.excerpt,
     image: post.image_url || "https://cybiqon.in/logo.png",
     datePublished: date.toISOString(),
+    // Omitted, not defaulted to datePublished, for a post that was never revised — the
+    // same rule /lab follows. See revisedAt in lib/blog.ts for what counts as a revision.
+    dateModified: revised?.toISOString(),
     author: { "@type": "Organization", name: "Cybiqon AI Solutions", url: "https://cybiqon.in" },
     publisher: { "@type": "Organization", name: "Cybiqon AI Solutions", logo: { "@type": "ImageObject", url: "https://cybiqon.in/logo.png" } },
   };
@@ -132,6 +140,15 @@ export default async function BlogPostPage({ params }: PageProps) {
               <Calendar className="w-3.5 h-3.5" />
               <time dateTime={date.toISOString()}>{format(date, "MMM d, yyyy")}</time>
             </div>
+            {/* The visible date has to agree with dateModified in the JSON-LD; Google
+                reads both and trusts neither when they disagree. */}
+            {revised && (
+              <div className="flex items-center gap-1.5">
+                <span>
+                  Updated <time dateTime={revised.toISOString()}>{format(revised, "MMM d, yyyy")}</time>
+                </span>
+              </div>
+            )}
             <div className="flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5" />
               <span>{readingTime} min read</span>

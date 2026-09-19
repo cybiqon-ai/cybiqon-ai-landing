@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getRequestContext } from "@cloudflare/next-on-pages";
-import { POSTS_PER_PAGE, getTagIndex } from "@/lib/blog";
+import { POSTS_PER_PAGE, d1Date, getTagIndex, revisedAt } from "@/lib/blog";
 import { PRODUCTS, activeCategories } from "@/data/products";
 
 export const runtime = "edge";
@@ -19,7 +19,7 @@ const siteUrl = "https://cybiqon.in";
  * not a change to /pricing, and wiring it to the build would recreate the same problem
  * with extra steps.
  */
-const STATIC_LAST_MODIFIED = new Date("2026-09-07T00:00:00Z");
+const STATIC_LAST_MODIFIED = new Date("2026-09-19T00:00:00Z");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
@@ -80,15 +80,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const { env } = getRequestContext();
     const { results } = await env.DB.prepare(
-      "SELECT slug, created_at FROM blog_posts WHERE section = 'msme' AND published = 1 ORDER BY created_at DESC"
+      "SELECT slug, created_at, updated_at FROM blog_posts WHERE section = 'msme' AND published = 1 ORDER BY created_at DESC"
     ).all();
 
-    const posts = results as { slug: string; created_at: string }[];
+    const posts = results as { slug: string; created_at: string; updated_at: string | null }[];
     const newest = posts.length ? new Date(posts[0].created_at) : new Date();
 
     blogPages = posts.map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.created_at),
+      // The revision date when there is one. This was created_at until 19 Sep 2026, so a
+      // refreshed post never told a crawler it had changed.
+      lastModified: revisedAt(post) ?? d1Date(post.created_at),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     }));

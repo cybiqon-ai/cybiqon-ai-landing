@@ -2,6 +2,13 @@
 
 ## 2026-09-19
 
+* **SEO**: refreshed `/blog` posts now tell crawlers they changed. The sitemap, Article JSON-LD,
+  OpenGraph and the visible date all used `created_at`, so a rewrite looked untouched — the
+  website-cost post, rewritten 13 Sep, was still last-crawled 11 Aug. New `revisedAt()` /
+  `d1Date()` in `lib/blog.ts`. Also: layout Organization/ProfessionalService descriptions moved off
+  the "affordable … for MSMEs" copy, and `/services` names "website and app development". See
+  [SEO](/site/seo.md#a-refreshed-blog-post-never-looked-changed--fixed-19-sep-2026).
+
 * **Content**: tenth lab post, `mapwit-chrome-extension-google-maps-leads` — how MapWit captures,
   scores and exports Maps leads, what was cut to pass Chrome Web Store review in one round,
   and what the first live run broke. Throttling is described at a high level only, by
