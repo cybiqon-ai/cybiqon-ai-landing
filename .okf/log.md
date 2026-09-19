@@ -22,6 +22,14 @@
   `/products/chitrayatra`. The two mentions of the retired lattice game keep the old name, as
   the game's own naming decision asks. Republished with `updated_at` bumped; slug unchanged.
 
+* **Content**: the MapWit post retargeted at the query people type. `seo_title` is now "How We
+  Built a Google Maps Lead Generation Chrome Extension" (was "…a Chrome Extension for Google
+  Maps Leads"; the h1 stays editorial, per this repo's title rule), the excerpt leads with
+  "Google Maps lead generation", and a new h2 section, *How to generate leads from Google Maps
+  with MapWit*, walks the seven steps in the extension's own tour order with the real score
+  table (moved there, not duplicated). One FAQ added. "Scraper" deliberately not used, and an
+  external suggestion to list "low reviews" as a signal declined — MapWit does not score it.
+
 ## 2026-09-18
 
 * **Content**: Curvved is now **ChitraYatra**, at `/products/chitrayatra` with `/privacy` and

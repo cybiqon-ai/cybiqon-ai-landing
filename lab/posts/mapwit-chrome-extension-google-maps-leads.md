@@ -1,11 +1,13 @@
 ---
 title: "Our Chrome extension sat untouched for four months. Review took one day."
-# The h1 states what happened. The searchable string names the product category, which is
-# what someone building or looking for one of these types — "chrome extension for google
-# maps leads" — rather than the story.
-seo_title: "How We Built MapWit, a Chrome Extension for Google Maps Leads"
-# Front-loaded: the first sentence says what MapWit is, the second carries the finding.
-excerpt: "MapWit scores the local businesses in a Google Maps search and exports them to Excel, with no server and no account. It sat untouched for four months, went from zero tests to 171 in one day, and passed Chrome Web Store review on the first round — after we deleted a feature to get there."
+# The h1 states what happened. The searchable string carries the phrase people type —
+# "google maps lead generation chrome extension" — rather than the story. It lost the name
+# MapWit on 19 Sep: nobody searches for it yet, and the category is what ranks. "Scraper"
+# is deliberately absent; the store listing never uses it.
+seo_title: "How We Built a Google Maps Lead Generation Chrome Extension"
+# Front-loaded: the first sentence names the search topic and what MapWit does, the second
+# carries the finding.
+excerpt: "MapWit is a free Chrome extension for Google Maps lead generation: it scores the local businesses in a search and exports them to Excel, with no server and no account. It sat untouched for four months, went from zero tests to 171 in one day, and passed Chrome Web Store review on the first round."
 date: 2026-09-19
 tags:
   - Chrome Extensions
@@ -117,7 +119,34 @@ The premise is in the product page's first line: a bought lead list is rows some
 <figcaption>Everything above the line happens in the browser. Two things cross it, and both are opt-in: Enrich fetches a business's own website only after you allow website access, and review text goes to OpenRouter only when you click Analyse with your own key. The README used to say nothing leaves the machine. That was never true, and it now says what does.</figcaption>
 </figure>
 
-## How a lead gets captured
+## How to generate leads from Google Maps with MapWit
+
+The practical version first, in the order the extension's own tour walks through it.
+
+1. **Install it and open the side panel.** Add MapWit from the Chrome Web Store (Chrome 114 or later) and click its toolbar icon. The panel opens beside the page and stays open while you use the map.
+2. **Search Google Maps the way you would anyway.** A category and a place works best: `dentists in Pune`, `interior designers in Indiranagar`. Scroll the results and each business appears in the panel as it renders. **Load more** scrolls the list to the end of the search for you; Google Maps shows about 120 results per search.
+3. **Deep scan.** It opens each listing and collects the website, phone, address and recent reviews. It is the slow step on purpose, because it paces itself, so start it and let it run.
+4. **Enrich** (optional). It visits each business's own website for email addresses, social profiles and a site-quality check. Chrome asks once for website access the first time you use it.
+5. **Analyse reviews** (optional). With your own OpenRouter key, it writes one sentence on what customers praise and complain about, which is often the opening line of a call.
+6. **Find the best leads.** Sort by lead score, switch on **No website only**, or search by name or category. The score is built from these signals:
+
+| Signal | Points | What it usually means for a pitch |
+|---|---|---|
+| No website | +4 | A website build, and the strongest single reason to call |
+| Own website scores 3 or less out of 10 | +2 | A redesign: no HTTPS, no mobile layout, slow, or visibly stale |
+| Phone number | +2 | You can call today |
+| Email address | +2 | You can write first |
+| 50+ reviews and no website | +1 | An established business with an obvious gap, not a new one |
+| Rating between 3.5 and 4.2 | +1 | Real customers, and room to improve |
+| Missing 4 or more of 7 social platforms | +1 | A thin presence generally |
+
+7. **Export.** Choose Excel, sorted by score, with 19 columns including the AI review insight, or JSON for a CRM import.
+
+That is the whole workflow, and it takes one search to see whether the list is worth calling. What you do with the list afterwards is your responsibility. Google's Maps terms and India's data protection law both apply to it; [the section near the end](#what-is-still-true) says how.
+
+The rest of this post is how each of those steps works, and what it took to ship it.
+
+## How MapWit captures leads from Google Maps
 
 There is no Maps API underneath this. MapWit reads the page you are already looking at.
 
@@ -129,21 +158,9 @@ The side panel is a real [Chrome side panel](https://developer.chrome.com/docs/e
 
 The fragile part is worth saying plainly. The result cards use obfuscated class names that Google can change on any deploy, and several of the patterns that pull a rating or an "Open now" out of card text match **English** interface strings. On a Maps interface set to another language MapWit captures less. The detail panel is sturdier, because the website, address and phone rows carry `data-item-id` attributes that have been stable for years — which is also why Deep scan is the reliable path and card capture is the fast one.
 
-## What makes a lead worth calling
+## How MapWit scores a Google Maps lead
 
-A score only earns its place if it sorts the list the way the person calling would. The point table is small enough to show whole:
-
-| Signal | Points | Why |
-|---|---|---|
-| No website | +4 | The strongest single reason a studio would call |
-| Has a phone number | +2 | Reachable today |
-| Has an email address | +2 | Reachable without a call |
-| Rating between 3.5 and 4.2 | +1 | Good enough to be real, not so good they think they need nothing |
-| 50+ reviews and no website | +1 | An established business with a gap, not a new one |
-| Own website scores 3 or below out of 10 | +2 | Has a site, and it is poor |
-| Missing 4 or more of 7 social platforms | +1 | Under-represented generally |
-
-The total is clamped to 1–10, and 8 or above is labelled hot, 5 or above warm. It is a pure function shared by the service worker and the side panel so the two can never disagree about a number.
+A score only earns its place if it sorts the list the way the person calling would. The whole point table is in step 6 above; it is small enough to show in full, and it has no hidden terms. The total is clamped to 1–10, and 8 or above is labelled hot, 5 or above warm. It is a pure function shared by the service worker and the side panel so the two can never disagree about a number.
 
 The site-quality score out of 10 is equally blunt, and deliberately so. It checks five things on the business's home page: served over HTTPS (2), a mobile viewport tag (2), a response under three seconds (2, or 1 under six), a copyright year from this year or last (2), and a `mailto:` or `tel:` link somewhere on the page (2). None of that is a design judgement, and all of it is something a salesperson can say out loud on a call: *your site doesn't load on a phone.*
 
@@ -299,6 +316,10 @@ MapWit is [on the Chrome Web Store](https://chromewebstore.google.com/detail/pdp
 ### What does MapWit do?
 
 MapWit is a free Chrome extension that captures the businesses in a Google Maps search into a side panel, scores each one from 1 to 10 as a sales lead, and exports them to Excel or JSON. It can open each listing for its website, phone, address and reviews, visit the business's own website for email addresses and a site-quality check, and summarise its reviews with AI using your own OpenRouter key. It is built for web studios, agencies and freelancers who sell to local businesses.
+
+### How do you generate leads from Google Maps?
+
+Search Google Maps for a business category in a place, such as "dentists in Pune", then qualify the results rather than calling all of them. The strongest signals are a business with no website, a poor website, or a phone number and email you can reach. MapWit does this inside Chrome: it captures the search results into a side panel, scores each business from 1 to 10, filters to the ones with no website, and exports the list to Excel.
 
 ### Is MapWit free?
 
