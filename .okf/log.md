@@ -1,5 +1,20 @@
 # Update Log
 
+## 2026-09-19
+
+* **Content**: tenth lab post, `mapwit-chrome-extension-google-maps-leads` — how MapWit captures,
+  scores and exports Maps leads, what was cut to pass Chrome Web Store review in one round,
+  and what the first live run broke. Throttling is described at a high level only, by
+  decision. See [Lab](/content/lab.md). Also corrected the MapWit note in
+  `data/llms.config.json`, which said it "scrapes … entirely in the browser": the store copy
+  never says "scrape", and enrichment and review analysis both send data out (opt-in).
+  `llms.txt --check`: 10 lab posts · 8 sections · 49 links · 54 routes covered · 13.3 KB.
+
+* **Content**: the kolam post now says **ChitraYatra** where it meant the current game (eight
+  places), with a one-line note at the top that it was written as Curvved, and links
+  `/products/chitrayatra`. The two mentions of the retired lattice game keep the old name, as
+  the game's own naming decision asks. Republished with `updated_at` bumped; slug unchanged.
+
 ## 2026-09-18
 
 * **Content**: Curvved is now **ChitraYatra**, at `/products/chitrayatra` with `/privacy` and
