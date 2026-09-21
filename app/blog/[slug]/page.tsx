@@ -29,15 +29,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!post) return { title: "Post Not Found" };
 
   const revised = revisedAt(post);
+  // The <title> and share cards use the searchable title when one is set; the h1 keeps
+  // the editorial one. Same split as /lab — see seo_title in lib/blog.ts.
+  const searchTitle = post.seo_title || post.title;
 
   return {
-    title: post.title,
+    title: searchTitle,
     description: post.excerpt || "",
     keywords: post.tags || undefined,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
       type: "article",
-      title: post.title,
+      title: searchTitle,
       description: post.excerpt || "",
       publishedTime: d1Date(post.created_at).toISOString(),
       modifiedTime: revised?.toISOString(),
@@ -49,7 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       // so omitting these drops the handles from every one of the ~91 blog posts.
       site: "@CybiqonAI",
       creator: "@CybiqonAI",
-      title: post.title,
+      title: searchTitle,
       description: post.excerpt || "",
       images: post.image_url ? [post.image_url] : undefined,
     },

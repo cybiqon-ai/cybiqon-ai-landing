@@ -1,5 +1,14 @@
 # Update Log
 
+## 2026-09-21
+
+* **SEO**: `/blog` now honours `seo_title`. `app/blog/[slug]/page.tsx` renders
+  `seo_title || title` into `<title>`, OpenGraph and Twitter; the h1 keeps `title`, the same split
+  `/lab` uses. The content pipeline had been writing the column on refreshed posts since August and
+  none of it reached search results. 14 published posts carry one when this deploys; two stored
+  values were cleared beforehand because they would have read wrongly in results. `lib/blog.ts`'s
+  "/lab only" note updated. See [Blog](/content/blog.md).
+
 ## 2026-09-19
 
 * **SEO**: refreshed `/blog` posts now tell crawlers they changed. The sitemap, Article JSON-LD,

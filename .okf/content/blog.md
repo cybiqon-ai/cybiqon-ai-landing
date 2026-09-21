@@ -3,7 +3,7 @@ type: Domain
 title: Blog
 description: The automated blog at /blog — posts are rows in Cloudflare D1, not files, written by a different repo and rendered by a live edge query. Shares its table with /lab, separated by a section column. Pruned from 113 to 80 posts on 11 Sep 2026.
 tags: [blog, d1, cloudflare, content, edge, msme, redirects, pruning]
-timestamp: 2026-09-19T00:00:00Z
+timestamp: 2026-09-21T00:00:00Z
 ---
 
 # Overview
@@ -66,12 +66,16 @@ CREATE TABLE blog_posts (
   section    TEXT NOT NULL DEFAULT 'msme',  -- 'msme' | 'lab'  (migration 0004)
   readouts   TEXT,            -- /lab only, JSON [{label, value}]  (migration 0004)
   views      INTEGER NOT NULL DEFAULT 0,    -- /lab only            (migration 0005)
-  seo_title  TEXT,            -- /lab only, NULL = same as title    (migration 0007)
+  seo_title  TEXT,            -- searchable <title>, NULL = same as title (migration 0007)
   updated_at DATETIME         -- /lab only, NULL = never edited     (migration 0007)
 );
 ```
 
-The last three are `/lab`-only in practice but table-wide in the schema. `views` is
+`readouts` and `views` are `/lab`-only in practice but table-wide in the schema. `seo_title` is
+read by both sections: `/lab` since migration 0007, `/blog` since 21 Sep 2026, when
+`app/blog/[slug]/page.tsx` started rendering `seo_title || title` into `<title>`, OpenGraph and
+Twitter. Until then `/blog` ignored the column even though the content pipeline was already writing
+it on refreshes, so those titles never reached search results. The h1 always stays `title`. `views` is
 `NOT NULL DEFAULT 0` so every MSME row starts at a real zero; `seo_title` and
 `updated_at` are nullable because for those two, NULL carries meaning — see
 [Lab](lab.md#the-section-column).
