@@ -47,10 +47,12 @@ export interface FullBlogPost extends BlogPost {
   /** /lab only — incremented by the browser beacon, see app/api/lab/view. */
   views: number;
   /**
-   * /lab only — the searchable title, when it differs from the one on the page.
+   * The searchable title, when it differs from the one on the page. Used by /lab and,
+   * since 21 Sep 2026, by /blog — set it when Search Console shows a post ranking for a
+   * query its title does not match (people typing "swiggy commission rate" were shown
+   * "How to Reduce Zomato Swiggy Commission").
    *
-   * NULL means the two are the same, which is what every MSME post means and what a lab
-   * post means until someone writes a second title for it. Consumers read
+   * NULL means the two are the same, which is most posts. Consumers read
    * `seo_title || title`, never `seo_title` alone.
    */
   seo_title: string | null;
