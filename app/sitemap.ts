@@ -39,6 +39,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/services/admin-panels`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/services/chrome-extensions`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/services/web-scraping`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
+    // The first free tool (22 Sep 2026). Priority with the service pages: it is built to
+    // rank for "website cost calculator india" and to be linked to.
+    { url: `${siteUrl}/tools/website-cost-calculator`, lastModified: new Date("2026-09-22T00:00:00Z"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/process`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/case-studies`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/rss.xml`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "daily", priority: 0.5 },

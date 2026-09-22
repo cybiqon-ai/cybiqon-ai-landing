@@ -1,5 +1,14 @@
 # Update Log
 
+## 2026-09-22
+
+* **Tools**: new route `/tools/website-cost-calculator`, the site's first free tool. Visitors
+  enter website quotes; it adds hosting renewals, the domain, dollar-billed licences and an
+  optional maintenance band and shows 1-, 3- or 5-year totals, with a chart, a table, and a
+  shareable URL. Every default is sourced and dated in `data/websiteCost.ts`. Registered in
+  the sitemap and `llms.config.json` (new "Tools" section), and linked from `/pricing`. See
+  [Website cost calculator](/content/website-cost-calculator.md).
+
 ## 2026-09-21
 
 * **SEO**: `/blog` now honours `seo_title`. `app/blog/[slug]/page.tsx` renders
