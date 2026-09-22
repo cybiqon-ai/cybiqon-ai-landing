@@ -37,6 +37,17 @@ npm run pages:build   # npx @cloudflare/next-on-pages → .vercel/output/static
 **There is no CI.** No `.github/`, no `vercel.json`, no Dockerfile. Cloudflare
 Pages' Git integration builds on push to `main`.
 
+**The Vercel CLI is pinned to `59.25.0`** (an exact devDependency, 22 Sep 2026).
+`next-on-pages` shells out to `vercel build` and takes a locally installed copy over
+`npx`, which is the only way to hold that version. **Why:** CLI `59.25.2` writes Next
+16's segment files as `…​.segment` rather than `….segment.rsc`, and `next-on-pages`
+1.13.16 reads every one of them as a route with no edge runtime — so the build fails
+with "The following routes were not configured to run with the Edge Runtime", naming
+hundreds of segments. It broke production on 22 Sep between two deploys of the same
+code, with nothing in the repo changed. Raising the pin needs a local `npm run
+pages:build` first. The real fix is the OpenNext adapter, which `next-on-pages` now
+tells you to use on every build.
+
 > ⚠️ **A push to `main` deploys the live public site.** There is no staging
 > environment, no preview gate, and no workflow file that would make this visible
 > in the repo. `cybiqon-ops/scripts/sync.sh` prints this side-effect next to the
