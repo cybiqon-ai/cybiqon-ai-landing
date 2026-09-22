@@ -41,6 +41,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/services/web-scraping`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
     // The first free tool (22 Sep 2026). Priority with the service pages: it is built to
     // rank for "website cost calculator india" and to be linked to.
+    // MapWit guides (22 Sep 2026). Each targets a query checked with demand_check.py;
+    // see data/mapwitGuides.ts.
+    { url: `${siteUrl}/products/mapwit/guides/find-businesses-without-websites`, lastModified: new Date("2026-09-22T00:00:00Z"), changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/tools/website-cost-calculator`, lastModified: new Date("2026-09-22T00:00:00Z"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/process`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/case-studies`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.9 },
