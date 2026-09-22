@@ -472,9 +472,14 @@ export const PRODUCTS: Product[] = [
           "Listings sharing a Google place ID or a phone number are merged on sight, with the first non-empty value winning, so a second pass over the same area adds rows instead of repeating them.",
       },
       {
-        title: "Exports to XLSX",
+        title: "Exports to Excel or CSV",
         description:
-          "Every enrichment column comes with it, so the file opens in whatever you already use to work a list rather than in this extension.",
+          "Every enrichment column comes with it, so the file opens in whatever you already use to work a list — a spreadsheet, a CRM import, Google Sheets — rather than in this extension.",
+      },
+      {
+        title: "Reads the reviews, and says who answers them",
+        description:
+          "Deep scan keeps the reviews Maps shows first, with their stars and whether the business replied. Ask for analysis and the model you choose names the recurring complaints — the sort of gap a pitch can open with.",
       },
       {
         title: "No backend, and it remembers",
@@ -525,6 +530,11 @@ export const PRODUCTS: Product[] = [
         title: "Progress, skins and a share card",
         description:
           "XP, achievements and unlockable skins, plus a picture of the wrecked page to copy or save when a game ends.",
+      },
+      {
+        title: "God mode, for exploring",
+        description:
+          "Type iddqd on the game menu and nothing can kill you in any game until you leave: Snake slides through text, ghosts pass through you, bombs and dropped balls cost nothing. Type it again to turn it off. Scores from god-mode runs never reach the leaderboards.",
       },
       {
         title: "Online only if you ask",

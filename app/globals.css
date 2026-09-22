@@ -1047,6 +1047,110 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   margin-top: 0.6em;
 }
 
+/* MapWit guides (/products/mapwit/guides/*). Body typography only — the page sits in the
+   Ledger scope, so colour, radius and rules come from there. Separate from .lab-prose,
+   which is a reading theme with its own serif face and dark ground. */
+.guide-prose > * + * {
+  margin-top: 1.15em;
+}
+
+.guide-prose h2 {
+  margin-top: 2.2em;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: hsl(var(--foreground));
+}
+
+.guide-prose h3 {
+  margin-top: 1.8em;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.guide-prose p,
+.guide-prose li {
+  font-size: 16px;
+  line-height: 1.7;
+  color: hsl(var(--muted-foreground));
+}
+
+.guide-prose strong {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.guide-prose ul,
+.guide-prose ol {
+  padding-left: 1.15rem;
+}
+
+.guide-prose ul > li {
+  list-style: disc;
+}
+
+.guide-prose ol > li {
+  list-style: decimal;
+}
+
+.guide-prose li + li {
+  margin-top: 0.45em;
+}
+
+.guide-prose a {
+  color: hsl(var(--foreground));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: hsl(var(--border));
+}
+
+.guide-prose a:hover {
+  text-decoration-color: hsl(var(--ochre));
+}
+
+.guide-prose dt {
+  margin-top: 1.15em;
+  color: hsl(var(--foreground));
+}
+
+.guide-prose dd {
+  margin-top: 0.35em;
+  font-size: 16px;
+  line-height: 1.7;
+  color: hsl(var(--muted-foreground));
+}
+
+.guide-prose code {
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 0.9em;
+}
+
+.guide-prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.guide-prose th,
+.guide-prose td {
+  border-bottom: 1px solid hsl(var(--border));
+  padding: 0.55em 1.1em 0.55em 0;
+  text-align: left;
+  vertical-align: top;
+  color: hsl(var(--muted-foreground));
+}
+
+.guide-prose th {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 /* Tables come from python-markdown's `extra`. They must scroll inside their own
    box — a wide table is the classic way a post ends up scrolling the whole page
    sideways on a phone. */

@@ -18,3 +18,4 @@ either — the failure mode is an unscoped query.
 # Tools
 
 * [Website cost calculator](website-cost-calculator.md) - `/tools/website-cost-calculator`, the first free tool: sourced defaults in one data file, 1/3/5-year totals, shareable by URL.
+* [MapWit guides](mapwit-guides.md) - `/products/mapwit/guides/*`, practical pages for Maps prospecting; every target query checked before writing.

@@ -18,7 +18,7 @@ import type { LegalDoc } from "../products";
  * store/listing.md and must change together with this file.
  */
 
-const UPDATED = "12 September 2026";
+const UPDATED = "22 September 2026";
 const PRODUCT = "MapWit (Chrome extension)";
 
 export const mapwitPrivacy: LegalDoc = {
@@ -54,13 +54,20 @@ export const mapwitPrivacy: LegalDoc = {
         {
           term: "Leads",
           def: [
-            "For each business you capture: name, category, address, phone number, website, rating, review count, opening hours, the search it came from, up to 15 review excerpts from its Maps page, contact emails and social links found on its website, and the scores MapWit calculates.",
+            "For each business you capture: name, category, address, phone number, website, rating, review count, opening hours, price band, whether the business has claimed its Maps listing, the search it came from, contact emails and social links found on its website, and the scores MapWit calculates.",
+          ],
+        },
+        {
+          term: "Reviews",
+          def: [
+            "Up to 3 of the reviews Google Maps shows on each business's listing. For each one: its text, its star rating, when it was left, and whether the business has replied to it. ",
+            { b: "Reviewers' names are not captured." },
           ],
         },
         {
           term: "AI results",
           def: [
-            "The one-line review insight for each business you analyse, a cache of model responses so the same request is not paid for twice, and a log of token counts per request.",
+            "For each business you analyse: a one-line review insight, and the recurring complaints, praise and service gaps behind it. Also a cache of model responses, so the same request is not paid for twice, and a log of token counts per request.",
           ],
         },
         {
@@ -93,9 +100,9 @@ export const mapwitPrivacy: LegalDoc = {
         {
           term: "OpenRouter — only when you use AI features",
           def: [
-            "When you click Analyse reviews — on one business, or for every business with captured reviews at once — MapWit sends each business's name, category, rating, review count and its review excerpts — 8 by default, or the number from 1 to 15 you set in Settings — to ",
+            "When you click Analyse reviews — on one business, or for every business with captured reviews at once — MapWit sends each business's name, category, rating, review count and the text of up to 3 of its reviews (the number is set in Settings) to ",
             { link: "OpenRouter", href: "https://openrouter.ai" },
-            ", together with your API key and the model you chose. When many businesses are analysed at once, up to 8 are grouped into each request. OpenRouter passes the request to that model's provider. By default that is Google: the default model is ~google/gemini-flash-latest, OpenRouter's name for whichever Gemini Flash model is newest. Opening Settings also fetches OpenRouter's public list of models, with no key, and the Test button sends a one-word request with your key.",
+            ", together with your API key and the model you chose. Each review's star rating, date and reply status are not sent — only its text. When many businesses are analysed at once, up to 8 are grouped into each request. OpenRouter passes the request to that model's provider. By default that is Google: the default model is ~google/gemini-flash-latest, OpenRouter's name for whichever Gemini Flash model is newest. Opening Settings also fetches OpenRouter's public list of models, with no key, and the Test button sends a one-word request with your key.",
           ],
         },
       ],
@@ -138,6 +145,7 @@ export const mapwitPrivacy: LegalDoc = {
         ["Include analytics, crash reporting, advertising or tracking code"],
         ["Read pages other than Google Maps, or business websites during enrichment"],
         ["Collect your browsing history, location, contacts or files"],
+        ["Capture the names of the people who wrote reviews"],
         ["Use any data for creditworthiness, lending or any purpose other than MapWit's single purpose"],
       ],
       note: [
