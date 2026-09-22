@@ -20,6 +20,7 @@ import LabCTA from "@/components/lab/LabCTA";
 import ShareRow from "@/components/lab/ShareRow";
 import SubscribeForm from "@/components/lab/SubscribeForm";
 import ViewBeacon from "@/components/lab/ViewBeacon";
+import { attachTableData, datasetSchema } from "@/lib/labTables";
 
 export const runtime = "edge";
 
@@ -119,6 +120,10 @@ export default async function LabPost({ params }: PageProps) {
 
   const faq = extractFAQ(html);
   const citations = extractCitations(html);
+  // Download links go on the rendered copy only: FAQ and citation extraction above read
+  // the post as written, so the links cannot count as sources.
+  const { html: body, tables } = attachTableData(html, post.slug);
+  const dataset = datasetSchema(post, tables, siteUrl, AUTHOR, isoDate(post.created_at));
   const related = await getRelatedLabPosts(post.slug, tags, RELATED_COUNT);
 
   const articleSchema = {
@@ -213,6 +218,12 @@ export default async function LabPost({ params }: PageProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
+      {dataset && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(dataset) }}
+        />
+      )}
 
       <div className="mx-auto max-w-[1180px] px-6 md:px-10">
         <article>
@@ -270,7 +281,7 @@ export default async function LabPost({ params }: PageProps) {
             <div className="min-w-0">
               <div
                 className="lab-prose"
-                dangerouslySetInnerHTML={{ __html: html }}
+                dangerouslySetInnerHTML={{ __html: body }}
               />
 
               {/* Tags were text until now, which made a post a dead end: the only way

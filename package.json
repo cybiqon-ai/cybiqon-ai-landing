@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/build-agent-markdown.mjs && node scripts/build-llms-txt.mjs && next build",
+    "build": "node scripts/build-agent-markdown.mjs && node scripts/build-lab-data.mjs && node scripts/build-llms-txt.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "check:llms": "node scripts/build-llms-txt.mjs --check",

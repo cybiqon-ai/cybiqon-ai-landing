@@ -1,9 +1,9 @@
 ---
 type: Domain
 title: Lab
-description: The second blog at /lab — hand-written engineering notes sharing a D1 table with the automated MSME blog, separated by a section column, its own chrome, and the only palette departure on the site.
+description: The second blog at /lab — hand-written engineering notes sharing a D1 table with the automated MSME blog, separated by a section column, its own chrome, the only palette departure on the site, and every table downloadable as CC BY 4.0 data.
 tags: [lab, blog, d1, content, design, edge, seo, aeo]
-timestamp: 2026-09-19T00:00:00Z
+timestamp: 2026-09-22T00:00:00Z
 ---
 
 # Overview
@@ -252,6 +252,40 @@ What the code does carry:
 | `content:encoded` | `/lab/rss.xml` carries full article text; `/rss.xml` stays excerpt-only |
 | `llms.txt` | `public/llms.txt` — a **static asset**, so it costs no Worker bytes |
 | Markdown copies | `/md/lab/<slug>.md` and `/llms-full.txt`, generated at build time |
+
+# Downloadable tables
+
+**Added 22 Sep 2026.** Every table in a lab post can be downloaded: a *Download CSV* line
+sits under each one, with the post's `tables.json` and the licence beside it. **CC BY 4.0**,
+chosen by the owner because it is the licence journalists, researchers and Google Dataset
+Search recognise — the point is being cited. `llms.txt` was reworded the same day so its
+no-training request covers the articles, not the CC BY data.
+
+| Output | Path |
+|---|---|
+| one table | `/data/lab/<slug>/<section-id>.csv` — UTF-8 with a BOM, so Excel reads ₹ |
+| a post's tables | `/data/lab/<slug>/tables.json` — columns, rows, citation, licence |
+| everything | `/data/lab/index.json` — listed in `llms.txt` under Machine-readable |
+
+**Built, not served.** `scripts/build-lab-data.mjs` writes the files from `lab/posts/` on
+every `npm run build`, like the markdown mirror. A route handler would have cost ~100 KiB
+of Worker budget; measured, this costs **+2.6 KB** (2,972,227 → 2,974,859 B gzipped),
+all of it the manifest the post page imports.
+
+**Matched by header, never by position.** The page renders D1's HTML; the files come from
+the repo markdown. `data/lab-tables.json` (tracked) gives each table a key built from its
+header row, and `lib/labTables.ts` links only tables whose key it finds, taking duplicates
+in order. A table present in one source and not the other loses its link — it can never
+point at the wrong data. **The two `headerKey` functions must stay identical.** Verified
+on 22 Sep against D1: all 22 published tables linked, and all 548 cells in the CSVs equal
+the rendered tables.
+
+**Ids come from the heading above the table** (`the-level-was-a-function-of-the-glass.csv`),
+so adding a table earlier in a post does not renumber every inbound link. A numeric cell's
+typographic minus (U+2212) becomes ASCII in the data, or spreadsheets read `−3.2` as text.
+
+Posts with tables also emit a `Dataset` JSON-LD block (`datasetSchema`) listing each CSV as
+a `DataDownload` — what Google Dataset Search indexes.
 
 # Agent-readable markdown
 

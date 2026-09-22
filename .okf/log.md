@@ -2,6 +2,13 @@
 
 ## 2026-09-22
 
+* **Lab data**: every table in a lab post is downloadable — a CSV per table, a `tables.json`
+  per post, and `/data/lab/index.json` — under **CC BY 4.0**. Generated at build by
+  `scripts/build-lab-data.mjs` (no new route; +2.6 KB Worker), linked under each table by
+  header-key matching in `lib/labTables.ts`, with `Dataset` JSON-LD. 22 tables in 8 posts, all
+  548 cells checked against D1. `llms.txt` gains the index and now scopes its no-training request
+  to the articles. See [Lab](/content/lab.md#downloadable-tables).
+
 * **Tools**: new route `/tools/website-cost-calculator`, the site's first free tool. Visitors
   enter website quotes; it adds hosting renewals, the domain, dollar-billed licences and an
   optional maintenance band and shows 1-, 3- or 5-year totals, with a chart, a table, and a

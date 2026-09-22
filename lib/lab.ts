@@ -143,7 +143,7 @@ export function extractFAQ(html: string): FAQEntry[] {
  * emits curly quotes and dashes as named entities on every post, so this is the common
  * case rather than an edge one.
  */
-function htmlToText(html: string): string {
+export function htmlToText(html: string): string {
   return decodeEntities(
     html
       .replace(/<(pre|script|style)[\s\S]*?<\/\1>/gi, " ")
