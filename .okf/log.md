@@ -2,6 +2,17 @@
 
 ## 2026-09-22
 
+* **Content**: first MapWit guide, `/products/mapwit/guides/find-businesses-without-websites`,
+  targeting `how to find businesses without websites for free` — a query checked with
+  `demand_check.py` in India and the US before a word was written. Its own ground is that a
+  Maps listing with no website link often has a website (booking platforms, links back into
+  Google, social-only), plus the Maps-terms and DPDP limits on using such a list. Static page,
+  new `data/mapwitGuides.ts` + `components/mapwit/GuideLayout.tsx`; registered in the sitemap
+  and `llms.config.json`. Two queries an outside suggestion proposed were dropped for having no
+  demand in either geography. See [MapWit guides](/content/mapwit-guides.md).
+
+## 2026-09-22
+
 * **Build**: production deploys started failing with "routes not configured to run with
   the Edge Runtime" on code that had deployed an hour earlier. Cause: Vercel CLI 59.25.2,
   fetched fresh by `next-on-pages` on each build, renamed Next 16's segment output.
