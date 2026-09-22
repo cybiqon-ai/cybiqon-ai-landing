@@ -228,6 +228,11 @@
           "note": "every post, full text, one request."
         },
         {
+          "title": "Lab data tables",
+          "url": "/data/lab/index.json",
+          "note": "every table in the lab posts as CSV and JSON, CC BY 4.0 — the index lists each post's tables.json (with its citation) and per-table CSV URLs."
+        },
+        {
           "title": "Lab feed",
           "url": "/lab/rss.xml",
           "note": "RSS with full article text in content:encoded."
@@ -246,7 +251,7 @@
     },
     {
       "heading": "Notes for agents",
-      "note": "Content may be used to answer questions with attribution to the source URL. We ask that\nit not be used for model training.\n\nhttps://cybiqon.in/robots.txt is the authoritative statement of what is permitted. It\nnames the search and answer crawlers explicitly — OAI-SearchBot, ChatGPT-User,\nPerplexityBot, Perplexity-User, Claude-SearchBot and Claude-User — and allows them.",
+      "note": "Content may be used to answer questions with attribution to the source URL. We ask that\nthe articles not be used for model training. The data tables under /data/lab/ are\nlicensed CC BY 4.0 and may be reused for any purpose with attribution.\n\nhttps://cybiqon.in/robots.txt is the authoritative statement of what is permitted. It\nnames the search and answer crawlers explicitly — OAI-SearchBot, ChatGPT-User,\nPerplexityBot, Perplexity-User, Claude-SearchBot and Claude-User — and allows them.",
       "entries": []
     }
   ],

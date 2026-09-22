@@ -1169,6 +1169,23 @@ NEW WARM & APPROACHABLE COLOR SYSTEM - "Warm Trust" Palette
   white-space: nowrap;
 }
 
+/* The download line under a table (lib/labTables.ts). Pulled up against the table it
+   belongs to — the default prose rhythm would float it halfway to the next paragraph. */
+.lab-prose .lab-table-data {
+  margin-top: 0.5em;
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+}
+
+.lab-prose .lab-table-data a {
+  color: inherit;
+}
+
+.lab-prose .lab-table-data a:hover {
+  color: hsl(var(--signal));
+}
+
 .lab-prose th,
 .lab-prose td {
   border-bottom: 1px solid hsl(var(--border));

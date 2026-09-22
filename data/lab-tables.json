@@ -1,0 +1,128 @@
+{
+  "eight-bots-played-all-500-levels": [
+    {
+      "id": "verbs-are-code-shapes-are-data",
+      "key": "|cost|whatitbuys",
+      "section": "Verbs are code; shapes are data"
+    },
+    {
+      "id": "what-the-bot-actually-measures",
+      "key": "|",
+      "section": "What the bot actually measures"
+    },
+    {
+      "id": "what-the-bot-actually-measures-2",
+      "key": "slice|levels|attempts|humanclears|bot",
+      "section": "What the bot actually measures"
+    },
+    {
+      "id": "what-the-bot-actually-measures-3",
+      "key": "hypothesis|result",
+      "section": "What the bot actually measures"
+    },
+    {
+      "id": "the-bot-is-a-different-player-on-every-verb",
+      "key": "verb|levels|attempts|humanclears|botclears|z|thebotis",
+      "section": "The bot is a different player on every verb"
+    },
+    {
+      "id": "the-instrument-was-noisier-than-the-thing-it-measured",
+      "key": "level|band|seed1|seedn|seed7|seed99",
+      "section": "The instrument was noisier than the thing it measured"
+    },
+    {
+      "id": "the-level-was-a-function-of-the-glass",
+      "key": "|authored|atwidth720|atwidth412",
+      "section": "The level was a function of the glass"
+    }
+  ],
+  "kolam-rangoli-mandala-indian-art-puzzle-game": [
+    {
+      "id": "three-questions-for-every-tradition",
+      "key": "tradition|region|line|ownership|sacredcontent|whereitlanded",
+      "section": "Three questions for every tradition"
+    },
+    {
+      "id": "symmetry-and-the-pinwheel-problem",
+      "key": "grid|interiormirrorsites|randommirrorsetsthatkeeponeline|mirrorsymmetricsetsthatkeeponeline",
+      "section": "Symmetry, and the pinwheel problem"
+    },
+    {
+      "id": "the-threshold-collection",
+      "key": "window|dots|mirrors|lines|panes|glassregions|playedby",
+      "section": "The Threshold collection"
+    },
+    {
+      "id": "rangoli-colour-on-the-floor-under-many-names",
+      "key": "window|folds|panes|glassregions|playedby",
+      "section": "Rangoli: colour on the floor, under many names"
+    }
+  ],
+  "mapwit-chrome-extension-google-maps-leads": [
+    {
+      "id": "how-to-generate-leads-from-google-maps-with-mapwit",
+      "key": "signal|points|whatitusuallymeansforapitch",
+      "section": "How to generate leads from Google Maps with MapWit"
+    }
+  ],
+  "nobody-escaped-the-sandbox-had-a-door": [
+    {
+      "id": "what-actually-happened",
+      "key": "date|whathappened",
+      "section": "What actually happened"
+    }
+  ],
+  "our-agent-passed-every-red-team-probe": [
+    {
+      "id": "what-it-actually-cost",
+      "key": "|",
+      "section": "What it actually cost"
+    },
+    {
+      "id": "what-it-actually-cost-2",
+      "key": "dimension|measured|threshold",
+      "section": "What it actually cost"
+    },
+    {
+      "id": "ten-distinct-replies-out-of-a-hundred-and-fourteen",
+      "key": "replies|count",
+      "section": "Ten distinct replies out of a hundred and fourteen"
+    },
+    {
+      "id": "indirect-injection-zero-leaks-and-why-that-is-not-reassuranc",
+      "key": "checkedfor|hits",
+      "section": "Indirect injection: zero leaks, and why that is not reassurance"
+    }
+  ],
+  "puzzle-generator-random-walk-doesnt-work": [
+    {
+      "id": "five-block-kinds-five-ways-to-break-the-search",
+      "key": "kind|world|rule|whatitcoststhesearch",
+      "section": "Five block kinds, five ways to break the search"
+    },
+    {
+      "id": "the-filters-exist-to-throw-work-away",
+      "key": "filter|sliding|beam",
+      "section": "The filters exist to throw work away"
+    }
+  ],
+  "six-of-our-agents-tools-had-never-run": [
+    {
+      "id": "what-an-agent-evaluation-actually-has-to-measure",
+      "key": "dimension|whatitcatches",
+      "section": "What an agent evaluation actually has to measure"
+    },
+    {
+      "id": "what-123-runs-found",
+      "key": "whatwemeasured|score|reading",
+      "section": "What 123 runs found"
+    }
+  ],
+  "their-shop-costs-zero-a-month-to-run": [
+    {
+      "id": "the-free-tier-is-a-shape-not-a-discount",
+      "key": "service|whatitdoeshere|freeallowance",
+      "section": "The free tier is a shape, not a discount"
+    }
+  ]
+}

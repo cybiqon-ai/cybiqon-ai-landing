@@ -2,6 +2,13 @@
 
 ## 2026-09-22
 
+* **Lab data**: every table in a lab post is downloadable — a CSV per table, a `tables.json`
+  per post, and `/data/lab/index.json` — under **CC BY 4.0**. Generated at build by
+  `scripts/build-lab-data.mjs` (no new route; +2.6 KB Worker), linked under each table by
+  header-key matching in `lib/labTables.ts`, with `Dataset` JSON-LD. 22 tables in 8 posts, all
+  548 cells checked against D1. `llms.txt` gains the index and now scopes its no-training request
+  to the articles. See [Lab](/content/lab.md#downloadable-tables).
+
 * **Content**: first MapWit guide, `/products/mapwit/guides/find-businesses-without-websites`,
   targeting `how to find businesses without websites for free` — a query checked with
   `demand_check.py` in India and the US before a word was written. Its own ground is that a
@@ -11,16 +18,20 @@
   and `llms.config.json`. Two queries an outside suggestion proposed were dropped for having no
   demand in either geography. See [MapWit guides](/content/mapwit-guides.md).
 
-## 2026-09-22
+* **Tools**: new route `/tools/website-cost-calculator`, the site's first free tool. Visitors
+  enter website quotes; it adds hosting renewals, the domain, dollar-billed licences and an
+  optional maintenance band and shows 1-, 3- or 5-year totals, with a chart, a table, and a
+  shareable URL. Every default is sourced and dated in `data/websiteCost.ts`. Registered in
+  the sitemap and `llms.config.json` (new "Tools" section), and linked from `/pricing`. See
+  [Website cost calculator](/content/website-cost-calculator.md).
 
 * **Build**: production deploys started failing with "routes not configured to run with
   the Edge Runtime" on code that had deployed an hour earlier. Cause: Vercel CLI 59.25.2,
   fetched fresh by `next-on-pages` on each build, renamed Next 16's segment output.
   The CLI is now pinned to 59.25.0 as an exact devDependency. See
   [Stack & deployment](/site/stack.md).
-* **Content**: Page Arcade's page documents the iddqd god-mode cheat.
 
-## 2026-09-22
+* **Content**: Page Arcade's page documents the iddqd god-mode cheat.
 
 * **Legal**: the MapWit privacy policy updated for extension 1.1, **before** that version
   goes to the Chrome Web Store — the policy's own promise. `UPDATED` → 22 September 2026.
@@ -32,13 +43,6 @@
   Leads gain price band and claimed/unclaimed status. The product page's "Exports to XLSX"
   became "Excel or CSV", with one feature line for review reading. Paired with the extension's
   `store/listing.md` in the same pass, as that file requires.
-
-* **Tools**: new route `/tools/website-cost-calculator`, the site's first free tool. Visitors
-  enter website quotes; it adds hosting renewals, the domain, dollar-billed licences and an
-  optional maintenance band and shows 1-, 3- or 5-year totals, with a chart, a table, and a
-  shareable URL. Every default is sourced and dated in `data/websiteCost.ts`. Registered in
-  the sitemap and `llms.config.json` (new "Tools" section), and linked from `/pricing`. See
-  [Website cost calculator](/content/website-cost-calculator.md).
 
 ## 2026-09-21
 
