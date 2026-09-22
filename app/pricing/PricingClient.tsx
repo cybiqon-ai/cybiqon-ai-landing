@@ -244,7 +244,11 @@ const Pricing = () => (
 
         <p className="t-body mt-8 text-center text-muted-foreground">
           Hosting and domain are separate, roughly ₹4,000–6,000 a year, paid straight to the
-          provider.
+          provider. Comparing quotes? The{" "}
+          <Link href="/tools/website-cost-calculator" className="text-accent-ink underline-offset-2 hover:underline">
+            website cost calculator
+          </Link>{" "}
+          shows what each option costs over three years.
         </p>
       </div>
     </section>

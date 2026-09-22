@@ -14,3 +14,7 @@ either — the failure mode is an unscoped query.
 
 * [Lead capture](lead-capture.md) - two forms, one shared rate limiter, and the conversions nothing measures.
 * [Content data](content-data.md) - what lives in `data/` now, and what is still welded into its component.
+
+# Tools
+
+* [Website cost calculator](website-cost-calculator.md) - `/tools/website-cost-calculator`, the first free tool: sourced defaults in one data file, 1/3/5-year totals, shareable by URL.

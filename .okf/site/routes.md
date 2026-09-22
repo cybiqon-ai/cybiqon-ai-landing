@@ -3,7 +3,7 @@ type: Reference
 title: Routes
 description: Every route the site serves — two blogs on one table, which routes are server vs client, the chrome-suppression scope for /lab, and the redirect that keeps a published Play Store policy URL alive.
 tags: [routes, app-router, nextjs, redirects]
-timestamp: 2026-09-18T00:00:00Z
+timestamp: 2026-09-22T00:00:00Z
 ---
 
 # Marketing pages
@@ -14,6 +14,7 @@ timestamp: 2026-09-18T00:00:00Z
 | `/about` | `app/about/page.tsx` → `AboutClient.tsx` | server + metadata |
 | `/press` | `app/press/page.tsx` → `data/press.ts` | **static** — prerendered, no edge (size; see seo.md F7) |
 | `/pricing` | `app/pricing/page.tsx` → `PricingClient.tsx` | server + metadata |
+| `/tools/website-cost-calculator` | `app/tools/website-cost-calculator/page.tsx` → `Calculator.tsx` (client island) | server + metadata; static. See [Website cost calculator](/content/website-cost-calculator.md) |
 | `/process` | `app/process/page.tsx` → `ProcessClient.tsx` | server + metadata |
 | `/case-studies` | `app/case-studies/page.tsx` → `CaseStudiesClient.tsx` | server + metadata |
 | `/faq` | `app/faq/page.tsx` → `FaqClient.tsx` | server + metadata, FAQPage JSON-LD |
