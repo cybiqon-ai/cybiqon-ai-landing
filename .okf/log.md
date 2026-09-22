@@ -2,6 +2,15 @@
 
 ## 2026-09-22
 
+* **Build**: production deploys started failing with "routes not configured to run with
+  the Edge Runtime" on code that had deployed an hour earlier. Cause: Vercel CLI 59.25.2,
+  fetched fresh by `next-on-pages` on each build, renamed Next 16's segment output.
+  The CLI is now pinned to 59.25.0 as an exact devDependency. See
+  [Stack & deployment](/site/stack.md).
+* **Content**: Page Arcade's page documents the iddqd god-mode cheat.
+
+## 2026-09-22
+
 * **Legal**: the MapWit privacy policy updated for extension 1.1, **before** that version
   goes to the Chrome Web Store — the policy's own promise. `UPDATED` → 22 September 2026.
   Reviews get their own entry: up to **3** per business (was "up to 15"), each with its text,
