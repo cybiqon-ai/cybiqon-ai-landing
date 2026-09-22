@@ -2,6 +2,17 @@
 
 ## 2026-09-22
 
+* **Legal**: the MapWit privacy policy updated for extension 1.1, **before** that version
+  goes to the Chrome Web Store — the policy's own promise. `UPDATED` → 22 September 2026.
+  Reviews get their own entry: up to **3** per business (was "up to 15"), each with its text,
+  star rating, date and whether the business replied, and the checkable promise
+  **"Reviewers' names are not captured."** AI results now include the complaints, praise and
+  service gaps behind the one-line insight. The OpenRouter entry says what is actually sent —
+  the text of up to 3 reviews — and that each review's rating, date and reply status are not.
+  Leads gain price band and claimed/unclaimed status. The product page's "Exports to XLSX"
+  became "Excel or CSV", with one feature line for review reading. Paired with the extension's
+  `store/listing.md` in the same pass, as that file requires.
+
 * **Tools**: new route `/tools/website-cost-calculator`, the site's first free tool. Visitors
   enter website quotes; it adds hosting renewals, the domain, dollar-billed licences and an
   optional maintenance band and shows 1-, 3- or 5-year totals, with a chart, a table, and a
