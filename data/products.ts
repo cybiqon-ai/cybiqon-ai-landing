@@ -532,6 +532,11 @@ export const PRODUCTS: Product[] = [
           "XP, achievements and unlockable skins, plus a picture of the wrecked page to copy or save when a game ends.",
       },
       {
+        title: "God mode, for exploring",
+        description:
+          "Type iddqd on the game menu and nothing can kill you in any game until you leave: Snake slides through text, ghosts pass through you, bombs and dropped balls cost nothing. Type it again to turn it off. Scores from god-mode runs never reach the leaderboards.",
+      },
+      {
         title: "Online only if you ask",
         description:
           "No site access until you click. Site leaderboards and share links are optional and off by default, and scores send the site\u2019s hostname, never the page address.",
