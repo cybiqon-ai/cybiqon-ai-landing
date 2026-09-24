@@ -38,6 +38,20 @@ export default function GuideLayout({
         </h1>
         <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">{guide.excerpt}</p>
 
+        {/* A guide with no date is a guide a reader has to guess about, and the SEO audit
+            flags it as missing freshness. Shown, not just in the schema. */}
+        <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+          <time dateTime={guide.updated ?? guide.published}>
+            {guide.updated ? "Updated " : ""}
+            {new Date(`${guide.updated ?? guide.published}T00:00:00Z`).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              timeZone: "UTC",
+            })}
+          </time>
+        </p>
+
         <div className="guide-prose mt-10">{children}</div>
 
         {/* The tool this guide is about. One link, at the end, after the answer. */}

@@ -63,6 +63,24 @@ a Worker with ~167 KiB left. Register each new guide in `app/sitemap.ts` **and**
   table and the site-grade formula. A guide earns its place with ground the post has no
   room for.
 
+# Conventions the SEO audit produced
+
+Run against guide 1 on 22 Sep 2026, three findings were acted on rather than declined:
+
+- **Every guide carries a visible date**, from `published`/`updated` in `data/mapwitGuides.ts`,
+  rendered by `GuideLayout` and emitted as `datePublished`/`dateModified`. A guide with no
+  date is one a reader has to guess about.
+- **The target phrase belongs in the h2s, not the h1** — the repo's standing rule. Guide 1
+  first shipped with none of its h2s containing "businesses without websites", and the
+  audit duly read the page's subject as "google maps".
+- **Under ~1,200 words is thin** for a page competing with 2,000-word vendor guides. Guide 1
+  went 924 → 1,938 by adding the two sections it was actually missing (which trades are
+  worth searching, and the businesses whose site is the problem rather than absent), not by
+  padding.
+
+Declined, as on every page here: the 155-character meta description limit (excerpts are
+front-loaded by convention) and the FAQPage "restricted" warning (see the repo CLAUDE.md).
+
 # Published
 
 | Slug | Target | Its own ground |

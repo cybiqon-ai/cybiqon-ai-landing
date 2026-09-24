@@ -55,6 +55,8 @@ const jsonLd = [
     description: guide.excerpt,
     url,
     isAccessibleForFree: true,
+    datePublished: guide.published,
+    ...(guide.updated ? { dateModified: guide.updated } : {}),
     author: { "@type": "Organization", name: "Cybiqon AI Solutions", url: siteUrl },
     publisher: { "@type": "Organization", name: "Cybiqon AI Solutions", url: siteUrl },
     about: { "@type": "SoftwareApplication", name: "MapWit", url: MAPWIT_STORE_URL },
@@ -104,7 +106,7 @@ export default function Page() {
           anyone.
         </p>
 
-        <h2>Why a missing website is the strongest signal on the map</h2>
+        <h2>Why businesses without websites are the best prospects on the map</h2>
         <p>
           Every other signal you can read from a listing is ambiguous. Few reviews might mean a
           new business or a quiet one. A low rating might be one bad week. No website is
@@ -156,7 +158,7 @@ export default function Page() {
           .
         </p>
 
-        <h2>The trap: a lot of them do have a website</h2>
+        <h2>The trap: many businesses without websites actually have one</h2>
         <p>
           This is the part most guides skip, and it is the difference between a list you can
           call and a list that wastes a morning. A Maps listing with no website link does not
@@ -223,7 +225,56 @@ export default function Page() {
           check while you are talking to them.
         </p>
 
-        <h2>Doing it by hand, with no extension at all</h2>
+        <h2>Which trades to search first</h2>
+        <p>
+          Not every business without a website is a prospect. Some trades genuinely do not
+          need one, and calling them wastes the goodwill you would rather spend elsewhere. The
+          question worth asking of each category is simple: does a customer choose this
+          business <em>before</em> turning up, and does choosing involve checking something?
+        </p>
+        <ul>
+          <li>
+            <strong>Usually worth it:</strong> dentists, clinics, salons, gyms, tutors,
+            interior designers, wedding services, equipment dealers, clinics with appointments.
+            Customers research these, compare them, and want prices, timings or a portfolio
+            before they commit.
+          </li>
+          <li>
+            <strong>Usually not:</strong> a busy kirana, a roadside tyre shop, a stall in a
+            market. They trade on proximity and footfall, and a website changes little. A
+            listing and a phone number is genuinely enough for them.
+          </li>
+          <li>
+            <strong>The interesting middle:</strong> restaurants and repair shops, which often
+            live entirely inside an aggregator — Zomato, Swiggy, a marketplace — and pay for
+            the privilege. The pitch there is not “you need a website”, it is “you are renting
+            your customers”.
+          </li>
+        </ul>
+        <p>
+          Run one search per trade before you commit a week to any of them. Three searches
+          tells you which category in your city has the biggest gap, which is a better basis
+          than a hunch.
+        </p>
+
+        <h2>The other list: businesses whose website is the problem</h2>
+        <p>
+          The no-website filter hides a second group worth as much. A business with a site
+          that fails on a phone has already decided a website matters, already paid for one,
+          and already been let down — which is a shorter conversation than convincing someone
+          from nothing.
+        </p>
+        <p>
+          Sort by site grade instead of filtering, and look at everything scoring three or
+          less out of ten. Those five checks map onto sentences you can say without sounding
+          like a salesperson: <em>your site isn’t secure, so Chrome warns people</em>;{" "}
+          <em>it doesn’t fit a phone screen</em>; <em>it takes six seconds to open</em>;{" "}
+          <em>the footer still says 2019</em>; <em>there is no way to tap and call you</em>.
+          Each is checkable by the owner while you are talking to them, which is what makes
+          them land.
+        </p>
+
+        <h2>How to find businesses without websites by hand, free</h2>
         <p>
           If you would rather install nothing, the manual version works and costs only time:
         </p>
