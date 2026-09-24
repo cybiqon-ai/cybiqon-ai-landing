@@ -3,7 +3,7 @@ type: Reference
 title: Routes
 description: Every route the site serves — two blogs on one table, which routes are server vs client, the chrome-suppression scope for /lab, and the redirect that keeps a published Play Store policy URL alive.
 tags: [routes, app-router, nextjs, redirects]
-timestamp: 2026-09-22T00:00:00Z
+timestamp: 2026-09-24T00:00:00Z
 ---
 
 # Marketing pages
@@ -121,8 +121,9 @@ the owner moved it here so every product's policy is on the company site. That U
 from the extension's source. Unlike MapWit, Page Arcade has a server of ours for two opt-in
 features (site leaderboards and share links), so the policy has a table of what each sends
 and how long it is kept. Every retention claim in it is enforced by code in the extension
-repo, and the file header says where. `packageId` is the placeholder `page-arcade` until the
-first upload assigns an extension ID. There are no `shots`, because `ProductDetail` sizes
+repo, and the file header says where. **Published on the Chrome Web Store 24 Sep 2026**, so
+`packageId` is now the real extension ID `inefhhclfkojgjjncaajopdhbabjkfbf`, `status` is
+`live` and `storeUrl` is set in the ID-only form. There are no `shots`, because `ProductDetail` sizes
 them as 360×640 phone captures and the store screenshots are 1280×800.
 
 **Client work is a section on `/products`, not a route.** `data/clients.ts` holds the

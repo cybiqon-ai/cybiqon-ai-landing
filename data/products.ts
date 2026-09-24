@@ -498,10 +498,11 @@ export const PRODUCTS: Product[] = [
     tagline: "The page you're reading is the level",
     summary:
       "Click the icon on any web page and it freezes into a game level: eight arcade games played with that page\u2019s own words, gaps and pictures. Snake threads the empty space, the words fall as invaders, every word becomes a brick, and when you leave, the page is exactly as it was.",
-    // No Chrome Web Store ID until the first upload assigns one; replace this then.
-    packageId: "page-arcade",
-    status: "building",
-    storeUrl: null,
+    packageId: "inefhhclfkojgjjncaajopdhbabjkfbf",
+    status: "live",
+    // ID-only form, like MapWit: the store redirects it to whatever slug the listing name
+    // currently produces, so renaming the listing cannot break this link.
+    storeUrl: "https://chromewebstore.google.com/detail/inefhhclfkojgjjncaajopdhbabjkfbf",
     platform: "Chrome, Manifest V3",
     why:
       "Browser games that use the page you are on go back at least to the Kick Ass bookmarklet, and most do the same thing: fly over the page and shoot it. Page Arcade asks what else a page could be. Its whitespace is a maze, its headings are bosses, its images are steel. Each game reads the actual layout, so no two pages play the same, and a long Wikipedia article is a different level from a news homepage.",

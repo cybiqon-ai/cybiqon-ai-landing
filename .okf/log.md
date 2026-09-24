@@ -2,6 +2,13 @@
 
 ## 2026-09-24
 
+* **Products**: **Page Arcade is published on the Chrome Web Store**
+  (`inefhhclfkojgjjncaajopdhbabjkfbf`). `data/products.ts` moves from `status: "building"` and
+  a placeholder `packageId` to `live` with the real ID and an ID-only `storeUrl`, so the page
+  now shows "On Chrome Web Store" and an install button. `llms.txt` no longer calls it "in
+  development", and the games note it sat beside said "Curvved" four days after the rename —
+  now ChitraYatra.
+
 * **Content**: second MapWit guide, `/products/mapwit/guides/google-maps-lead-generation` —
   the hub, targeting `google maps lead generation`. Its wedge against nine competing vendor
   guides is publishing what a vendor will not: all four collection methods compared including
