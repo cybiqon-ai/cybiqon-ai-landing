@@ -25,7 +25,7 @@ token. **Never run these scripts from inside that repo.**
 
 Its first run reported five issues on this repo, **two of them factually wrong**. Those
 were real bugs, so they are fixed rather than memorised, by
-`ops/scripts/seo-skill-patch.py` — idempotent, 17 edits, re-runnable:
+`ops/scripts/seo-skill-patch.py` — idempotent, 20 edits, re-runnable:
 
 | Was broken | Cause | Now |
 |---|---|---|
@@ -33,6 +33,7 @@ were real bugs, so they are fixed rather than memorised, by
 | "No publish date detected" | Searched `{"name": "article:published_time"}`; OpenGraph emits `property=`, so it could never match | Reports the real date |
 | "Target Keyword: `one`" (→ *oneplus, onedrive*) | Filler words missing from `STOP_WORDS` | Reports `breadth first search` |
 | "FAQPage restricted to government/health — remove it" (×8 files) | Frozen at the Aug 2023 restriction | Correct 7 May 2026 guidance: no rich result for anyone, markup still valid, **keep it** |
+| "Content may be thin (651 words)" on a 1,594-word page | Word count came from `<p>` tags only — list items, table cells and `<dl>` FAQs were never counted, and on a guide built from those that is most of the page | Counts them too (`non_paragraph_text`); the same guide now reports 1,539 |
 
 ⚠️ **A skill reinstall reverts all of it and deletes the venv.** `ops/scripts/seo.sh`
 rebuilds the venv automatically and warns if the patch is missing, but the patch itself
