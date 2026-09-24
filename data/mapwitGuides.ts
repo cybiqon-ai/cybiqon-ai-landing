@@ -30,6 +30,10 @@ export type MapwitGuide = {
   excerpt: string;
   /** The query this page is for, as checked by demand_check.py. */
   target: string;
+  /** ISO date, for the visible byline and the Article schema. */
+  published: string;
+  /** ISO date of the last substantive revision, or null if never revised. */
+  updated: string | null;
   /** Other guides worth reading next; slugs from this file. */
   related: string[];
 };
@@ -44,6 +48,8 @@ export const MAPWIT_GUIDES: MapwitGuide[] = [
     excerpt:
       "A business on Google Maps with no website is the clearest sales signal on the map. Here is how to find them for free, how to check the ones that only look website-less, and what the list is actually worth once you have it.",
     target: "how to find businesses without websites for free",
+    published: "2026-09-22",
+    updated: null,
     related: [],
   },
 ];

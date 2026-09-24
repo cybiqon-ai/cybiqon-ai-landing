@@ -1,5 +1,13 @@
 # Update Log
 
+## 2026-09-24
+
+* **Content**: guide 1 answers its own SEO audit — 924 → 1,938 words with the two sections it
+  was missing (which trades to search, and the businesses whose site is bad rather than
+  absent), the target phrase worked into three h2s, and a visible date plus `datePublished`
+  from new `published`/`updated` fields in `data/mapwitGuides.ts`. See
+  [MapWit guides](/content/mapwit-guides.md).
+
 ## 2026-09-22
 
 * **Lab data**: every table in a lab post is downloadable — a CSV per table, a `tables.json`
