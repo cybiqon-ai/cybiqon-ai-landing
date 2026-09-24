@@ -216,6 +216,11 @@
           "title": "Guide — how to find businesses without websites",
           "url": "/products/mapwit/guides/find-businesses-without-websites",
           "note": "free method for finding Google Maps businesses with no website, why many that look website-less are not (booking platforms, Google-only links), and the Maps-terms and DPDP limits on using such a list."
+        },
+        {
+          "title": "Guide — Google Maps lead generation, honestly",
+          "url": "/products/mapwit/guides/google-maps-lead-generation",
+          "note": "all four ways to generate leads from Google Maps compared, including the ones we do not sell (by hand, the Places API, extensions, bought lists); what a Maps listing does not contain (no email, no named person, ~120 results per search); and the Maps-terms and DPDP limits."
         }
       ]
     },

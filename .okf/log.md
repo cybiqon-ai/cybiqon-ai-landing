@@ -2,6 +2,15 @@
 
 ## 2026-09-24
 
+* **Content**: second MapWit guide, `/products/mapwit/guides/google-maps-lead-generation` —
+  the hub, targeting `google maps lead generation`. Its wedge against nine competing vendor
+  guides is publishing what a vendor will not: all four collection methods compared including
+  the three we do not sell, what a Maps listing does **not** contain, and the Maps terms and
+  DPDP quoted rather than skipped. Guides now cross-link.
+* **Fixed**: JSX was eating the space after `</strong>`, so guide 1 shipped with
+  "address.Never." in five places. Ten occurrences fixed there, twelve in guide 2, and the
+  trap recorded in [MapWit guides](/content/mapwit-guides.md).
+
 * **Content**: guide 1 answers its own SEO audit — 924 → 1,938 words with the two sections it
   was missing (which trades to search, and the businesses whose site is bad rather than
   absent), the target phrase worked into three h2s, and a visible date plus `datePublished`

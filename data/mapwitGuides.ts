@@ -49,8 +49,19 @@ export const MAPWIT_GUIDES: MapwitGuide[] = [
       "A business on Google Maps with no website is the clearest sales signal on the map. Here is how to find them for free, how to check the ones that only look website-less, and what the list is actually worth once you have it.",
     target: "how to find businesses without websites for free",
     published: "2026-09-22",
+    updated: "2026-09-24",
+    related: ["google-maps-lead-generation"],
+  },
+  {
+    slug: "google-maps-lead-generation",
+    title: "Google Maps lead generation, honestly",
+    seoTitle: "Google Maps Lead Generation: The Honest Guide",
+    excerpt:
+      "Every guide to Google Maps lead generation is published by someone selling a tool. This one compares all four ways of doing it, says what a Maps listing does not contain, and quotes the rules that decide what you may do with the result.",
+    target: "google maps lead generation",
+    published: "2026-09-24",
     updated: null,
-    related: [],
+    related: ["find-businesses-without-websites"],
   },
 ];
 

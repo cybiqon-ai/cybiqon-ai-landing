@@ -81,11 +81,25 @@ Run against guide 1 on 22 Sep 2026, three findings were acted on rather than dec
 Declined, as on every page here: the 155-character meta description limit (excerpts are
 front-loaded by convention) and the FAQPage "restricted" warning (see the repo CLAUDE.md).
 
+# Trap: JSX eats the space after an inline tag
+
+`<strong>No email address.</strong> Never.` renders as **No email address.**Never. — JSX
+trims the space between a closing inline tag and the text node after it, and neither the
+build nor `tsc` says a word. It shipped in guide 1 and was found by reading the rendered
+HTML, not the source. Write `</strong>{" "}` explicitly. To check a page:
+
+```bash
+curl -s <url> | grep -o -E '</(strong|em)>[A-Za-z“”"]'   # any output is a run-together
+```
+
 # Published
 
 | Slug | Target | Its own ground |
 |---|---|---|
 | `find-businesses-without-websites` | `how to find businesses without websites for free` | that "no website" on Maps is often wrong — booking-platform-only listings, links back into Google, social-only — how to check, and the Maps-terms and DPDP limits on the list |
+| `google-maps-lead-generation` | `google maps lead generation` | the hub. All four methods compared **including the three we do not sell** (by hand, the Places API, bought lists), what a Maps listing does not contain, and qualification as the work that matters |
 
-Planned next, in order: `google-maps-lead-generation` (the hub), then
-`find-web-design-clients`.
+Places API pricing is deliberately not quoted: Google changed the model in March 2025 and
+the figures we could verify disagreed with each other, so the page links the pricing page.
+
+Planned next: `find-web-design-clients`.
