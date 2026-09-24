@@ -354,10 +354,10 @@ export default function Page() {
         <h2>If the business says yes</h2>
         <p>
           Then you need something to sell them. Ours are published:{" "}
-          <Link href="/services/custom-websites">custom websites</Link> start at ₹9,999 and{" "}
+          <Link href="/services/custom-websites">custom websites</Link>{" "}start at ₹9,999 and{" "}
           <Link href="/pricing">every price is on one page</Link>. If you would rather know what
           a site should cost before you quote one, the{" "}
-          <Link href="/tools/website-cost-calculator">website cost calculator</Link> shows the
+          <Link href="/tools/website-cost-calculator">website cost calculator</Link>{" "}shows the
           three-year figure, not just the build price.
         </p>
       </GuideLayout>

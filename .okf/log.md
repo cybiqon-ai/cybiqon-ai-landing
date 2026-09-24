@@ -2,6 +2,15 @@
 
 ## 2026-09-24
 
+* **Content**: third and last MapWit guide,
+  `/products/mapwit/guides/find-web-design-clients`, targeting `how to find web design
+  clients`. It starts where the other two stop — which signals show a business can pay,
+  openings the owner can verify while you speak, what to charge — and names only the client
+  work published on `/case-studies`. The three guides now cross-link.
+* **Fixed**: the JSX spacing trap again, this time after `</Link>`, `</a>` and a `{"…"}`
+  expression. Three occurrences were live in guides 1 and 2; seven fixed in total, and the
+  trap note now lists every tag it affects with a grep that catches all of them.
+
 * **Products**: **Page Arcade is published on the Chrome Web Store**
   (`inefhhclfkojgjjncaajopdhbabjkfbf`). `data/products.ts` moves from `status: "building"` and
   a placeholder `packageId` to `live` with the real ID and an ID-only `storeUrl`, so the page
