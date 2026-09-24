@@ -9,6 +9,12 @@
   development", and the games note it sat beside said "Curvved" four days after the rename —
   now ChitraYatra.
 
+* **Tooling**: the SEO skill's word count ignored `<li>`, `<td>`, `<dd>` and `<dt>`, so a
+  1,594-word guide was reported as 651 and flagged as thin. Three edits added to
+  `ops/scripts/seo-skill-patch.py` (now 20); both guides now measure correctly. The repo
+  CLAUDE.md table gains the row, and the earlier "guide 1 was 924 words" note is corrected —
+  it never was.
+
 * **Content**: second MapWit guide, `/products/mapwit/guides/google-maps-lead-generation` —
   the hub, targeting `google maps lead generation`. Its wedge against nine competing vendor
   guides is publishing what a vendor will not: all four collection methods compared including
