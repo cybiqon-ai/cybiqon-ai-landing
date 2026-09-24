@@ -165,12 +165,12 @@
         {
           "title": "Android games",
           "url": "/products/games",
-          "note": "Lumina and Orbitone on Google Play, and Curvved in development — built engine-first, with every level measured by a bot before it ships."
+          "note": "Lumina and Orbitone on Google Play, and ChitraYatra in development — built engine-first, with every level measured by a bot before it ships."
         },
         {
           "title": "Chrome extensions",
           "url": "/products/extensions",
-          "note": "browser tools. MapWit, published on the Chrome Web Store, and Page Arcade, in development."
+          "note": "browser tools. MapWit and Page Arcade, both published on the Chrome Web Store."
         },
         {
           "title": "LLMBytes",
@@ -210,7 +210,7 @@
         {
           "title": "Page Arcade",
           "url": "/products/page-arcade",
-          "note": "a Chrome extension that freezes the page you are reading into a game level: eight arcade games built from its words, empty space and images, with optional site leaderboards and share links. In development; the page is never modified."
+          "note": "a Chrome extension that freezes the page you are reading into a game level: eight arcade games built from its words, empty space and images, with optional site leaderboards and share links. Published on the Chrome Web Store; the page is never modified."
         },
         {
           "title": "Guide — how to find businesses without websites",

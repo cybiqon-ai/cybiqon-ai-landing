@@ -2,6 +2,13 @@
 
 ## 2026-09-24
 
+* **Products**: **Page Arcade is published on the Chrome Web Store**
+  (`inefhhclfkojgjjncaajopdhbabjkfbf`). `data/products.ts` moves from `status: "building"` and
+  a placeholder `packageId` to `live` with the real ID and an ID-only `storeUrl`, so the page
+  now shows "On Chrome Web Store" and an install button. `llms.txt` no longer calls it "in
+  development", and the games note it sat beside said "Curvved" four days after the rename —
+  now ChitraYatra.
+
 * **Tooling**: the SEO skill's word count ignored `<li>`, `<td>`, `<dd>` and `<dt>`, so a
   1,594-word guide was reported as 651 and flagged as thin. Three edits added to
   `ops/scripts/seo-skill-patch.py` (now 20); both guides now measure correctly. The repo
