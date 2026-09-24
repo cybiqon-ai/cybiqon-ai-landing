@@ -128,26 +128,26 @@ export default function Page() {
         </p>
         <ol>
           <li>
-            <strong>Search the way you would anyway.</strong> A trade and a place works best —{" "}
+            <strong>Search the way you would anyway.</strong>{" "}A trade and a place works best —{" "}
             <em>dentists in Pune</em>, <em>interior designers in Indiranagar</em>. Google Maps
             returns about 120 results for a search, so make the search narrow rather than
             city-wide.
           </li>
           <li>
-            <strong>Let the panel fill.</strong> Businesses appear as the results render, and{" "}
-            <strong>Load more</strong> walks the rest of the list for you.
+            <strong>Let the panel fill.</strong>{" "}Businesses appear as the results render, and{" "}
+            <strong>Load more</strong>{" "}walks the rest of the list for you.
           </li>
           <li>
-            <strong>Run Deep scan.</strong> This is the step that actually opens each listing
+            <strong>Run Deep scan.</strong>{" "}This is the step that actually opens each listing
             for the website, phone, address and recent reviews. It is deliberately slow, so
             start it and go and do something else.
           </li>
           <li>
-            <strong>Switch on “No website only”.</strong> The list collapses to the businesses
+            <strong>Switch on “No website only”.</strong>{" "}The list collapses to the businesses
             with nothing to lose.
           </li>
           <li>
-            <strong>Export to Excel.</strong> Work the list wherever you already work lists.
+            <strong>Export to Excel.</strong>{" "}Work the list wherever you already work lists.
           </li>
         </ol>
         <p>
@@ -230,22 +230,22 @@ export default function Page() {
           Not every business without a website is a prospect. Some trades genuinely do not
           need one, and calling them wastes the goodwill you would rather spend elsewhere. The
           question worth asking of each category is simple: does a customer choose this
-          business <em>before</em> turning up, and does choosing involve checking something?
+          business <em>before</em>{" "}turning up, and does choosing involve checking something?
         </p>
         <ul>
           <li>
-            <strong>Usually worth it:</strong> dentists, clinics, salons, gyms, tutors,
+            <strong>Usually worth it:</strong>{" "}dentists, clinics, salons, gyms, tutors,
             interior designers, wedding services, equipment dealers, clinics with appointments.
             Customers research these, compare them, and want prices, timings or a portfolio
             before they commit.
           </li>
           <li>
-            <strong>Usually not:</strong> a busy kirana, a roadside tyre shop, a stall in a
+            <strong>Usually not:</strong>{" "}a busy kirana, a roadside tyre shop, a stall in a
             market. They trade on proximity and footfall, and a website changes little. A
             listing and a phone number is genuinely enough for them.
           </li>
           <li>
-            <strong>The interesting middle:</strong> restaurants and repair shops, which often
+            <strong>The interesting middle:</strong>{" "}restaurants and repair shops, which often
             live entirely inside an aggregator — Zomato, Swiggy, a marketplace — and pay for
             the privilege. The pitch there is not “you need a website”, it is “you are renting
             your customers”.
