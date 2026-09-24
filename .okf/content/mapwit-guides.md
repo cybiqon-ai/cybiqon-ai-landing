@@ -73,10 +73,14 @@ Run against guide 1 on 22 Sep 2026, three findings were acted on rather than dec
 - **The target phrase belongs in the h2s, not the h1** — the repo's standing rule. Guide 1
   first shipped with none of its h2s containing "businesses without websites", and the
   audit duly read the page's subject as "google maps".
-- **Under ~1,200 words is thin** for a page competing with 2,000-word vendor guides. Guide 1
-  went 924 → 1,938 by adding the two sections it was actually missing (which trades are
-  worth searching, and the businesses whose site is the problem rather than absent), not by
-  padding.
+- **The audit's "thin content" finding was wrong, and acting on it was still right.** It
+  reported guide 1 at 924 words because its word count read `<p>` tags only, ignoring the
+  lists, table and FAQ that are most of these pages — a bug now fixed in
+  `ops/scripts/seo-skill-patch.py` and recorded in the repo CLAUDE.md. The guide was never
+  924 words. The two sections added in response (which trades are worth searching, and the
+  businesses whose site is the problem rather than absent) were genuinely missing, so the
+  expansion stands — but the number that prompted it was an artifact. Measure a page with
+  the whole `<article>`, not the audit's figure, before believing it is thin.
 
 Declined, as on every page here: the 155-character meta description limit (excerpts are
 front-loaded by convention) and the FAQPage "restricted" warning (see the repo CLAUDE.md).
