@@ -89,12 +89,17 @@ front-loaded by convention) and the FAQPage "restricted" warning (see the repo C
 
 `<strong>No email address.</strong> Never.` renders as **No email address.**Never. — JSX
 trims the space between a closing inline tag and the text node after it, and neither the
-build nor `tsc` says a word. It shipped in guide 1 and was found by reading the rendered
-HTML, not the source. Write `</strong>{" "}` explicitly. To check a page:
+build nor `tsc` says a word. It bites after `</strong>`, `</em>`, `</Link>`, `</a>` and
+after a `{"…"}` expression, and it shipped in guides 1, 2 and 3 before being caught by
+reading the rendered HTML rather than the source. Write `{" "}` explicitly every time.
+To check a page:
 
 ```bash
-curl -s <url> | grep -o -E '</(strong|em)>[A-Za-z“”"]'   # any output is a run-together
+curl -s <url> | grep -o -E '</(a|strong|em)>[A-Za-z“”"]|\}[A-Za-z]{3,}'
 ```
+
+Any output is a run-together. Do this on the rendered page, not the source: the source
+looks correct in every one of these cases.
 
 # Published
 
@@ -106,4 +111,8 @@ curl -s <url> | grep -o -E '</(strong|em)>[A-Za-z“”"]'   # any output is a r
 Places API pricing is deliberately not quoted: Google changed the model in March 2025 and
 the figures we could verify disagreed with each other, so the page links the pricing page.
 
-Planned next: `find-web-design-clients`.
+| `find-web-design-clients` | `how to find web design clients` | where the other two stop: which signals show a business can pay, openings the owner can verify while you speak, and what to charge — using the three-year cost argument rather than undercutting |
+
+The set of three is complete. Whether more are written depends on Search Console in
+mid-November: if none of the three has an impression by then, the hours belong in the
+off-page work in `ops/offpage.md` instead.

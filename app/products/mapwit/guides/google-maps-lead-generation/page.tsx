@@ -336,7 +336,7 @@ export default function Page() {
           Then the list above is the start of the job, not the end of it. What you quote
           matters as much as who you call:{" "}
           <Link href="/pricing">our prices are published</Link>, and the{" "}
-          <Link href="/tools/website-cost-calculator">website cost calculator</Link> shows what
+          <Link href="/tools/website-cost-calculator">website cost calculator</Link>{" "}shows what
           a site costs over three years rather than on day one — useful when a prospect is
           comparing your number with a cheaper one.
         </p>

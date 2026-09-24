@@ -45,6 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // see data/mapwitGuides.ts.
     { url: `${siteUrl}/products/mapwit/guides/find-businesses-without-websites`, lastModified: new Date("2026-09-22T00:00:00Z"), changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/products/mapwit/guides/google-maps-lead-generation`, lastModified: new Date("2026-09-24T00:00:00Z"), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteUrl}/products/mapwit/guides/find-web-design-clients`, lastModified: new Date("2026-09-24T00:00:00Z"), changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/tools/website-cost-calculator`, lastModified: new Date("2026-09-22T00:00:00Z"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/process`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/case-studies`, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.9 },

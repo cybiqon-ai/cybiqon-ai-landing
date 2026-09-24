@@ -50,7 +50,7 @@ export const MAPWIT_GUIDES: MapwitGuide[] = [
     target: "how to find businesses without websites for free",
     published: "2026-09-22",
     updated: "2026-09-24",
-    related: ["google-maps-lead-generation"],
+    related: ["google-maps-lead-generation", "find-web-design-clients"],
   },
   {
     slug: "google-maps-lead-generation",
@@ -61,7 +61,18 @@ export const MAPWIT_GUIDES: MapwitGuide[] = [
     target: "google maps lead generation",
     published: "2026-09-24",
     updated: null,
-    related: ["find-businesses-without-websites"],
+    related: ["find-businesses-without-websites", "find-web-design-clients"],
+  },
+  {
+    slug: "find-web-design-clients",
+    title: "How to find web design clients",
+    seoTitle: "How to Find Web Design Clients (Without Cold Lists)",
+    excerpt:
+      "Finding businesses is the easy part. This is how to pick the ones that will actually pay for a website, what to say first so the call is about something they can check, and what to charge once they say yes.",
+    target: "how to find web design clients",
+    published: "2026-09-24",
+    updated: null,
+    related: ["find-businesses-without-websites", "google-maps-lead-generation"],
   },
 ];
 
