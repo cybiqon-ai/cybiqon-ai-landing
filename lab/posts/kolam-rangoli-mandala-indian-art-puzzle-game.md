@@ -16,19 +16,21 @@ tags:
   - Flutter
 # First-party figures from tool/glass_check.dart and a sampling run against the kolam
 # generator on 13 Sep 2026. Word count, reading time and sources are derived at render.
+# Updated 4 Oct 2026: windows and collections carry the shipped figures beside the ones
+# this post was written with, and the Shipaton deadline became the ship date it missed.
 readouts:
   - label: windows
-    value: "25"
+    value: "25 → 169"
   - label: generated
     value: "17"
   - label: collections
-    value: "5"
+    value: "5 → 18"
   - label: gcd grids
     value: "81/81"
-  - label: deadline
-    value: "30 Sep"
+  - label: shipped
+    value: "3 Oct"
 ---
-*Renamed on 17 September 2026. The game in this post was called Curvved when it was written; it is now ChitraYatra. Apart from the name, nothing in it has changed.*
+*Updated on 4 October 2026. This post was written on 13 September, when the game was called Curvved, had 25 windows and had not shipped. It is now **ChitraYatra**, live on Google Play with 169 windows — and the rule below, that we would never prompt an image model to imitate a living tradition, was relaxed the day after this was published. The sequel, [We built the game in six days. The store review took fifteen.](/lab/shipped-the-game-missed-the-deadline), gives the full account, including what shipped AI-assisted and what did not. Apart from this note, the name and the figures on the rail, the post is as it was written.*
 
 The concept board that started this was made with an image model. Across the top it says *Indian Art Traditions, Reimagined*, and below that are ten traditions, each shown twice: scrambled into hexagonal tiles and then solved. Kolam, Madhubani, Warli, Pattachitra, Kalamkari, Rajasthani miniature, Gond, Phad, rangoli, Mughal floral. It is beautiful, and it would sell the game in one screenshot.
 
