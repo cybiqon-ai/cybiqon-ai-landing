@@ -3,7 +3,7 @@ type: Domain
 title: Lab
 description: The second blog at /lab — hand-written engineering notes sharing a D1 table with the automated MSME blog, separated by a section column, its own chrome, the only palette departure on the site, and every table downloadable as CC BY 4.0 data.
 tags: [lab, blog, d1, content, design, edge, seo, aeo]
-timestamp: 2026-09-22T00:00:00Z
+timestamp: 2026-10-04T00:00:00Z
 ---
 
 # Overview
@@ -12,7 +12,7 @@ timestamp: 2026-09-22T00:00:00Z
 being built, what broke, and what the numbers said. `/blog` is the automated MSME SEO
 channel — see [Blog](blog.md). They share one D1 table and nothing else.
 
-Created 1 Aug 2026. **Ten posts**: two migrated from `itspyguru.github.io` on day one;
+Created 1 Aug 2026. **Eleven posts**: two migrated from `itspyguru.github.io` on day one;
 `nobody-escaped-the-sandbox-had-a-door` written here and committed 6 Aug 2026 (commit
 `cc37929`, whose subject line belongs to a different change — the commit touches only that
 post); `puzzle-generator-random-walk-doesnt-work` on 10 Aug 2026;
@@ -72,6 +72,22 @@ means editing a TypeScript array, running `vite build && node scripts/prerender.
 committing ~20 regenerated files — a build per post. Here a post is a D1 row and is live
 on write, with no deploy at all. `itspyguru.github.io` is also on the Public Suffix List,
 so it accrues no domain authority and never will.
+
+Eleventh, `shipped-the-game-missed-the-deadline` on 4 Oct 2026 — **the second and last post
+of the Shipaton series**, and the first lab post about a missed deadline. It is a making-of
+rather than an engineering post: `products/curvved` (shipped as ChitraYatra) went from 25
+windows to 169 in six days, and then Google Play's production review of build 34 ran from
+18 Sep to 3 Oct, three days past the Devpost deadline, so the entry was never made. It
+carries the series' correction: the first post promised no image model would be prompted to
+imitate a living tradition, and the rule was relaxed the day after it was published, so the
+post names that head-on. Four inline SVGs — three drawn by hand, one emitted from the game's
+own window data — and at **67 KB of markdown** it is deliberately lighter than the kolam
+post's 115 KB. Its external claims about Play review times are quoted from Play Console Help
+rather than from our own experience, because Google publishes a ceiling ("up to seven days
+or longer in exceptional cases") and no median; 15 days is reported as our measured outcome.
+The same pass updated the first post: a dated note at the top, a forward link, and the rail's
+stale figures (`windows 25`, `deadline 30 Sep`) corrected to `25 → 169` and `shipped 3 Oct`,
+republished on the same slug with `updated_at` bumped.
 
 # The section column
 

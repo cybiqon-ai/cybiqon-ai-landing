@@ -1,5 +1,14 @@
 # Update Log
 
+## 2026-10-04
+
+* **Content**: eleventh lab post, `shipped-the-game-missed-the-deadline` — the second and
+  final Shipaton post, a making-of for ChitraYatra and the account of missing the Devpost
+  deadline by three days while build 34 sat in Play review. Four inline SVGs, 67 KB of
+  markdown, 11 external sources. The first post was republished the same day with a dated
+  note, a forward link and corrected rail figures. See [Lab](/content/lab.md).
+  `llms.txt --check`: 11 lab posts · 9 sections · 55 links · 58 routes covered · 15.5 KB.
+
 ## 2026-09-24
 
 * **Content**: third and last MapWit guide,
