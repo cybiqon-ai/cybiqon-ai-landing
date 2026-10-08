@@ -165,7 +165,7 @@
         {
           "title": "Android games",
           "url": "/products/games",
-          "note": "Lumina and Orbitone on Google Play, and ChitraYatra in development — built engine-first, with every level measured by a bot before it ships."
+          "note": "Lumina, Orbitone and ChitraYatra, all on Google Play — built engine-first, with every level measured by a bot before it ships."
         },
         {
           "title": "Chrome extensions",
@@ -175,7 +175,7 @@
         {
           "title": "LLMBytes",
           "url": "/products/llmbytes",
-          "note": "a daily AI-news reader for Android. React + Capacitor, Firebase backend."
+          "note": "a daily AI-news reader for Android, with its articles also published at llmbytes.dev. Flutter, Firebase backend."
         },
         {
           "title": "MeFlow",
@@ -190,7 +190,7 @@
         {
           "title": "Lumina: The Lightkeeper's Path",
           "url": "/products/lumina",
-          "note": "a cozy sliding-block puzzle game for Android, 150 levels across five worlds. Flutter + Flame, with a pure-Dart engine — see the lab post on its level generator."
+          "note": "a cozy sliding-block puzzle game for Android, 360 levels across twelve worlds. Flutter + Flame, with a pure-Dart engine — see the lab post on its level generator."
         },
         {
           "title": "Orbitone",
@@ -200,7 +200,7 @@
         {
           "title": "ChitraYatra",
           "url": "/products/chitrayatra",
-          "note": "a calm stained-glass puzzle for Android (was Curvved): drawings from Indian art traditions cut into hexagonal panes, chosen state by state from a map of India, in four ways to play, plus Artisan painted scenes. No ads, no timer. Flutter with a Flutter-free pure-Dart engine — solver and difficulty gates run headless."
+          "note": "a calm stained-glass puzzle on Google Play (was Curvved): drawings from Indian art traditions cut into hexagonal panes, chosen state by state from a map of India, in four ways to play, plus Artisan painted scenes. No ads, no timer. Flutter with a Flutter-free pure-Dart engine — solver and difficulty gates run headless."
         },
         {
           "title": "MapWit",

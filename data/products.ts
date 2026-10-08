@@ -88,6 +88,11 @@ export interface Product {
    */
   storeUrl: string | null;
   /**
+   * The product's own website, where it has one apart from the store listing. Added
+   * 8 Oct 2026 for llmbytes.dev. Shown beside the store button on the product page.
+   */
+  website?: string;
+  /**
    * 128x128 WebP in public/img/, or null where no icon has been drawn.
    *
    * Added 6 Sep 2026. Until then this catalogue of seven products carried no visual
@@ -141,6 +146,7 @@ export const PRODUCTS: Product[] = [
     packageId: "com.cybiqon.llmbytes",
     status: "live",
     storeUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.llmbytes",
+    website: "https://llmbytes.dev",
     platform: "Android",
     why:
       "AI news breaks on Telegram and X hours before it reaches a publication, and then arrives as a firehose. LLMBytes exists to do the reading for you: one digest a day, written from the source rather than rewritten from someone else's rewrite.",
@@ -389,8 +395,9 @@ export const PRODUCTS: Product[] = [
     summary:
       "A calm puzzle of stained glass. Each window is a drawing from an Indian art tradition \u2014 a kolam, a jaali, a Madhubani fish pair \u2014 cut into hexagonal panes; turn, trade or carry them home until the lead lines meet and each closed shape lights. Choose windows state by state from a map of India, or shelf by shelf from the gallery. No timer, no score, no ads.",
     packageId: "com.cybiqon.chitrayatra",
-    status: "building",
-    storeUrl: null,
+    // Published on Play 3 Oct 2026; build 37 (1.3.0) is live.
+    status: "live",
+    storeUrl: "https://play.google.com/store/apps/details?id=com.cybiqon.chitrayatra",
     platform: "Android",
     why:
       "The first version, Curvved, was a lattice of curves whose solved board only approximated its drawing. The owner said twice that the two did not match, so the mechanic was rebuilt until the solved board is the drawing itself: the panes are cut from the picture, and a finished window is the art, not a grid that resembles it. Everything else followed from treating each window as something worth keeping.",

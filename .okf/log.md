@@ -1,5 +1,16 @@
 # Update Log
 
+## 2026-10-08
+
+* **Products**: ChitraYatra is now `status: "live"`, with its Play `storeUrl`. It was
+  published on 3 Oct and build 37 is live, but the site still said "building" with no
+  install button. `Product` gains an optional `website` field, shown beside the store
+  button on the product page and emitted as JSON-LD `sameAs`. LLMBytes sets it to
+  `https://llmbytes.dev`.
+* **llms.txt config**: corrected three stale notes. ChitraYatra was listed as "in
+  development", LLMBytes as "React + Capacitor" (it's Flutter), and Lumina as "150 levels
+  across five worlds" (it's 360 across twelve).
+
 ## 2026-10-04
 
 * **Content**: eleventh lab post, `shipped-the-game-missed-the-deadline` — the second and

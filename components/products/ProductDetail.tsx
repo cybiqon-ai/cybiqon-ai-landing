@@ -36,6 +36,7 @@ export default function ProductDetail({ slug }: { slug: string }) {
     applicationCategory: isExtension ? "BrowserApplication" : "UtilitiesApplication",
     url: `${siteUrl}/products/${app.slug}`,
     ...(app.storeUrl ? { installUrl: app.storeUrl } : {}),
+    ...(app.website ? { sameAs: [app.website] } : {}),
     author: { "@type": "Organization", name: "Cybiqon AI Solutions", url: siteUrl },
     offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
   };
@@ -107,17 +108,32 @@ export default function ProductDetail({ slug }: { slug: string }) {
             </dl>
           </div>
 
-          {app.storeUrl && store && (
-            <a
-              href={app.storeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:opacity-90 active:scale-[0.98]"
-            >
-              <StoreLogo weight="fill" aria-hidden className="h-4 w-4" />
-              {isExtension ? "Add to Chrome" : `Get it on ${store.name}`}
-              <ArrowUpRight weight="bold" aria-hidden className="h-4 w-4" />
-            </a>
+          {((app.storeUrl && store) || app.website) && (
+            <div className="mt-8 flex flex-wrap gap-3">
+              {app.storeUrl && store && (
+                <a
+                  href={app.storeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:opacity-90 active:scale-[0.98]"
+                >
+                  <StoreLogo weight="fill" aria-hidden className="h-4 w-4" />
+                  {isExtension ? "Add to Chrome" : `Get it on ${store.name}`}
+                  <ArrowUpRight weight="bold" aria-hidden className="h-4 w-4" />
+                </a>
+              )}
+              {app.website && (
+                <a
+                  href={app.website}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center gap-2 border border-border px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-primary hover:text-primary active:scale-[0.98]"
+                >
+                  {new URL(app.website).hostname}
+                  <ArrowUpRight weight="bold" aria-hidden className="h-4 w-4" />
+                </a>
+              )}
+            </div>
           )}
         </div>
       </section>
