@@ -106,6 +106,18 @@
       "section": "The filters exist to throw work away"
     }
   ],
+  "shipped-the-game-missed-the-deadline": [
+    {
+      "id": "what-actually-shipped",
+      "key": "|13september|19september",
+      "section": "What actually shipped"
+    },
+    {
+      "id": "six-days",
+      "key": "day|whathappened",
+      "section": "Six days"
+    }
+  ],
   "six-of-our-agents-tools-had-never-run": [
     {
       "id": "what-an-agent-evaluation-actually-has-to-measure",
